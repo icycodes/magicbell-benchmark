@@ -72,22 +72,16 @@ Install globally via npm and login non-interactively in CI/CD or scripts:
 npm install -g magicbell-cli
 
 # Login non-interactively using manual keys
-magicbell login   --manual   --email "$ADMIN_EMAIL"   --jwt "$MAGICBELL_PROJECT_TOKEN"   --api-key "$MAGICBELL_API_KEY"   --secret-key "$MAGICBELL_SECRET_KEY"
+magicbell login   --manual   --email "$MAGICBELL_EMAIL"   --jwt "$MAGICBELL_PROJECT_TOKEN"   --api-key "$MAGICBELL_API_KEY"   --secret-key "$MAGICBELL_SECRET_KEY"
 ```
 
 #### 2. Managing Users
 ```bash
 # List all users in the project
-magicbell users list
+magicbell user list
 
-# Fetch details of a specific user by ID
-magicbell users get "user_123"
-
-# Update user details
-magicbell users update "user_123" --email "new-email@example.com"
-
-# Delete a user by external ID
-magicbell users delete-by-external-id "user_123"
+# Update/Create user
+magicbell user save   --data '{"id":"8a038704-acc1-47f9-81b0-7523886cbeae","external_id":"external-id","email":"dan@example.com","first_name":"Dan","last_name":"Example","custom_attributes":{"key":"value"}}'
 ```
 
 #### 3. Creating Broadcasts
@@ -460,6 +454,7 @@ export default App;
 ## Integration
 
 The following environment variables will be provided:
+* MAGICBELL_EMAIL
 * MAGICBELL_PROJECT_TOKEN
 * MAGICBELL_API_KEY
 * MAGICBELL_SECRET_KEY
