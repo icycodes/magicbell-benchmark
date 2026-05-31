@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_tokens_registered_correctly _______________________
+
+    def test_tokens_registered_correctly():
+        # Read output.log
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+    
+        web_push_match = re.search(r"Web Push Token ID:\s*([^\s\n]+)", content)
+        apns_match = re.search(r"APNs Token ID:\s*([^\s\n]+)", content)
+    
+        assert web_push_match, "Could not find 'Web Push Token ID' in output.log."
+        assert apns_match, "Could not find 'APNs Token ID' in output.log."
+    
+        web_push_id = web_push_match.group(1)
+        apns_id = apns_match.group(1)
+    
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        user_email = f"user-{run_id}@example.com"
+    
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "X-MAGICBELL-API-KEY": api_key,
+            "Accept": "application/json",
+        }
+    
+        # 1. Verify Web Push Token
+        web_push_url = f"https://api.magicbell.com/v2/users/{user_email}/channels/web_push/tokens"
+        response = requests.get(web_push_url, headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch Web Push tokens: {response.text}"
+E       AssertionError: Failed to fetch Web Push tokens: {"errors":[{"message":"invalid user uuid format [user-zr-jsc2tmw@example.com]"}]}
+E         
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:41: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_and_log_exist
+FAILED tests/test_final_state.py::test_tokens_registered_correctly - Assertio...
+========================= 1 failed, 1 passed in 0.61s ==========================

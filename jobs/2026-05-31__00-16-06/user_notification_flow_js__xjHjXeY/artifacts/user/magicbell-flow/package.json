@@ -1,0 +1,17 @@
+{
+  "name": "magicbell-flow",
+  "version": "1.0.0",
+  "description": "MagicBell full-stack notification flow",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.3",
+    "magicbell-js": "^1.7.0"
+  }
+}

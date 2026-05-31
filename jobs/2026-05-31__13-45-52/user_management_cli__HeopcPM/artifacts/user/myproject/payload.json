@@ -1,0 +1,12 @@
+{
+  "user": {
+    "external_id": "user-zr-heopcpm",
+    "email": "user-zr-heopcpm@example.com",
+    "first_name": "John-zr-heopcpm",
+    "last_name": "Doe-zr-heopcpm",
+    "custom_attributes": {
+      "role": "admin",
+      "run_id": "zr-heopcpm"
+    }
+  }
+}

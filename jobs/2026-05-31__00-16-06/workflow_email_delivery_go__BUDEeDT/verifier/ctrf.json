@@ -1,0 +1,73 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780158470037,
+            "stop": 1780158504054
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1780158470221,
+                "stop": 1780158470248,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_exists():\n        \"\"\"Verify that the output log file exists.\"\"\"\n>       assert os.path.isfile(LOG_FILE), f\"Output log file {LOG_FILE} does not exist.\"\nE       AssertionError: Output log file /home/user/myproject/output.log does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x762f9caf4220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x762f9caf4220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:15: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_run_id_in_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 20,
+                "start": 1780158470248,
+                "stop": 1780158470268,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_run_id_in_log():\n        \"\"\"Verify that the workflow run ID is printed in the log.\"\"\"\n>       with open(LOG_FILE, \"r\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'\n\ntests/test_final_state.py:19: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_magicbell_workflow_run_success",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1780158470268,
+                "stop": 1780158470271,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_magicbell_workflow_run_success():\n        \"\"\"Verify the workflow run status via MagicBell API.\"\"\"\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert project_token, \"MAGICBELL_PROJECT_TOKEN environment variable is not set.\"\n    \n        zealt_run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert zealt_run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n>       with open(LOG_FILE, \"r\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'\n\ntests/test_final_state.py:35: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_gmail_delivery",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 33783,
+                "start": 1780158470271,
+                "stop": 1780158504054,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_gmail_delivery():\n        \"\"\"Verify that the email notification was successfully delivered to Gmail.\"\"\"\n        gmail_username = os.environ.get(\"GMAIL_USER_NAME\")\n        gmail_token_json = os.environ.get(\"GMAIL_TOKEN_JSON\")\n        zealt_run_id = os.environ.get(\"ZEALT_RUN_ID\")\n    \n        assert gmail_username, \"GMAIL_USER_NAME environment variable is not set.\"\n        assert gmail_token_json, \"GMAIL_TOKEN_JSON environment variable is not set.\"\n        assert zealt_run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        token_info = json.loads(gmail_token_json)\n        creds = Credentials.from_authorized_user_info(token_info, [\"https://www.googleapis.com/auth/gmail.readonly\"])\n        service = build(\"gmail\", \"v1\", credentials=creds)\n    \n        target_email = f\"{gmail_username}+{zealt_run_id}@gmail.com\"\n        subject_query = f\"Order Notification - {zealt_run_id}\"\n        query = f\"to:{target_email} subject:\\\"{subject_query}\\\"\"\n    \n        # Wait up to 30 seconds for the email to arrive in Gmail\n        messages = []\n        for _ in range(10):\n            response = service.users().messages().list(\n                userId=\"me\",\n                q=query,\n                maxResults=5,\n            ).execute()\n            messages = response.get(\"messages\", [])\n            if messages:\n                break\n            time.sleep(3)\n    \n>       assert messages, f\"No email found in Gmail matching query: {query}\"\nE       AssertionError: No email found in Gmail matching query: to:codes.icy+zr-budeedt@gmail.com subject:\"Order Notification - zr-budeedt\"\nE       assert []\n\ntests/test_final_state.py:95: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

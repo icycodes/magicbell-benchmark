@@ -1,0 +1,82 @@
+Skipping image OS validation for hb__workflow_email_delivery_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ycu9zar > /logs/artifacts/run-id && echo workflow_email_delivery_js__YCU9ZaR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# MagicBell Workflow Email Delivery in JavaScript
+
+## Background
+MagicBell provides a powerful Workflows API that allows developers to orchestrate multi-step notification campaigns. In this task, you will use the modern `magicbell-js` SDK to programmatically save a workflow definition and trigger a workflow run. The workflow will use liquid-style templating to dynamically populate notification fields and send an email to a test user.
+
+## Requirements
+- Initialize the `magicbell-js` ProjectClient using the provided `MAGICBELL_PROJECT_TOKEN` environment variable.
+- Define and save a workflow definition with a unique key using the pattern `onboarding-workflow-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow definition must consist of a single step that executes a `broadcast` command. The broadcast step should pass inputs to dynamically render the notification:
+  - Title: `"Welcome to MagicBell, {{input.run_id}}!"`
+  - Content: `"This is a test notification for run {{input.run_id}}."`
+  - Recipients: A single recipient with the email `"{{input.user_email}}"`.
+- Trigger a workflow run for this workflow definition by passing the following inputs:
+  - `run_id`: The current `run-id` value.
+  - `user_email`: The recipient's email address, constructed as `${GMAIL_USER_NAME}+${run-id}@gmail.com` where `GMAIL_USER_NAME` is read from the `GMAIL_USER_NAME` environment variable.
+- Write the resulting workflow run ID to a log file.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID` and `GMAIL_USER_NAME` from the environment to construct the workflow key and recipient email.
+- Import `Client` from `'magicbell-js/project-client'` to initialize the project-level administrative client.
+- Use `client.workflows.saveWorkflow` to upsert the workflow definition, and `client.workflows.createWorkflowRun` to execute the workflow run.
+- Liquid templates use double curly braces (e.g., `{{input.some_field}}`) to access variables passed in the workflow run input.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed, the workflow run is successfully triggered, and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The script must use `magicbell-js` to save the workflow definition and execute the workflow run.
+- The workflow key must be `onboarding-workflow-${run-id}` where `run-id` is read from `ZEALT_RUN_ID`.
+- The recipient email must be `${GMAIL_USER_NAME}+${run-id}@gmail.com` where `GMAIL_USER_NAME` is read from the environment.
+- The log file must contain the triggered workflow run ID in the format: `Workflow Run ID: <run_id>`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

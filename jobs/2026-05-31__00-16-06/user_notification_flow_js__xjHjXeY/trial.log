@@ -1,0 +1,95 @@
+Skipping image OS validation for hb__user_notification_flow_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-xjhjxey > /logs/artifacts/run-id && echo user_notification_flow_js__xjHjXeY > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# MagicBell Full-Stack Notification Flow in Node.js
+
+## Background
+In modern web applications, notification delivery needs to be orchestrated across multiple channels (e.g., in-app inbox and email) while keeping state synced in real-time. MagicBell provides a unified platform to trigger broadcasts and manage user-specific notification states.
+
+In this task, you will implement a Node.js script that performs a complete user notification flow: generating a secure User JWT, registering/saving a user, triggering an administrative broadcast, fetching the user's notifications, and marking the notification as read.
+
+## Requirements
+1. Create a Node.js project under `/home/user/magicbell-flow`.
+2. Read the run ID from the `ZEALT_RUN_ID` environment variable.
+3. Read the Gmail username from the `GMAIL_USER_NAME` environment variable.
+4. Construct the test user's attributes:
+   - `external_id`: `usr_${run-id}`
+   - `email`: `${GMAIL_USER_NAME}+${run-id}@gmail.com`
+5. Generate a secure User JWT for this user using HMAC-HS256 signed with your project's `MAGICBELL_SECRET_KEY` and containing the `MAGICBELL_API_KEY`.
+6. Write the generated User JWT to `/home/user/magicbell-flow/user_jwt.txt`.
+7. Use the modern `magicbell-js` SDK's `ProjectClient` (administrative) to:
+   - Save/upsert the user with the constructed `externalId`, `email`, and first name `Test` / last name `User`.
+   - Create a broadcast with:
+     - title: `Alert - ${run-id}`
+     - content: `This is a test notification for run ${run-id}.`
+     - recipients: A list containing a single recipient with the constructed `externalId` and `email`.
+8. Use the modern `magicbell-js` SDK's `UserClient` (user context, initialized with the generated User JWT) to:
+   - List the user's notifications.
+   - Find the newly created notification by title.
+   - Verify it is unread, and print its initial state to `/home/user/magicbell-flow/flow.log`.
+   - Mark the notification as read using its ID.
+   - List notifications again, and print its updated state to `/home/user/magicbell-flow/flow.log`.
+
+## Implementation Hints
+- Use the `jsonwebtoken` package to sign the User JWT. Ensure the payload structure matches the MagicBell User JWT specification.
+- Use `magicbell-js/project-client` for administrative operations and `magicbell-js/user-client` for user operations.
+- Handle asynchronous operations properly in Node.js.
+- Ensure all output strings in the log file are correctly formatted to match the acceptance criteria.
+
+## Acceptance Criteria
+- Project path: `/home/user/magicbell-flow`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/magicbell-flow/flow.log`
+- The file `/home/user/magicbell-flow/user_jwt.txt` must exist and contain only the generated User JWT.
+- The log file `/home/user/magicbell-flow/flow.log` must contain the following lines exactly:
+  - `Broadcast ID: <broadcast_id>`
+  - `Notification ID: <notification_id>`
+  - `Notification Initial State: unread`
+  - `Notification Updated State: read`
+
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

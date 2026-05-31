@@ -1,0 +1,49 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780207716837,
+            "stop": 1780207717055
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1780207717027,
+                "stop": 1780207717052,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_exists():\n        \"\"\"Verify that the output log file exists.\"\"\"\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\nE       AssertionError: Log file /home/user/myproject/output.log does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7c92452bc220>('/home/user/myproject/output.log')\nE        +    where <function isfile at 0x7c92452bc220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:15: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_execution_and_delivery",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1780207717052,
+                "stop": 1780207717055,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_execution_and_delivery():\n        \"\"\"Verify that the workflow was created, triggered, and email was delivered.\"\"\"\n        # 1. Read run-id and GMAIL_USER_NAME\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id is not None, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        gmail_user_name = os.environ.get(\"GMAIL_USER_NAME\")\n        assert gmail_user_name is not None, \"GMAIL_USER_NAME environment variable is not set.\"\n    \n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert project_token is not None, \"MAGICBELL_PROJECT_TOKEN environment variable is not set.\"\n    \n        # 2. Parse the workflow run ID from the log\n>       with open(LOG_FILE, \"r\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'\n\ntests/test_final_state.py:30: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

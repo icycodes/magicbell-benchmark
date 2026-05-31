@@ -1,0 +1,84 @@
+Skipping image OS validation for hb__send_broadcast_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mfl26lt > /logs/artifacts/run-id && echo send_broadcast_js__mfL26LT > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Send Broadcast Notification with MagicBell Node.js SDK
+
+## Background
+MagicBell is a real-time notification delivery platform. In this task, you will use the modern Node.js SDK (`magicbell-js`) to programmatically register a user and send them a broadcast notification.
+
+## Requirements
+- Create a Node.js project under `/home/user/myproject`.
+- Install the modern `magicbell-js` SDK.
+- Write a JavaScript script (`index.js`) that:
+  1. Reads `ZEALT_RUN_ID` and `GMAIL_USER_NAME` from the environment variables.
+  2. Creates/upserts a user in MagicBell with:
+     - `externalId`: `user_<run-id>`
+     - `email`: `<GMAIL_USER_NAME>+<run-id>@gmail.com`
+     - `firstName`: `Test`
+     - `lastName`: `User`
+  3. Sends a broadcast notification to this user with:
+     - `title`: `Welcome to MagicBell <run-id>!`
+     - `content`: `This is a test notification for run <run-id>.`
+     - `recipients`: Targeting the created user's `externalId`.
+  4. Writes the created broadcast ID to `/home/user/myproject/output.log` in the format: `Broadcast ID: <broadcast_id>`.
+- Execute the script to trigger the real action.
+
+## Implementation Hints
+- Use `magicbell-js/project-client` to initialize the administrative `Client`.
+- Authenticate the client using the `MAGICBELL_PROJECT_TOKEN` environment variable.
+- Make sure to handle environment variables properly and handle asynchronous operations in Node.js.
+- Ensure that the script is fully non-interactive and can run to completion.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the broadcast ID in the format: `Broadcast ID: <broadcast_id>`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

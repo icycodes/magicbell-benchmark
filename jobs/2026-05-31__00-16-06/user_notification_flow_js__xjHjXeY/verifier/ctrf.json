@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780159784610,
+            "stop": 1780159786546
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_files_exist",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780159784789,
+                "stop": 1780159784789,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_content_and_magicbell_state",
+                "status": "passed",
+                "duration": 494,
+                "start": 1780159784790,
+                "stop": 1780159785284,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_gmail_delivery",
+                "status": "passed",
+                "duration": 1260,
+                "start": 1780159785285,
+                "stop": 1780159786545,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

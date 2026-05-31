@@ -1,0 +1,85 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 0,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780160266792,
+            "stop": 1780160266921
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1780160266885,
+                "stop": 1780160266904,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n        \"\"\"Verify that the log file exists.\"\"\"\n>       assert os.path.isfile(LOG_FILE), f\"Log file does not exist at {LOG_FILE}\"\nE       AssertionError: Log file does not exist at /home/user/magicbell-topic-broadcast/output.log\nE       assert False\nE        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')\nE        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:47: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contents",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1780160266904,
+                "stop": 1780160266909,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_contents():\n        \"\"\"Verify that the log file contains all required lines with correct values.\"\"\"\n        run_id = get_run_id()\n>       log_data = parse_log()\n\ntests/test_final_state.py:52: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def parse_log():\n>       assert os.path.isfile(LOG_FILE), f\"Log file not found at {LOG_FILE}\"\nE       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log\nE       assert False\nE        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')\nE        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:25: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_payload_contents",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780160266909,
+                "stop": 1780160266913,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_jwt_payload_contents():\n        \"\"\"Verify the User JWT payload structure and values.\"\"\"\n        run_id = get_run_id()\n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        assert api_key is not None, \"MAGICBELL_API_KEY environment variable is not set.\"\n    \n>       log_data = parse_log()\n\ntests/test_final_state.py:75: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def parse_log():\n>       assert os.path.isfile(LOG_FILE), f\"Log file not found at {LOG_FILE}\"\nE       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log\nE       assert False\nE        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')\nE        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:25: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_magicbell_broadcast_state",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780160266913,
+                "stop": 1780160266917,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_magicbell_broadcast_state():\n        \"\"\"Verify that the broadcast was successfully created with the correct topic and recipients.\"\"\"\n        run_id = get_run_id()\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert project_token is not None, \"MAGICBELL_PROJECT_TOKEN environment variable is not set.\"\n    \n>       log_data = parse_log()\n\ntests/test_final_state.py:93: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def parse_log():\n>       assert os.path.isfile(LOG_FILE), f\"Log file not found at {LOG_FILE}\"\nE       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log\nE       assert False\nE        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')\nE        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:25: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_magicbell_user_notification_state",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780160266917,
+                "stop": 1780160266921,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_magicbell_user_notification_state():\n        \"\"\"Verify that the notification is present in the user's notification list.\"\"\"\n        run_id = get_run_id()\n>       log_data = parse_log()\n\ntests/test_final_state.py:128: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def parse_log():\n>       assert os.path.isfile(LOG_FILE), f\"Log file not found at {LOG_FILE}\"\nE       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log\nE       assert False\nE        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')\nE        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:25: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "id": "f1236319-211c-494a-9fe9-d3cdd26a8ef2",
+    "started_at": "2026-05-31T12:21:28.276473",
+    "updated_at": "2026-05-31T04:51:33.254565Z",
+    "finished_at": null,
+    "n_total_trials": 27,
+    "stats": {
+        "n_completed_trials": 23,
+        "n_errored_trials": 13,
+        "n_running_trials": 0,
+        "n_pending_trials": 4,
+        "n_cancelled_trials": 8,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 4,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.375
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "verify_email_delivery_go__spYz8E6",
+                            "verify_email_delivery_cli__tG3KcaA",
+                            "generate_user_jwt_js__jGcakKE"
+                        ],
+                        "0.0": [
+                            "user_preferences_cli__Y2ZLCZZ"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "filtered_tabs_menu_propagation_r__7gqMEWR"
+                    ],
+                    "AgentTimeoutError": [
+                        "user_preferences_cli__Y2ZLCZZ"
+                    ],
+                    "CancelledError": [
+                        "workflow_lifecycle_cli__djmMhnw",
+                        "user_preferences_js__7asxbtu",
+                        "workflow_email_delivery_js__ZaPHu6v"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 5,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.375
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "verify_email_delivery_go__XygA9e3",
+                            "verify_email_delivery_cli__juWGKUP",
+                            "generate_user_jwt_js__PjLDZYQ"
+                        ],
+                        "0.0": [
+                            "user_preferences_js__PWvwkyq",
+                            "user_preferences_cli__sHbadZ2"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "filtered_tabs_menu_propagation_r__LXNVi44"
+                    ],
+                    "AgentTimeoutError": [
+                        "user_preferences_cli__sHbadZ2"
+                    ],
+                    "CancelledError": [
+                        "workflow_lifecycle_cli__894LrnN",
+                        "workflow_email_delivery_js__u7Xh4KP"
+                    ]
+                }
+            },
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 3,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.2857142857142857
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "verify_email_delivery_go__cxXRzYF",
+                            "verify_email_delivery_cli__t52xTXB"
+                        ],
+                        "0.0": [
+                            "user_preferences_js__piG2Ca3"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "filtered_tabs_menu_propagation_r__S7mGp3t"
+                    ],
+                    "CancelledError": [
+                        "user_preferences_cli__jp8Pe2e",
+                        "generate_user_jwt_js__iMGc7he",
+                        "workflow_email_delivery_js__subWtmK"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 296256,
+        "cost_usd": null
+    }
+}

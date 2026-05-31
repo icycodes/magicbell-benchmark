@@ -1,0 +1,45 @@
+# MagicBell User JWT and Notification Retrieval in Go
+
+## Background
+MagicBell is a real-time notification inbox and multi-channel delivery platform. In modern architectures, server-to-server operations use a Project JWT. However, on the client-side or for user-scoped operations, a User JWT is required. A User JWT is generated on your backend using your project's Secret Key and API Key signed with the HS256 algorithm.
+
+In this task, you will build a Go program that creates/upserts a specific test user on MagicBell, triggers a notification broadcast to them, generates a secure User JWT, and then uses that User JWT to fetch the user's notifications.
+
+## Requirements
+- Create a Go program in `/home/user/myproject` (e.g., `main.go`).
+- Read the following environment variables:
+  - `MAGICBELL_PROJECT_TOKEN`: Administrative token for ProjectClient.
+  - `MAGICBELL_API_KEY`: API Key for User JWT generation.
+  - `MAGICBELL_SECRET_KEY`: Secret Key for User JWT generation.
+  - `GMAIL_USER_NAME`: Base email address for constructing the user's email.
+  - `ZEALT_RUN_ID`: Unique run ID for parallel safety.
+- Construct the user's email as `<GMAIL_USER_NAME>+<ZEALT_RUN_ID>@gmail.com` (where `<GMAIL_USER_NAME>` is the value of the `GMAIL_USER_NAME` environment variable and `<ZEALT_RUN_ID>` is the value of the `ZEALT_RUN_ID` environment variable).
+- Construct the user's external ID as `user_<ZEALT_RUN_ID>`.
+- Use the MagicBell Go SDK `ProjectClient` to upsert/create this user.
+- Use the MagicBell Go SDK `ProjectClient` to send a broadcast notification with the title `Notification <ZEALT_RUN_ID>` and content `Hello, this is a test notification for run <ZEALT_RUN_ID>!` to this user.
+- Generate a User JWT signed with HMAC-HS256 using the project's Secret Key. The payload must include:
+  - `user_email`: The constructed user email.
+  - `user_external_id`: The constructed user external ID.
+  - `api_key`: The project's API Key.
+- Use the generated User JWT to initialize the MagicBell Go SDK `UserClient`.
+- Retrieve the user's notifications using the `UserClient`.
+- Log the following results to `/home/user/myproject/output.log`:
+  - The generated User JWT in the format: `User JWT: <jwt>`
+  - The count of notifications in the format: `Notifications Count: <count>`
+  - The title of the latest notification in the format: `Latest Notification Title: <title>`
+
+## Implementation Hints
+- Retrieve the `ZEALT_RUN_ID` environment variable and use it to uniquely identify the user's email and external ID, ensuring parallel safety.
+- Sign the User JWT using the standard `github.com/golang-jwt/jwt/v5` package with the `HS256` signing method and the project's Secret Key.
+- Use the MagicBell Go SDK `github.com/magicbell/magicbell-go` for all API client operations.
+- Remember to run `go mod init myproject` and `go mod tidy` to manage dependencies.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is executed and the output log exists.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain the following lines:
+  - `User JWT: <jwt>` (where `<jwt>` is the generated HS256-signed JWT)
+  - `Notifications Count: <count>` (where `<count>` is the number of notifications retrieved)
+  - `Latest Notification Title: Notification <ZEALT_RUN_ID>` (where `<ZEALT_RUN_ID>` is the value of the `ZEALT_RUN_ID` environment variable)
+

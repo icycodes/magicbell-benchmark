@@ -1,0 +1,73 @@
+- Initializing MCP connections...
+You
+# MagicBell Workflow Email Delivery in Go ## Background MagicBell provides a powerful Go SDK to manage notification workflows programmatically. In this task, you will implement a Go program that creates a custom notification workflow and triggers it to send an email notification to a user's inbox. ## Requirements * Implement a Go program (`main.go`) that uses the official `github.com/magicbell/magicbell-go` SDK. * Read the following environment variables: * `MAGICBELL_PROJECT_TOKEN`: The project JWT token used to authenticate the MagicBell ProjectClient. * `ZEALT_RUN_ID`: The unique run ID for the current execution (e.g., `zr-abcdef`). * `GMAIL_USER_NAME`: The Gmail user name to construct the target email address. * Use the `ZEALT_RUN_ID` to construct a unique workflow key: `order_notification_${run_id}`. * Create or update (save) a workflow definition with the key `order_notification_${run_id}`. The workflow definition must contain a single step: * Command: `broadcast` * Input: * `title`: `Order Notification - {{payload.run_id}}` * `content`: `Your order has been updated successfully. Run ID: {{payload.run_id}}` * `recipients`: `[{"email": "{{payload.email}}"}]` * Execute (trigger) a run of the saved workflow by sending a request to the MagicBell API. The input payload for the workflow run must contain: * `run_id`: The value of `ZEALT_RUN_ID`. * `email`: `{GMAIL_USER_NAME}+${run_id}@gmail.com`. * Print the created workflow run ID to standard output in the format: `Workflow Run ID: <run_id>`. ## Implementation Hints * Initialize the MagicBell Go SDK `ProjectClient` using `clientconfig.NewConfig()` and `client.NewClient(config)`. Set the access token using `config.SetAccessToken(...)` or `sdk.SetAccessToken(...)`. * Use `sdk.Workflows.SaveWorkflow` to save the workflow definition. * Use `sdk.Workflows.CreateWorkflowRun` to execute the workflow with the input parameters. * Both `WorkflowDefinitionSteps.Input` and `ExecuteWorkflowRequest.Input` are of type `any` (or `interface{}`), so you can pass maps directly. * Ensure `go.mod` is properly configured with the `github.com/magicbell/magicbell-go` dependency. ## Acceptance Criteria * Project path: /home/user/myproject * Command: go run main.go * The stdout of the command must print the workflow run ID in the format: `Workflow Run ID: <run_id>`. * The workflow must be successfully saved in MagicBell with the key `order_notification_${run_id}` where `run_id` is the value of `ZEALT_RUN_ID`. * A workflow run must be triggered, which in turn broadcasts an email to `{GMAIL_USER_NAME}+${run_id}@gmail.com`.   
+
+Pochi
+💭 Thinking for 389 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 61 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing find /home/user/myproject -type f 2>/dev/null || echo "Directory does not exist" ✔ 
+💭 Thinking for 72 characters   
+📖 Reading /home/user/myproject/go.mod ✔ 
+📖 Reading /home/user/myproject/go.sum ✔ 
+💭 Thinking for 243 characters   
+💫 Executing find /root -path "*/magicbell-go" -type d 2>/dev/null | head -5 ✔ 
+💫 Executing find / -path "*/magicbell-go" -type d 2>/dev/null | head -10 ✔ 
+💭 Thinking for 117 characters   
+💫 Executing cd /home/user/myproject && go mod download github.com/magicbell/magicbell-go 2>&1 ✔ 
+💫 Executing find /root/go/pkg/mod/github.com/magicbell/magicbell-go* -type f -name "*.go" 2>/dev/null | head -30 ✔ 
+💫 Executing find /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/ -type f -name "*.go" 2>/dev/null ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflows_service.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflow_definition.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflow_definition_steps.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/execute_workflow_request.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/create_run_response.go ✔ 
+💭 Thinking for 110 characters   
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/clientconfig/config.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/cmd/project-client/examples/example.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/client/client.go ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/nullable.go ✔ 
+💭 Thinking for 125 characters   
+💫 Executing find /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared -type f -name "*.go" 2>/dev/null ✔ 
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared/client_response.go ✔ 
+💭 Thinking for 178 characters   
+💫 Executing find /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0 -maxdepth 1 -type f -name "*.go" 2>/dev/null ✔ 
+💫 Executing find /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0 -name "sdk.go" -o -name "magicbell.go" 2>/dev/null ✔ 
+💫 Executing ls /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/ ✔ 
+💭 Thinking for 1062 characters   
+📖 Reading /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/to_pointer.go ✔ 
+📋 Updating todo list (5 items) ✔ 
+Now I have a complete understanding of the SDK. Let me implement `main.go`:   
+✏️  Writing /home/user/myproject/main.go ✔ 
+📋 Updating todo list (5 items) ✔ 
+Now let me update the go.mod to ensure the dependency is direct (not indirect) and run `gomod tidy`:   
+✏️  Writing /home/user/myproject/go.mod ✔ 
+💫 Executing cd /home/user/myproject && go mod tidy 2>&1 ✔ 
+💫 Executing cd /home/user/myproject && go build -o /dev/null . 2>&1 ✔ 
+📋 Updating todo list (5 items) ✔ 
+The program compiles successfully. Let me verify the final state of the files:   
+📖 Reading /home/user/myproject/main.go ✔ 
+📖 Reading /home/user/myproject/go.mod ✔ 
+🎉 Task Completed
+Implemented the Go program at `/home/user/myproject/main.go` that creates a MagicBell notification workflow and triggers it to send an email. Here's what the program does:
+
+1. **Reads environment variables**: `MAGICBELL_PROJECT_TOKEN`, `ZEALT_RUN_ID`, and `GMAIL_USER_NAME` — exits with an error if any are missing.
+
+2. **Constructs a unique workflow key**: `order_notification_${ZEALT_RUN_ID}`.
+
+3. **Initializes the MagicBell ProjectClient**: Using `clientconfig.NewConfig()` with the access token set, then `client.NewClient(config)`.
+
+4. **Creates/updates a workflow definition** via `projectClient.Workflows.SaveWorkflow()` with:
+   - Key: `order_notification_${run_id}`
+   - Single step with command `broadcast`
+   - Input containing `title`, `content`, and `recipients` with Mustache template references (`{{payload.run_id}}`, `{{payload.email}}`)
+
+5. **Triggers a workflow run** via `projectClient.Workflows.CreateWorkflowRun()` with:
+   - Key matching the saved workflow
+   - Input payload with `run_id` (from `ZEALT_RUN_ID`) and `email` (`{GMAIL_USER_NAME}+{run_id}@gmail.com`)
+
+6. **Prints the workflow run ID** to stdout in the format: `Workflow Run ID: <run_id>`
+
+The program compiles successfully and `go.mod` is properly configured with the `github.com/magicbell/magicbell-go v0.5.0` dependency.   
+  

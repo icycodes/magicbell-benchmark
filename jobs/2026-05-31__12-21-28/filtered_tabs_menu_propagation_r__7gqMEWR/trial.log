@@ -1,0 +1,213 @@
+Trial filtered_tabs_menu_propagation_r__7gqMEWR failed: Docker compose command failed for environment filtered_tabs_menu_propagation_react. Command: docker compose --project-name filtered_tabs_menu_propagation_r__7gqmewr --project-directory /home/icy/github/benchmark-run/tasks/filtered_tabs_menu_propagation_react/environment -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-base.yaml -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmp9g_951yp/docker-compose-mounts.json build. Return code: 1. Stdout:  Image filtered_tabs_menu_propagation_r__7gqmewr-main Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 682B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 5.63kB done
+#2 DONE 4.1s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context:
+#4 transferring context: 2B done
+#4 DONE 3.3s
+
+#5 [ 1/12] FROM docker.io/library/ubuntu:24.04
+#5 DONE 0.0s
+
+#6 [ 5/12] WORKDIR /home/user/myproject
+#6 CACHED
+
+#7 [ 7/12] RUN cat >vite.config.js <<'EOF'
+#7 CACHED
+
+#8 [10/12] RUN cat >src/index.css <<'EOF'
+#8 CACHED
+
+#9 [ 3/12] RUN mkdir -p /home/user && chmod 0755 /home/user
+#9 CACHED
+
+#10 [ 6/12] RUN cat >package.json <<'EOF'
+#10 CACHED
+
+#11 [ 8/12] RUN cat >index.html <<'EOF'
+#11 CACHED
+
+#12 [ 9/12] RUN cat >src/main.jsx <<'EOF'
+#12 CACHED
+
+#13 [ 2/12] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep         ffmpeg libxcb-shm0 libx11-xcb1 libx11-6 libxcb1 libxext6 libxrandr2 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libgtk-3-0t64 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0t64 libcairo-gobject2 libcairo2 libgdk-pixbuf-2.0-0 libxrender1 libasound2t64 libfreetype6 libfontconfig1 libdbus-1-3 libnss3 libnspr4 libatk-bridge2.0-0t64 libdrm2 libxkbcommon0 libatspi2.0-0t64 libcups2t64 libxshmfence1 libgbm1 &&     curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &&     apt-get install -y --no-install-recommends nodejs &&     npm i -g agent-browser &&     agent-browser install &&     pip3 install --break-system-packages pytest-json-ctrf pochi-verifier requests pyjwt pytest-xprocess &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#13 CACHED
+
+#14 [ 4/12] RUN mkdir -p /home/user/myproject/src
+#14 CACHED
+
+#15 [11/12] RUN cat >src/App.jsx <<'EOF'
+#15 CACHED
+
+#16 [12/12] RUN npm install
+#16 14.38 npm error code ETARGET
+#16 14.38 npm error notarget No matching version found for @magicbell/react@^10.0.0.
+#16 14.38 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.
+#16 14.38 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_21_54_825Z-debug-0.log
+#16 ERROR: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+------
+ > [12/12] RUN npm install:
+14.38 npm error code ETARGET
+14.38 npm error notarget No matching version found for @magicbell/react@^10.0.0.
+14.38 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.
+14.38 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_21_54_825Z-debug-0.log
+------
+Dockerfile:171
+
+--------------------
+
+ 169 |     
+
+ 170 |     # Pre-install npm dependencies to speed up startup
+
+ 171 | >>> RUN npm install
+
+ 172 |     
+
+ 173 |     LABEL Author="generate-harbor-tasks"
+
+--------------------
+
+failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+
+. Stderr: None. 
+Failed to download artifact '/home/user' (best-effort)
+Traceback (most recent call last):
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py", line 160, in run
+    await self._prepare()
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py", line 187, in _prepare
+    await self._setup_agent_environment()
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py", line 617, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py", line 623, in _start_agent_environment
+    await asyncio.wait_for(
+    ...<4 lines>...
+    )
+  File "/usr/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py", line 467, in start
+    await self._run_docker_compose_command(["build"])
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py", line 369, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment filtered_tabs_menu_propagation_react. Command: docker compose --project-name filtered_tabs_menu_propagation_r__7gqmewr --project-directory /home/icy/github/benchmark-run/tasks/filtered_tabs_menu_propagation_react/environment -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-base.yaml -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmp9g_951yp/docker-compose-mounts.json build. Return code: 1. Stdout:  Image filtered_tabs_menu_propagation_r__7gqmewr-main Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 682B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 5.63kB done
+#2 DONE 4.1s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context:
+#4 transferring context: 2B done
+#4 DONE 3.3s
+
+#5 [ 1/12] FROM docker.io/library/ubuntu:24.04
+#5 DONE 0.0s
+
+#6 [ 5/12] WORKDIR /home/user/myproject
+#6 CACHED
+
+#7 [ 7/12] RUN cat >vite.config.js <<'EOF'
+#7 CACHED
+
+#8 [10/12] RUN cat >src/index.css <<'EOF'
+#8 CACHED
+
+#9 [ 3/12] RUN mkdir -p /home/user && chmod 0755 /home/user
+#9 CACHED
+
+#10 [ 6/12] RUN cat >package.json <<'EOF'
+#10 CACHED
+
+#11 [ 8/12] RUN cat >index.html <<'EOF'
+#11 CACHED
+
+#12 [ 9/12] RUN cat >src/main.jsx <<'EOF'
+#12 CACHED
+
+#13 [ 2/12] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep         ffmpeg libxcb-shm0 libx11-xcb1 libx11-6 libxcb1 libxext6 libxrandr2 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libgtk-3-0t64 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0t64 libcairo-gobject2 libcairo2 libgdk-pixbuf-2.0-0 libxrender1 libasound2t64 libfreetype6 libfontconfig1 libdbus-1-3 libnss3 libnspr4 libatk-bridge2.0-0t64 libdrm2 libxkbcommon0 libatspi2.0-0t64 libcups2t64 libxshmfence1 libgbm1 &&     curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &&     apt-get install -y --no-install-recommends nodejs &&     npm i -g agent-browser &&     agent-browser install &&     pip3 install --break-system-packages pytest-json-ctrf pochi-verifier requests pyjwt pytest-xprocess &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#13 CACHED
+
+#14 [ 4/12] RUN mkdir -p /home/user/myproject/src
+#14 CACHED
+
+#15 [11/12] RUN cat >src/App.jsx <<'EOF'
+#15 CACHED
+
+#16 [12/12] RUN npm install
+#16 14.38 npm error code ETARGET
+#16 14.38 npm error notarget No matching version found for @magicbell/react@^10.0.0.
+#16 14.38 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.
+#16 14.38 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_21_54_825Z-debug-0.log
+#16 ERROR: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+------
+ > [12/12] RUN npm install:
+14.38 npm error code ETARGET
+14.38 npm error notarget No matching version found for @magicbell/react@^10.0.0.
+14.38 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.
+14.38 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_21_54_825Z-debug-0.log
+------
+Dockerfile:171
+
+--------------------
+
+ 169 |     
+
+ 170 |     # Pre-install npm dependencies to speed up startup
+
+ 171 | >>> RUN npm install
+
+ 172 |     
+
+ 173 |     LABEL Author="generate-harbor-tasks"
+
+--------------------
+
+failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/artifact_handler.py", line 199, in _download_artifact
+    await source_env.download_file(
+    ...<2 lines>...
+    )
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py", line 558, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker_unix.py", line 48, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py", line 369, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment filtered_tabs_menu_propagation_react. Command: docker compose --project-name filtered_tabs_menu_propagation_r__7gqmewr --project-directory /home/icy/github/benchmark-run/tasks/filtered_tabs_menu_propagation_react/environment -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-base.yaml -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmp9g_951yp/docker-compose-mounts.json cp main:/home/user /home/icy/github/benchmark-run/local-scripts/../jobs/2026-05-31__12-21-28/filtered_tabs_menu_propagation_r__7gqMEWR/artifacts/user. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 

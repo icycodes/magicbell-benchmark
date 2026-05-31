@@ -1,0 +1,68 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py .F.F                                           [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_magicbell_user_exists __________________________
+
+    def test_magicbell_user_exists():
+        """Verify that the user was successfully created/updated in MagicBell."""
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        gmail_username = os.environ.get("GMAIL_USER_NAME")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+    
+        url = f"https://api.magicbell.com/users/user_{run_id}"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json"
+        }
+    
+        response = requests.get(url, headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch user from MagicBell. Status: {response.status_code}, Response: {response.text}"
+E       AssertionError: Failed to fetch user from MagicBell. Status: 400, Response: {"errors":[{"message":"invalid user uuid format [user_zr-e7xv3nm]"}]}
+E         
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:33: AssertionError
+_____________________________ test_gmail_received ______________________________
+
+    def test_gmail_received():
+        """Verify that the email was successfully delivered to the Gmail inbox."""
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert "GMAIL_TOKEN_JSON" in os.environ, "GMAIL_TOKEN_JSON environment variable is missing."
+    
+        import json
+        from google.oauth2.credentials import Credentials
+        from googleapiclient.discovery import build
+    
+        SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+        token_info = json.loads(os.environ["GMAIL_TOKEN_JSON"])
+        creds = Credentials.from_authorized_user_info(token_info, SCOPES)
+        service = build("gmail", "v1", credentials=creds)
+    
+        query = f'subject:"Welcome to MagicBell {run_id}!"'
+        response = service.users().messages().list(
+            userId="me",
+            q=query,
+            maxResults=10,
+        ).execute()
+    
+        messages = response.get("messages", [])
+>       assert len(messages) > 0, f"No email found in Gmail inbox with query: {query}"
+E       AssertionError: No email found in Gmail inbox with query: subject:"Welcome to MagicBell zr-e7xv3nm!"
+E       assert 0 > 0
+E        +  where 0 = len([])
+
+tests/test_final_state.py:93: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_exists
+PASSED tests/test_final_state.py::test_magicbell_broadcast_details
+FAILED tests/test_final_state.py::test_magicbell_user_exists - AssertionError...
+FAILED tests/test_final_state.py::test_gmail_received - AssertionError: No em...
+========================= 2 failed, 2 passed in 1.94s ==========================

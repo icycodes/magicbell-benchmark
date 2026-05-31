@@ -1,0 +1,100 @@
+{
+    "id": "7c9b4b48-df4a-40e0-a79d-6bcf6052cf48",
+    "task_name": "filtered_tabs_menu_propagation_react",
+    "trial_name": "filtered_tabs_menu_propagation_r__S7mGp3t",
+    "trial_uri": "file:///home/icy/github/benchmark-run/jobs/2026-05-31__12-21-28/filtered_tabs_menu_propagation_r__S7mGp3t",
+    "task_id": {
+        "path": "/home/icy/github/benchmark-run/local-scripts/../tasks/filtered_tabs_menu_propagation_react"
+    },
+    "source": "tasks",
+    "task_checksum": "f3b71b449b5e261e6c524c0bc92b0165e4f706cb169b81c5a3807aa441b79855",
+    "config": {
+        "task": {
+            "path": "/home/icy/github/benchmark-run/local-scripts/../tasks/filtered_tabs_menu_propagation_react",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "filtered_tabs_menu_propagation_r__S7mGp3t",
+        "trials_dir": "/home/icy/github/benchmark-run/local-scripts/../jobs/2026-05-31__12-21-28",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "zai/glm-5.1",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "f1236319-211c-494a-9fe9-d3cdd26a8ef2"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "unknown",
+        "model_info": {
+            "name": "glm-5.1",
+            "provider": "zai"
+        }
+    },
+    "agent_result": null,
+    "verifier_result": null,
+    "exception_info": {
+        "exception_type": "RuntimeError",
+        "exception_message": "Docker compose command failed for environment filtered_tabs_menu_propagation_react. Command: docker compose --project-name filtered_tabs_menu_propagation_r__s7mgp3t --project-directory /home/icy/github/benchmark-run/tasks/filtered_tabs_menu_propagation_react/environment -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-base.yaml -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmphp1y_tr_/docker-compose-mounts.json build. Return code: 1. Stdout:  Image filtered_tabs_menu_propagation_r__s7mgp3t-main Building \n#1 [internal] load local bake definitions\n#1 reading from stdin 682B done\n#1 DONE 0.0s\n\n#2 [internal] load build definition from Dockerfile\n#2 transferring dockerfile:\n#2 transferring dockerfile: 5.63kB done\n#2 DONE 8.2s\n\n#3 [internal] load metadata for docker.io/library/ubuntu:24.04\n#3 DONE 0.0s\n\n#4 [internal] load .dockerignore\n#4 transferring context:\n#4 transferring context: 2B done\n#4 DONE 3.4s\n\n#5 [ 1/12] FROM docker.io/library/ubuntu:24.04\n#5 DONE 0.0s\n\n#6 [ 7/12] RUN cat >vite.config.js <<'EOF'\n#6 CACHED\n\n#7 [ 8/12] RUN cat >index.html <<'EOF'\n#7 CACHED\n\n#8 [ 9/12] RUN cat >src/main.jsx <<'EOF'\n#8 CACHED\n\n#9 [ 2/12] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep         ffmpeg libxcb-shm0 libx11-xcb1 libx11-6 libxcb1 libxext6 libxrandr2 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libgtk-3-0t64 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0t64 libcairo-gobject2 libcairo2 libgdk-pixbuf-2.0-0 libxrender1 libasound2t64 libfreetype6 libfontconfig1 libdbus-1-3 libnss3 libnspr4 libatk-bridge2.0-0t64 libdrm2 libxkbcommon0 libatspi2.0-0t64 libcups2t64 libxshmfence1 libgbm1 &&     curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &&     apt-get install -y --no-install-recommends nodejs &&     npm i -g agent-browser &&     agent-browser install &&     pip3 install --break-system-packages pytest-json-ctrf pochi-verifier requests pyjwt pytest-xprocess &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*\n#9 CACHED\n\n#10 [ 3/12] RUN mkdir -p /home/user && chmod 0755 /home/user\n#10 CACHED\n\n#11 [ 4/12] RUN mkdir -p /home/user/myproject/src\n#11 CACHED\n\n#12 [ 5/12] WORKDIR /home/user/myproject\n#12 CACHED\n\n#13 [ 6/12] RUN cat >package.json <<'EOF'\n#13 CACHED\n\n#14 [10/12] RUN cat >src/index.css <<'EOF'\n#14 CACHED\n\n#15 [11/12] RUN cat >src/App.jsx <<'EOF'\n#15 CACHED\n\n#16 [12/12] RUN npm install\n#16 19.15 npm error code ETARGET\n#16 19.15 npm error notarget No matching version found for @magicbell/react@^10.0.0.\n#16 19.15 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\n#16 19.15 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_23_44_449Z-debug-0.log\n#16 ERROR: process \"/bin/sh -c npm install\" did not complete successfully: exit code: 1\n------\n > [12/12] RUN npm install:\n19.15 npm error code ETARGET\n19.15 npm error notarget No matching version found for @magicbell/react@^10.0.0.\n19.15 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\n19.15 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_23_44_449Z-debug-0.log\n------\nDockerfile:171\n\n--------------------\n\n 169 |     \n\n 170 |     # Pre-install npm dependencies to speed up startup\n\n 171 | >>> RUN npm install\n\n 172 |     \n\n 173 |     LABEL Author=\"generate-harbor-tasks\"\n\n--------------------\n\nfailed to solve: process \"/bin/sh -c npm install\" did not complete successfully: exit code: 1\n\n. Stderr: None. ",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py\", line 160, in run\n    await self._prepare()\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py\", line 187, in _prepare\n    await self._setup_agent_environment()\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py\", line 617, in _setup_agent_environment\n    await self._start_agent_environment()\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/trial/trial.py\", line 623, in _start_agent_environment\n    await asyncio.wait_for(\n    ...<4 lines>...\n    )\n  File \"/usr/lib/python3.14/asyncio/tasks.py\", line 488, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py\", line 467, in start\n    await self._run_docker_compose_command([\"build\"])\n  File \"/home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker.py\", line 369, in _run_docker_compose_command\n    raise RuntimeError(\n    ...<5 lines>...\n    )\nRuntimeError: Docker compose command failed for environment filtered_tabs_menu_propagation_react. Command: docker compose --project-name filtered_tabs_menu_propagation_r__s7mgp3t --project-directory /home/icy/github/benchmark-run/tasks/filtered_tabs_menu_propagation_react/environment -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-base.yaml -f /home/icy/github/benchmark-run/.venv/lib/python3.14/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmphp1y_tr_/docker-compose-mounts.json build. Return code: 1. Stdout:  Image filtered_tabs_menu_propagation_r__s7mgp3t-main Building \n#1 [internal] load local bake definitions\n#1 reading from stdin 682B done\n#1 DONE 0.0s\n\n#2 [internal] load build definition from Dockerfile\n#2 transferring dockerfile:\n#2 transferring dockerfile: 5.63kB done\n#2 DONE 8.2s\n\n#3 [internal] load metadata for docker.io/library/ubuntu:24.04\n#3 DONE 0.0s\n\n#4 [internal] load .dockerignore\n#4 transferring context:\n#4 transferring context: 2B done\n#4 DONE 3.4s\n\n#5 [ 1/12] FROM docker.io/library/ubuntu:24.04\n#5 DONE 0.0s\n\n#6 [ 7/12] RUN cat >vite.config.js <<'EOF'\n#6 CACHED\n\n#7 [ 8/12] RUN cat >index.html <<'EOF'\n#7 CACHED\n\n#8 [ 9/12] RUN cat >src/main.jsx <<'EOF'\n#8 CACHED\n\n#9 [ 2/12] RUN apt-get update -y &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         curl wget ca-certificates git python3 python3-pip python3-pytest bash ripgrep         ffmpeg libxcb-shm0 libx11-xcb1 libx11-6 libxcb1 libxext6 libxrandr2 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libgtk-3-0t64 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0t64 libcairo-gobject2 libcairo2 libgdk-pixbuf-2.0-0 libxrender1 libasound2t64 libfreetype6 libfontconfig1 libdbus-1-3 libnss3 libnspr4 libatk-bridge2.0-0t64 libdrm2 libxkbcommon0 libatspi2.0-0t64 libcups2t64 libxshmfence1 libgbm1 &&     curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &&     apt-get install -y --no-install-recommends nodejs &&     npm i -g agent-browser &&     agent-browser install &&     pip3 install --break-system-packages pytest-json-ctrf pochi-verifier requests pyjwt pytest-xprocess &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*\n#9 CACHED\n\n#10 [ 3/12] RUN mkdir -p /home/user && chmod 0755 /home/user\n#10 CACHED\n\n#11 [ 4/12] RUN mkdir -p /home/user/myproject/src\n#11 CACHED\n\n#12 [ 5/12] WORKDIR /home/user/myproject\n#12 CACHED\n\n#13 [ 6/12] RUN cat >package.json <<'EOF'\n#13 CACHED\n\n#14 [10/12] RUN cat >src/index.css <<'EOF'\n#14 CACHED\n\n#15 [11/12] RUN cat >src/App.jsx <<'EOF'\n#15 CACHED\n\n#16 [12/12] RUN npm install\n#16 19.15 npm error code ETARGET\n#16 19.15 npm error notarget No matching version found for @magicbell/react@^10.0.0.\n#16 19.15 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\n#16 19.15 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_23_44_449Z-debug-0.log\n#16 ERROR: process \"/bin/sh -c npm install\" did not complete successfully: exit code: 1\n------\n > [12/12] RUN npm install:\n19.15 npm error code ETARGET\n19.15 npm error notarget No matching version found for @magicbell/react@^10.0.0.\n19.15 npm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\n19.15 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-05-31T04_23_44_449Z-debug-0.log\n------\nDockerfile:171\n\n--------------------\n\n 169 |     \n\n 170 |     # Pre-install npm dependencies to speed up startup\n\n 171 | >>> RUN npm install\n\n 172 |     \n\n 173 |     LABEL Author=\"generate-harbor-tasks\"\n\n--------------------\n\nfailed to solve: process \"/bin/sh -c npm install\" did not complete successfully: exit code: 1\n\n. Stderr: None. \n",
+        "occurred_at": "2026-05-31T12:24:41.137058"
+    },
+    "started_at": "2026-05-31T04:21:30.254283Z",
+    "finished_at": "2026-05-31T04:24:42.445817Z",
+    "environment_setup": {
+        "started_at": "2026-05-31T04:21:30.874490Z",
+        "finished_at": "2026-05-31T04:24:41.134520Z"
+    },
+    "agent_setup": null,
+    "agent_execution": null,
+    "verifier": null,
+    "step_results": null
+}

@@ -1,0 +1,87 @@
+Skipping image OS validation for hb__workflow_email_delivery_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-budeedt > /logs/artifacts/run-id && echo workflow_email_delivery_go__BUDEeDT > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# MagicBell Workflow Email Delivery in Go
+
+## Background
+MagicBell provides a powerful Go SDK to manage notification workflows programmatically. In this task, you will implement a Go program that creates a custom notification workflow and triggers it to send an email notification to a user's inbox.
+
+## Requirements
+- Implement a Go program (`main.go`) that uses the official `github.com/magicbell/magicbell-go` SDK.
+- Read the following environment variables:
+  - `MAGICBELL_PROJECT_TOKEN`: The project JWT token used to authenticate the MagicBell ProjectClient.
+  - `ZEALT_RUN_ID`: The unique run ID for the current execution (e.g., `zr-abcdef`).
+  - `GMAIL_USER_NAME`: The Gmail user name to construct the target email address.
+- Use the `ZEALT_RUN_ID` to construct a unique workflow key: `order_notification_${run_id}`.
+- Create or update (save) a workflow definition with the key `order_notification_${run_id}`. The workflow definition must contain a single step:
+  - Command: `broadcast`
+  - Input:
+    - `title`: `Order Notification - {{payload.run_id}}`
+    - `content`: `Your order has been updated successfully. Run ID: {{payload.run_id}}`
+    - `recipients`: `[{"email": "{{payload.email}}"}]`
+- Execute (trigger) a run of the saved workflow by sending a request to the MagicBell API. The input payload for the workflow run must contain:
+  - `run_id`: The value of `ZEALT_RUN_ID`.
+  - `email`: `{GMAIL_USER_NAME}+${run_id}@gmail.com`.
+- Print the created workflow run ID to standard output in the format: `Workflow Run ID: <run_id>`.
+
+## Implementation Hints
+- Initialize the MagicBell Go SDK `ProjectClient` using `clientconfig.NewConfig()` and `client.NewClient(config)`. Set the access token using `config.SetAccessToken(...)` or `sdk.SetAccessToken(...)`.
+- Use `sdk.Workflows.SaveWorkflow` to save the workflow definition.
+- Use `sdk.Workflows.CreateWorkflowRun` to execute the workflow with the input parameters.
+- Both `WorkflowDefinitionSteps.Input` and `ExecuteWorkflowRequest.Input` are of type `any` (or `interface{}`), so you can pass maps directly.
+- Ensure `go.mod` is properly configured with the `github.com/magicbell/magicbell-go` dependency.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: go run main.go
+- The stdout of the command must print the workflow run ID in the format: `Workflow Run ID: <run_id>`.
+- The workflow must be successfully saved in MagicBell with the key `order_notification_${run_id}` where `run_id` is the value of `ZEALT_RUN_ID`.
+- A workflow run must be triggered, which in turn broadcasts an email to `{GMAIL_USER_NAME}+${run_id}@gmail.com`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

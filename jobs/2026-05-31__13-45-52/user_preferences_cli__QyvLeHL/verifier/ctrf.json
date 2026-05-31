@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780207130040,
+            "stop": 1780207130657
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_preferences_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 18,
+                "start": 1780207130119,
+                "stop": 1780207130137,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_preferences_log_file_exists():\n        \"\"\"Verify that the preferences log file exists.\"\"\"\n>       assert os.path.isfile(LOG_FILE), f\"Expected log file {LOG_FILE} does not exist.\"\nE       AssertionError: Expected log file /home/user/myproject/preferences.json does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7080cb510220>('/home/user/myproject/preferences.json')\nE        +    where <function isfile at 0x7080cb510220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:12: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_preferences_log_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1780207130137,
+                "stop": 1780207130140,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_preferences_log_file_content():\n        \"\"\"Verify that the log file contains valid JSON and the correct preferences.\"\"\"\n>       with open(LOG_FILE, \"r\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/preferences.json'\n\ntests/test_final_state.py:16: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_magicbell_server_preferences",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 516,
+                "start": 1780207130140,
+                "stop": 1780207130656,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_magicbell_server_preferences():\n        \"\"\"Verify that the preferences are updated on the real MagicBell server.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        gmail_user = os.environ.get(\"GMAIL_USER_NAME\")\n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\")\n    \n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n        assert gmail_user, \"GMAIL_USER_NAME environment variable is not set.\"\n        assert api_key, \"MAGICBELL_API_KEY environment variable is not set.\"\n        assert secret_key, \"MAGICBELL_SECRET_KEY environment variable is not set.\"\n    \n        user_email = f\"{gmail_user}+user-{run_id}@gmail.com\"\n        user_external_id = f\"user-{run_id}\"\n    \n        # Generate User JWT\n        user_jwt = jwt.encode(\n            {\n                \"user_email\": user_email,\n                \"user_external_id\": user_external_id,\n                \"api_key\": api_key,\n            },\n            secret_key,\n            algorithm=\"HS256\"\n        )\n    \n        # Fetch from MagicBell API\n        headers = {\n            \"Authorization\": f\"Bearer {user_jwt}\",\n            \"X-MAGICBELL-API-KEY\": api_key,\n            \"Accept\": \"application/json\",\n        }\n    \n        # Try both v1 and v2 endpoints if needed, but v1 is standard for notification_preferences\n        url = \"https://api.magicbell.com/v1/notification_preferences\"\n        response = requests.get(url, headers=headers)\n    \n>       assert response.status_code == 200, f\"Failed to fetch preferences from MagicBell API: {response.text}\"\nE       AssertionError: Failed to fetch preferences from MagicBell API: \nE       assert 405 == 200\nE        +  where 405 = <Response [405]>.status_code\n\ntests/test_final_state.py:88: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

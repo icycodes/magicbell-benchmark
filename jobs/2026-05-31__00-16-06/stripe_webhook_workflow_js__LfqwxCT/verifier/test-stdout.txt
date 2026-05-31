@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 1 item
+
+tests/test_final_state.py .                                              [100%]
+
+==================================== PASSES ====================================
+___________________________ test_stripe_webhook_flow ___________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/stripe_webhook_app$ node server.js
+process 'stripe_webhook_app' started pid=1143
+stripe_webhook_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_stripe_webhook_flow
+============================== 1 passed in 31.45s ==============================

@@ -1,0 +1,70 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_______________________________ test_log_content _______________________________
+
+    def test_log_content():
+        # Read the environment variables
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        run_id = os.environ.get("ZEALT_RUN_ID")
+    
+        assert secret_key, "MAGICBELL_SECRET_KEY environment variable is not set."
+        assert api_key, "MAGICBELL_API_KEY environment variable is not set."
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        expected_email = f"user-{run_id}@example.com"
+        expected_external_id = f"user_{run_id}"
+    
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+    
+        # Parse User JWT
+        jwt_match = re.search(r"User JWT:\s*(\S+)", content)
+        assert jwt_match, "Could not find 'User JWT: <jwt>' in the log file."
+        user_jwt = jwt_match.group(1)
+    
+        # Parse Billing Email Preference Updated
+        pref_match = re.search(r"Billing Email Preference Updated:\s*(false)", content)
+        assert pref_match, "Could not find 'Billing Email Preference Updated: false' in the log file."
+    
+        # Verify and decode JWT
+        try:
+            decoded = jwt.decode(user_jwt, secret_key, algorithms=["HS256"])
+        except jwt.PyJWTError as e:
+            pytest.fail(f"Failed to decode or verify User JWT: {e}")
+    
+        # Verify JWT payload
+        assert decoded.get("user_email") == expected_email, \
+            f"JWT user_email mismatch. Expected '{expected_email}', got '{decoded.get('user_email')}'"
+        assert decoded.get("user_external_id") == expected_external_id, \
+            f"JWT user_external_id mismatch. Expected '{expected_external_id}', got '{decoded.get('user_external_id')}'"
+        assert decoded.get("api_key") == api_key, \
+            f"JWT api_key mismatch. Expected '{api_key}', got '{decoded.get('api_key')}'"
+    
+        # Fetch preferences from MagicBell API to verify they were actually updated on the server
+        headers = {
+            "Authorization": f"Bearer {user_jwt}",
+            "Content-Type": "application/json"
+        }
+        response = requests.get(
+            "https://api.magicbell.com/v2/notification_preferences",
+            headers=headers
+        )
+>       assert response.status_code == 200, f"Failed to fetch notification preferences from API: {response.text}"
+E       AssertionError: Failed to fetch notification preferences from API: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:60: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_log_content - AssertionError: Failed t...
+========================= 1 failed, 1 passed in 0.60s ==========================

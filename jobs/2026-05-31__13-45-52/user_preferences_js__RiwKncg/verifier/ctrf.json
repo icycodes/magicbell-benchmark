@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780207162515,
+            "stop": 1780207163159
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780207162631,
+                "stop": 1780207162631,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 526,
+                "start": 1780207162632,
+                "stop": 1780207163158,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_content():\n        # Read the environment variables\n        secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\")\n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n    \n        assert secret_key, \"MAGICBELL_SECRET_KEY environment variable is not set.\"\n        assert api_key, \"MAGICBELL_API_KEY environment variable is not set.\"\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        expected_email = f\"user-{run_id}@example.com\"\n        expected_external_id = f\"user_{run_id}\"\n    \n        with open(LOG_FILE, \"r\") as f:\n            content = f.read()\n    \n        # Parse User JWT\n        jwt_match = re.search(r\"User JWT:\\s*(\\S+)\", content)\n        assert jwt_match, \"Could not find 'User JWT: <jwt>' in the log file.\"\n        user_jwt = jwt_match.group(1)\n    \n        # Parse Billing Email Preference Updated\n        pref_match = re.search(r\"Billing Email Preference Updated:\\s*(false)\", content)\n        assert pref_match, \"Could not find 'Billing Email Preference Updated: false' in the log file.\"\n    \n        # Verify and decode JWT\n        try:\n            decoded = jwt.decode(user_jwt, secret_key, algorithms=[\"HS256\"])\n        except jwt.PyJWTError as e:\n            pytest.fail(f\"Failed to decode or verify User JWT: {e}\")\n    \n        # Verify JWT payload\n        assert decoded.get(\"user_email\") == expected_email, \\\n            f\"JWT user_email mismatch. Expected '{expected_email}', got '{decoded.get('user_email')}'\"\n        assert decoded.get(\"user_external_id\") == expected_external_id, \\\n            f\"JWT user_external_id mismatch. Expected '{expected_external_id}', got '{decoded.get('user_external_id')}'\"\n        assert decoded.get(\"api_key\") == api_key, \\\n            f\"JWT api_key mismatch. Expected '{api_key}', got '{decoded.get('api_key')}'\"\n    \n        # Fetch preferences from MagicBell API to verify they were actually updated on the server\n        headers = {\n            \"Authorization\": f\"Bearer {user_jwt}\",\n            \"Content-Type\": \"application/json\"\n        }\n        response = requests.get(\n            \"https://api.magicbell.com/v2/notification_preferences\",\n            headers=headers\n        )\n>       assert response.status_code == 200, f\"Failed to fetch notification preferences from API: {response.text}\"\nE       AssertionError: Failed to fetch notification preferences from API: \nE       assert 405 == 200\nE        +  where 405 = <Response [405]>.status_code\n\ntests/test_final_state.py:60: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

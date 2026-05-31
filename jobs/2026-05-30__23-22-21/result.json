@@ -1,0 +1,87 @@
+{
+    "id": "886d70bc-33e8-42b1-9819-181a9b059119",
+    "started_at": "2026-05-30T23:22:21.273140",
+    "updated_at": "2026-05-30T23:32:09.746382",
+    "finished_at": "2026-05-30T23:32:09.746382",
+    "n_total_trials": 9,
+    "stats": {
+        "n_completed_trials": 9,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 3,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "send_broadcast_cli__U6aAtjs",
+                            "send_broadcast_js__e7xv3nM"
+                        ],
+                        "1.0": [
+                            "send_broadcast_go__rddGoGm"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 3,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6666666666666666
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "send_broadcast_cli__ri2aHHX",
+                            "send_broadcast_go__RTJ8XXu"
+                        ],
+                        "0.0": [
+                            "send_broadcast_js__dKa5xBR"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 3,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6666666666666666
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "send_broadcast_cli__hQmcqo7",
+                            "send_broadcast_go__ZzcURid"
+                        ],
+                        "0.0": [
+                            "send_broadcast_js__mfL26LT"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 210080,
+        "cost_usd": null
+    }
+}

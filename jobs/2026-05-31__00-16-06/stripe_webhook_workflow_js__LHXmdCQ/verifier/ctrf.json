@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780160848283,
+            "stop": 1780160849208
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_stripe_webhook_flow",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 743,
+                "start": 1780160848464,
+                "stop": 1780160849207,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_stripe_webhook_flow(start_app):\n        # 1. Retrieve environment variables\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"local\")\n        gmail_user = os.environ.get(\"GMAIL_USER_NAME\")\n        assert gmail_user is not None, \"GMAIL_USER_NAME environment variable is not set.\"\n    \n        recipient_email = f\"{gmail_user}+stripe-{run_id}@gmail.com\"\n    \n        # 2. Prepare the mock Stripe webhook payload\n        payload = {\n            \"type\": \"charge.succeeded\",\n            \"data\": {\n                \"object\": {\n                    \"id\": \"ch_test_123\",\n                    \"amount\": 4900,\n                    \"receipt_email\": recipient_email\n                }\n            }\n        }\n    \n        # 3. Send the POST request to the webhook endpoint\n        url = \"http://localhost:3000/webhook\"\n        try:\n            response = requests.post(url, json=payload, timeout=10)\n        except requests.exceptions.RequestException as e:\n            pytest.fail(f\"Failed to connect to the Express server at {url}: {e}\")\n    \n        # 4. Verify the response\n>       assert response.status_code == 200, f\"Expected status code 200, got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected status code 200, got 500. Response: {\"error\":\"Failed to send notification\"}\nE       assert 500 == 200\nE        +  where 500 = <Response [500]>.status_code\n\ntests/test_final_state.py:128: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

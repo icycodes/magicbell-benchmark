@@ -1,0 +1,49 @@
+MagicBell CLI Task - Execution Log
+=====================================
+
+ZEALT_RUN_ID: zr-t52xtxb
+GMAIL_USER_NAME: codes.icy
+
+Step 1: Authentication
+----------------------
+Successfully authenticated with MagicBell CLI using manual login.
+Command: magicbell login --manual --email $MAGICBELL_EMAIL --api-key $MAGICBELL_API_KEY --secret-key $MAGICBELL_SECRET_KEY --jwt $MAGICBELL_PROJECT_TOKEN
+Result: SUCCESS
+
+Step 2: User Creation
+----------------------
+Created user via MagicBell API (v1).
+External ID: user-zr-t52xtxb
+Email: codes.icy+zr-t52xtxb@gmail.com
+User ID: d3a465cd-453a-4b18-90cf-8246b4fc851e
+Result: SUCCESS
+
+User External ID: user-zr-t52xtxb
+
+Step 3: Broadcast Creation
+---------------------------
+Created broadcast via MagicBell CLI.
+Title: Broadcast to zr-t52xtxb
+Content: This is a test notification for run zr-t52xtxb.
+Recipient external_id: user-zr-t52xtxb
+Broadcast Status: processed
+Total Recipients: 1
+Failures: 0
+Result: SUCCESS
+
+Broadcast ID: 019e7c4e-8825-78be-9f2d-10880e40747e
+
+Step 4: Email Verification
+---------------------------
+Verified email delivery via Gmail API.
+Search query: subject:Broadcast to zr-t52xtxb
+Email found: YES
+
+Email Subject: Broadcast to zr-t52xtxb
+
+Summary
+-------
+All steps completed successfully.
+- User created with external_id: user-zr-t52xtxb
+- Broadcast created and processed with ID: 019e7c4e-8825-78be-9f2d-10880e40747e
+- Email delivery verified with subject: Broadcast to zr-t52xtxb

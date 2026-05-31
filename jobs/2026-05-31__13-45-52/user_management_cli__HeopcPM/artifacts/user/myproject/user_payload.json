@@ -1,0 +1,12 @@
+{
+  "user": {
+    "external_id": "user-${ZEALT_RUN_ID}",
+    "email": "user-${ZEALT_RUN_ID}@example.com",
+    "first_name": "John-${ZEALT_RUN_ID}",
+    "last_name": "Doe-${ZEALT_RUN_ID}",
+    "custom_attributes": {
+      "role": "admin",
+      "run_id": "${ZEALT_RUN_ID}"
+    }
+  }
+}

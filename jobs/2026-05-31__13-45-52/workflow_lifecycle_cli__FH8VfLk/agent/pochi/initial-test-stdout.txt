@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+bootstrap/test_initial_state.py::test_magicbell_cli_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_environment_variables_exist FAILED
+
+=================================== FAILURES ===================================
+_______________________ test_environment_variables_exist _______________________
+
+    def test_environment_variables_exist():
+        """Verify that the required MagicBell and Gmail environment variables are set."""
+        required_vars = [
+            "MAGICBELL_EMAIL",
+            "MAGICBELL_PROJECT_TOKEN",
+            "MAGICBELL_API_KEY",
+            "MAGICBELL_SECRET_KEY",
+            "GMAIL_USER_NAME",
+            "GMAIL_TOKEN_JSON"
+        ]
+        for var in required_vars:
+>           assert var in os.environ, f"Environment variable {var} is not set."
+E           AssertionError: Environment variable GMAIL_TOKEN_JSON is not set.
+E           assert 'GMAIL_TOKEN_JSON' in environ({'MAGICBELL_EMAIL': 'zhiming@tabbyml.com', 'HOSTNAME': '9357ddb7fab1', 'POCHI_LOG': 'debug', 'MAGICBELL_API_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'PWD': '/', 'HOME': '/root', 'SHLVL': '1', 'GMAIL_USER_NAME': 'codes.icy', 'POCHI_API_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'MAGICBELL_PROJECT_TOKEN': '(*****SECRET_LEAK_DETECTED*****)', 'ZEALT_RUN_ID': 'zr-fh8vflk', 'MAGICBELL_SECRET_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/usr/bin/pytest', 'LC_CTYPE': 'C.UTF-8', 'PYTEST_CURRENT_TEST': 'test_initial_state.py::test_environment_variables_exist (call)'})
+E            +  where environ({'MAGICBELL_EMAIL': 'zhiming@tabbyml.com', 'HOSTNAME': '9357ddb7fab1', 'POCHI_LOG': 'debug', 'MAGICBELL_API_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'PWD': '/', 'HOME': '/root', 'SHLVL': '1', 'GMAIL_USER_NAME': 'codes.icy', 'POCHI_API_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'MAGICBELL_PROJECT_TOKEN': '(*****SECRET_LEAK_DETECTED*****)', 'ZEALT_RUN_ID': 'zr-fh8vflk', 'MAGICBELL_SECRET_KEY': '(*****SECRET_LEAK_DETECTED*****)', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/usr/bin/pytest', 'LC_CTYPE': 'C.UTF-8', 'PYTEST_CURRENT_TEST': 'test_initial_state.py::test_environment_variables_exist (call)'}) = os.environ
+
+bootstrap/test_initial_state.py:26: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_environment_variables_exist - As...
+========================= 1 failed, 2 passed in 0.03s ==========================

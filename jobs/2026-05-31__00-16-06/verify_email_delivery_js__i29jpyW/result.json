@@ -1,0 +1,115 @@
+{
+    "id": "dfd459c6-8f91-4c57-aaec-70ea84c3dee6",
+    "task_name": "verify_email_delivery_js",
+    "trial_name": "verify_email_delivery_js__i29jpyW",
+    "trial_uri": "file:///home/icy/github/benchmark-run/jobs/2026-05-31__00-16-06/verify_email_delivery_js__i29jpyW",
+    "task_id": {
+        "path": "/home/icy/github/benchmark-run/local-scripts/../tasks/verify_email_delivery_js"
+    },
+    "source": "tasks",
+    "task_checksum": "0d5579d98da8e1599b91b3d7bf107b2b535d7541384126d8fe1082415923683e",
+    "config": {
+        "task": {
+            "path": "/home/icy/github/benchmark-run/local-scripts/../tasks/verify_email_delivery_js",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "verify_email_delivery_js__i29jpyW",
+        "trials_dir": "/home/icy/github/benchmark-run/local-scripts/../jobs/2026-05-31__00-16-06",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "zai/glm-5.1",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "befb06d6-6569-4568-9cc0-c42bf3ebc72f"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "glm-5.1",
+            "provider": "zai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 28987,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-30T16:23:30.886852Z",
+    "finished_at": "2026-05-30T16:28:49.474317Z",
+    "environment_setup": {
+        "started_at": "2026-05-30T16:23:30.982796Z",
+        "finished_at": "2026-05-30T16:24:33.914832Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-30T16:24:33.914881Z",
+        "finished_at": "2026-05-30T16:24:56.189012Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-30T16:24:56.189080Z",
+        "finished_at": "2026-05-30T16:28:17.056318Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-30T16:28:20.142382Z",
+        "finished_at": "2026-05-30T16:28:22.102463Z"
+    },
+    "step_results": null
+}

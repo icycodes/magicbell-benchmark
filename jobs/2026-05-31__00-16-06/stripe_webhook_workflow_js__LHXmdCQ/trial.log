@@ -1,0 +1,123 @@
+Skipping image OS validation for hb__stripe_webhook_workflow_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-lhxmdcq > /logs/artifacts/run-id && echo stripe_webhook_workflow_js__LHXmdCQ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Stripe Webhook MagicBell Integration
+
+## Background
+In modern SaaS applications, notifications are often triggered by third-party webhook events. For example, when a customer successfully pays an invoice via Stripe, you want to immediately send them an in-app and email notification confirming the payment.
+
+In this task, you will build a Node.js Express server that acts as a webhook receiver for Stripe events. Upon receiving a `charge.succeeded` event, the server will parse the payload and use MagicBell's server-side SDK (`magicbell-js` ProjectClient) to broadcast a real-time notification to the customer.
+
+## Requirements
+- Create an Express.js server listening on port `3000`.
+- Implement a `POST /webhook` endpoint that accepts Stripe webhook JSON payloads.
+- The endpoint must handle the `charge.succeeded` event, which has the following structure:
+  ```json
+  {
+    "type": "charge.succeeded",
+    "data": {
+      "object": {
+        "id": "ch_12345",
+        "amount": 4900,
+        "receipt_email": "customer@example.com"
+      }
+    }
+  }
+  ```
+- When a `charge.succeeded` event is received, your server must:
+  1. Extract the `id` (charge ID), `amount` (in cents), and `receipt_email` (customer email).
+  2. Convert the amount from cents to dollars formatted with two decimal places (e.g. `4900` cents becomes `49.00`).
+  3. Use the `magicbell-js` ProjectClient (authenticated via `MAGICBELL_PROJECT_TOKEN`) to broadcast a notification to the customer's email.
+  4. The broadcast notification must have:
+     - **Title**: `Payment Succeeded - <charge_id>` (e.g. `Payment Succeeded - ch_12345`)
+     - **Content**: `Thank you for your payment of $<amount_in_dollars>. Your charge ID is <charge_id>.` (e.g. `Thank you for your payment of $49.00. Your charge ID is ch_12345.`)
+     - **Recipients**: The customer's email address (e.g. `customer@example.com`)
+  5. Respond to the Stripe webhook request with status `200 OK` and a JSON body:
+     ```json
+     {
+       "status": "success",
+       "broadcast_id": "<magicbell_broadcast_id>"
+     }
+     ```
+- If an unsupported event type is received, or the payload is invalid, return status `400 Bad Request` with an appropriate error message.
+
+## Implementation Hints
+- Use `express` to build the HTTP server and configure it to parse JSON request bodies.
+- Use the official server-side SDK `magicbell-js` and initialize the `Client` from `magicbell-js/project-client` using the `MAGICBELL_PROJECT_TOKEN` environment variable.
+- Make sure the server runs non-interactively and starts correctly with the start command.
+- Do not hardcode any sensitive credentials; use the environment variables provided (`MAGICBELL_PROJECT_TOKEN`, etc.).
+
+## Acceptance Criteria
+- Project path: `/home/user/stripe-webhook-app`
+- Start command: `node server.js`
+- Port: `3000`
+- API Endpoints:
+  - `POST /webhook`: Accepts Stripe event payloads and triggers MagicBell broadcasts for `charge.succeeded` events.
+    - **Expected Request Body**:
+      ```json
+      {
+        "type": "charge.succeeded",
+        "data": {
+          "object": {
+            "id": "ch_12345",
+            "amount": 4900,
+            "receipt_email": "customer@example.com"
+          }
+        }
+      }
+      ```
+    - **Expected Response (Status 200)**:
+      ```json
+      {
+        "status": "success",
+        "broadcast_id": "<string>"
+      }
+      ```
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

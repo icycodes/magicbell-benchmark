@@ -1,0 +1,110 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py FFFFF                                          [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_log_file_exists _____________________________
+
+    def test_log_file_exists():
+        """Verify that the log file exists."""
+>       assert os.path.isfile(LOG_FILE), f"Log file does not exist at {LOG_FILE}"
+E       AssertionError: Log file does not exist at /home/user/magicbell-topic-broadcast/output.log
+E       assert False
+E        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')
+E        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:47: AssertionError
+____________________________ test_log_file_contents ____________________________
+
+    def test_log_file_contents():
+        """Verify that the log file contains all required lines with correct values."""
+        run_id = get_run_id()
+>       log_data = parse_log()
+
+tests/test_final_state.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def parse_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file not found at {LOG_FILE}"
+E       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log
+E       assert False
+E        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')
+E        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:25: AssertionError
+__________________________ test_jwt_payload_contents ___________________________
+
+    def test_jwt_payload_contents():
+        """Verify the User JWT payload structure and values."""
+        run_id = get_run_id()
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        assert api_key is not None, "MAGICBELL_API_KEY environment variable is not set."
+    
+>       log_data = parse_log()
+
+tests/test_final_state.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def parse_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file not found at {LOG_FILE}"
+E       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log
+E       assert False
+E        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')
+E        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:25: AssertionError
+________________________ test_magicbell_broadcast_state ________________________
+
+    def test_magicbell_broadcast_state():
+        """Verify that the broadcast was successfully created with the correct topic and recipients."""
+        run_id = get_run_id()
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token is not None, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+>       log_data = parse_log()
+
+tests/test_final_state.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def parse_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file not found at {LOG_FILE}"
+E       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log
+E       assert False
+E        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')
+E        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:25: AssertionError
+____________________ test_magicbell_user_notification_state ____________________
+
+    def test_magicbell_user_notification_state():
+        """Verify that the notification is present in the user's notification list."""
+        run_id = get_run_id()
+>       log_data = parse_log()
+
+tests/test_final_state.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def parse_log():
+>       assert os.path.isfile(LOG_FILE), f"Log file not found at {LOG_FILE}"
+E       AssertionError: Log file not found at /home/user/magicbell-topic-broadcast/output.log
+E       assert False
+E        +  where False = <function isfile at 0x79c611368220>('/home/user/magicbell-topic-broadcast/output.log')
+E        +    where <function isfile at 0x79c611368220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:25: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_log_file_exists - AssertionError: Log ...
+FAILED tests/test_final_state.py::test_log_file_contents - AssertionError: Lo...
+FAILED tests/test_final_state.py::test_jwt_payload_contents - AssertionError:...
+FAILED tests/test_final_state.py::test_magicbell_broadcast_state - AssertionE...
+FAILED tests/test_final_state.py::test_magicbell_user_notification_state - As...
+============================== 5 failed in 0.13s ===============================

@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ...                                            [100%]
+
+==================================== PASSES ====================================
+____________________________ test_log_file_contents ____________________________
+----------------------------- Captured stdout call -----------------------------
+Found Broadcast ID: 019e79b6-4a2e-7f52-a60c-9bf2a74d362e
+___________________________ test_gmail_real_delivery ___________________________
+----------------------------- Captured stdout call -----------------------------
+Searching Gmail with query: to:codes.icy+zr-i29jpyw@gmail.com subject:"Security Alert: Login from New Device [zr-i29jpyw]"
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+PASSED tests/test_final_state.py::test_log_file_contents
+PASSED tests/test_final_state.py::test_gmail_real_delivery
+============================== 3 passed in 1.26s ===============================

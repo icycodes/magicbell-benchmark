@@ -1,0 +1,12 @@
+{
+  "task": [
+    "GITHUB_WEBHOOK_SECRET",
+    "MAGICBELL_PROJECT_TOKEN",
+    "MAGICBELL_EMAIL"
+  ],
+  "verifier": [
+    "GITHUB_WEBHOOK_SECRET",
+    "MAGICBELL_PROJECT_TOKEN",
+    "MAGICBELL_EMAIL"
+  ]
+}

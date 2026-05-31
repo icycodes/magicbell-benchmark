@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780162732962,
+            "stop": 1780162734394
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_component_file_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1780162732970,
+                "stop": 1780162732970,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jest_suite_passes",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1423,
+                "start": 1780162732971,
+                "stop": 1780162734394,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_jest_suite_passes():\n        \"\"\"Run the Jest test suite to verify component props, stores, and tabs configuration.\"\"\"\n        result = subprocess.run(\n            [\"npx\", \"jest\", \"verify.test.js\", \"--no-cache\"],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR\n        )\n>       assert result.returncode == 0, (\n            f\"Jest test suite failed.\\n\"\n            f\"STDOUT:\\n{result.stdout}\\n\"\n            f\"STDERR:\\n{result.stderr}\"\n        )\nE       AssertionError: Jest test suite failed.\nE         STDOUT:\nE         \nE         STDERR:\nE         FAIL ./verify.test.js\nE           \u25cf Test suite failed to run\nE         \nE             ReferenceError: /home/user/myproject/verify.test.js: The module factory of `jest.mock()` is not allowed to reference any out-of-scope variables.\nE             Invalid variable access: React\nE             Allowed objects: AbortController, AbortSignal, AggregateError, Array, ArrayBuffer, AsyncDisposableStack, Atomics, BigInt, BigInt64Array, BigUint64Array, Blob, Boolean, BroadcastChannel, Buffer, ByteLengthQueuingStrategy, CloseEvent, CompressionStream, CountQueuingStrategy, Crypto, CryptoKey, CustomEvent, DOMException, DataView, Date, DecompressionStream, DisposableStack, Error, EvalError, Event, EventTarget, File, FinalizationRegistry, Float16Array, Float32Array, Float64Array, FormData, Function, Generator, GeneratorFunction, Headers, Infinity, Int16Array, Int32Array, Int8Array, InternalError, Intl, Iterator, JSON, Map, Math, MessageChannel, MessageEvent, MessagePort, NaN, Navigator, Number, Object, Performance, PerformanceEntry, PerformanceMark, PerformanceMeasure, PerformanceObserver, PerformanceObserverEntryList, PerformanceResourceTiming, Promise, Proxy, RangeError, ReadableByteStreamController, ReadableStream, ReadableStreamBYOBReader, ReadableStreamBYOBRequest, ReadableStreamDefaultController, ReadableStreamDefaultReader, ReferenceError, Reflect, RegExp, Request, Response, Set, SharedArrayBuffer, String, SubtleCrypto, SuppressedError, Symbol, SyntaxError, TextDecoder, TextDecoderStream, TextEncoder, TextEncoderStream, TransformStream, TransformStreamDefaultController, TypeError, URIError, URL, URLPattern, URLSearchParams, Uint16Array, Uint32Array, Uint8Array, Uint8ClampedArray, WeakMap, WeakRef, WeakSet, WebAssembly, WebSocket, WritableStream, WritableStreamDefaultController, WritableStreamDefaultWriter, __dirname, __filename, arguments, atob, btoa, clearImmediate, clearInterval, clearTimeout, console, crypto, decodeURI, decodeURIComponent, encodeURI, encodeURIComponent, escape, eval, expect, exports, fetch, global, globalThis, isFinite, isNaN, jest, module, navigator, parseFloat, parseInt, performance, process, queueMicrotask, require, setImmediate, setInterval, setTimeout, structuredClone, undefined, unescape.\nE             Note: This is a precaution to guard against uninitialized mock variables. If it is ensured that the mock is required lazily, variable names prefixed with `mock` (case insensitive) are permitted.\nE         \nE               12 |         isOpen: true,\nE               13 |         toggle: () => {},\nE             > 14 |         launcherRef: React.createRef(),\nE                  |                      ^^^^^\nE               15 |       });\nE               16 |     }\nE               17 |     return props.children;\nE         \nE               at File.buildCodeFrameError (node_modules/@babel/core/src/transformation/file/file.ts:251:12)\nE               at NodePath.buildError [as buildCodeFrameError] (node_modules/@babel/traverse/src/path/index.ts:161:21)\nE               at call (node_modules/@babel/traverse/src/visitors.ts:299:14)\nE               at NodePath.call [as _call] (node_modules/@babel/traverse/src/path/context.ts:36:20)\nE               at NodePath.call (node_modules/@babel/traverse/src/path/context.ts:21:18)\nE               at NodePath.call [as visit] (node_modules/@babel/traverse/src/path/context.ts:97:31)\nE               at TraversalContext.visit [as visitQueue] (node_modules/@babel/traverse/src/context.ts:161:16)\nE               at TraversalContext.visitQueue [as visitMultiple] (node_modules/@babel/traverse/src/context.ts:109:17)\nE               at TraversalContext.visitMultiple [as visit] (node_modules/@babel/traverse/src/context.ts:192:19)\nE               at visit (node_modules/@babel/traverse/src/traverse-node.ts:208:17)\nE               at NodePath.visit (node_modules/@babel/traverse/src/path/context.ts:104:33)\nE               at TraversalContext.visit [as visitQueue] (node_modules/@babel/traverse/src/context.ts:161:16)\nE               at TraversalContext.visitQueue [as visitSingle] (node_modules/@babel/traverse/src/context.ts:119:19)\nE               at TraversalContext.visitSingle [as visit] (node_modules/@babel/traverse/src/context.ts:194:19)\nE               at visit (node_modules/@babel/traverse/src/traverse-node.ts:208:17)\nE               at traverse (node_modules/@babel/traverse/src/index.ts:84:15)\nE               at transformFile (node_modules/@babel/core/src/transformation/index.ts:120:15)\nE                   at transformFile.next (<anonymous>)\nE               at transformFile (node_modules/@babel/core/src/transformation/index.ts:50:12)\nE                   at run.next (<anonymous>)\nE               at transform (node_modules/@babel/core/src/transform.ts:29:20)\nE                   at transform.next (<anonymous>)\nE               at evaluateSync (node_modules/gensync/index.js:251:28)\nE               at sync (node_modules/gensync/index.js:89:14)\nE               at fn (node_modules/@babel/core/src/errors/rewrite-stack-trace.ts:99:14)\nE               at transformSync (node_modules/@babel/core/src/transform.ts:66:52)\nE               at ScriptTransformer.transformSource (node_modules/@jest/transform/build/ScriptTransformer.js:545:31)\nE               at ScriptTransformer._transformAndBuildScript (node_modules/@jest/transform/build/ScriptTransformer.js:674:40)\nE               at ScriptTransformer.transform (node_modules/@jest/transform/build/ScriptTransformer.js:726:19)\nE         \nE         Test Suites: 1 failed, 1 total\nE         Tests:       0 total\nE         Snapshots:   0 total\nE         Time:        0.701 s\nE         Ran all test suites matching /verify.test.js/i.\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['npx', 'jest', 'verify.test.js', '--no-cache'], returncode=1, stdout='', stderr='FAIL ./verify....\\nTests:       0 total\\nSnapshots:   0 total\\nTime:        0.701 s\\nRan all test suites matching /verify.test.js/i.\\n').returncode\n\ntests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

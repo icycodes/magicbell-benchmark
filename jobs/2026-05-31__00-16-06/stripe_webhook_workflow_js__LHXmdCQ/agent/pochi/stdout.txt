@@ -1,0 +1,104 @@
+- Initializing MCP connections...
+You
+# Stripe Webhook MagicBell Integration ## Background In modern SaaS applications, notifications are often triggered by third-party webhook events. For example, when a customer successfully pays an invoice via Stripe, you want to immediately send them an in-app and email notification confirming the payment. In this task, you will build a Node.js Express server that acts as a webhook receiver for Stripe events. Upon receiving a `charge.succeeded` event, the server will parse the payload and use MagicBell's server-side SDK (`magicbell-js` ProjectClient) to broadcast a real-time notification to the customer. ## Requirements - Create an Express.js server listening on port `3000`. - Implement a `POST /webhook` endpoint that accepts Stripe webhook JSON payloads. - The endpoint must handle the `charge.succeeded` event, which has the following structure: ```json { "type": "charge.succeeded", "data": { "object": { "id": "ch_12345", "amount": 4900, "receipt_email": "customer@example.com" } } } ``` - When a `charge.succeeded` event is received, your server must: 1. Extract the `id` (charge ID), `amount` (in cents), and `receipt_email` (customer email). 2. Convert the amount from cents to dollars formatted with two decimal places (e.g. `4900` cents becomes `49.00`). 3. Use the `magicbell-js` ProjectClient (authenticated via `MAGICBELL_PROJECT_TOKEN`) to broadcast a notification to the customer's email. 4. The broadcast notification must have: - **Title**: `Payment Succeeded - <charge_id>` (e.g. `Payment Succeeded - ch_12345`) - **Content**: `Thank you for your payment of $<amount_in_dollars>. Your charge ID is <charge_id>.` (e.g. `Thank you for your payment of $49.00. Your charge ID is ch_12345.`) - **Recipients**: The customer's email address (e.g. `customer@example.com`) 5. Respond to the Stripe webhook request with status `200 OK` and a JSON body: ```json { "status": "success", "broadcast_id": "<magicbell_broadcast_id>" } ``` - If an unsupported event type is received, or the payload is invalid, return status `400 Bad Request` with an appropriate error message. ## Implementation Hints - Use `express` to build the HTTP server and configure it to parse JSON request bodies. - Use the official server-side SDK `magicbell-js` and initialize the `Client` from `magicbell-js/project-client` using the `MAGICBELL_PROJECT_TOKEN` environment variable. - Make sure the server runs non-interactively and starts correctly with the start command. - Do not hardcode any sensitive credentials; use the environment variables provided (`MAGICBELL_PROJECT_TOKEN`, etc.). ## Acceptance Criteria - Project path: `/home/user/stripe-webhook-app` - Start command: `node server.js` - Port: `3000` - API Endpoints: - `POST /webhook`: Accepts Stripe event payloads and triggers MagicBell broadcasts for `charge.succeeded` events. - **Expected Request Body**: ```json { "type": "charge.succeeded", "data": { "object": { "id": "ch_12345", "amount": 4900, "receipt_email": "customer@example.com" } } } ``` - **Expected Response (Status 200)**: ```json { "status": "success", "broadcast_id": "<string>" } ```   
+
+Pochi
+💭 Thinking for 382 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 59 characters   
+💫 Executing mkdir -p /home/user/stripe-webhook-app ✔ 
+💭 Thinking for 89 characters   
+💫 Executing cd /home/user/stripe-webhook-app && npm init -y ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/stripe-webhook-app && npm install express magicbell-js ✔ 
+💭 Thinking for 110 characters   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing ls /home/user/stripe-webhook-app/node_modules/magicbell-js/ ✔ 
+💫 Executing ls /home/user/stripe-webhook-app/node_modules/magicbell-js/project-client/ ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/project-client/package.json ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client.d.ts ✔ 
+💫 Executing ls /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/ ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/index.d.ts ✔ 
+💫 Executing ls /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/ ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.d.ts ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💭 Thinking for 299 characters   
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/index.js ✔ 
+💭 Thinking for 113 characters   
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts ✔ 
+💭 Thinking for 301 characters   
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.js ✔ 
+💭 Thinking for 431 characters   
+🔍 Searching for broadcastRequest in /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts ✔ 
+📖 Reading /home/user/stripe-webhook-app/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.js ✔ 
+💭 Thinking for 341 characters   
+Now I have a thorough understanding of the MagicBell SDK API. Let me create the server.   
+✏️  Writing /home/user/stripe-webhook-app/server.js ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/stripe-webhook-app && MAGICBELL_PROJECT_TOKEN=test_token node -e "require('./server.js'); setTimeout(() => { console.log('Server started successfully'); process.exit(0); }, 1000);" ✖ "Command exited with code 1"
+💭 Thinking for 68 characters   
+💫 Executing cd /home/user/stripe-webhook-app && npm install tslib ✔ 
+💫 Executing cd /home/user/stripe-webhook-app && MAGICBELL_PROJECT_TOKEN=test_token timeout 3 node server.js || true ✔ 
+💭 Thinking for 95 characters   
+The server starts successfully. Let me test the webhook endpoint:   
+💫 Executing cd /home/user/stripe-webhook-app && MAGICBELL_PROJECT_TOKEN=test_token node server.js &
+sleep 1
+
+# Test with invalid payload (missing type)
+curl -s -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{}' | head -20
+
+echo "---"
+
+# Test with unsupported event type
+curl -s -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{"type":"charge.failed","data":{"object":{}}}' | head -20
+
+echo "---"
+
+# Test with missing required fields
+curl -s -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{"type":"charge.succeeded","data":{"object":{}}}' | head -20
+
+# Kill the background server
+kill %1 2>/dev/null || true ✔ 
+All error cases work correctly. Let me also verify the 400 status codes are beingreturned:   
+💫 Executing cd /home/user/stripe-webhook-app && MAGICBELL_PROJECT_TOKEN=test_token node server.js &
+sleep 1
+
+# Test invalid payload - should be 400
+curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{}'
+echo ""
+
+# Test unsupported event - should be 400
+curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{"type":"charge.failed","data":{"object":{}}}'
+echo ""
+
+# Test missing fields - should be 400
+curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:3000/webhook -H 'Content-Type: application/json' -d '{"type":"charge.succeeded","data":{"object":{}}}'
+echo ""
+
+kill %1 2>/dev/null || true ✔ 
+All three error cases return HTTP 400 as expected. The EADDRINUSE error is just from the second server instance trying to start on the same port — not an issue with the code itself. Let me also verify the `package.json` has the correct start command:   
+📖 Reading /home/user/stripe-webhook-app/package.json ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The Stripe webhook MagicBell integration has been implemented at `/home/user/stripe-webhook-app`.
+
+**Project structure:**
+- `server.js` — Express server with `POST /webhook` endpoint
+- `package.json` — Node.js project with `express` and `magicbell-js` dependencies
+
+**How it works:**
+
+1. **Server** listens on port 3000, started via `node server.js`
+2. **`POST /webhook`** endpoint accepts Stripe event JSON payloads
+3. For `charge.succeeded` events:
+   - Extracts `id`, `amount` (cents), and `receipt_email` from `data.object`
+   - Converts amount from cents to dollars with 2 decimal places (e.g., `4900` → `49.00`)
+   - Creates a MagicBell broadcast via `ProjectClient.broadcasts.createBroadcast()` with:
+     - **Title**: `Payment Succeeded - <charge_id>`
+     - **Content**: `Thank you for your payment of $<amount_in_dollars>. Your charge ID is <charge_id>.`
+     - **Recipients**: `[{ email: receiptEmail }]`
+   - Returns `200` with `{ "status": "success", "broadcast_id": "<id>" }`
+4. For invalid payloads or unsupported event types, returns `400` with an appropriate error message
+
+**Configuration:** Set `MAGICBELL_PROJECT_TOKEN` environment variable for MagicBell authentication.   
+  

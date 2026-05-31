@@ -1,0 +1,120 @@
+Skipping image OS validation for hb__broadcast_to_topic_subscribers_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-2abtrlw > /logs/artifacts/run-id && echo broadcast_to_topic_subscribers_j__2ABTRLW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Broadcast to Topic Subscribers in Node.js
+
+## Background
+MagicBell allows grouping notifications using **Topics** and managing user subscriptions to these topics. This is useful for sending notifications to all users interested in a specific entity (such as a project, a repository, or a category of announcements).
+
+In this task, you will implement a Node.js script that creates a user, generates a secure User JWT, subscribes the user to a unique topic, and then sends a notification broadcast targeting all subscribers of that topic.
+
+## Requirements
+1. Create a script at `/home/user/magicbell-topic-broadcast/index.js`.
+2. The script must read the following environment variables:
+   - `MAGICBELL_API_KEY`
+   - `MAGICBELL_SECRET_KEY`
+   - `MAGICBELL_PROJECT_TOKEN`
+   - `ZEALT_RUN_ID` (to be used as `run-id`)
+3. Create a new user with:
+   - `external_id`: `user-${run-id}`
+   - `email`: `user+${run-id}@gmail.com`
+   - `first_name`: `Test`
+   - `last_name`: `User`
+   - You can use either the `magicbell-js` ProjectClient or a direct REST API call (`POST https://api.magicbell.com/v2/users`).
+4. Programmatically generate a secure **User JWT** for this user:
+   - Sign the JWT using the `HS256` algorithm.
+   - Sign it with your project's `MAGICBELL_SECRET_KEY`.
+   - The payload must contain:
+     ```json
+     {
+       "user_email": "user+<run-id>@gmail.com",
+       "user_external_id": "user-<run-id>",
+       "api_key": "<MAGICBELL_API_KEY>"
+     }
+     ```
+5. Subscribe the user to a topic named `announcements-${run-id}`:
+   - Authenticate the request using the generated **User JWT** (e.g. `Authorization: Bearer <USER_JWT>`).
+   - Send a `POST` request to `https://api.magicbell.com/v2/subscriptions` with the body:
+     ```json
+     {
+       "topic": "announcements-<run-id>"
+     }
+     ```
+6. Broadcast a notification to all subscribers of the topic `announcements-${run-id}`:
+   - Authenticate the request using the `MAGICBELL_PROJECT_TOKEN` (Project JWT).
+   - Create a broadcast with:
+     - `title`: `System Update - ${run-id}`
+     - `content`: `This is a broadcast to all subscribers.`
+     - `topic`: `announcements-${run-id}`
+     - `recipients`: You **MUST** use the correct topic subscription recipients syntax (nested subscribers flag format) to target all subscribers of the topic.
+7. Verify delivery:
+   - Fetch the user's notifications using the User JWT (e.g., via `magicbell-js` UserClient or a `GET` request to `https://api.magicbell.com/v2/notifications`).
+   - Find the notification with the title `System Update - ${run-id}`.
+8. Log the progress and outputs to `/home/user/magicbell-topic-broadcast/output.log` in the exact format shown in the Acceptance Criteria.
+
+## Implementation Hints
+- To sign the User JWT, you can use the `jsonwebtoken` library. Install it using `npm install jsonwebtoken`.
+- For the broadcast recipients, remember that passing raw topic keys directly in the recipients list will fail. To target all subscribers of a specific topic, you must use the nested subscribers flag format: `"recipients": [ { "topic": { "subscribers": true } } ]` and specify the `topic` field at the top level of your broadcast payload.
+- Handle any asynchronous operations using `async/await` and perform robust error logging.
+
+## Acceptance Criteria
+- Project path: `/home/user/magicbell-topic-broadcast`
+- Entrypoint command: `node index.js`
+- Log file: `/home/user/magicbell-topic-broadcast/output.log`
+- The log file must contain the following lines exactly (with the actual values populated):
+  ```
+  User Created: user+<run-id>@gmail.com
+  User JWT Generated: <jwt-token>
+  Subscribed to Topic: announcements-<run-id>
+  Broadcast Sent ID: <broadcast-id>
+  Notification Received Title: System Update - <run-id>
+  ```
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

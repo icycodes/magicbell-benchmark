@@ -1,0 +1,23 @@
+- Initializing MCP connections...
+You
+# Stripe Webhook MagicBell Integration ## Background In modern SaaS applications, notifications are often triggered by third-party webhook events. For example, when a customer successfully pays an invoice via Stripe, you want to immediately send them an in-app and email notification confirming the payment. In this task, you will build a Node.js Express server that acts as a webhook receiver for Stripe events. Upon receiving a `charge.succeeded` event, the server will parse the payload and use MagicBell's server-side SDK (`magicbell-js` ProjectClient) to broadcast a real-time notification to the customer. ## Requirements - Create an Express.js server listening on port `3000`. - Implement a `POST /webhook` endpoint that accepts Stripe webhook JSON payloads. - The endpoint must handle the `charge.succeeded` event, which has the following structure: ```json { "type": "charge.succeeded", "data": { "object": { "id": "ch_12345", "amount": 4900, "receipt_email": "customer@example.com" } } } ``` - When a `charge.succeeded` event is received, your server must: 1. Extract the `id` (charge ID), `amount` (in cents), and `receipt_email` (customer email). 2. Convert the amount from cents to dollars formatted with two decimal places (e.g. `4900` cents becomes `49.00`). 3. Use the `magicbell-js` ProjectClient (authenticated via `MAGICBELL_PROJECT_TOKEN`) to broadcast a notification to the customer's email. 4. The broadcast notification must have: - **Title**: `Payment Succeeded - <charge_id>` (e.g. `Payment Succeeded - ch_12345`) - **Content**: `Thank you for your payment of $<amount_in_dollars>. Your charge ID is <charge_id>.` (e.g. `Thank you for your payment of $49.00. Your charge ID is ch_12345.`) - **Recipients**: The customer's email address (e.g. `customer@example.com`) 5. Respond to the Stripe webhook request with status `200 OK` and a JSON body: ```json { "status": "success", "broadcast_id": "<magicbell_broadcast_id>" } ``` - If an unsupported event type is received, or the payload is invalid, return status `400 Bad Request` with an appropriate error message. ## Implementation Hints - Use `express` to build the HTTP server and configure it to parse JSON request bodies. - Use the official server-side SDK `magicbell-js` and initialize the `Client` from `magicbell-js/project-client` using the `MAGICBELL_PROJECT_TOKEN` environment variable. - Make sure the server runs non-interactively and starts correctly with the start command. - Do not hardcode any sensitive credentials; use the environment variables provided (`MAGICBELL_PROJECT_TOKEN`, etc.). ## Acceptance Criteria - Project path: `/home/user/stripe-webhook-app` - Start command: `node server.js` - Port: `3000` - API Endpoints: - `POST /webhook`: Accepts Stripe event payloads and triggers MagicBell broadcasts for `charge.succeeded` events. - **Expected Request Body**: ```json { "type": "charge.succeeded", "data": { "object": { "id": "ch_12345", "amount": 4900, "receipt_email": "customer@example.com" } } } ``` - **Expected Response (Status 200)**: ```json { "status": "success", "broadcast_id": "<string>" } ```   
+
+Pochi
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/stripe-webhook-app ✔ 
+💭 Thinking for 0 characters   
+📖 Reading /home/user/stripe-webhook-app/package.json ✔ 
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/stripe-webhook-app ✔ 
+💭 Thinking for 121 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 0 characters   
+✏️  Writing /home/user/stripe-webhook-app/server.js ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 0 characters   
+🎉 Task Completed
+Implemented /home/user/stripe-webhook-app/server.js with an Express server on port 3000 that validates Stripe webhook payloads, handles charge.succeeded events, formats the amount, and broadcasts notifications through MagicBell using MAGICBELL_PROJECT_TOKEN. Unsupported or invalid payloads return 400, and successful broadcasts return the broadcast_id.
+
+Start with: node server.js (ensure MAGICBELL_PROJECT_TOKEN is set).   
+  

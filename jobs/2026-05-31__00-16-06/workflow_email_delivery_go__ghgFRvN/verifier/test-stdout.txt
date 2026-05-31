@@ -1,0 +1,87 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py FFFF                                           [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_output_log_exists ____________________________
+
+    def test_output_log_exists():
+        """Verify that the output log file exists."""
+>       assert os.path.isfile(LOG_FILE), f"Output log file {LOG_FILE} does not exist."
+E       AssertionError: Output log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7168e0b14220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7168e0b14220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:15: AssertionError
+_________________________ test_workflow_run_id_in_log __________________________
+
+    def test_workflow_run_id_in_log():
+        """Verify that the workflow run ID is printed in the log."""
+>       with open(LOG_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'
+
+tests/test_final_state.py:19: FileNotFoundError
+_____________________ test_magicbell_workflow_run_success ______________________
+
+    def test_magicbell_workflow_run_success():
+        """Verify the workflow run status via MagicBell API."""
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        zealt_run_id = os.environ.get("ZEALT_RUN_ID")
+        assert zealt_run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+>       with open(LOG_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'
+
+tests/test_final_state.py:35: FileNotFoundError
+_____________________________ test_gmail_delivery ______________________________
+
+    def test_gmail_delivery():
+        """Verify that the email notification was successfully delivered to Gmail."""
+        gmail_username = os.environ.get("GMAIL_USER_NAME")
+        gmail_token_json = os.environ.get("GMAIL_TOKEN_JSON")
+        zealt_run_id = os.environ.get("ZEALT_RUN_ID")
+    
+        assert gmail_username, "GMAIL_USER_NAME environment variable is not set."
+        assert gmail_token_json, "GMAIL_TOKEN_JSON environment variable is not set."
+        assert zealt_run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        token_info = json.loads(gmail_token_json)
+        creds = Credentials.from_authorized_user_info(token_info, ["https://www.googleapis.com/auth/gmail.readonly"])
+        service = build("gmail", "v1", credentials=creds)
+    
+        target_email = f"{gmail_username}+{zealt_run_id}@gmail.com"
+        subject_query = f"Order Notification - {zealt_run_id}"
+        query = f"to:{target_email} subject:\"{subject_query}\""
+    
+        # Wait up to 30 seconds for the email to arrive in Gmail
+        messages = []
+        for _ in range(10):
+            response = service.users().messages().list(
+                userId="me",
+                q=query,
+                maxResults=5,
+            ).execute()
+            messages = response.get("messages", [])
+            if messages:
+                break
+            time.sleep(3)
+    
+>       assert messages, f"No email found in Gmail matching query: {query}"
+E       AssertionError: No email found in Gmail matching query: to:codes.icy+zr-ghgfrvn@gmail.com subject:"Order Notification - zr-ghgfrvn"
+E       assert []
+
+tests/test_final_state.py:95: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_output_log_exists - AssertionError: Ou...
+FAILED tests/test_final_state.py::test_workflow_run_id_in_log - FileNotFoundE...
+FAILED tests/test_final_state.py::test_magicbell_workflow_run_success - FileN...
+FAILED tests/test_final_state.py::test_gmail_delivery - AssertionError: No em...
+============================== 4 failed in 34.01s ==============================

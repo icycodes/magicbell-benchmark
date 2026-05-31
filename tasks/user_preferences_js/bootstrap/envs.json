@@ -1,0 +1,10 @@
+{
+  "task": [
+    "MAGICBELL_API_KEY",
+    "MAGICBELL_SECRET_KEY"
+  ],
+  "verifier": [
+    "MAGICBELL_API_KEY",
+    "MAGICBELL_SECRET_KEY"
+  ]
+}

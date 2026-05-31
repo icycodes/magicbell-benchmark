@@ -1,0 +1,113 @@
+{
+    "id": "befb06d6-6569-4568-9cc0-c42bf3ebc72f",
+    "started_at": "2026-05-31T00:16:06.744508",
+    "updated_at": "2026-05-31T01:44:24.071727",
+    "finished_at": "2026-05-31T01:44:24.071727",
+    "n_total_trials": 30,
+    "stats": {
+        "n_completed_trials": 30,
+        "n_errored_trials": 2,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.4
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "user_jwt_notifications_go__67tD6kz",
+                            "verify_email_delivery_js__hvRv4TJ",
+                            "user_notification_flow_js__7iAorLQ",
+                            "stripe_webhook_workflow_js__LfqwxCT"
+                        ],
+                        "0.0": [
+                            "custom_inbox_tabs_react__LeKPSpT",
+                            "workflow_email_delivery_go__BUDEeDT",
+                            "workflow_lifecycle_go__9SS6NFY",
+                            "register_device_tokens_go__Jsc2tMW",
+                            "realtime_notifications_js__qBD8m38",
+                            "broadcast_to_topic_subscribers_j__EbwEipH"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.3
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "user_jwt_notifications_go__PE23yWV",
+                            "verify_email_delivery_js__UXzZzCA",
+                            "user_notification_flow_js__b8LNjFy"
+                        ],
+                        "0.0": [
+                            "custom_inbox_tabs_react__8PFgTVf",
+                            "workflow_email_delivery_go__4hXgmoA",
+                            "workflow_lifecycle_go__KeA6wGd",
+                            "register_device_tokens_go__zqZtyzN",
+                            "stripe_webhook_workflow_js__Kvj5pdd",
+                            "realtime_notifications_js__HKcax9p",
+                            "broadcast_to_topic_subscribers_j__2ABTRLW"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 10,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.4
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "user_jwt_notifications_go__aUbjGXq",
+                            "custom_inbox_tabs_react__tgFB2Yo",
+                            "verify_email_delivery_js__i29jpyW",
+                            "user_notification_flow_js__xjHjXeY"
+                        ],
+                        "0.0": [
+                            "workflow_email_delivery_go__ghgFRvN",
+                            "workflow_lifecycle_go__NPxKJEB",
+                            "register_device_tokens_go__we4b4zY",
+                            "stripe_webhook_workflow_js__LHXmdCQ",
+                            "realtime_notifications_js__GUWCG2A",
+                            "broadcast_to_topic_subscribers_j__C8ZxqFn"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "register_device_tokens_go__we4b4zY",
+                        "user_notification_flow_js__xjHjXeY"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 963488,
+        "cost_usd": null
+    }
+}

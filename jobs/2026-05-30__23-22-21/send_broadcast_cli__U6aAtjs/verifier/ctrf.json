@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780154751828,
+            "stop": 1780154757993
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists_and_contains_broadcast_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780154751958,
+                "stop": 1780154751960,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_email_received_in_gmail",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6033,
+                "start": 1780154751960,
+                "stop": 1780154757993,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_email_received_in_gmail():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id is not None, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        gmail_user = os.environ.get(\"GMAIL_USER_NAME\")\n        assert gmail_user is not None, \"GMAIL_USER_NAME environment variable is not set.\"\n    \n        target_email = f\"{gmail_user}+{run_id}@gmail.com\"\n        expected_subject = f\"Maintenance Update - {run_id}\"\n    \n        token_json = os.environ.get(\"GMAIL_TOKEN_JSON\")\n        assert token_json is not None, \"GMAIL_TOKEN_JSON environment variable is not set.\"\n    \n        token_info = json.loads(token_json)\n        creds = Credentials.from_authorized_user_info(token_info, SCOPES)\n        service = build(\"gmail\", \"v1\", credentials=creds)\n    \n        response = service.users().messages().list(\n            userId=\"me\",\n            q=f\"to:{target_email}\",\n            maxResults=10,\n        ).execute()\n    \n        messages = response.get(\"messages\", [])\n>       assert messages, f\"No emails found in Gmail inbox sent to {target_email}.\"\nE       AssertionError: No emails found in Gmail inbox sent to codes.icy+zr-u6aatjs@gmail.com.\nE       assert []\n\ntests/test_final_state.py:57: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

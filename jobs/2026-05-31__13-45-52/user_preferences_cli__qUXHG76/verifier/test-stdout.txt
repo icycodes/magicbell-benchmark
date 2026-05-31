@@ -1,0 +1,79 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_preferences_log_file_exists _______________________
+
+    def test_preferences_log_file_exists():
+        """Verify that the preferences log file exists."""
+>       assert os.path.isfile(LOG_FILE), f"Expected log file {LOG_FILE} does not exist."
+E       AssertionError: Expected log file /home/user/myproject/preferences.json does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x750686128220>('/home/user/myproject/preferences.json')
+E        +    where <function isfile at 0x750686128220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:12: AssertionError
+______________________ test_preferences_log_file_content _______________________
+
+    def test_preferences_log_file_content():
+        """Verify that the log file contains valid JSON and the correct preferences."""
+>       with open(LOG_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/preferences.json'
+
+tests/test_final_state.py:16: FileNotFoundError
+______________________ test_magicbell_server_preferences _______________________
+
+    def test_magicbell_server_preferences():
+        """Verify that the preferences are updated on the real MagicBell server."""
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        gmail_user = os.environ.get("GMAIL_USER_NAME")
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+    
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+        assert gmail_user, "GMAIL_USER_NAME environment variable is not set."
+        assert api_key, "MAGICBELL_API_KEY environment variable is not set."
+        assert secret_key, "MAGICBELL_SECRET_KEY environment variable is not set."
+    
+        user_email = f"{gmail_user}+user-{run_id}@gmail.com"
+        user_external_id = f"user-{run_id}"
+    
+        # Generate User JWT
+        user_jwt = jwt.encode(
+            {
+                "user_email": user_email,
+                "user_external_id": user_external_id,
+                "api_key": api_key,
+            },
+            secret_key,
+            algorithm="HS256"
+        )
+    
+        # Fetch from MagicBell API
+        headers = {
+            "Authorization": f"Bearer {user_jwt}",
+            "X-MAGICBELL-API-KEY": api_key,
+            "Accept": "application/json",
+        }
+    
+        # Try both v1 and v2 endpoints if needed, but v1 is standard for notification_preferences
+        url = "https://api.magicbell.com/v1/notification_preferences"
+        response = requests.get(url, headers=headers)
+    
+>       assert response.status_code == 200, f"Failed to fetch preferences from MagicBell API: {response.text}"
+E       AssertionError: Failed to fetch preferences from MagicBell API: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:88: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_preferences_log_file_exists - Assertio...
+FAILED tests/test_final_state.py::test_preferences_log_file_content - FileNot...
+FAILED tests/test_final_state.py::test_magicbell_server_preferences - Asserti...
+============================== 3 failed in 0.74s ===============================

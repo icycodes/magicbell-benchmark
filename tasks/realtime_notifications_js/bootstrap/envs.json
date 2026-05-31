@@ -1,0 +1,12 @@
+{
+  "task": [
+    "MAGICBELL_API_KEY",
+    "MAGICBELL_SECRET_KEY"
+  ],
+  "verifier": [
+    "MAGICBELL_API_KEY",
+    "MAGICBELL_PROJECT_TOKEN",
+    "GMAIL_USER_NAME",
+    "GMAIL_TOKEN_JSON"
+  ]
+}

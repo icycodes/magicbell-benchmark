@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_output_log_exists ____________________________
+
+    def test_output_log_exists():
+        """Verify that the output log file exists."""
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/myproject/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7c92452bc220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7c92452bc220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:15: AssertionError
+_____________________ test_workflow_execution_and_delivery _____________________
+
+    def test_workflow_execution_and_delivery():
+        """Verify that the workflow was created, triggered, and email was delivered."""
+        # 1. Read run-id and GMAIL_USER_NAME
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id is not None, "ZEALT_RUN_ID environment variable is not set."
+    
+        gmail_user_name = os.environ.get("GMAIL_USER_NAME")
+        assert gmail_user_name is not None, "GMAIL_USER_NAME environment variable is not set."
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token is not None, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        # 2. Parse the workflow run ID from the log
+>       with open(LOG_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/myproject/output.log'
+
+tests/test_final_state.py:30: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_output_log_exists - AssertionError: Lo...
+FAILED tests/test_final_state.py::test_workflow_execution_and_delivery - File...
+============================== 2 failed in 0.21s ===============================

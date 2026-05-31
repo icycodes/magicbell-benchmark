@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780159634394,
+            "stop": 1780159638249
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_realtime_and_email_notification",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3667,
+                "start": 1780159634582,
+                "stop": 1780159638249,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_realtime_and_email_notification(start_app):\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id is not None, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        # Trigger a broadcast notification using the MagicBell Project API\n        url = \"https://api.magicbell.com/broadcasts\"\n        headers = {\n            \"Authorization\": f\"Bearer {os.environ['MAGICBELL_PROJECT_TOKEN']}\",\n            \"X-MAGICBELL-API-KEY\": os.environ[\"MAGICBELL_API_KEY\"],\n            \"Content-Type\": \"application/json\"\n        }\n        expected_title = f\"Alert for {run_id}\"\n        expected_content = f\"This is a real-time event test for {run_id}\"\n        recipient_email = f\"receiver-{run_id}@gmail.com\"\n    \n        payload = {\n            \"title\": expected_title,\n            \"content\": expected_content,\n            \"recipients\": [{\"email\": recipient_email}]\n        }\n    \n        response = requests.post(url, headers=headers, json=payload)\n>       assert response.status_code == 201 or response.status_code == 200, \\\n            f\"Failed to trigger MagicBell broadcast: {response.status_code} - {response.text}\"\nE       AssertionError: Failed to trigger MagicBell broadcast: 422 - {\"errors\":[{\"message\":\"Param 'broadcast' is missing\"}]}\nE         \nE       assert (422 == 201 or 422 == 200)\nE        +  where 422 = <Response [422]>.status_code\nE        +  and   422 = <Response [422]>.status_code\n\ntests/test_final_state.py:107: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

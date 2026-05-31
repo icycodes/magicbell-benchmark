@@ -1,0 +1,115 @@
+{
+    "id": "9cc0847d-0006-4304-8bd1-71134e7bfc74",
+    "started_at": "2026-05-31T13:45:52.606791",
+    "updated_at": "2026-05-31T14:11:42.495677",
+    "finished_at": "2026-05-31T14:11:42.495677",
+    "n_total_trials": 18,
+    "stats": {
+        "n_completed_trials": 18,
+        "n_errored_trials": 7,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 5,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "user_preferences_cli__ubHi2fH",
+                            "user_preferences_js__yWFGcwx",
+                            "workflow_email_delivery_js__YCU9ZaR"
+                        ],
+                        "1.0": [
+                            "generate_user_jwt_js__Uy6t42A",
+                            "user_management_cli__HeopcPM"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "user_preferences_cli__ubHi2fH"
+                    ],
+                    "InitialStateError": [
+                        "workflow_lifecycle_cli__T2cnHw8"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 5,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "user_preferences_cli__QyvLeHL",
+                            "user_preferences_js__BnRFdMK",
+                            "workflow_email_delivery_js__qD6RgiE"
+                        ],
+                        "1.0": [
+                            "generate_user_jwt_js__snnQcRT",
+                            "user_management_cli__LmJ3hxn"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "user_preferences_cli__QyvLeHL"
+                    ],
+                    "InitialStateError": [
+                        "workflow_lifecycle_cli__bYmhXpF"
+                    ]
+                }
+            },
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 5,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "user_preferences_cli__qUXHG76",
+                            "user_preferences_js__RiwKncg",
+                            "workflow_email_delivery_js__7nfsvkH"
+                        ],
+                        "1.0": [
+                            "generate_user_jwt_js__dZe8kvK",
+                            "user_management_cli__BGnhVXc"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "user_preferences_cli__qUXHG76",
+                        "user_preferences_js__RiwKncg"
+                    ],
+                    "InitialStateError": [
+                        "workflow_lifecycle_cli__FH8VfLk"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 298636,
+        "cost_usd": null
+    }
+}

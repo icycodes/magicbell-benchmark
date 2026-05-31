@@ -1,0 +1,39 @@
+# Real-time Notifications with MagicBell JS
+
+## Background
+MagicBell provides real-time notification delivery through WebSocket connections. In this task, you will implement a Node.js daemon that generates a secure User JWT, connects to MagicBell's real-time service, and processes incoming notifications in real-time.
+
+## Requirements
+- Create a Node.js project at `/home/user/realtime-task`.
+- Implement a script `index.js` that:
+  - Reads the MagicBell API credentials from environment variables: `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`.
+  - Reads the unique run identifier from the `ZEALT_RUN_ID` environment variable.
+  - Generates a secure User JWT for the user `receiver-${run-id}@gmail.com` (where `run-id` is the value of `ZEALT_RUN_ID`). Use the HS256 algorithm and sign it with the project's secret key.
+  - Uses the `magicbell-js/realtime` client to connect to MagicBell's WebSocket service with the generated User JWT.
+  - Listens for incoming notifications.
+  - When a new notification is received in real-time, writes its title and content to `/home/user/realtime-task/output.json` in the following format:
+    ```json
+    {
+      "title": "Notification Title",
+      "content": "Notification Content"
+    }
+    ```
+- Ensure the daemon handles reconnection and gracefully stays alive to listen for events.
+
+## Implementation Hints
+- Install `magicbell-js` and `jsonwebtoken` dependencies.
+- To generate the JWT, sign a payload containing `user_email` and `api_key` using `jsonwebtoken` with the `HS256` algorithm and your project's secret key.
+- Import `Realtime` from `'magicbell-js/realtime'` and call its `listen` method with a callback that writes the received notification to `output.json`.
+
+## Acceptance Criteria
+- Project path: `/home/user/realtime-task`
+- Start command: `node index.js`
+- The script must generate a valid User JWT for `receiver-${run-id}@gmail.com` and connect to MagicBell via WebSocket.
+- When a notification is received, it must be written to `/home/user/realtime-task/output.json` with the schema:
+  ```json
+  {
+    "title": "string",
+    "content": "string"
+  }
+  ```
+

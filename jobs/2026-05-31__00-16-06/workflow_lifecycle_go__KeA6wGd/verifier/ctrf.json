@@ -1,0 +1,55 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780158841542,
+            "stop": 1780158864246
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists_and_format_is_correct",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780158841751,
+                "stop": 1780158841752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_run_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 535,
+                "start": 1780158841752,
+                "stop": 1780158842287,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_run_status():\n        \"\"\"Verify that the workflow run was created and exists on MagicBell.\"\"\"\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        run_id_env = os.environ.get(\"ZEALT_RUN_ID\")\n    \n        assert project_token is not None, \"MAGICBELL_PROJECT_TOKEN environment variable is missing\"\n        assert run_id_env is not None, \"ZEALT_RUN_ID environment variable is missing\"\n    \n        _, run_id, _ = parse_log_file()\n    \n        url = f\"https://api.magicbell.com/workflows/runs/{run_id}\"\n        headers = {\n            \"Authorization\": f\"Bearer {project_token}\",\n            \"Accept\": \"application/json\"\n        }\n    \n        # Fetch workflow run details\n        response = requests.get(url, headers=headers)\n>       assert response.status_code == 200, f\"Failed to fetch workflow run from MagicBell API. Status: {response.status_code}, Body: {response.text}\"\nE       AssertionError: Failed to fetch workflow run from MagicBell API. Status: 405, Body: \nE       assert 405 == 200\nE        +  where 405 = <Response [405]>.status_code\n\ntests/test_final_state.py:81: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_email_delivery",
+                "status": "passed",
+                "duration": 21958,
+                "start": 1780158842287,
+                "stop": 1780158864245,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

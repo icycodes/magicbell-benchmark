@@ -1,0 +1,184 @@
+- Initializing MCP connections...
+You
+# MagicBell Workflow Email Delivery in Go ## Background MagicBell provides a powerful Go SDK to manage notification workflows programmatically. In this task, you will implement a Go program that creates a custom notification workflow and triggers it to send an email notification to a user's inbox. ## Requirements * Implement a Go program (`main.go`) that uses the official `github.com/magicbell/magicbell-go` SDK. * Read the following environment variables: * `MAGICBELL_PROJECT_TOKEN`: The project JWT token used to authenticate the MagicBell ProjectClient. * `ZEALT_RUN_ID`: The unique run ID for the current execution (e.g., `zr-abcdef`). * `GMAIL_USER_NAME`: The Gmail user name to construct the target email address. * Use the `ZEALT_RUN_ID` to construct a unique workflow key: `order_notification_${run_id}`. * Create or update (save) a workflow definition with the key `order_notification_${run_id}`. The workflow definition must contain a single step: * Command: `broadcast` * Input: * `title`: `Order Notification - {{payload.run_id}}` * `content`: `Your order has been updated successfully. Run ID: {{payload.run_id}}` * `recipients`: `[{"email": "{{payload.email}}"}]` * Execute (trigger) a run of the saved workflow by sending a request to the MagicBell API. The input payload for the workflow run must contain: * `run_id`: The value of `ZEALT_RUN_ID`. * `email`: `{GMAIL_USER_NAME}+${run_id}@gmail.com`. * Print the created workflow run ID to standard output in the format: `Workflow Run ID: <run_id>`. ## Implementation Hints * Initialize the MagicBell Go SDK `ProjectClient` using `clientconfig.NewConfig()` and `client.NewClient(config)`. Set the access token using `config.SetAccessToken(...)` or `sdk.SetAccessToken(...)`. * Use `sdk.Workflows.SaveWorkflow` to save the workflow definition. * Use `sdk.Workflows.CreateWorkflowRun` to execute the workflow with the input parameters. * Both `WorkflowDefinitionSteps.Input` and `ExecuteWorkflowRequest.Input` are of type `any` (or `interface{}`), so you can pass maps directly. * Ensure `go.mod` is properly configured with the `github.com/magicbell/magicbell-go` dependency. ## Acceptance Criteria * Project path: /home/user/myproject * Command: go run main.go * The stdout of the command must print the workflow run ID in the format: `Workflow Run ID: <run_id>`. * The workflow must be successfully saved in MagicBell with the key `order_notification_${run_id}` where `run_id` is the value of `ZEALT_RUN_ID`. * A workflow run must be triggered, which in turn broadcasts an email to `{GMAIL_USER_NAME}+${run_id}@gmail.com`.   
+
+Pochi
+💭 Thinking for 285 characters   
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && go mod init myproject && go get github.com/magicbell/magicbell-go ✖ "Command exited with code 1"
+📂 Listing files in /home/user/myproject ✔ 
+💭 Thinking for 213 characters   
+📖 Reading /home/user/myproject/go.mod ✔ 
+💭 Thinking for 812 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/main.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go"
+	"github.com/magicbell/magicbell-go/client"
+	"github.com/magicbell/magicbell-go/clientconfig"
+)
+
+func main() {
+	token := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	runID := os.Getenv("ZEALT_RUN_ID")
+	gmailUser := os.Getenv("GMAIL_USER_NAME")
+
+	if token == "" || runID == "" || gmailUser == "" {
+		log.Fatal("Missing environment variables")
+	}
+
+	workflowKey := fmt.Sprintf("order_notification_%s", runID)
+	email := fmt.Sprintf("%s+%s@gmail.com", gmailUser, runID)
+
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(token)
+	
+	mbClient := client.NewClient(config)
+
+	saveReq := magicbell.SaveWorkflowRequest{
+		Key: workflowKey,
+		Steps: []magicbell.WorkflowDefinitionSteps{
+			{
+				Command: "broadcast",
+				Input: map[string]interface{}{
+					"title":   "Order Notification - {{payload.run_id}}",
+					"content": "Your order has been updated successfully. Run ID: {{payload.run_id}}",
+					"recipients": []map[string]interface{}{
+						{"email": "{{payload.email}}"},
+					},
+				},
+			},
+		},
+	}
+
+	_, err := mbClient.Workflows.SaveWorkflow(context.Background(), workflowKey, saveReq)
+	if err != nil {
+		log.Fatalf("Failed to save workflow: %v", err)
+	}
+
+	triggerReq := magicbell.ExecuteWorkflowRequest{
+		Input: map[string]interface{}{
+			"run_id": runID,
+			"email":  email,
+		},
+	}
+
+	runRes, err := mbClient.Workflows.CreateWorkflowRun(context.Background(), workflowKey, triggerReq)
+	if err != nil {
+		log.Fatalf("Failed to trigger workflow: %v", err)
+	}
+
+	fmt.Printf("Workflow Run ID: %s\n", runRes.Id)
+}
+EOF
+go build /home/user/myproject/main.go ✖ "Command exited with code 1"
+💭 Thinking for 189 characters   
+💫 Executing cd /home/user/myproject && go build main.go ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && go mod tidy ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && go list -m -json github.com/magicbell/magicbell-go ✔ 
+📂 Listing files in /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0 ✔ 
+📂 Listing files in /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg recursively ✔ 
+💭 Thinking for 623 characters   
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/client/client.go ✔ 
+💭 Thinking for 248 characters   
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflows_service.go ✔ 
+💭 Thinking for 317 characters   
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflow_definition.go ✔ 
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/workflow_definition_steps.go ✔ 
+💭 Thinking for 249 characters   
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/execute_workflow_request.go ✔ 
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/create_run_response.go ✔ 
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/nullable.go ✔ 
+💭 Thinking for 749 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/main.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/util"
+	"github.com/magicbell/magicbell-go/pkg/project-client/workflows"
+)
+
+func main() {
+	token := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	runID := os.Getenv("ZEALT_RUN_ID")
+	gmailUser := os.Getenv("GMAIL_USER_NAME")
+
+	if token == "" || runID == "" || gmailUser == "" {
+		log.Fatal("Missing environment variables")
+	}
+
+	workflowKey := fmt.Sprintf("order_notification_%s", runID)
+	email := fmt.Sprintf("%s+%s@gmail.com", gmailUser, runID)
+
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(token)
+	
+	mbClient := client.NewClient(config)
+
+	command := "broadcast"
+	
+	saveReq := workflows.WorkflowDefinition{
+		Key: &workflowKey,
+		Steps: []workflows.WorkflowDefinitionSteps{
+			{
+				Command: &command,
+				Input: &util.Nullable[any]{
+					Value: map[string]interface{}{
+						"title":   "Order Notification - {{payload.run_id}}",
+						"content": "Your order has been updated successfully. Run ID: {{payload.run_id}}",
+						"recipients": []map[string]interface{}{
+							{"email": "{{payload.email}}"},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	_, err := mbClient.Workflows.SaveWorkflow(context.Background(), saveReq)
+	if err != nil {
+		log.Fatalf("Failed to save workflow: %v", err)
+	}
+
+	triggerReq := workflows.ExecuteWorkflowRequest{
+		Key: &workflowKey,
+		Input: &util.Nullable[any]{
+			Value: map[string]interface{}{
+				"run_id": runID,
+				"email":  email,
+			},
+		},
+	}
+
+	runRes, err := mbClient.Workflows.CreateWorkflowRun(context.Background(), triggerReq)
+	if err != nil {
+		log.Fatalf("Failed to trigger workflow: %v", err)
+	}
+
+	fmt.Printf("Workflow Run ID: %s\n", *runRes.Data.Id)
+}
+EOF
+cd /home/user/myproject && go mod tidy && go build main.go ✔ 
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared/client_response.go ✔ 
+💭 Thinking for 596 characters   
+💫 Executing cat /home/user/myproject/main.go ✔ 
+💭 Thinking for 243 characters   
+🎉 Task Completed
+I have successfully implemented the Go program that creates a custom MagicBell workflow and triggers an email notification. 
+
+The implementation reads the required environment variables (`MAGICBELL_PROJECT_TOKEN`, `ZEALT_RUN_ID`, `GMAIL_USER_NAME`), constructs the workflow definition with the `broadcast` step and the specified templated contents, and saves it using the `github.com/magicbell/magicbell-go` SDK. It then triggers the workflow using the provided run ID and Gmail address, and outputs the resulting `Workflow Run ID` to the console.
+
+The code is located at `/home/user/myproject/main.go` and is ready to be executed with `go run main.go`.   
+  

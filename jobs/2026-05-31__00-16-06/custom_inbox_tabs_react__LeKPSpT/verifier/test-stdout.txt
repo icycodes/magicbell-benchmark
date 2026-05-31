@@ -1,0 +1,89 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_jest_suite_passes ____________________________
+
+    def test_jest_suite_passes():
+        """Run the Jest test suite to verify component props, stores, and tabs configuration."""
+        result = subprocess.run(
+            ["npx", "jest", "verify.test.js", "--no-cache"],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR
+        )
+>       assert result.returncode == 0, (
+            f"Jest test suite failed.\n"
+            f"STDOUT:\n{result.stdout}\n"
+            f"STDERR:\n{result.stderr}"
+        )
+E       AssertionError: Jest test suite failed.
+E         STDOUT:
+E         
+E         STDERR:
+E         FAIL ./verify.test.js
+E           ● Test suite failed to run
+E         
+E             ReferenceError: /home/user/myproject/verify.test.js: The module factory of `jest.mock()` is not allowed to reference any out-of-scope variables.
+E             Invalid variable access: React
+E             Allowed objects: AbortController, AbortSignal, AggregateError, Array, ArrayBuffer, AsyncDisposableStack, Atomics, BigInt, BigInt64Array, BigUint64Array, Blob, Boolean, BroadcastChannel, Buffer, ByteLengthQueuingStrategy, CloseEvent, CompressionStream, CountQueuingStrategy, Crypto, CryptoKey, CustomEvent, DOMException, DataView, Date, DecompressionStream, DisposableStack, Error, EvalError, Event, EventTarget, File, FinalizationRegistry, Float16Array, Float32Array, Float64Array, FormData, Function, Generator, GeneratorFunction, Headers, Infinity, Int16Array, Int32Array, Int8Array, InternalError, Intl, Iterator, JSON, Map, Math, MessageChannel, MessageEvent, MessagePort, NaN, Navigator, Number, Object, Performance, PerformanceEntry, PerformanceMark, PerformanceMeasure, PerformanceObserver, PerformanceObserverEntryList, PerformanceResourceTiming, Promise, Proxy, RangeError, ReadableByteStreamController, ReadableStream, ReadableStreamBYOBReader, ReadableStreamBYOBRequest, ReadableStreamDefaultController, ReadableStreamDefaultReader, ReferenceError, Reflect, RegExp, Request, Response, Set, SharedArrayBuffer, String, SubtleCrypto, SuppressedError, Symbol, SyntaxError, TextDecoder, TextDecoderStream, TextEncoder, TextEncoderStream, TransformStream, TransformStreamDefaultController, TypeError, URIError, URL, URLPattern, URLSearchParams, Uint16Array, Uint32Array, Uint8Array, Uint8ClampedArray, WeakMap, WeakRef, WeakSet, WebAssembly, WebSocket, WritableStream, WritableStreamDefaultController, WritableStreamDefaultWriter, __dirname, __filename, arguments, atob, btoa, clearImmediate, clearInterval, clearTimeout, console, crypto, decodeURI, decodeURIComponent, encodeURI, encodeURIComponent, escape, eval, expect, exports, fetch, global, globalThis, isFinite, isNaN, jest, module, navigator, parseFloat, parseInt, performance, process, queueMicrotask, require, setImmediate, setInterval, setTimeout, structuredClone, undefined, unescape.
+E             Note: This is a precaution to guard against uninitialized mock variables. If it is ensured that the mock is required lazily, variable names prefixed with `mock` (case insensitive) are permitted.
+E         
+E               12 |         isOpen: true,
+E               13 |         toggle: () => {},
+E             > 14 |         launcherRef: React.createRef(),
+E                  |                      ^^^^^
+E               15 |       });
+E               16 |     }
+E               17 |     return props.children;
+E         
+E               at File.buildCodeFrameError (node_modules/@babel/core/src/transformation/file/file.ts:251:12)
+E               at NodePath.buildError [as buildCodeFrameError] (node_modules/@babel/traverse/src/path/index.ts:161:21)
+E               at call (node_modules/@babel/traverse/src/visitors.ts:299:14)
+E               at NodePath.call [as _call] (node_modules/@babel/traverse/src/path/context.ts:36:20)
+E               at NodePath.call (node_modules/@babel/traverse/src/path/context.ts:21:18)
+E               at NodePath.call [as visit] (node_modules/@babel/traverse/src/path/context.ts:97:31)
+E               at TraversalContext.visit [as visitQueue] (node_modules/@babel/traverse/src/context.ts:161:16)
+E               at TraversalContext.visitQueue [as visitMultiple] (node_modules/@babel/traverse/src/context.ts:109:17)
+E               at TraversalContext.visitMultiple [as visit] (node_modules/@babel/traverse/src/context.ts:192:19)
+E               at visit (node_modules/@babel/traverse/src/traverse-node.ts:208:17)
+E               at NodePath.visit (node_modules/@babel/traverse/src/path/context.ts:104:33)
+E               at TraversalContext.visit [as visitQueue] (node_modules/@babel/traverse/src/context.ts:161:16)
+E               at TraversalContext.visitQueue [as visitSingle] (node_modules/@babel/traverse/src/context.ts:119:19)
+E               at TraversalContext.visitSingle [as visit] (node_modules/@babel/traverse/src/context.ts:194:19)
+E               at visit (node_modules/@babel/traverse/src/traverse-node.ts:208:17)
+E               at traverse (node_modules/@babel/traverse/src/index.ts:84:15)
+E               at transformFile (node_modules/@babel/core/src/transformation/index.ts:120:15)
+E                   at transformFile.next (<anonymous>)
+E               at transformFile (node_modules/@babel/core/src/transformation/index.ts:50:12)
+E                   at run.next (<anonymous>)
+E               at transform (node_modules/@babel/core/src/transform.ts:29:20)
+E                   at transform.next (<anonymous>)
+E               at evaluateSync (node_modules/gensync/index.js:251:28)
+E               at sync (node_modules/gensync/index.js:89:14)
+E               at fn (node_modules/@babel/core/src/errors/rewrite-stack-trace.ts:99:14)
+E               at transformSync (node_modules/@babel/core/src/transform.ts:66:52)
+E               at ScriptTransformer.transformSource (node_modules/@jest/transform/build/ScriptTransformer.js:545:31)
+E               at ScriptTransformer._transformAndBuildScript (node_modules/@jest/transform/build/ScriptTransformer.js:674:40)
+E               at ScriptTransformer.transform (node_modules/@jest/transform/build/ScriptTransformer.js:726:19)
+E         
+E         Test Suites: 1 failed, 1 total
+E         Tests:       0 total
+E         Snapshots:   0 total
+E         Time:        0.701 s
+E         Ran all test suites matching /verify.test.js/i.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npx', 'jest', 'verify.test.js', '--no-cache'], returncode=1, stdout='', stderr='FAIL ./verify....\nTests:       0 total\nSnapshots:   0 total\nTime:        0.701 s\nRan all test suites matching /verify.test.js/i.\n').returncode
+
+tests/test_final_state.py:20: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_component_file_exists
+FAILED tests/test_final_state.py::test_jest_suite_passes - AssertionError: Je...
+========================= 1 failed, 1 passed in 1.43s ==========================

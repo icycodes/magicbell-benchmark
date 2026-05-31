@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_email_received_in_gmail _________________________
+
+    def test_email_received_in_gmail():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id is not None, "ZEALT_RUN_ID environment variable is not set."
+    
+        gmail_user = os.environ.get("GMAIL_USER_NAME")
+        assert gmail_user is not None, "GMAIL_USER_NAME environment variable is not set."
+    
+        target_email = f"{gmail_user}+{run_id}@gmail.com"
+        expected_subject = f"Maintenance Update - {run_id}"
+    
+        token_json = os.environ.get("GMAIL_TOKEN_JSON")
+        assert token_json is not None, "GMAIL_TOKEN_JSON environment variable is not set."
+    
+        token_info = json.loads(token_json)
+        creds = Credentials.from_authorized_user_info(token_info, SCOPES)
+        service = build("gmail", "v1", credentials=creds)
+    
+        response = service.users().messages().list(
+            userId="me",
+            q=f"to:{target_email}",
+            maxResults=10,
+        ).execute()
+    
+        messages = response.get("messages", [])
+>       assert messages, f"No emails found in Gmail inbox sent to {target_email}."
+E       AssertionError: No emails found in Gmail inbox sent to codes.icy+zr-u6aatjs@gmail.com.
+E       assert []
+
+tests/test_final_state.py:57: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_contains_broadcast_id
+FAILED tests/test_final_state.py::test_email_received_in_gmail - AssertionErr...
+========================= 1 failed, 1 passed in 6.16s ==========================
