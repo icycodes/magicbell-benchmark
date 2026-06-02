@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ..F.                                           [100%]
+
+=================================== FAILURES ===================================
+__________ test_jwt_authenticates_against_user_notifications_endpoint __________
+
+captured_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiendwYXBlcmFkK2p3dC1weXRob24tenItdjVweXNsdEBnbWFpbC5jb20iLCJ1...IjoicGtfMzl5WDZmNU5PRjM0UTNKODM0VDBfMjEwMjg4NDE3IiwiZXhwIjoxODExOTU4NDEwfQ.ClH0pT7sk2v6oGFGnqgMxgCZp0QbmJTamM00fYxwhDI'
+
+    def test_jwt_authenticates_against_user_notifications_endpoint(captured_token):
+        response = requests.get(
+            f"{MAGICBELL_API_BASE}/v2/notifications",
+            headers={
+                "Authorization": f"Bearer {captured_token}",
+                "Accept": "application/json",
+            },
+            params={"per_page": 1},
+            timeout=30,
+        )
+        assert response.status_code == 200, (
+            f"Expected 200 from GET /v2/notifications when authenticated with the User JWT, "
+            f"got {response.status_code}: {response.text}"
+        )
+        body = response.json()
+>       assert "notifications" in body, (
+            f"Expected 'notifications' key in user notifications response, got: {body}"
+        )
+E       AssertionError: Expected 'notifications' key in user notifications response, got: {'links': {'first': 'https://api.magicbell.com/v2/notifications?per_page=1', 'prev': None, 'next': None}, 'data': []}
+E       assert 'notifications' in {'data': [], 'links': {'first': 'https://api.magicbell.com/v2/notifications?per_page=1', 'next': None, 'prev': None}}
+
+tests/test_final_state.py:112: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_user_jwt
+PASSED tests/test_final_state.py::test_jwt_decodes_with_secret_key_and_has_expected_payload
+PASSED tests/test_final_state.py::test_magicbell_user_was_upserted
+FAILED tests/test_final_state.py::test_jwt_authenticates_against_user_notifications_endpoint
+========================= 1 failed, 3 passed in 1.25s ==========================

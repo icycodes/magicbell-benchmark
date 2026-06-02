@@ -1,0 +1,90 @@
+- Initializing MCP connections...
+You
+# Save a MagicBell Workflow Definition via CLI ## Background Your platform team uses MagicBell to orchestrate multi-step notification campaigns. You need to register a new workflow definition (upsert) for an onboarding broadcast using the MagicBell CLI, so it can be triggered later by other services. The workflow must contain a single `broadcast` step. ## Requirements * Authenticate the MagicBell CLI non-interactively using the provided credentials. * Create/upsert a workflow definition with a unique, run-scoped key. * The workflow must contain exactly one step whose `command` is `broadcast`, with a `title` and `content` describing the onboarding message. * Parse the JSON returned by the CLI and write the workflow key to a log file. ## Implementation Hints * Read the current `run-id` from the `ZEALT_RUN_ID` environment variable, and use it to build a unique workflow key. * Authenticate non-interactively with `magicbell login --manual`, passing `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`. * Use `magicbell workflow save --data '<json>'` to upsert the workflow definition. The `--data` payload must include a top-level `key` and a `steps` array. * The CLI prints the saved workflow as JSON. Parse it (e.g., with `jq`) to extract the workflow key. * Save the result to `/home/user/magicbell-task/output.log`. ## Acceptance Criteria * Project path: /home/user/magicbell-task * Ensure the real workflow save action is executed against MagicBell and the log artifact exists. * Log file: /home/user/magicbell-task/output.log * Use MagicBell CLI for the workflow save operation. * The workflow key must be `wf-save-cli-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable. * The workflow must have exactly one step whose `command` is `broadcast`. The step's `input.title` must include the current `run-id`. * The log file must contain a line in the format: `Workflow Key: <workflow_key>`.   
+
+Pochi
+💭 Thinking for 105 characters   
+💫 Executing echo "ZEALT_RUN_ID=$ZEALT_RUN_ID" && echo "MAGICBELL_EMAIL=$MAGICBELL_EMAIL" && echo "MAGICBELL_PROJECT_TOKEN=$MAGICBELL_PROJECT_TOKEN" && echo "MAGICBELL_API_KEY=$MAGICBELL_API_KEY" && echo "MAGICBELL_SECRET_KEY=$MAGICBELL_SECRET_KEY" ✔ 
+💫 Executing which magicbell && magicbell --version 2>&1 || echo "magicbell not found" ✔ 
+💫 Executing magicbell login --help 2>&1 ✔ 
+💫 Executing ls /home/user/magicbell-task 2>/dev/null || echo "Directory does not exist" ✔ 
+💫 Executing magicbell workflow --help 2>&1 ✔ 
+💫 Executing magicbell workflow save --help 2>&1 ✔ 
+All the necessary information is gathered. Now let me execute the steps:   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/magicbell-task ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing magicbell login --manual \
+  --email "$MAGICBELL_EMAIL" \
+  --jwt "$MAGICBELL_PROJECT_TOKEN" \
+  --api-key "$MAGICBELL_API_KEY" \
+  --secret-key "$MAGICBELL_SECRET_KEY" 2>&1 ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing RUN_ID="${ZEALT_RUN_ID}" && \
+WORKFLOW_KEY="wf-save-cli-${RUN_ID}" && \
+PAYLOAD=$(printf '{"key":"%s","steps":[{"command":"broadcast","input":{"title":"Onboarding Broadcast - Run %s","content":"Welcome to MagicBell! This is your onboarding notification for run %s."}}]}' \
+  "$WORKFLOW_KEY" "$RUN_ID" "$RUN_ID") && \
+echo "Payload: $PAYLOAD" && \
+RESPONSE=$(magicbell workflow save --data "$PAYLOAD" 2>&1) && \
+echo "Response: $RESPONSE" ✔ 
+The workflow was saved successfully. Now let me parse the JSON and write the log file:   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing RUN_ID="${ZEALT_RUN_ID}" && \
+WORKFLOW_KEY="wf-save-cli-${RUN_ID}" && \
+PAYLOAD=$(printf '{"key":"%s","steps":[{"command":"broadcast","input":{"title":"Onboarding Broadcast - Run %s","content":"Welcome to MagicBell! This is your onboarding notification for run %s."}}]}' \
+  "$WORKFLOW_KEY" "$RUN_ID" "$RUN_ID") && \
+RESPONSE=$(magicbell workflow save --data "$PAYLOAD" 2>/dev/null) && \
+PARSED_KEY=$(echo "$RESPONSE" | jq -r '.key') && \
+echo "Parsed workflow key: $PARSED_KEY" && \
+echo "Workflow Key: $PARSED_KEY" > /home/user/magicbell-task/output.log && \
+echo "Log file written successfully." && \
+cat /home/user/magicbell-task/output.log ✔ 
+The CLI output mixes debug JSON and the actual response JSON. Let me extract the correct line:   
+💫 Executing RUN_ID="${ZEALT_RUN_ID}" && \
+WORKFLOW_KEY="wf-save-cli-${RUN_ID}" && \
+PAYLOAD=$(printf '{"key":"%s","steps":[{"command":"broadcast","input":{"title":"Onboarding Broadcast - Run %s","content":"Welcome to MagicBell! This is your onboarding notification for run %s."}}]}' \
+  "$WORKFLOW_KEY" "$RUN_ID" "$RUN_ID") && \
+RESPONSE=$(magicbell workflow save --data "$PAYLOAD" 2>/dev/null) && \
+echo "Full response:" && \
+echo "$RESPONSE" && \
+echo "---" && \
+PARSED_KEY=$(echo "$RESPONSE" | grep -v '"level"' | jq -r '.key') && \
+echo "Parsed key: $PARSED_KEY" ✔ 
+The key is parsed correctly now. Let me write the final log file:   
+💫 Executing RUN_ID="${ZEALT_RUN_ID}" && \
+WORKFLOW_KEY="wf-save-cli-${RUN_ID}" && \
+PAYLOAD=$(printf '{"key":"%s","steps":[{"command":"broadcast","input":{"title":"Onboarding Broadcast - Run %s","content":"Welcome to MagicBell! This is your onboarding notification for run %s."}}]}' \
+  "$WORKFLOW_KEY" "$RUN_ID" "$RUN_ID") && \
+RESPONSE=$(magicbell workflow save --data "$PAYLOAD" 2>/dev/null) && \
+PARSED_KEY=$(echo "$RESPONSE" | grep -v '"level"' | jq -r '.key') && \
+echo "Workflow Key: $PARSED_KEY" > /home/user/magicbell-task/output.log && \
+echo "=== Log file contents ===" && \
+cat /home/user/magicbell-task/output.log ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+All steps completed successfully:
+
+1. **Authentication**: Logged into MagicBell CLI non-interactively using `magicbell login --manual` with the provided `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`.
+
+2. **Workflow upserted**: Called `magicbell workflow save` with the payload:
+   ```json
+   {
+     "key": "wf-save-cli-zr-gog3vh2",
+     "steps": [{
+       "command": "broadcast",
+       "input": {
+         "title": "Onboarding Broadcast - Run zr-gog3vh2",
+         "content": "Welcome to MagicBell! This is your onboarding notification for run zr-gog3vh2."
+       }
+     }]
+   }
+   ```
+   The MagicBell API confirmed the save with the workflow key `wf-save-cli-zr-gog3vh2`.
+
+3. **Log artifact written**: Parsed the JSON response (filtering out the DEBUG log line) with `jq` and wrote the result to `/home/user/magicbell-task/output.log`:
+   ```
+   Workflow Key: wf-save-cli-zr-gog3vh2
+   ```
+
+The workflow key `wf-save-cli-zr-gog3vh2` is derived from `ZEALT_RUN_ID=zr-gog3vh2` and the workflow contains exactly one `broadcast` step whose `input.title` includes the run ID.   
+  

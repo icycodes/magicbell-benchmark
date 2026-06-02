@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_user_exists_on_project __________________________
+
+expected = {'email': 'REDACTED+mark-read-js-zr-dqsujg2@gmail.com', 'external_id': 'user-mark-read-js-zr-dqsujg2', 'run_id': 'zr-dqsujg2', 'title': 'Mark Read JS - zr-dqsujg2'}
+
+    def test_user_exists_on_project(expected):
+        """Confirm the user was upserted on the project via the Project token."""
+        project_token = _required_env("MAGICBELL_PROJECT_TOKEN")
+        url = f"{MAGICBELL_API_BASE}/users/external_id:{expected['external_id']}"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json",
+        }
+        response = requests.get(url, headers=headers, timeout=30)
+>       assert response.status_code == 200, (
+            f"GET {url} with the project token returned status {response.status_code}: "
+            f"{response.text[:500]}"
+        )
+E       AssertionError: GET https://api.magicbell.com/v2/users/external_id:user-mark-read-js-zr-dqsujg2 with the project token returned status 405: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:154: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_contains_notification_id
+PASSED tests/test_final_state.py::test_notification_fetch_succeeds_and_title_matches
+PASSED tests/test_final_state.py::test_notification_read_at_is_set
+FAILED tests/test_final_state.py::test_user_exists_on_project - AssertionErro...
+========================= 1 failed, 3 passed in 1.39s ==========================

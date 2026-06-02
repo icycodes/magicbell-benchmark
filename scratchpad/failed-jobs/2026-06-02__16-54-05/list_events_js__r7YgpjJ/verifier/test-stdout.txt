@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+__________________ test_event_visible_in_magicbell_events_api __________________
+
+    def test_event_visible_in_magicbell_events_api():
+        run_id = os.environ.get("ZEALT_RUN_ID", "").strip()
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN", "").strip()
+        assert run_id, "ZEALT_RUN_ID environment variable is missing or empty."
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is missing or empty."
+    
+        url = "https://api.magicbell.com/v2/events"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json",
+        }
+    
+        response = requests.get(url, headers=headers, params={"limit": 50}, timeout=30)
+        assert response.status_code == 200, (
+            f"Failed to list MagicBell events. "
+            f"Status: {response.status_code}, Response: {response.text}"
+        )
+    
+        payload = response.json()
+        events = payload.get("data") or payload.get("events") or []
+        assert isinstance(events, list) and len(events) > 0, (
+            f"Expected a non-empty list of events from /v2/events; got: {payload!r}"
+        )
+    
+        expected_title = f"Events Demo - {run_id}"
+        matched = [e for e in events if expected_title in json.dumps(e)]
+>       assert matched, (
+            f"Expected at least one event referencing the broadcast title "
+            f"'{expected_title}' in the latest 50 project events; "
+            f"none found among {len(events)} events."
+        )
+E       AssertionError: Expected at least one event referencing the broadcast title 'Events Demo - zr-r7ygpjj' in the latest 50 project events; none found among 50 events.
+E       assert []
+
+tests/test_final_state.py:88: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_first_line_is_event_id
+PASSED tests/test_final_state.py::test_log_second_line_is_json_object
+PASSED tests/test_final_state.py::test_logged_event_json_contains_run_id_title
+FAILED tests/test_final_state.py::test_event_visible_in_magicbell_events_api
+========================= 1 failed, 3 passed in 0.72s ==========================

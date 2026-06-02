@@ -1,0 +1,2 @@
+Event ID: 019e8970-db76-78a7-bdd1-52bb00acdbd6
+{"code":200,"context":{"channel":"in_app","delivery_id":"019e8970-c032-78a3-b533-a1486e9e9713","notification_id":"019e8970-9920-7ac3-a168-89aa566244a5","provider":"magicbell","user_id":"c04a3785-6d11-451b-a7a2-3136cfd1593b"},"id":"019e8970-db76-78a7-bdd1-52bb00acdbd6","level":"info","log":"delivery sent","timestamp":"2026-06-02T17:45:35.350928253Z","type":"delivery.sent"}

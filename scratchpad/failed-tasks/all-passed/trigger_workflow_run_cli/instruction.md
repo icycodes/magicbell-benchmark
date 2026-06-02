@@ -1,0 +1,37 @@
+# Save and Trigger a MagicBell Workflow Run via the MagicBell CLI
+
+## Background
+MagicBell workflows let you orchestrate multi-step notification pipelines that can be triggered with arbitrary input at run time. The MagicBell CLI exposes `magicbell workflow save` to upsert a workflow definition and `magicbell workflow create_run` to execute one. Step inputs can reference workflow-run `input` fields via Liquid templates (e.g., `{{ marker }}`), which means a single workflow definition can be reused with different payloads. In this task, you will use the CLI in a non-interactive shell to (1) upsert a workflow definition keyed by `wf-trigger-cli-${run-id}` that broadcasts a Liquid-templated title to a per-run recipient email, (2) trigger one workflow run with concrete `marker` and `recipient_email` inputs, and (3) write the resulting workflow run ID to an output log for downstream verification.
+
+## Requirements
+- Work inside `/home/user/magicbell-task` and use the pre-installed `magicbell` CLI.
+- Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from the environment.
+- Authenticate the CLI non-interactively with `magicbell login --manual`, passing the credentials above.
+- Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>`, then forming `<local>+trigger-cli-<run-id>@<domain>` (plus-addressing).
+- Upsert a workflow definition with:
+  - `key`: `wf-trigger-cli-<run-id>`
+  - `steps`: exactly one `broadcast` step whose `input.title` is the Liquid template `Workflow Trigger CLI - {{ marker }}`, with a `content` describing the broadcast and `recipients` that target the per-run email (you may use a Liquid placeholder such as `{{ recipient_email }}` so the address is supplied at trigger time).
+- Trigger one workflow run with `magicbell workflow create_run`, passing JSON `--data` whose `key` is `wf-trigger-cli-<run-id>` and whose `input` object contains both `marker` (set to `trigger-cli-<run-id>`) and `recipient_email` (set to the plus-addressed email above).
+- Parse the JSON returned by `magicbell workflow create_run` to extract the run identifier and write it to `/home/user/magicbell-task/output.log`.
+- The whole sequence must run non-interactively to completion.
+
+## Implementation Hints
+- Install / login flow: the `magicbell` CLI is already installed globally. Use `magicbell login --manual --email <email> --jwt <project-token> --api-key <api-key> --secret-key <secret-key>` so no terminal prompt is required.
+- Use `magicbell workflow save --data '<json>'` to upsert the workflow definition; the same command both creates and updates a workflow by its `key`.
+- Use `magicbell workflow create_run --data '{"key":"...","input":{...}}'` to trigger the workflow. The CLI prints the created run as JSON; the run identifier is the `id` field (commonly nested under `data`).
+- A small JSON parser like `jq` is available; you can pipe the CLI output into `jq -r` to extract the run id reliably.
+- Workflow `input` placeholders use Liquid syntax (`{{ marker }}`, `{{ recipient_email }}`) and are resolved against the JSON `input` object you supply to `create_run`.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration; the project is already wired for the `in_app` and `email` channels.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real workflow save and create_run actions are executed against MagicBell and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use the MagicBell CLI (`magicbell` binary) for both the workflow definition upsert and the workflow run trigger.
+- The workflow definition must exist with `key` equal to `wf-trigger-cli-${run-id}` (where `run-id` is read from the `ZEALT_RUN_ID` environment variable).
+- The triggered workflow run must:
+  - Be retrievable via the MagicBell REST API at `GET /v2/workflows/runs/<run_id>`.
+  - Have a workflow key equal to `wf-trigger-cli-${run-id}`.
+  - Appear in the listing at `GET /v2/workflows/wf-trigger-cli-${run-id}/runs`.
+- The log file must contain the workflow run identifier in the format: `Workflow Run ID: <run_id>`.
+

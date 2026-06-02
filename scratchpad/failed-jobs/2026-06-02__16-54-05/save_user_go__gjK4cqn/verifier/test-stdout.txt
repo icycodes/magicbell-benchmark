@@ -1,0 +1,37 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_magicbell_user_matches __________________________
+
+extracted_user_id = '019e8952-a085-7b58-b218-23e18385acb2'
+magicbell_project_token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6InRyYW5zaWVudCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2FwaS5tYWdpY2JlbGwuY29tIiwiZXhwIjox...0D5QlkuGQOXNeBb7BWtD-XgzroFOJcBdzYx3wVKauvFJx7_0lnMSZLvE9rIXhev1s6UTJ-K2BlGlTGLnT2LhLL13xseosxpzkVLYgE6VBsYMWEbR0w_beg'
+expected_identifiers = {'expected_email': 'REDACTED+save-user-go-zr-gjk4cqn@gmail.com', 'expected_external_id': 'user-zr-gjk4cqn'}
+
+    def test_magicbell_user_matches(extracted_user_id, magicbell_project_token, expected_identifiers):
+        url = f"https://api.magicbell.com/v2/users/{extracted_user_id}"
+        headers = {
+            "Authorization": f"Bearer {magicbell_project_token}",
+            "Accept": "application/json",
+        }
+        response = requests.get(url, headers=headers, timeout=30)
+>       assert response.status_code == 200, (
+            f"Failed to fetch user {extracted_user_id} from MagicBell: "
+            f"status {response.status_code}, body: {response.text}"
+        )
+E       AssertionError: Failed to fetch user 019e8952-a085-7b58-b218-23e18385acb2 from MagicBell: status 405, body: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:74: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+PASSED tests/test_final_state.py::test_log_file_contains_user_id
+FAILED tests/test_final_state.py::test_magicbell_user_matches - AssertionErro...
+========================= 1 failed, 2 passed in 0.43s ==========================

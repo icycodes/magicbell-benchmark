@@ -1,0 +1,80 @@
+- Initializing MCP connections...
+You
+# Mark a MagicBell Notification as Read with the magicbell-js User Client ## Background MagicBell distinguishes between two SDK surfaces in `magicbell-js`: the **Project Client** (server-side admin, authenticated with the Project JWT) and the **User Client** (acts on behalf of a single end user, authenticated with a short-lived HS256 User JWT). End users can list, read, archive, etc., their own notifications through the User Client. In this task you will combine both clients: use the Project Client to upsert the user and broadcast a notification, mint a User JWT for that user, then use the User Client to find the seeded notification and mark it as read. The resulting notification id must be persisted so the verifier can confirm the read state via the MagicBell REST API. ## Requirements * Work inside a Node.js project under `/home/user/myproject`. * Install and use the modern `magicbell-js` SDK (both `magicbell-js/project-client` and `magicbell-js/user-client`) and `jsonwebtoken` for HS256 signing. * The script must: 1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from environment variables. 2. Compute the per-run recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>` and forming the plus-addressed mailbox `<local>+mark-read-js-<run-id>@<domain>`. 3. Initialise the Project Client from `magicbell-js/project-client` with `token: process.env.MAGICBELL_PROJECT_TOKEN` and upsert a MagicBell user via `users.saveUser({...})` with: * `externalId`: `user-mark-read-js-<run-id>` * `email`: the plus-addressed email above * `firstName`: `MarkRead` * `lastName`: `JS-<run-id>` 4. Send a broadcast targeting that user (by `externalId`) via `broadcasts.createBroadcast({...})` with: * `title`: `Mark Read JS - <run-id>` * `content`: a short body (e.g., `Notification for mark-read JS run <run-id>.`) * `recipients`: `[{ externalId: 'user-mark-read-js-<run-id>' }]` 5. Mint a User JWT for that user with `jsonwebtoken`, signed `HS256` with `MAGICBELL_SECRET_KEY`, whose payload contains `user_email`, `user_external_id`, and `api_key` (= `MAGICBELL_API_KEY`), and that expires no sooner than 1 year (`expiresIn: '1y'`). 6. Initialise the User Client from `magicbell-js/user-client` with `token: <minted user jwt>`. 7. List the user's notifications via `notifications.listNotifications({...})` and locate the broadcast that was just sent (match by exact `title == 'Mark Read JS - <run-id>'`). A short polling loop (e.g., poll a handful of times with a small delay) is acceptable while the broadcast is propagating. 8. Mark that notification as read by calling the User Client's mark-read method on `client.notifications` with the notification id. 9. Write the notification id to `/home/user/myproject/output.log` in the exact format `Notification ID: <notification_id>`. * The script must run to completion non-interactively and must not modify the project-wide Delivery Planner. ## Implementation Hints * Import `Client` separately from `magicbell-js/project-client` and `magicbell-js/user-client`; never share a token between the two clients. * `magicbell-js` may need `tslib` alongside it depending on the npm resolver; pre-install both if the script fails to start. * All SDK call responses are wrapped as `{ data: ... }`; pull `id` and `title` off of `data`. * Broadcasts are processed asynchronously, so the new notification may not appear on the first list call. Implement a small polling loop (a handful of attempts with a short delay) before giving up. * The User Client's notifications service exposes the mark-as-read action as part of `client.notifications`. The underlying REST call is `POST /notifications/{notification_id}/read`; consult the official `magicbell-js` user-client docs for the exact JavaScript method name. * Build the User JWT payload as documented for MagicBell User Auth: `{ user_email, user_external_id, api_key }`, signed with `MAGICBELL_SECRET_KEY` using `HS256` and `expiresIn: '1y'`. * Pull the per-run identifiers from `ZEALT_RUN_ID`; do not hardcode them. ## Acceptance Criteria * Project path: /home/user/myproject * Ensure the script is executed end-to-end and the artifacts exist. * Log file: /home/user/myproject/output.log * The log file must contain the notification id in the format: `Notification ID: <notification_id>`. * The MagicBell user `user-mark-read-js-${run-id}` (where `run-id` is read from `ZEALT_RUN_ID`) must exist on the project. * The notification referenced by `<notification_id>`, when fetched as that user from `GET https://api.magicbell.com/v2/notifications/<notification_id>` with `Authorization: Bearer <freshly-minted user JWT>`, must: * Return HTTP status 200. * Have `title` equal to `Mark Read JS - ${run-id}`. * Have a non-null `read_at` timestamp (indicating it was marked as read by the User Client).   
+
+Pochi
+💭 Thinking for 350 characters   
+📂 Listing files in /home/user/myproject ✔ 
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 299 characters   
+💫 Executing npm init -y && npm install magicbell-js jsonwebtoken tslib ✔ 
+💭 Thinking for 255 characters   
+🔍 Searching for **/package.json in /home/user/myproject/node_modules/magicbell-js ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/project-client/package.json ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client.d.ts ✔ 
+🔍 Searching for *.d.ts in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/index.d.ts ✔ 
+🔍 Searching for interface SdkConfig in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts ✔ 
+🔍 Searching for saveUser in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/users/users-service.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/common/user.d.ts ✔ 
+🔍 Searching for export interface HttpResponse in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts ✔ 
+🔍 Searching for createBroadcast in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.d.ts ✔ 
+🔍 Searching for export declare const broadcast in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+🔍 Searching for recipients|title in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client/index.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.d.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.d.ts ✔ 
+🔍 Searching for export declare const notificationCollection in /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/models/notification-collection.d.ts ✔ 
+💭 Thinking for 1994 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 2759 characters   
+💫 Executing node -v ✔ 
+💭 Thinking for 367 characters   
+✏️  Writing /home/user/myproject/index.js ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing node /home/user/myproject/index.js ✖ "Command exited with code 1"
+💭 Thinking for 536 characters   
+📖 Reading /home/user/myproject/index.js ✔ 
+🔧 Applying diff to /home/user/myproject/index.js ✔ 
+💫 Executing node /home/user/myproject/index.js ✔ 
+💭 Thinking for 1097 characters   
+📖 Reading /home/user/myproject/index.js ✔ 
+💭 Thinking for 236 characters   
+🔧 Applying diff to /home/user/myproject/index.js ✔ 
+💫 Executing node /home/user/myproject/index.js ✔ 
+📖 Reading /home/user/myproject/output.log ✔ 
+💭 Thinking for 752 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 201 characters   
+🎉 Task Completed
+I have successfully implemented and executed the Node.js script to mark a MagicBell notification as read using the modern `magicbell-js` SDK.
+
+### Summary of Completed Work
+
+1. **Project Setup**:
+   - Initialized a Node.js project under `/home/user/myproject`.
+   - Installed `magicbell-js`, `jsonwebtoken`, and `tslib`.
+
+2. **Script Implementation (`/home/user/myproject/index.js`)**:
+   - Read and validated the required environment variables (`ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`).
+   - Derived the plus-addressed recipient email and custom external ID.
+   - Initialized the Project Client to upsert the MagicBell user.
+   - Sent a broadcast targeting the user with the specified title and body.
+   - Minted a User JWT with the required payload, signed with `MAGICBELL_SECRET_KEY` using the `HS256` algorithm and valid for 1 year.
+   - Initialized the User Client with the minted User JWT.
+   - Polled the User Client's `notifications.listNotifications` to find the newly sent broadcast notification.
+   - Marked the matched notification as read via `notifications.markNotificationRead`.
+   - Logged the resulting notification ID to `/home/user/myproject/output.log` in the required format.
+   - Verified the notification's read state via a direct REST API call.
+
+3. **Execution & Verification**:
+   - Ran the script end-to-end.
+   - The script successfully completed, passed self-verification, and generated the `/home/user/myproject/output.log` file with the marked-as-read notification ID.   
+  

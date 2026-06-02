@@ -1,0 +1,86 @@
+Skipping image OS validation for hb__generate_user_jwt_node: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-nlqymp4 > /logs/artifacts/run-id && echo generate_user_jwt_node__nLQyMp4 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Generate a MagicBell User JWT with Node.js
+
+## Background
+MagicBell's frontend SDKs (such as the React `FloatingInbox`) authenticate end users with a short-lived **User JWT** that must be minted on a trusted backend. The token is an `HS256`-signed JWT whose payload carries the user identity (`user_email` and/or `user_external_id`) and the project's public `api_key`, and it is signed with the project's `MAGICBELL_SECRET_KEY`.
+
+In this task you will build a small Node.js script that runs on the backend, upserts a MagicBell user, signs a User JWT for that user, and writes the resulting token to a log file so that the rest of the platform can pick it up.
+
+## Requirements
+- Build a Node.js (ESM or CommonJS, your choice) script that runs end-to-end with a single `node` invocation.
+- Read the run-id from the `ZEALT_RUN_ID` environment variable and use it to derive deterministic per-run identifiers.
+- Upsert a MagicBell user on the project (`POST https://api.magicbell.com/v2/users` with the project token) so that the JWT later refers to a real user.
+- Mint a User JWT for that user using HMAC `HS256` signed with `MAGICBELL_SECRET_KEY`.
+- The JWT payload must include the fields `user_email`, `user_external_id`, and `api_key`, and the token must expire 1 year from issuance (`expiresIn: '1y'`).
+- Write the minted token to a log file in the exact format `User JWT: <token>`.
+
+## Implementation Hints
+- Initialize a Node.js project under `/home/user/myproject` and install `jsonwebtoken` for the signing step. You may use `node-fetch`/`undici`/built-in `fetch` (Node >=18 ships with global `fetch`) for the REST call.
+- Read `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, and `ZEALT_RUN_ID` from environment variables. Never hardcode them.
+- Construct the per-run email by splitting `MAGICBELL_EMAIL` at `@` and inserting `+jwt-node-${ZEALT_RUN_ID}` as a sub-address (i.e. `<local>+jwt-node-${ZEALT_RUN_ID}@<domain>`). Use `user-jwt-node-${ZEALT_RUN_ID}` for the user's `external_id`.
+- For the upsert, send a `POST` to `https://api.magicbell.com/v2/users` with `Authorization: Bearer ${MAGICBELL_PROJECT_TOKEN}` and a JSON body containing the per-run `external_id` and `email`.
+- For signing, use `jwt.sign(payload, MAGICBELL_SECRET_KEY, { algorithm: 'HS256', expiresIn: '1y' })`.
+- Append (or overwrite) the line `User JWT: <token>` to `/home/user/myproject/output.log` after the JWT is generated.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is actually executed against the real MagicBell API and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain a line in the exact format `User JWT: <token>` where `<token>` is the minted JWT.
+- `<token>` must be a valid HS256 JWT signed with `MAGICBELL_SECRET_KEY` whose payload contains:
+  - `user_email` equal to the per-run sub-addressed email derived from `MAGICBELL_EMAIL` and `ZEALT_RUN_ID`.
+  - `user_external_id` equal to `user-jwt-node-${ZEALT_RUN_ID}`.
+  - `api_key` equal to `MAGICBELL_API_KEY`.
+  - an `exp` claim that is still in the future when verification runs.
+- The JWT must be usable to call MagicBell's user-authenticated REST API (a `GET https://api.magicbell.com/v2/notifications` with `Authorization: Bearer <token>` must return HTTP 200).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

@@ -1,0 +1,12 @@
+{
+  "name": "archive-notification-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Seed project for archiving a MagicBell notification with magicbell-js.",
+  "type": "commonjs",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.3",
+    "magicbell-js": "^1.7.0",
+    "tslib": "^2.8.1"
+  }
+}

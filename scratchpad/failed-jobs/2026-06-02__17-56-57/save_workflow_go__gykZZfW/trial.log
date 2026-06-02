@@ -1,0 +1,80 @@
+Skipping image OS validation for hb__save_workflow_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gykzzfw > /logs/artifacts/run-id && echo save_workflow_go__gykZZfW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save a MagicBell Workflow Definition with the Go SDK
+
+## Background
+MagicBell Workflows let you define reusable, multi-step notification campaigns that can later be triggered with runtime input. You will write a small Go program that upserts a workflow definition using the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) via the `ProjectClient`.
+
+## Requirements
+- Initialize a Go project under `/home/user/myproject`.
+- Write a Go program (`main.go`) that uses the MagicBell Go SDK's `ProjectClient` to upsert (save) a workflow definition through `Workflows.SaveWorkflow`.
+- The workflow `key` must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow must contain exactly one step with `command` equal to `broadcast`. The step `input` must include:
+  - `title`: `Workflow Save Go - <run-id>`
+  - `content`: `Hello from Go saved workflow`
+- After the SDK call succeeds, the program must write the saved workflow key to a log file `/home/user/myproject/output.log`.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID` and `MAGICBELL_PROJECT_TOKEN` from environment variables. Do not hardcode credentials.
+- Initialize the SDK with `client.NewClient(clientconfig.NewConfig())` and call `config.SetAccessToken(...)` with the project token. The relevant packages live under `github.com/magicbell/magicbell-go/pkg/project-client/...` (see `client`, `clientconfig`, `workflows`, `util`).
+- Use `util.ToPointer` to fill the pointer fields on `workflows.WorkflowDefinition` and `workflows.WorkflowDefinitionSteps`. The `Input` field is `map[string]interface{}`.
+- Bootstrap the module with `go mod init myproject` and `go get github.com/magicbell/magicbell-go`, then run the program with `go run main.go`.
+- Write the saved workflow key returned by the SDK to `/home/user/myproject/output.log` in the format `Workflow Key: <key>`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is executed, the workflow is upserted on MagicBell, and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) and the `ProjectClient.Workflows.SaveWorkflow` method.
+- The workflow key must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow must contain exactly one step with `command` equal to `broadcast`.
+- The log file must contain the workflow key in the format: `Workflow Key: <key>`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

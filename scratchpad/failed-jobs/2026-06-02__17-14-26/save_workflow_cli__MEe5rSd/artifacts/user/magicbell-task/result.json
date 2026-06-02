@@ -1,0 +1,3 @@
+{"time":"2026-06-02T17:29:43.38164732Z","level":"DEBUG","msg":"Using data from flag","data":"{\n  \"key\": \"wf-save-cli-zr-mee5rsd\",\n  \"name\": \"Onboarding Broadcast\",\n  \"steps\": [\n    {\n      \"command\": \"broadcast\",\n      \"input\": {\n        \"title\": \"Welcome! Run ID: zr-mee5rsd\",\n        \"content\": \"This is the onboarding message.\"\n      }\n    }\n  ]\n}"}
+{"steps":[{"if":null,"command":"broadcast","input":{"content":"This is the onboarding message.","title":"Welcome! Run ID: zr-mee5rsd"}}],"key":"wf-save-cli-zr-mee5rsd","disabled":false}
+

@@ -1,0 +1,64 @@
+{
+    "id": "3b90e9b4-1167-42fa-8f96-c7e2b8b5be89",
+    "started_at": "2026-06-02T16:54:08.272296",
+    "updated_at": "2026-06-02T17:14:19.555262",
+    "finished_at": "2026-06-02T17:14:19.555262",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 1,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.5-flash__pending-tasks": {
+                "n_trials": 20,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.45
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "save_user_js__ppxJTzg",
+                            "mark_notification_read_go__9dvB4Cx",
+                            "save_workflow_go__QgErHUv",
+                            "floating_inbox_react__GDAmK6a",
+                            "trigger_workflow_run_js__5BMEhg6",
+                            "trigger_workflow_run_go__TyqjK2g",
+                            "save_workflow_js__LKFtrmF",
+                            "save_workflow_cli__wVJDek4",
+                            "trigger_workflow_run_cli__autMeek"
+                        ],
+                        "0.0": [
+                            "mark_notification_read_js__DHcRHbw",
+                            "list_users_cli__fmuWnAv",
+                            "list_events_go__CEGK8fu",
+                            "list_events_js__r7YgpjJ",
+                            "broadcast_topic_subscribers_cli__o43iJtw",
+                            "generate_user_jwt_python__GQKrAVZ",
+                            "broadcast_topic_subscribers_js__7rqCbjh",
+                            "archive_notification_js__KQz6gz2",
+                            "save_user_cli__EwX2mok",
+                            "generate_user_jwt_node__KRc8TaF",
+                            "save_user_go__gjK4cqn"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "broadcast_topic_subscribers_js__7rqCbjh"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 1097492,
+        "cost_usd": null
+    }
+}

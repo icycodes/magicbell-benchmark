@@ -1,0 +1,40 @@
+- Initializing MCP connections...
+You
+# Save a MagicBell Workflow Definition with the Go SDK ## Background MagicBell Workflows let you define reusable, multi-step notification campaigns that can later be triggered with runtime input. You will write a small Go program that upserts a workflow definition using the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) via the `ProjectClient`. ## Requirements * Initialize a Go project under `/home/user/myproject`. * Write a Go program (`main.go`) that uses the MagicBell Go SDK's `ProjectClient` to upsert (save) a workflow definition through `Workflows.SaveWorkflow`. * The workflow `key` must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable. * The workflow must contain exactly one step with `command` equal to `broadcast`. The step `input` must include: * `title`: `Workflow Save Go - <run-id>` * `content`: `Hello from Go saved workflow` * After the SDK call succeeds, the program must write the saved workflow key to a log file `/home/user/myproject/output.log`. ## Implementation Hints * Read `ZEALT_RUN_ID` and `MAGICBELL_PROJECT_TOKEN` from environment variables. Do not hardcode credentials. * Initialize the SDK with `client.NewClient(clientconfig.NewConfig())` and call `config.SetAccessToken(...)` with the project token. The relevant packages live under `github.com/magicbell/magicbell-go/pkg/project-client/...` (see `client`, `clientconfig`, `workflows`, `util`). * Use `util.ToPointer` to fill the pointer fields on `workflows.WorkflowDefinition` and `workflows.WorkflowDefinitionSteps`. The `Input` field is `map[string]interface{}`. * Bootstrap the module with `go mod init myproject` and `go get github.com/magicbell/magicbell-go`, then run the program with `go run main.go`. * Write the saved workflow key returned by the SDK to `/home/user/myproject/output.log` in the format `Workflow Key: <key>`. ## Acceptance Criteria * Project path: /home/user/myproject * Ensure the Go program is executed, the workflow is upserted on MagicBell, and the log artifact exists. * Log file: /home/user/myproject/output.log * The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) and the `ProjectClient.Workflows.SaveWorkflow` method. * The workflow key must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable. * The workflow must contain exactly one step with `command` equal to `broadcast`. * The log file must contain the workflow key in the format: `Workflow Key: <key>`.   
+
+Pochi
+💭 Thinking for 955 characters   
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && go mod init myproject && go get github.com/magicbell/magicbell-go ✔ 
+💭 Thinking for 256 characters   
+💫 Executing cd /home/user/myproject && go list -f '{{.Dir}}' -m github.com/magicbell/magicbell-go ✔ 
+💭 Thinking for 199 characters   
+💫 Executing grep -A 5 "func (.*SaveWorkflow" /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/*.go ✔ 
+💭 Thinking for 209 characters   
+💫 Executing grep -A 10 "type WorkflowDefinition struct" /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/*.go ✔ 
+💭 Thinking for 258 characters   
+💫 Executing grep -A 10 "type WorkflowDefinitionSteps struct" /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/workflows/*.go ✔ 
+💭 Thinking for 282 characters   
+💫 Executing grep -A 10 "func NewNullable" /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/*.go ✖ "Command exited with code 1"
+💭 Thinking for 292 characters   
+💫 Executing ls /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util ✔ 
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/nullable.go ✔ 
+💭 Thinking for 579 characters   
+💫 Executing cat /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/to_pointer.go ✔ 
+💭 Thinking for 988 characters   
+💫 Executing grep -A 5 "type ClientResponse" /root/go/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared/*.go ✔ 
+💭 Thinking for 357 characters   
+✏️  Writing /home/user/myproject/main.go ✔ 
+💭 Thinking for 282 characters   
+💫 Executing cd /home/user/myproject && go mod tidy && go run main.go ✔ 
+💭 Thinking for 207 characters   
+💫 Executing cat /home/user/myproject/output.log ✔ 
+🎉 Task Completed
+I have successfully created a Go project at `/home/user/myproject` and implemented a program that upserts a MagicBell Workflow Definition using the official MagicBell Go SDK.
+
+The program reads `ZEALT_RUN_ID` and `MAGICBELL_PROJECT_TOKEN` from the environment, initializes the `ProjectClient` with the project token, and saves a workflow with:
+- `key`: `wf-save-go-${run-id}`
+- A single step with `command`: `broadcast`
+- `input` containing the required `title` and `content`.
+
+I ran the program and it successfully saved the workflow definition. The resulting workflow key has been saved to `/home/user/myproject/output.log` as requested.   
+  

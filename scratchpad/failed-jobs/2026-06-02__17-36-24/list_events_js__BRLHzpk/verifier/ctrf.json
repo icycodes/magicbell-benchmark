@@ -1,0 +1,67 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 2,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780422368130,
+            "stop": 1780422369181
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_first_line_is_event_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780422368326,
+                "stop": 1780422368327,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_second_line_is_json_object",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780422368328,
+                "stop": 1780422368329,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_logged_event_json_contains_run_id_title",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 48,
+                "start": 1780422368329,
+                "stop": 1780422368377,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_logged_event_json_contains_run_id_title():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\").strip()\n        assert run_id, \"ZEALT_RUN_ID environment variable is missing or empty.\"\n    \n        lines = _read_log_lines()\n        expected_title = f\"Events Demo - {run_id}\"\n>       assert expected_title in lines[1], (\n            f\"Expected the logged event JSON (line 2) to contain the broadcast title \"\n            f\"'{expected_title}'; got: {lines[1]!r}\"\n        )\nE       AssertionError: Expected the logged event JSON (line 2) to contain the broadcast title 'Events Demo - zr-brlhzpk'; got: '{\"code\":200,\"context\":{\"channel\":\"in_app\",\"delivery_id\":\"019e8970-c032-78a3-b533-a1486e9e9713\",\"notification_id\":\"019e8970-9920-7ac3-a168-89aa566244a5\",\"provider\":\"magicbell\",\"user_id\":\"c04a3785-6d11-451b-a7a2-3136cfd1593b\"},\"id\":\"019e8970-db76-78a7-bdd1-52bb00acdbd6\",\"level\":\"info\",\"log\":\"delivery sent\",\"timestamp\":\"2026-06-02T17:45:35.350928253Z\",\"type\":\"delivery.sent\"}'\nE       assert 'Events Demo - zr-brlhzpk' in '{\"code\":200,\"context\":{\"channel\":\"in_app\",\"delivery_id\":\"019e8970-c032-78a3-b533-a1486e9e9713\",\"notification_id\":\"019...2bb00acdbd6\",\"level\":\"info\",\"log\":\"delivery sent\",\"timestamp\":\"2026-06-02T17:45:35.350928253Z\",\"type\":\"delivery.sent\"}'\n\ntests/test_final_state.py:56: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_event_visible_in_magicbell_events_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 803,
+                "start": 1780422368378,
+                "stop": 1780422369181,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_event_visible_in_magicbell_events_api():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\").strip()\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\", \"\").strip()\n        assert run_id, \"ZEALT_RUN_ID environment variable is missing or empty.\"\n        assert project_token, \"MAGICBELL_PROJECT_TOKEN environment variable is missing or empty.\"\n    \n        url = \"https://api.magicbell.com/v2/events\"\n        headers = {\n            \"Authorization\": f\"Bearer {project_token}\",\n            \"Accept\": \"application/json\",\n        }\n    \n        response = requests.get(url, headers=headers, params={\"limit\": 50}, timeout=30)\n        assert response.status_code == 200, (\n            f\"Failed to list MagicBell events. \"\n            f\"Status: {response.status_code}, Response: {response.text}\"\n        )\n    \n        payload = response.json()\n        events = payload.get(\"data\") or payload.get(\"events\") or []\n        assert isinstance(events, list) and len(events) > 0, (\n            f\"Expected a non-empty list of events from /v2/events; got: {payload!r}\"\n        )\n    \n        expected_title = f\"Events Demo - {run_id}\"\n        matched = [e for e in events if expected_title in json.dumps(e)]\n>       assert matched, (\n            f\"Expected at least one event referencing the broadcast title \"\n            f\"'{expected_title}' in the latest 50 project events; \"\n            f\"none found among {len(events)} events.\"\n        )\nE       AssertionError: Expected at least one event referencing the broadcast title 'Events Demo - zr-brlhzpk' in the latest 50 project events; none found among 50 events.\nE       assert []\n\ntests/test_final_state.py:88: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

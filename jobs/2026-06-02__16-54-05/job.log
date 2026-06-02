@@ -1,0 +1,1735 @@
+Skipping image OS validation for hb__save_user_js: docker inspect returned 1
+Skipping image OS validation for hb__mark_notification_read_js: docker inspect returned 1
+Skipping image OS validation for hb__list_users_cli: docker inspect returned 1
+Skipping image OS validation for hb__mark_notification_read_go: docker inspect returned 1
+Skipping image OS validation for hb__list_events_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-ppxjtzg > /logs/artifacts/run-id && echo save_user_js__ppxJTzg > /logs/artifacts/trial_id
+Running command: echo zr-9dvb4cx > /logs/artifacts/run-id && echo mark_notification_read_go__9dvB4Cx > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-dhcrhbw > /logs/artifacts/run-id && echo mark_notification_read_js__DHcRHbw > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-fmuwnav > /logs/artifacts/run-id && echo list_users_cli__fmuWnAv > /logs/artifacts/trial_id
+Running command: echo zr-cegk8fu > /logs/artifacts/run-id && echo list_events_go__CEGK8fu > /logs/artifacts/trial_id
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Upsert a MagicBell User with the magicbell-js Project Client
+
+## Background
+MagicBell models notification recipients as Users. Server-side code identifies a user by either email or `external_id`, and the modern `magicbell-js` Project Client exposes `users.saveUser(...)` for upserting that record. In this task, you will use the SDK to create a single MagicBell user from a Node.js script and log the resulting MagicBell user ID for downstream verification.
+
+## Requirements
+- Create a Node.js project under `/home/user/myproject`.
+- Install the modern `magicbell-js` SDK and run the script with Node.js.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from environment variables.
+  2. Initialize the Project Client from `magicbell-js/project-client` with `token: process.env.MAGICBELL_PROJECT_TOKEN`.
+  3. Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>`, then forming `<local>+save-user-js-<run-id>@<domain>` (plus-addressing).
+  4. Call `users.saveUser({...})` with:
+     - `externalId`: `user-<run-id>`
+     - `email`: the plus-addressed email above
+     - `firstName`: `Save`
+     - `lastName`: `User-<run-id>`
+  5. Write the resulting MagicBell user `id` to `/home/user/myproject/output.log` in the format `User ID: <id>`.
+- The script must run to completion non-interactively.
+
+## Implementation Hints
+- Use the `magicbell-js` package (modern SDK) and import `Client` from `magicbell-js/project-client`.
+- Authenticate the client by passing `token: process.env.MAGICBELL_PROJECT_TOKEN`.
+- The SDK response object has the shape `{ data: { id, external_id, email, ... } }`; pull `id` from `data`.
+- Handle async calls properly (e.g., `await` or `.then`) and ensure the process writes the log before exiting.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the MagicBell user ID in the format: `User ID: <id>`.
+- The created MagicBell user must have:
+  - `external_id` equal to `user-${run-id}` (run-id read from `ZEALT_RUN_ID`).
+  - `email` equal to `<local>+save-user-js-${run-id}@<domain>`, where `<local>` and `<domain>` are derived from `MAGICBELL_EMAIL` split at `@`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Mark a MagicBell Notification as Read with the Go SDK
+
+## Background
+MagicBell is a real-time, multi-channel notification platform. Frontend inboxes typically display unread notifications for each end user; backend or client code marks them as read once the user has acknowledged them. End-user notification operations are authenticated with a short-lived **User JWT** that is signed on the server using the project's **Secret Key** and **API Key** (HS256).
+
+You will write a Go program that uses the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) to upsert a recipient user, broadcast a notification to that user, mint a User JWT, list the user's notifications, find the freshly created one, and mark it as read.
+
+## Requirements
+- Initialize a Go module under `/home/user/myproject` and add the official MagicBell Go SDK and `github.com/golang-jwt/jwt/v5` as dependencies.
+- Write a Go program (e.g., `main.go`) that performs the following sequence against the real MagicBell API:
+  1. Build a `ProjectClient` with the project token and upsert a user whose `external_id` is derived from `ZEALT_RUN_ID` (see Acceptance Criteria).
+  2. Use the same `ProjectClient` to create a broadcast with a deterministic title (see Acceptance Criteria) addressed to that user.
+  3. Mint a **User JWT** (HS256) signed with `MAGICBELL_SECRET_KEY`, whose payload contains `user_email`, `user_external_id`, and `api_key`. Do **not** use a hard-coded JWT.
+  4. Build a `UserClient` configured with that JWT and list the user's notifications.
+  5. Locate the notification whose title matches the one created in step 2 (polling for a short while if needed because of MagicBell delivery latency) and mark it as read via the Go SDK.
+- Write the matched notification ID to a log file in the format described in Acceptance Criteria.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from the environment.
+- Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` and using sub-addressing: `<local>+mark-read-go-${ZEALT_RUN_ID}@<domain>`.
+- The Go SDK `ProjectClient` lives under `github.com/magicbell/magicbell-go/pkg/project-client/...` and the `UserClient` under `github.com/magicbell/magicbell-go/pkg/user-client/...`. Use `util.ToPointer` from the corresponding package to wrap string/int literals.
+- The user-client mark-as-read method is `sdk.Notifications.MarkNotificationRead(ctx, notificationId)`.
+- Use `github.com/golang-jwt/jwt/v5` with `jwt.SigningMethodHS256` and `MapClaims{"user_email": ..., "user_external_id": ..., "api_key": ...}` (an `exp` claim such as one year in the future is fine).
+- Allow a few seconds of polling (e.g., retry `ListNotifications` for up to 60 seconds) before giving up on finding the broadcast — the broadcast pipeline is asynchronous.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is actually executed against the real MagicBell API; the user must exist, the broadcast must be created, and the notification must be marked as read on MagicBell.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) for both the ProjectClient and the UserClient calls.
+- The recipient user's `external_id` must be `user-mark-read-go-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The recipient user's `email` must be `<local>+mark-read-go-${run-id}@<domain>` where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL` at `@`.
+- The broadcast title must be exactly `Mark Read Go Demo - ${run-id}`.
+- The User JWT must be generated programmatically in the Go program using HS256 with `MAGICBELL_SECRET_KEY` and a payload containing `user_email`, `user_external_id`, and `api_key`.
+- The log file must contain a line in the format: `Notification ID: <notification_id>` where `<notification_id>` is the MagicBell-assigned id of the notification produced by the broadcast.
+- After the program completes, the corresponding MagicBell notification must have a non-null `read_at` timestamp when fetched via the MagicBell REST API.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Mark a MagicBell Notification as Read with the magicbell-js User Client
+
+## Background
+MagicBell distinguishes between two SDK surfaces in `magicbell-js`: the **Project Client** (server-side admin, authenticated with the Project JWT) and the **User Client** (acts on behalf of a single end user, authenticated with a short-lived HS256 User JWT). End users can list, read, archive, etc., their own notifications through the User Client. In this task you will combine both clients: use the Project Client to upsert the user and broadcast a notification, mint a User JWT for that user, then use the User Client to find the seeded notification and mark it as read. The resulting notification id must be persisted so the verifier can confirm the read state via the MagicBell REST API.
+
+## Requirements
+- Work inside a Node.js project under `/home/user/myproject`.
+- Install and use the modern `magicbell-js` SDK (both `magicbell-js/project-client` and `magicbell-js/user-client`) and `jsonwebtoken` for HS256 signing.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from environment variables.
+  2. Compute the per-run recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>` and forming the plus-addressed mailbox `<local>+mark-read-js-<run-id>@<domain>`.
+  3. Initialise the Project Client from `magicbell-js/project-client` with `token: process.env.MAGICBELL_PROJECT_TOKEN` and upsert a MagicBell user via `users.saveUser({...})` with:
+     - `externalId`: `user-mark-read-js-<run-id>`
+     - `email`: the plus-addressed email above
+     - `firstName`: `MarkRead`
+     - `lastName`: `JS-<run-id>`
+  4. Send a broadcast targeting that user (by `externalId`) via `broadcasts.createBroadcast({...})` with:
+     - `title`: `Mark Read JS - <run-id>`
+     - `content`: a short body (e.g., `Notification for mark-read JS run <run-id>.`)
+     - `recipients`: `[{ externalId: 'user-mark-read-js-<run-id>' }]`
+  5. Mint a User JWT for that user with `jsonwebtoken`, signed `HS256` with `MAGICBELL_SECRET_KEY`, whose payload contains `user_email`, `user_external_id`, and `api_key` (= `MAGICBELL_API_KEY`), and that expires no sooner than 1 year (`expiresIn: '1y'`).
+  6. Initialise the User Client from `magicbell-js/user-client` with `token: <minted user jwt>`.
+  7. List the user's notifications via `notifications.listNotifications({...})` and locate the broadcast that was just sent (match by exact `title == 'Mark Read JS - <run-id>'`). A short polling loop (e.g., poll a handful of times with a small delay) is acceptable while the broadcast is propagating.
+  8. Mark that notification as read by calling the User Client's mark-read method on `client.notifications` with the notification id.
+  9. Write the notification id to `/home/user/myproject/output.log` in the exact format `Notification ID: <notification_id>`.
+- The script must run to completion non-interactively and must not modify the project-wide Delivery Planner.
+
+## Implementation Hints
+- Import `Client` separately from `magicbell-js/project-client` and `magicbell-js/user-client`; never share a token between the two clients.
+- `magicbell-js` may need `tslib` alongside it depending on the npm resolver; pre-install both if the script fails to start.
+- All SDK call responses are wrapped as `{ data: ... }`; pull `id` and `title` off of `data`.
+- Broadcasts are processed asynchronously, so the new notification may not appear on the first list call. Implement a small polling loop (a handful of attempts with a short delay) before giving up.
+- The User Client's notifications service exposes the mark-as-read action as part of `client.notifications`. The underlying REST call is `POST /notifications/{notification_id}/read`; consult the official `magicbell-js` user-client docs for the exact JavaScript method name.
+- Build the User JWT payload as documented for MagicBell User Auth: `{ user_email, user_external_id, api_key }`, signed with `MAGICBELL_SECRET_KEY` using `HS256` and `expiresIn: '1y'`.
+- Pull the per-run identifiers from `ZEALT_RUN_ID`; do not hardcode them.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed end-to-end and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the notification id in the format: `Notification ID: <notification_id>`.
+- The MagicBell user `user-mark-read-js-${run-id}` (where `run-id` is read from `ZEALT_RUN_ID`) must exist on the project.
+- The notification referenced by `<notification_id>`, when fetched as that user from `GET https://api.magicbell.com/v2/notifications/<notification_id>` with `Authorization: Bearer <freshly-minted user JWT>`, must:
+  - Return HTTP status 200.
+  - Have `title` equal to `Mark Read JS - ${run-id}`.
+  - Have a non-null `read_at` timestamp (indicating it was marked as read by the User Client).
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# List MagicBell Users via the CLI
+
+## Background
+You need to verify a recently provisioned user shows up in the MagicBell project roster. Use the MagicBell CLI to first upsert a recognizable user, then enumerate users in the project and capture identifying details for the newly created entry.
+
+## Requirements
+- Log in to MagicBell CLI non-interactively using the provided credentials.
+- Upsert a user via the CLI whose `external_id` is `list-users-cli-${ZEALT_RUN_ID}` and whose email uses the sub-addressed Gmail format.
+- Enumerate users with the MagicBell CLI and locate the row whose `external_id` exactly matches `list-users-cli-${ZEALT_RUN_ID}`.
+- Write the located user's `id` and `external_id` to the task log file.
+
+## Implementation Hints
+- Read `run-id` from the `ZEALT_RUN_ID` environment variable and `GMAIL_USER_NAME` for the email prefix.
+- Authenticate the CLI non-interactively with `magicbell login --manual` and the provided env credentials.
+- Use `magicbell user save --data '{...}'` to upsert the user with the run-scoped `external_id`.
+- Use `magicbell user list` to enumerate users. The result is paginated JSON; page through results as needed until the matching user is found.
+- Parse the JSON output to extract the user's `id` and `external_id`, then write them to `/home/user/magicbell-task/output.log`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real user upsert and list actions are executed against MagicBell and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use MagicBell CLI for both the upsert and the listing.
+- The user's `external_id` must be `list-users-cli-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment.
+- The user's `email` must be `${GMAIL_USER_NAME}+list-users-cli-${ZEALT_RUN_ID}@gmail.com`.
+- The log file must contain two lines in the exact format:
+  - `User ID: <id>`
+  - `External ID: <external_id>`
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# List MagicBell Events with Go SDK
+
+## Background
+MagicBell is a real-time notification platform that records every notification activity (broadcast created, notification delivered, channel sent, etc.) as an event on the project's event log. You need to write a Go program that first creates a distinguishable broadcast, then uses the MagicBell Go SDK ProjectClient `Events.ListEvents` to fetch recent events and identify the event that corresponds to the broadcast just created.
+
+## Requirements
+- Initialize a Go module under `/home/user/myproject` (e.g., `go mod init myproject`).
+- Fetch the official Go SDK: `go get github.com/magicbell/magicbell-go`.
+- Write a Go program (`main.go`) that uses the MagicBell Go SDK `ProjectClient` with `MAGICBELL_PROJECT_TOKEN` to:
+  1. Create a broadcast titled `Events Demo Go - <run-id>` with content `Triggering a Go SDK events listing demo for run <run-id>` to a single recipient whose email is derived from `MAGICBELL_EMAIL` and `ZEALT_RUN_ID`.
+  2. After the broadcast call returns, fetch recent events via `sdk.Events.ListEvents` with a limit of at least 50.
+  3. Find an event whose payload references the broadcast title `Events Demo Go - <run-id>` and capture its event ID.
+- Write the matching event ID to `/home/user/myproject/output.log` in the line format `Event ID: <event_id>`.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from the environment.
+- Construct the recipient email by splitting `MAGICBELL_EMAIL` on `@` and inserting `+list-events-go-<run-id>` between the local part and the domain.
+- Initialize the SDK with `clientconfig.NewConfig()` + `config.SetAccessToken(...)` and `client.NewClient(config)`.
+- Use `sdk.Broadcasts.CreateBroadcast` first, then `sdk.Events.ListEvents` with `events.ListEventsRequestParams{Limit: util.ToPointer(int64(50))}`. The MagicBell event log may take a few seconds to update, so poll briefly if no matching event is found on the first call.
+- When scanning the events response, inspect each event's serialized payload/data for the broadcast title text to identify the right event.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is executed, a broadcast is actually created on MagicBell, and the events list is queried via the Go SDK.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) for both the broadcast creation and the events listing.
+- The broadcast title must be `Events Demo Go - <run-id>` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+- The log file must contain a single line in the format: `Event ID: <event_id>` where `<event_id>` corresponds to a real MagicBell event tied to the broadcast.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__save_workflow_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Skipping image OS validation for hb__list_events_js: docker inspect returned 1
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: echo zr-qgerhuv > /logs/artifacts/run-id && echo save_workflow_go__QgErHUv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save a MagicBell Workflow Definition with the Go SDK
+
+## Background
+MagicBell Workflows let you define reusable, multi-step notification campaigns that can later be triggered with runtime input. You will write a small Go program that upserts a workflow definition using the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) via the `ProjectClient`.
+
+## Requirements
+- Initialize a Go project under `/home/user/myproject`.
+- Write a Go program (`main.go`) that uses the MagicBell Go SDK's `ProjectClient` to upsert (save) a workflow definition through `Workflows.SaveWorkflow`.
+- The workflow `key` must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow must contain exactly one step with `command` equal to `broadcast`. The step `input` must include:
+  - `title`: `Workflow Save Go - <run-id>`
+  - `content`: `Hello from Go saved workflow`
+- After the SDK call succeeds, the program must write the saved workflow key to a log file `/home/user/myproject/output.log`.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID` and `MAGICBELL_PROJECT_TOKEN` from environment variables. Do not hardcode credentials.
+- Initialize the SDK with `client.NewClient(clientconfig.NewConfig())` and call `config.SetAccessToken(...)` with the project token. The relevant packages live under `github.com/magicbell/magicbell-go/pkg/project-client/...` (see `client`, `clientconfig`, `workflows`, `util`).
+- Use `util.ToPointer` to fill the pointer fields on `workflows.WorkflowDefinition` and `workflows.WorkflowDefinitionSteps`. The `Input` field is `map[string]interface{}`.
+- Bootstrap the module with `go mod init myproject` and `go get github.com/magicbell/magicbell-go`, then run the program with `go run main.go`.
+- Write the saved workflow key returned by the SDK to `/home/user/myproject/output.log` in the format `Workflow Key: <key>`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is executed, the workflow is upserted on MagicBell, and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) and the `ProjectClient.Workflows.SaveWorkflow` method.
+- The workflow key must be `wf-save-go-${run-id}` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow must contain exactly one step with `command` equal to `broadcast`.
+- The log file must contain the workflow key in the format: `Workflow Key: <key>`.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-r7ygpjj > /logs/artifacts/run-id && echo list_events_js__r7YgpjJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Inspect MagicBell Project Events with the Node.js SDK
+
+## Background
+MagicBell publishes a per-project event stream that records broadcasts, notifications, and delivery activity. Operators frequently use this stream to verify that a notification they just sent has been picked up by the platform. In this task you will use the modern `magicbell-js` SDK (project client) to send one distinguishable broadcast and then look it up again via `events.listEvents`, persisting the matched event for later inspection.
+
+## Requirements
+- Create a Node.js project under `/home/user/myproject`.
+- Install the modern `magicbell-js` SDK.
+- Write a single JavaScript program (`index.js`) that:
+  1. Reads `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from the environment.
+  2. Sends a fresh broadcast with title `Events Demo - <run-id>` and content `Probing events stream for run <run-id>.`. The recipient is the email address obtained by sub-addressing `MAGICBELL_EMAIL` with the local-suffix `list-events-js-<run-id>` (i.e. `<local>+list-events-js-<run-id>@<domain>`).
+  3. Polls `events.listEvents({ limit: 50 })` (retrying briefly if needed) until it can find an event from the returned page whose data references the broadcast just created. Match by either the broadcast id returned from step 2 or the title fragment `Events Demo - <run-id>`.
+  4. Writes to `/home/user/myproject/output.log` exactly two lines:
+     - First line: `Event ID: <event_id>`.
+     - Second line: a single-line JSON dump of the matched event object as returned by the SDK.
+- Run the script so the side effects actually happen.
+
+## Implementation Hints
+- Import `Client` from `magicbell-js/project-client` and authenticate with `MAGICBELL_PROJECT_TOKEN`.
+- Compose the recipient email by splitting `MAGICBELL_EMAIL` at `@` and inserting `+list-events-js-<run-id>` before the domain.
+- Events appear in the stream asynchronously; a short retry loop (a few seconds total) is enough.
+- When scanning the returned page, inspect each event's nested fields (e.g. broadcast id, payload title) - the title fragment `Events Demo - <run-id>` is the safest needle.
+- The matched event JSON should be written with `JSON.stringify(event)` to keep it on a single line.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The first line of the log file must match the format: `Event ID: <event_id>`.
+- The second line of the log file must be a single-line valid JSON object representing the matched event.
+- The MagicBell project must contain at least one event whose data references the broadcast title `Events Demo - <run-id>` where `<run-id>` is read from `ZEALT_RUN_ID`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__trigger_workflow_run_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__broadcast_topic_subscribers_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-5bmehg6 > /logs/artifacts/run-id && echo trigger_workflow_run_js__5BMEhg6 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save and Trigger a MagicBell Workflow Run with the magicbell-js Project Client
+
+## Background
+MagicBell workflows let you compose multi-step notification pipelines. The modern `magicbell-js` Project Client exposes `workflows.saveWorkflow(...)` to upsert workflow definitions and `workflows.createWorkflowRun(...)` to execute them with input parameters. Workflow steps can reference workflow `input` fields via Liquid templates (e.g., `{{ marker }}`). In this task, you will use the SDK to (1) upsert a MagicBell user, (2) save a workflow whose only step broadcasts a notification with a Liquid-templated title, and (3) trigger one run with concrete input. The resulting workflow run ID must be written to an output log for downstream verification.
+
+## Requirements
+- Create a Node.js project under `/home/user/myproject`.
+- Install the modern `magicbell-js` SDK and run the script with Node.js.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from environment variables.
+  2. Initialize the Project Client from `magicbell-js/project-client` with `token: process.env.MAGICBELL_PROJECT_TOKEN`.
+  3. Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>`, then forming `<local>+trigger-js-<run-id>@<domain>` (plus-addressing).
+  4. Upsert a MagicBell user via `users.saveUser({...})` with:
+     - `externalId`: `user-trigger-js-<run-id>`
+     - `email`: the plus-addressed email above
+     - `firstName`: `Trigger`
+     - `lastName`: `Workflow-<run-id>`
+  5. Save a workflow via `workflows.saveWorkflow({...})` with:
+     - `key`: `wf-trigger-js-<run-id>`
+     - `steps`: a single `broadcast` step whose `input` sets the broadcast `title` to a Liquid template referencing the workflow input field `marker` (e.g., `Trigger JS Run {{ marker }}`), and targets the user created above by `externalId`.
+  6. Trigger one workflow run via `workflows.createWorkflowRun({...})` with:
+     - `key`: `wf-trigger-js-<run-id>`
+     - `input`: an object containing `recipient_external_id: user-trigger-js-<run-id>` and `marker: trigger-js-<run-id>`.
+  7. Write the resulting workflow run `id` to `/home/user/myproject/output.log` in the format `Workflow Run ID: <run_id>`.
+- The script must run to completion non-interactively.
+
+## Implementation Hints
+- Import `Client` from `magicbell-js/project-client` and authenticate with `token: process.env.MAGICBELL_PROJECT_TOKEN`.
+- `workflows.saveWorkflow` is an upsert keyed by `key`; `workflows.createWorkflowRun` returns a response whose `data.id` is the run identifier.
+- Workflow step `input` values may contain Liquid placeholders like `{{ marker }}` that get resolved at run time from the `input` you pass to `createWorkflowRun`.
+- The SDK response wrappers all have the shape `{ data: ... }`; pull `id` from `data`.
+- Handle async calls properly (e.g., `await` or `.then`) and ensure the process writes the log before exiting.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the workflow run ID in the format: `Workflow Run ID: <run_id>`.
+- The created MagicBell workflow definition must exist with `key` equal to `wf-trigger-js-${run-id}` (run-id read from `ZEALT_RUN_ID`).
+- The triggered workflow run must:
+  - Be retrievable via the MagicBell REST API at `GET /v2/workflows/runs/<run_id>`.
+  - Have its run `key` equal to `wf-trigger-js-${run-id}`.
+  - Appear in the listing at `GET /v2/workflows/wf-trigger-js-${run-id}/runs`.
+
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-o43ijtw > /logs/artifacts/run-id && echo broadcast_topic_subscribers_cli__o43iJtw > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Broadcast to Topic Subscribers with the MagicBell CLI
+
+## Background
+MagicBell lets you fan a single broadcast out to every subscriber of a topic instead of having to enumerate recipients one by one. The recipient form for this is subtle and easy to mis-type: a broadcast targeted at topic subscribers MUST use the nested filter object `{ "topic": { "subscribers": true } }`. Passing the topic key as a bare string (e.g. `{ "topic": "topic-..." }`), or as a top-level recipient field, will be rejected and no notification will be delivered (see MagicBell Discussion #213).
+
+This task uses the `magicbell` CLI together with a small REST call to:
+
+1. Authenticate the CLI non-interactively.
+2. Upsert two MagicBell users with `run-id`-scoped identifiers and sub-addressed emails.
+3. Subscribe both users to the same topic, keyed `topic-cli-${ZEALT_RUN_ID}`.
+4. Create a broadcast tagged with that topic and targeting every subscriber of the topic.
+5. Persist the resulting broadcast id to a log file so the verifier can fetch it.
+
+## Requirements
+- Work inside the project directory `/home/user/magicbell-task`.
+- Authenticate the MagicBell CLI non-interactively using the credentials provided via environment variables.
+- Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from the environment.
+- Compute two recipient emails by splitting `MAGICBELL_EMAIL` at the `@` character into `<local>@<domain>` and forming:
+  - `<local>+topic-subs-cli-1-${ZEALT_RUN_ID}@<domain>`
+  - `<local>+topic-subs-cli-2-${ZEALT_RUN_ID}@<domain>`
+- Upsert two MagicBell users via `magicbell user save` with the following attributes:
+  - User 1: `external_id` = `user-topic-subs-cli-1-${ZEALT_RUN_ID}`, `email` = recipient email 1, `first_name` = `TopicSubsCli`, `last_name` = `One-${ZEALT_RUN_ID}`.
+  - User 2: `external_id` = `user-topic-subs-cli-2-${ZEALT_RUN_ID}`, `email` = recipient email 2, `first_name` = `TopicSubsCli`, `last_name` = `Two-${ZEALT_RUN_ID}`.
+- Subscribe each of those users to the topic `topic-cli-${ZEALT_RUN_ID}`. After both subscription calls, the topic must have BOTH user external ids listed as subscribers.
+- Create exactly one broadcast via `magicbell broadcast create --data '<json>'` with:
+  - `title` = `Topic Subs CLI - ${ZEALT_RUN_ID}`.
+  - `content` = a short description string.
+  - `topic` = `topic-cli-${ZEALT_RUN_ID}` (the same topic key used for the subscriptions, so the broadcast itself is tagged with the topic).
+  - `recipients` = a single entry that uses the nested topic-subscribers filter form (the `{ topic: { subscribers: true } }` shape from MagicBell Discussion #213).
+- Parse the CLI output of the broadcast call, extract the assigned broadcast `id`, and write a single line to the log file `/home/user/magicbell-task/output.log` in the format: `Broadcast ID: <broadcast_id>`.
+- The script must run end-to-end non-interactively and must not modify the project-wide Delivery Planner.
+
+## Implementation Hints
+- Authenticate the CLI with `magicbell login --manual` using `--email`, `--jwt`, `--api-key`, and `--secret-key` flags wired to the corresponding environment variables.
+- `magicbell user save --data '<json>'` upserts a user; the CLI prints the saved user as JSON, so tools like `jq` are available to extract fields if needed.
+- The friction point: a broadcast targeted at topic subscribers MUST use the nested recipient filter shape `{ topic: { subscribers: true } }`. A bare-string topic value, a `{ topic: "topic-..." }` form, or `{ topicKey: ... }` will all fail to fan out.
+- The broadcast payload must also carry a top-level `topic` field so the notification is classified under the same topic the subscribers are subscribed to.
+- Topic subscriptions are a user-context resource. The CLI may not expose a subcommand for creating them under an arbitrary external id; the reliable, portable approach is to call the MagicBell REST endpoint directly: `POST https://api.magicbell.com/subscriptions` (note: NOT the `/v2` host) with headers `X-MAGICBELL-API-KEY: ${MAGICBELL_API_KEY}`, `X-MAGICBELL-USER-EXTERNAL-ID: <external_id>`, and `Content-Type: application/json`, sending body `{"subscription":{"topic":"topic-cli-${ZEALT_RUN_ID}"}}`. `curl` is available for this.
+- Both users must be successfully upserted before issuing the subscription requests, otherwise the user-context subscription call will return a 4xx.
+- The broadcast id is returned as the `id` field in the CLI's JSON output; capture it precisely (no surrounding whitespace, quotes, or `Broadcast ID:` prefix) when writing the log line.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real broadcast creation, user upserts, and topic subscriptions are executed against MagicBell, and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use the MagicBell CLI (`magicbell user save` and `magicbell broadcast create`) for the user upserts and the broadcast creation.
+- All shared identifiers must be suffixed with `${ZEALT_RUN_ID}` so concurrent runs do not collide. In particular, the topic key must be `topic-cli-${ZEALT_RUN_ID}` and the user `external_id`s must be `user-topic-subs-cli-1-${ZEALT_RUN_ID}` and `user-topic-subs-cli-2-${ZEALT_RUN_ID}`.
+- The log file must contain a single line matching the format: `Broadcast ID: <broadcast_id>`.
+- The broadcast (fetched via `GET https://api.magicbell.com/v2/broadcasts/<broadcast_id>`) must:
+  - Have `title` equal to `Topic Subs CLI - ${ZEALT_RUN_ID}`.
+  - Have `topic` equal to `topic-cli-${ZEALT_RUN_ID}`.
+  - Have `recipients` containing at least one entry whose `topic` field is an object with `subscribers == true` (the nested topic-subscribers filter form).
+- Both `user-topic-subs-cli-1-${ZEALT_RUN_ID}` and `user-topic-subs-cli-2-${ZEALT_RUN_ID}` must show a topic subscription record for `topic-cli-${ZEALT_RUN_ID}` when fetched via `GET https://api.magicbell.com/subscriptions` with headers `X-MAGICBELL-API-KEY` and `X-MAGICBELL-USER-EXTERNAL-ID`.
+
+
+EOF
+Skipping image OS validation for hb__floating_inbox_react: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gdamk6a > /logs/artifacts/run-id && echo floating_inbox_react__GDAmK6a > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# MagicBell Floating Inbox React Dashboard
+
+## Background
+You are building a small SaaS-style dashboard that needs an in-app notification bell. The product team picked the modern `@magicbell/react` package and wants a working end-to-end demo: a React frontend (Vite) renders the `FloatingInbox` bell in a header, and a tiny Express backend mints a per-user MagicBell **User JWT** so the inbox can talk to MagicBell on behalf of the signed-in user. The same backend also bootstraps the user in MagicBell and pushes one seed notification so the bell is visibly populated as soon as the app starts.
+
+The MagicBell project already has two delivery channels configured (`in_app` + `email`). **DO NOT** modify the project-wide Delivery Planner configuration; rely on the default fan-out.
+
+MagicBell credentials are provided via environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`). A unique run identifier is provided via `ZEALT_RUN_ID` and **MUST** be incorporated into every shared resource name so parallel runs do not collide.
+
+## Requirements
+- A React app (Vite) served on port `3000` that uses `@magicbell/react`:
+  - Wraps the page in `@magicbell/react/context-provider` `Provider`, passing a User JWT fetched from the backend.
+  - Renders `@magicbell/react/floating-inbox` `FloatingInbox` inside a top header (the bell icon must be visible on initial page load).
+  - Imports the bundled `@magicbell/react/styles/floating-inbox.css` so the floating panel renders correctly.
+- An Express backend served on port `3001`:
+  - On startup, upserts the demo user in the MagicBell project and sends a single seed broadcast so the bell has at least one unread notification.
+  - Exposes `GET /token` returning JSON `{ "token": "<HS256 User JWT>" }`. The JWT payload **MUST** contain `user_email`, `user_external_id`, and `api_key`, be signed with `MAGICBELL_SECRET_KEY` using `HS256`, and have a reasonable expiry (e.g. `1y`).
+- `npm start` (declared in `package.json`) **MUST** boot the backend and the Vite dev server together (e.g. via `concurrently`) so a single command brings the whole app up.
+
+## Implementation Hints
+- Read all MagicBell credentials and `ZEALT_RUN_ID` from environment variables at runtime; never hardcode them.
+- Derive shared identifiers from the run id, e.g. external id `user-fi-${ZEALT_RUN_ID}` and broadcast title `Floating Inbox - ${ZEALT_RUN_ID}`.
+- Build the per-user email by splitting `MAGICBELL_EMAIL` at `@` and producing `<local>+fi-${ZEALT_RUN_ID}@<domain>`.
+- Sign the User JWT with the official Node JWT library (`jsonwebtoken`) and the project's secret key.
+- Use the MagicBell REST API or `magicbell-js` project client to upsert the user and to create the seed broadcast; the broadcast's `recipients` should target the same external id.
+- Wire the React app to fetch the token from the backend on mount before rendering the `Provider` (proxy `/token` through the Vite dev server, or call `http://localhost:3001/token` directly).
+- Use `concurrently` (or an equivalent supervisor) so `npm start` runs the backend (`node server.js` on 3001) and `vite --port 3000` simultaneously.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: npm start
+- Ports:
+  - Frontend (Vite): 3000
+  - Backend (Express): 3001
+- Backend HTTP API:
+  - `GET http://localhost:3001/token` returns status 200 and JSON of shape `{ "token": string }`, where `token` is an HS256-signed JWT whose payload contains `user_email`, `user_external_id`, and `api_key`.
+- Frontend UI at `http://localhost:3000`:
+  - A bell icon rendered by `@magicbell/react`'s `FloatingInbox` is visible in a header on initial load.
+  - Clicking the bell opens the floating inbox panel.
+  - The opened panel lists at least one notification whose title contains `Floating Inbox - ${ZEALT_RUN_ID}` (read `${ZEALT_RUN_ID}` from the environment).
+- MagicBell side effects (executed by the backend on startup):
+  - The MagicBell project contains a user with `external_id = user-fi-${ZEALT_RUN_ID}` and `email = <local>+fi-${ZEALT_RUN_ID}@<domain>` (where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL`).
+  - The MagicBell project has at least one broadcast whose title equals `Floating Inbox - ${ZEALT_RUN_ID}` and which targets this user.
+- The project **MUST NOT** modify the project-wide Delivery Planner configuration.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__trigger_workflow_run_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__broadcast_topic_subscribers_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-tyqjk2g > /logs/artifacts/run-id && echo trigger_workflow_run_go__TyqjK2g > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save and Trigger a MagicBell Workflow Run with the Go SDK Project Client
+
+## Background
+MagicBell Workflows let you compose multi-step notification pipelines that can be triggered with runtime input. The official Go SDK (`github.com/magicbell/magicbell-go`) exposes a `ProjectClient` with `Workflows.SaveWorkflow(...)` for upserting workflow definitions and `Workflows.CreateWorkflowRun(...)` for executing them with input parameters. Workflow step inputs can reference workflow run input fields via Liquid templates (e.g., `{{ marker }}`). In this task, you will use the Go SDK to (1) save a workflow whose only step is a `broadcast` with a Liquid-templated title and a recipient email, (2) trigger one run of that workflow with concrete input, and (3) write the resulting workflow run ID to an output log file.
+
+## Requirements
+- Initialize a Go project under `/home/user/myproject` (`go mod init myproject` and `go get github.com/magicbell/magicbell-go`).
+- Write a Go program (`main.go`) that uses the MagicBell Go SDK's `ProjectClient` to:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from environment variables.
+  2. Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>`, then forming `<local>+trigger-go-<run-id>@<domain>` (plus-addressing).
+  3. Upsert a workflow via `Workflows.SaveWorkflow(...)` with:
+     - `key`: `wf-trigger-go-<run-id>`
+     - `steps`: exactly one step with `command` equal to `broadcast` whose `input` sets the broadcast `title` to a Liquid template referencing the workflow input field `marker` (e.g., `Trigger Go Run {{ marker }}`), provides a `content` string, and targets the computed recipient email address.
+  4. Trigger one workflow run via `Workflows.CreateWorkflowRun(...)` with:
+     - `key`: `wf-trigger-go-<run-id>`
+     - `input`: a JSON object containing `marker: trigger-go-<run-id>`.
+  5. Write the resulting workflow run ID to `/home/user/myproject/output.log` in the format `Workflow Run ID: <run_id>`.
+- The program must run to completion non-interactively.
+
+## Implementation Hints
+- Initialize the SDK with `client.NewClient(clientconfig.NewConfig())` and call `config.SetAccessToken(...)` with the project token. The relevant packages live under `github.com/magicbell/magicbell-go/pkg/project-client/...` (see `client`, `clientconfig`, `workflows`, `util`).
+- Use `util.ToPointer` to populate pointer fields on `workflows.WorkflowDefinition`, `workflows.WorkflowDefinitionSteps`, and `workflows.ExecuteWorkflowRequest`.
+- `workflows.WorkflowDefinitionSteps.Input` and `workflows.ExecuteWorkflowRequest.Input` are `[]byte`; marshal a JSON object with `encoding/json` and pass the resulting bytes.
+- The `Workflows.CreateWorkflowRun` response wrapper exposes the run identifier on the returned object; pull the run ID from that field and write it to the log.
+- Workflow step `input` values may contain Liquid placeholders like `{{ marker }}` that get resolved at run time from the `input` passed to `CreateWorkflowRun`.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration.
+- Do not hardcode credentials. Read all sensitive values from environment variables.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is executed, the workflow is upserted on MagicBell, the run is triggered, and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) and the `ProjectClient.Workflows.SaveWorkflow` and `ProjectClient.Workflows.CreateWorkflowRun` methods.
+- The created MagicBell workflow definition must exist with `key` equal to `wf-trigger-go-${run-id}` (run-id read from `ZEALT_RUN_ID`).
+- The triggered workflow run must:
+  - Be retrievable via the MagicBell REST API at `GET /v2/workflows/runs/<run_id>`.
+  - Have its workflow `key` equal to `wf-trigger-go-${run-id}`.
+  - Appear in the listing at `GET /v2/workflows/wf-trigger-go-${run-id}/runs`.
+- The log file must contain the workflow run ID in the format: `Workflow Run ID: <run_id>`.
+
+
+EOF
+Running command: echo zr-7rqcbjh > /logs/artifacts/run-id && echo broadcast_topic_subscribers_js__7rqCbjh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Broadcast to Topic Subscribers with the magicbell-js Project Client
+
+## Background
+MagicBell topics let you group notifications about a specific entity (e.g., `order-123`) and lets users subscribe to that topic. When sending a broadcast, you can fan it out to every subscriber of a topic instead of having to enumerate every recipient by `externalId` or `email`. This requires a subtle, easily-mis-typed recipient form: the broadcast `recipients` array must contain the nested `{ topic: { subscribers: true } }` filter object (see MagicBell Discussion #213). Passing the topic key directly as a string, or as `{ topic: "some-key" }`, will fail with a 422 error.
+
+In this task you will use the modern `magicbell-js` Project Client together with a small REST call to:
+
+1. Upsert two MagicBell users.
+2. Subscribe both users to the same topic, keyed `topic-${ZEALT_RUN_ID}`.
+3. Create a broadcast that targets every subscriber of that topic (using the nested filter form) and that also tags the broadcast itself with the topic.
+4. Persist the resulting broadcast id so the verifier can fetch it.
+
+## Requirements
+- Work inside a Node.js project under `/home/user/myproject`.
+- Install and use the modern `magicbell-js` SDK to upsert users and create the final broadcast.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, and `MAGICBELL_API_KEY` from environment variables.
+  2. Initialise the Project Client from `magicbell-js/project-client` with `token: process.env.MAGICBELL_PROJECT_TOKEN`.
+  3. Compute two recipient emails by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>` and forming `<local>+topic-subs-js-1-<run-id>@<domain>` and `<local>+topic-subs-js-2-<run-id>@<domain>`.
+  4. Upsert two MagicBell users via `users.saveUser({...})` with:
+     - User 1: `externalId: user-topic-subs-js-1-<run-id>`, `email: <plus-addressed email 1>`, `firstName: TopicSubs`, `lastName: One-<run-id>`.
+     - User 2: `externalId: user-topic-subs-js-2-<run-id>`, `email: <plus-addressed email 2>`, `firstName: TopicSubs`, `lastName: Two-<run-id>`.
+  5. Subscribe each user to the topic `topic-<run-id>` by issuing `POST https://api.magicbell.com/subscriptions` with:
+     - Headers `X-MAGICBELL-API-KEY: ${MAGICBELL_API_KEY}` and `X-MAGICBELL-USER-EXTERNAL-ID: <user external id>` and `Content-Type: application/json`.
+     - JSON body `{"subscription":{"topic":"topic-<run-id>"}}`.
+     - Expect a `200 OK` response with the created subscription.
+  6. Create one broadcast via `broadcasts.createBroadcast({...})` with:
+     - `title`: `Topic Subs JS - <run-id>`
+     - `content`: a short description such as `Broadcast to topic subscribers for run <run-id>.`
+     - `topic`: `topic-<run-id>` (the same topic key used for subscriptions).
+     - `recipients`: `[{ topic: { subscribers: true } }]` (the nested-filter form from MagicBell Discussion #213).
+  7. Write the broadcast `id` returned by the SDK to `/home/user/myproject/output.log` in the exact format `Broadcast ID: <broadcast_id>`.
+- The script must run to completion non-interactively and must not modify the project-wide Delivery Planner.
+
+## Implementation Hints
+- Topic subscriptions are user-context resources, so the project-client SDK does not expose them; you must hit the MagicBell `POST /subscriptions` REST endpoint directly (host `https://api.magicbell.com`, NOT `https://api.magicbell.com/v2`). Identify the user with the `X-MAGICBELL-USER-EXTERNAL-ID` header alongside `X-MAGICBELL-API-KEY`.
+- The friction-point: broadcasts to topic subscribers MUST use the nested recipient filter `{ topic: { subscribers: true } }`. A bare string topic, `{ topic: "topic-<run-id>" }`, or `{ topicKey: ... }` will all be rejected by the API.
+- The broadcast payload must also carry the `topic` field at the top level so the notification is tagged with the topic and routed to its subscribers.
+- `magicbell-js` may need `tslib` alongside it depending on the npm resolver; preinstall both if the script fails to start.
+- The SDK response wrappers have the shape `{ data: ... }`; pull `id` from `data`.
+- Both users must be successfully upserted before issuing the subscription requests, otherwise the user-context subscription call will return a 4xx.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed end-to-end and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the broadcast ID in the format: `Broadcast ID: <broadcast_id>`.
+- The created broadcast (read via `GET https://api.magicbell.com/v2/broadcasts/<broadcast_id>`) must:
+  - Have `title` equal to `Topic Subs JS - ${run-id}` where `run-id` is read from `ZEALT_RUN_ID`.
+  - Have `topic` equal to `topic-${run-id}`.
+  - Have `recipients` containing at least one entry that uses the nested topic-subscribers filter form (a `topic` field whose value is an object with `subscribers: true`).
+- Both `user-topic-subs-js-1-${run-id}` and `user-topic-subs-js-2-${run-id}` must show a topic subscription record for `topic-${run-id}` when fetched via `GET https://api.magicbell.com/subscriptions` with `X-MAGICBELL-API-KEY` and `X-MAGICBELL-USER-EXTERNAL-ID` headers.
+
+
+EOF
+Skipping image OS validation for hb__generate_user_jwt_python: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gqkravz > /logs/artifacts/run-id && echo generate_user_jwt_python__GQKrAVZ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Generate a MagicBell User JWT with Python (PyJWT)
+
+## Background
+MagicBell uses two JWT types: a Project JWT (server-side admin) and a User JWT (per-user, safe for the client). The User JWT is generated on your backend by HS256-signing a JSON payload `{ user_email, user_external_id, api_key }` with the project's Secret Key. Before a user can be authenticated through the User Client, the user must exist in MagicBell. In this task, you will write a Python script that upserts the corresponding MagicBell user via the REST API (using the Project JWT) and then issues an HS256-signed User JWT for that user using PyJWT.
+
+## Requirements
+- Create the project under `/home/user/myproject`.
+- Install `PyJWT` and `requests` via pip and execute the script with `python3`.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from environment variables.
+  2. Compute the user email by splitting `MAGICBELL_EMAIL` at the first `@` into `<local>` and `<domain>`, then forming `<local>+jwt-python-${ZEALT_RUN_ID}@<domain>`.
+  3. Compute the user external id as `user-jwt-python-${ZEALT_RUN_ID}`.
+  4. Upsert the MagicBell user with that external id, email, and human-readable first/last name using the MagicBell REST API (`/v2/users`) authenticated with the Project JWT.
+  5. Build the JWT payload exactly as `{ user_email, user_external_id, api_key }` (using the values above; `api_key` is `MAGICBELL_API_KEY`), with an expiration roughly one year in the future.
+  6. HS256-sign the payload with `MAGICBELL_SECRET_KEY` using PyJWT.
+  7. Write the resulting token to `/home/user/myproject/output.log` on a single line in the format `User JWT: <jwt>`.
+- The script must run to completion non-interactively.
+
+## Implementation Hints
+- Install both dependencies: `pip install PyJWT requests`.
+- Use the Project JWT (`Authorization: Bearer $MAGICBELL_PROJECT_TOKEN`) to upsert the user via the v2 REST API before issuing the User JWT, so the JWT references a real MagicBell user.
+- PyJWT's `jwt.encode(payload, secret, algorithm='HS256')` returns a string in modern versions; ensure the payload `exp` claim is set so the token does not have an indefinite lifetime.
+- Keep the JSON payload fields exactly `user_email`, `user_external_id`, and `api_key`; do not add or rename keys.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration.
+- Do not hardcode any tokens or secrets; read them from environment variables.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the User JWT in the format: `User JWT: <jwt>`.
+- The token must be a valid HS256 JWT signed with `MAGICBELL_SECRET_KEY` and decode to a payload that exactly matches the three required claims:
+  - `user_email` equal to `<local>+jwt-python-${ZEALT_RUN_ID}@<domain>` (with `<local>` and `<domain>` derived from splitting `MAGICBELL_EMAIL` at `@`).
+  - `user_external_id` equal to `user-jwt-python-${ZEALT_RUN_ID}`.
+  - `api_key` equal to the value of `MAGICBELL_API_KEY`.
+- The token must authenticate successfully against the MagicBell User Client REST API (the `/v2/notifications` endpoint must respond with HTTP 200 when called with `Authorization: Bearer <jwt>`).
+- A MagicBell user with `external_id == user-jwt-python-${ZEALT_RUN_ID}` and the expected email must exist in the project.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__save_workflow_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-lkftrmf > /logs/artifacts/run-id && echo save_workflow_js__LKFtrmF > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save a MagicBell Workflow with the Node.js Project SDK
+
+## Background
+MagicBell workflows orchestrate multi-step notification campaigns. The Project Client in the modern `magicbell-js` SDK exposes a `workflows.saveWorkflow()` method that upserts a workflow definition identified by its `key`. In this task you will create/upsert a workflow that contains a single broadcast step, using a `run-id`-scoped key so it is safe to run concurrently.
+
+## Requirements
+- Create a Node.js project under `/home/user/myproject`.
+- Install the modern `magicbell-js` SDK (the `magicbell-js` package, NOT the deprecated `magicbell` package).
+- Read the `ZEALT_RUN_ID` environment variable and build the workflow key `wf-save-${ZEALT_RUN_ID}`.
+- Write a Node.js script that uses the Project Client (`magicbell-js/project-client`) to call `workflows.saveWorkflow()` with:
+  - `key`: `wf-save-<run-id>`
+  - `steps`: exactly one step with `command: "broadcast"` and an `input` object containing both `title` and `content`. The `title` MUST include the literal `run-id` value (so it can be correlated downstream). The `content` may use a Liquid placeholder such as `{{ run_id }}` to demonstrate workflow templating.
+- Execute the script (no mocking) so the workflow is actually saved in MagicBell.
+- Record the saved workflow key in a log file so the verifier can locate it.
+
+## Implementation Hints
+- Initialize the Project Client with `MAGICBELL_PROJECT_TOKEN` from the environment.
+- `saveWorkflow()` is an upsert: re-running the script with the same key updates the existing definition. This makes the task safely retryable.
+- The Project Client's response exposes the saved workflow's `key` field; you can use it directly when writing the log.
+- Make sure your script is fully non-interactive and awaits the asynchronous SDK call before exiting.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the workflow is actually saved in MagicBell.
+- Log file: /home/user/myproject/output.log
+- The log file must contain a line in the format: `Workflow Key: <workflow_key>` where `<workflow_key>` equals `wf-save-${ZEALT_RUN_ID}`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__archive_notification_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-kqz6gz2 > /logs/artifacts/run-id && echo archive_notification_js__KQz6gz2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Archive a User Notification with the MagicBell JS SDK
+
+## Background
+MagicBell offers a `UserClient` in its JavaScript SDK (`magicbell-js/user-client`) that lets an end user mutate their own notifications using a short-lived HS256-signed User JWT. In this task you will seed a user, fan out a broadcast to them, sign a User JWT for that user, and use the User SDK to archive the notification that was just delivered.
+
+## Requirements
+- Install and use `magicbell-js` and `jsonwebtoken` in a Node.js project under `/home/user/myproject`.
+- Read the current run id from the `ZEALT_RUN_ID` environment variable and append it as a suffix to every shared identifier you create.
+- Upsert a MagicBell user with `external_id = user-archive-js-${ZEALT_RUN_ID}`. Use a sub-addressed email derived from `MAGICBELL_EMAIL` (split at `@`; receiver `<local>+archive-js-${ZEALT_RUN_ID}@<domain>`).
+- Send a broadcast titled `Archive JS - ${ZEALT_RUN_ID}` whose only recipient is the user above (target by `external_id`). Do not modify the project-wide Delivery Planner; rely on the pre-configured `in_app`/`email` channels.
+- Generate an HS256 User JWT for that user (`user_email`, `user_external_id`, `api_key` payload signed with `MAGICBELL_SECRET_KEY`).
+- Instantiate a `magicbell-js` `UserClient`, locate the notification that matches the broadcast title above, call the archive endpoint on it, and write the archived notification id to a log file.
+
+## Implementation Hints
+- Both the project- and user-scoped SDK clients live in `magicbell-js`. Pick the right one for each step (`project-client` for upsert + broadcast, `user-client` for listing and archiving).
+- The broadcast may take a few seconds to fan out to the in-app channel. Poll `notifications.listNotifications` until a notification whose `title` matches `Archive JS - ${ZEALT_RUN_ID}` appears, then archive it by id.
+- Verify which method on the User SDK's notifications service performs the archive action; do not guess.
+- Read `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, and `ZEALT_RUN_ID` from the process environment. Never hardcode them.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the broadcast must really fan out and the notification must really be archived through MagicBell).
+- Log file: /home/user/myproject/output.log
+- The log file MUST contain a single line in the exact format: `Archived Notification ID: <notification_id>` where `<notification_id>` is the MagicBell notification id that was archived.
+- A MagicBell user with `external_id = user-archive-js-${ZEALT_RUN_ID}` must exist.
+- A broadcast titled `Archive JS - ${ZEALT_RUN_ID}` must have been delivered to that user.
+- The archived notification's `archived_at` field (as returned by the MagicBell REST API) must be a non-null timestamp.
+
+
+EOF
+Skipping image OS validation for hb__save_workflow_cli: docker inspect returned 1
+Skipping image OS validation for hb__save_user_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: echo zr-wvjdek4 > /logs/artifacts/run-id && echo save_workflow_cli__wVJDek4 > /logs/artifacts/trial_id
+Running command: echo zr-ewx2mok > /logs/artifacts/run-id && echo save_user_cli__EwX2mok > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save a MagicBell Workflow Definition via CLI
+
+## Background
+Your platform team uses MagicBell to orchestrate multi-step notification campaigns. You need to register a new workflow definition (upsert) for an onboarding broadcast using the MagicBell CLI, so it can be triggered later by other services. The workflow must contain a single `broadcast` step.
+
+## Requirements
+- Authenticate the MagicBell CLI non-interactively using the provided credentials.
+- Create/upsert a workflow definition with a unique, run-scoped key.
+- The workflow must contain exactly one step whose `command` is `broadcast`, with a `title` and `content` describing the onboarding message.
+- Parse the JSON returned by the CLI and write the workflow key to a log file.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable, and use it to build a unique workflow key.
+- Authenticate non-interactively with `magicbell login --manual`, passing `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`.
+- Use `magicbell workflow save --data '<json>'` to upsert the workflow definition. The `--data` payload must include a top-level `key` and a `steps` array.
+- The CLI prints the saved workflow as JSON. Parse it (e.g., with `jq`) to extract the workflow key.
+- Save the result to `/home/user/magicbell-task/output.log`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real workflow save action is executed against MagicBell and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use MagicBell CLI for the workflow save operation.
+- The workflow key must be `wf-save-cli-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The workflow must have exactly one step whose `command` is `broadcast`. The step's `input.title` must include the current `run-id`.
+- The log file must contain a line in the format: `Workflow Key: <workflow_key>`.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Upsert a MagicBell User via MagicBell CLI
+
+## Background
+You need to provision an end user in your MagicBell project from a server-side script using the MagicBell CLI. The user must be created (or updated) with a stable `external_id`, a contact email derived from the project's account email, and a human-readable name. After the save completes, the resulting MagicBell user `id` (UUID) must be recorded in a log file so that downstream automation can reference the user.
+
+## Requirements
+- Authenticate the MagicBell CLI non-interactively using the credentials provided via environment variables.
+- Upsert a single MagicBell user with the following attributes:
+  - `external_id`: `user-${ZEALT_RUN_ID}`.
+  - `email`: built from `MAGICBELL_EMAIL` using sub-addressing — if `MAGICBELL_EMAIL` is `<local>@<domain>`, the user email must be `<local>+save-user-cli-${ZEALT_RUN_ID}@<domain>`.
+  - `first_name`: `Harbor`.
+  - `last_name`: `Tester`.
+- Parse the CLI's JSON output, extract the returned MagicBell user `id`, and write a single line to the log file.
+
+## Implementation Hints
+- Read `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` from the environment, and derive the recipient email by inserting `+save-user-cli-${ZEALT_RUN_ID}` before the `@` of `MAGICBELL_EMAIL`.
+- Authenticate the CLI non-interactively with `magicbell login --manual`, passing `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`.
+- Use `magicbell user save --data '<json>'` to upsert the user; the CLI prints the saved user as JSON containing the assigned `id`.
+- Tools like `jq` are available; use them (or a small Node/Python helper) to extract the `id` field from the CLI output.
+- Save the result line to `/home/user/magicbell-task/output.log`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real user save action is executed against MagicBell and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use the MagicBell CLI (`magicbell user save`) to upsert the user.
+- The user's `external_id` must be `user-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment.
+- The user's `email` must be `<local>+save-user-cli-${ZEALT_RUN_ID}@<domain>` where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL` at the `@` character.
+- The log file must contain the MagicBell user ID in the format: `User ID: <id>` where `<id>` is the UUID assigned by MagicBell.
+
+
+EOF
+Skipping image OS validation for hb__trigger_workflow_run_cli: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-autmeek > /logs/artifacts/run-id && echo trigger_workflow_run_cli__autMeek > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save and Trigger a MagicBell Workflow Run via the MagicBell CLI
+
+## Background
+MagicBell workflows let you orchestrate multi-step notification pipelines that can be triggered with arbitrary input at run time. The MagicBell CLI exposes `magicbell workflow save` to upsert a workflow definition and `magicbell workflow create_run` to execute one. Step inputs can reference workflow-run `input` fields via Liquid templates (e.g., `{{ marker }}`), which means a single workflow definition can be reused with different payloads. In this task, you will use the CLI in a non-interactive shell to (1) upsert a workflow definition keyed by `wf-trigger-cli-${run-id}` that broadcasts a Liquid-templated title to a per-run recipient email, (2) trigger one workflow run with concrete `marker` and `recipient_email` inputs, and (3) write the resulting workflow run ID to an output log for downstream verification.
+
+## Requirements
+- Work inside `/home/user/magicbell-task` and use the pre-installed `magicbell` CLI.
+- Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from the environment.
+- Authenticate the CLI non-interactively with `magicbell login --manual`, passing the credentials above.
+- Compute the recipient email by splitting `MAGICBELL_EMAIL` at `@` into `<local>@<domain>`, then forming `<local>+trigger-cli-<run-id>@<domain>` (plus-addressing).
+- Upsert a workflow definition with:
+  - `key`: `wf-trigger-cli-<run-id>`
+  - `steps`: exactly one `broadcast` step whose `input.title` is the Liquid template `Workflow Trigger CLI - {{ marker }}`, with a `content` describing the broadcast and `recipients` that target the per-run email (you may use a Liquid placeholder such as `{{ recipient_email }}` so the address is supplied at trigger time).
+- Trigger one workflow run with `magicbell workflow create_run`, passing JSON `--data` whose `key` is `wf-trigger-cli-<run-id>` and whose `input` object contains both `marker` (set to `trigger-cli-<run-id>`) and `recipient_email` (set to the plus-addressed email above).
+- Parse the JSON returned by `magicbell workflow create_run` to extract the run identifier and write it to `/home/user/magicbell-task/output.log`.
+- The whole sequence must run non-interactively to completion.
+
+## Implementation Hints
+- Install / login flow: the `magicbell` CLI is already installed globally. Use `magicbell login --manual --email <email> --jwt <project-token> --api-key <api-key> --secret-key <secret-key>` so no terminal prompt is required.
+- Use `magicbell workflow save --data '<json>'` to upsert the workflow definition; the same command both creates and updates a workflow by its `key`.
+- Use `magicbell workflow create_run --data '{"key":"...","input":{...}}'` to trigger the workflow. The CLI prints the created run as JSON; the run identifier is the `id` field (commonly nested under `data`).
+- A small JSON parser like `jq` is available; you can pipe the CLI output into `jq -r` to extract the run id reliably.
+- Workflow `input` placeholders use Liquid syntax (`{{ marker }}`, `{{ recipient_email }}`) and are resolved against the JSON `input` object you supply to `create_run`.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration; the project is already wired for the `in_app` and `email` channels.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Ensure the real workflow save and create_run actions are executed against MagicBell and the log artifact exists.
+- Log file: /home/user/magicbell-task/output.log
+- Use the MagicBell CLI (`magicbell` binary) for both the workflow definition upsert and the workflow run trigger.
+- The workflow definition must exist with `key` equal to `wf-trigger-cli-${run-id}` (where `run-id` is read from the `ZEALT_RUN_ID` environment variable).
+- The triggered workflow run must:
+  - Be retrievable via the MagicBell REST API at `GET /v2/workflows/runs/<run_id>`.
+  - Have a workflow key equal to `wf-trigger-cli-${run-id}`.
+  - Appear in the listing at `GET /v2/workflows/wf-trigger-cli-${run-id}/runs`.
+- The log file must contain the workflow run identifier in the format: `Workflow Run ID: <run_id>`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__save_user_go: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-gjk4cqn > /logs/artifacts/run-id && echo save_user_go__gjK4cqn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save a MagicBell User with the Go SDK
+
+## Background
+MagicBell is a real-time notification platform. Backend services typically upsert their application users into MagicBell so that those users can later receive broadcasts and workflow notifications. You will write a Go program that uses the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`) `ProjectClient` to upsert (save) a user, then capture the resulting MagicBell user `id` to a log file.
+
+## Requirements
+- Initialize a Go module under `/home/user/myproject` and add the official MagicBell Go SDK as a dependency.
+- Write `main.go` that constructs the `ProjectClient` using `clientconfig.NewConfig().SetAccessToken(...)` with the project token from the environment.
+- Call `sdk.Users.SaveUser` with a `users.User` payload that sets `ExternalId`, `Email`, `FirstName`, and `LastName`.
+- Run the program and persist the saved user's MagicBell `id` to a log file.
+
+## Implementation Hints
+- Read `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, and `ZEALT_RUN_ID` from the environment.
+- Build the recipient-style email by splitting `MAGICBELL_EMAIL` at `@` (local + domain) and using sub-addressing to form `<local>+save-user-go-${ZEALT_RUN_ID}@<domain>`.
+- The `users.User` struct uses `*string` fields; use the SDK's `util.ToPointer` helper to wrap string literals.
+- Initialize the module with `go mod init myproject` and pull the SDK with `go get github.com/magicbell/magicbell-go`.
+- Inspect the returned `*SaveUserResponse` to read `Data.Id` (a `*string`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Go program is executed against the real MagicBell API and the log artifact exists.
+- Log file: /home/user/myproject/output.log
+- The Go program must use the official MagicBell Go SDK (`github.com/magicbell/magicbell-go`).
+- The saved user's `external_id` must be `user-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- The saved user's `email` must be `<local>+save-user-go-${run-id}@<domain>` where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL` at `@`.
+- The log file must contain a line in the format: `User ID: <user_id>` where `<user_id>` is the MagicBell-assigned user id returned by `SaveUser`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__generate_user_jwt_node: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-krc8taf > /logs/artifacts/run-id && echo generate_user_jwt_node__KRc8TaF > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Generate a MagicBell User JWT with Node.js
+
+## Background
+MagicBell's frontend SDKs (such as the React `FloatingInbox`) authenticate end users with a short-lived **User JWT** that must be minted on a trusted backend. The token is an `HS256`-signed JWT whose payload carries the user identity (`user_email` and/or `user_external_id`) and the project's public `api_key`, and it is signed with the project's `MAGICBELL_SECRET_KEY`.
+
+In this task you will build a small Node.js script that runs on the backend, upserts a MagicBell user, signs a User JWT for that user, and writes the resulting token to a log file so that the rest of the platform can pick it up.
+
+## Requirements
+- Build a Node.js (ESM or CommonJS, your choice) script that runs end-to-end with a single `node` invocation.
+- Read the run-id from the `ZEALT_RUN_ID` environment variable and use it to derive deterministic per-run identifiers.
+- Upsert a MagicBell user on the project (`POST https://api.magicbell.com/v2/users` with the project token) so that the JWT later refers to a real user.
+- Mint a User JWT for that user using HMAC `HS256` signed with `MAGICBELL_SECRET_KEY`.
+- The JWT payload must include the fields `user_email`, `user_external_id`, and `api_key`, and the token must expire 1 year from issuance (`expiresIn: '1y'`).
+- Write the minted token to a log file in the exact format `User JWT: <token>`.
+
+## Implementation Hints
+- Initialize a Node.js project under `/home/user/myproject` and install `jsonwebtoken` for the signing step. You may use `node-fetch`/`undici`/built-in `fetch` (Node >=18 ships with global `fetch`) for the REST call.
+- Read `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, and `ZEALT_RUN_ID` from environment variables. Never hardcode them.
+- Construct the per-run email by splitting `MAGICBELL_EMAIL` at `@` and inserting `+jwt-node-${ZEALT_RUN_ID}` as a sub-address (i.e. `<local>+jwt-node-${ZEALT_RUN_ID}@<domain>`). Use `user-jwt-node-${ZEALT_RUN_ID}` for the user's `external_id`.
+- For the upsert, send a `POST` to `https://api.magicbell.com/v2/users` with `Authorization: Bearer ${MAGICBELL_PROJECT_TOKEN}` and a JSON body containing the per-run `external_id` and `email`.
+- For signing, use `jwt.sign(payload, MAGICBELL_SECRET_KEY, { algorithm: 'HS256', expiresIn: '1y' })`.
+- Append (or overwrite) the line `User JWT: <token>` to `/home/user/myproject/output.log` after the JWT is generated.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the script is actually executed against the real MagicBell API and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain a line in the exact format `User JWT: <token>` where `<token>` is the minted JWT.
+- `<token>` must be a valid HS256 JWT signed with `MAGICBELL_SECRET_KEY` whose payload contains:
+  - `user_email` equal to the per-run sub-addressed email derived from `MAGICBELL_EMAIL` and `ZEALT_RUN_ID`.
+  - `user_external_id` equal to `user-jwt-node-${ZEALT_RUN_ID}`.
+  - `api_key` equal to `MAGICBELL_API_KEY`.
+  - an `exp` claim that is still in the future when verification runs.
+- The JWT must be usable to call MagicBell's user-authenticated REST API (a `GET https://api.magicbell.com/v2/notifications` with `Authorization: Bearer <token>` must return HTTP 200).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached

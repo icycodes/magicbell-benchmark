@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py FEFE                                           [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_log_file_contains_event_id _______________
+
+    @pytest.fixture(scope="session")
+    def logged_event_id():
+>       assert os.path.isfile(LOG_FILE), f"Output log file not found at {LOG_FILE}"
+E       AssertionError: Output log file not found at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7ffaa8098220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7ffaa8098220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+______________ ERROR at setup of test_logged_event_id_matches_api ______________
+
+    @pytest.fixture(scope="session")
+    def logged_event_id():
+>       assert os.path.isfile(LOG_FILE), f"Output log file not found at {LOG_FILE}"
+E       AssertionError: Output log file not found at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7ffaa8098220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7ffaa8098220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:35: AssertionError
+=================================== FAILURES ===================================
+_____________________________ test_log_file_exists _____________________________
+
+    def test_log_file_exists():
+>       assert os.path.isfile(LOG_FILE), f"Log file does not exist at {LOG_FILE}"
+E       AssertionError: Log file does not exist at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7ffaa8098220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7ffaa8098220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:80: AssertionError
+___________________ test_events_api_contains_broadcast_event ___________________
+
+events_payload = [{'code': 200, 'context': {'channel': 'email', 'delivery_id': '019e8984-1943-7f63-b993-4819d40f3023', 'notification_id...03dfb7626e3b', 'provider': 'magicbell', ...}, 'id': '019e8983-ef79-79e8-b773-59106a528557', 'level': 'info', ...}, ...]
+expected_broadcast_title = 'Events Demo Go - zr-rhjrmbg'
+
+    def test_events_api_contains_broadcast_event(events_payload, expected_broadcast_title):
+        serialized = json.dumps(events_payload)
+>       assert expected_broadcast_title in serialized, (
+            "Expected to find an event whose payload references the broadcast title "
+            f"'{expected_broadcast_title}' in the recent MagicBell events list, but "
+            f"none was found. Events: {serialized[:2000]}"
+        )
+E       AssertionError: Expected to find an event whose payload references the broadcast title 'Events Demo Go - zr-rhjrmbg' in the recent MagicBell events list, but none was found. Events: [{"id": "019e8984-51d3-7a00-87cd-b674e16304ca", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "email", "delivery_id": "019e8984-1943-7f63-b993-4819d40f3023", "notification_id": "019e8983-f03e-7cd5-9ea0-8709409d8645", "provider": "smtp", "user_id": "454595a3-bca5-4c69-8141-48fc38ce0b98"}, "timestamp": "2026-06-02T18:06:50.835728012Z"}, {"id": "019e8984-36b0-79f7-a4c8-951576867ef3", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "email", "delivery_id": "019e8983-fcc3-76cc-a959-91860079aca2", "notification_id": "019e8983-d406-7fb7-80b7-0f4c2137f716", "provider": "smtp", "user_id": "c816cebb-3a9c-4f44-9c6d-a71ada693feb"}, "timestamp": "2026-06-02T18:06:43.888771292Z"}, {"id": "019e8984-3395-7290-9a44-25c4affcdd34", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "in_app", "delivery_id": "019e8984-1943-7f62-a73c-6099aed4b75b", "notification_id": "019e8983-f03e-7cd5-9ea0-8709409d8645", "provider": "magicbell", "user_id": "454595a3-bca5-4c69-8141-48fc38ce0b98"}, "timestamp": "2026-06-02T18:06:43.093311533Z"}, {"id": "019e8984-1a72-79ee-808c-9559c05b7809", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "in_app", "delivery_id": "019e8983-fcc3-76cb-8e52-719c14c49677", "notification_id": "019e8983-d406-7fb7-80b7-0f4c2137f716", "provider": "magicbell", "user_id": "c816cebb-3a9c-4f44-9c6d-a71ada693feb"}, "timestamp": "2026-06-02T18:06:36.658017674Z"}, {"id": "019e8984-0eb1-7f62-ab26-11ff9c2a8c98", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "email", "delivery_id": "019e8983-d381-79dd-ab20-1f2218f27a8f", "notification_id": "019e8983-aa89-721b-93fa-03dfb7626e3b", "provider": "smtp", "user_id": "69802c75-89ca-45f7-af2b-2a59f8183d39"}, "timestamp": "2026-06-02T18:06:33.649119368Z"}, {"id": "019e8983-ef79-79e8-
+E       assert 'Events Demo Go - zr-rhjrmbg' in '[{"id": "019e8984-51d3-7a00-87cd-b674e16304ca", "type": "delivery.sent", "log": "delivery sent", "level": "info", "co...provider": "smtp", "user_id": "019e896f-b6e0-7ab2-8ca7-b8b239e51fee"}, "timestamp": "2026-06-02T17:46:16.080094419Z"}]'
+
+tests/test_final_state.py:89: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_log_file_contains_event_id - AssertionE...
+ERROR tests/test_final_state.py::test_logged_event_id_matches_api - Assertion...
+FAILED tests/test_final_state.py::test_log_file_exists - AssertionError: Log ...
+FAILED tests/test_final_state.py::test_events_api_contains_broadcast_event - ...
+========================= 2 failed, 2 errors in 0.69s ==========================

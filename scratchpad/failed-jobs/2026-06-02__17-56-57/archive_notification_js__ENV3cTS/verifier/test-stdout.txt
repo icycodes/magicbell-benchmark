@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_______________ test_notification_is_archived_via_magicbell_api ________________
+
+    def test_notification_is_archived_via_magicbell_api():
+        run_id = _run_id()
+        creds = _credentials()
+        notification_id = _read_archived_notification_id()
+        user_external_id = f"user-archive-js-{run_id}"
+        user_email = _expected_user_email(creds["email"], run_id)
+    
+        user_jwt = _sign_user_jwt(user_email, user_external_id, creds["api_key"], creds["secret_key"])
+        body = _fetch_notification(notification_id, user_jwt, creds["api_key"])
+    
+        expected_title = f"Archive JS - {run_id}"
+        actual_title = body.get("title")
+>       assert actual_title == expected_title, (
+            f"Expected notification title {expected_title!r}, got {actual_title!r}. "
+            f"Response keys: {list(body.keys())}"
+        )
+E       AssertionError: Expected notification title 'Archive JS - zr-env3cts', got None. Response keys: ['notification']
+E       assert None == 'Archive JS - zr-env3cts'
+
+tests/test_final_state.py:98: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_contains_archived_notification_id
+FAILED tests/test_final_state.py::test_notification_is_archived_via_magicbell_api
+========================= 1 failed, 1 passed in 0.79s ==========================

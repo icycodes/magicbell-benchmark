@@ -1,0 +1,81 @@
+- Initializing MCP connections...
+You
+# Upsert a MagicBell User via MagicBell CLI ## Background You need to provision an end user in your MagicBell project from a server-side script using the MagicBell CLI. The user must be created (or updated) with a stable `external_id`, a contact email derived from the project's account email, and a human-readable name. After the save completes, the resulting MagicBell user `id` (UUID) must be recorded in a log file so that downstream automation can reference the user. ## Requirements * Authenticate the MagicBell CLI non-interactively using the credentials provided via environment variables. * Upsert a single MagicBell user with the following attributes: * `external_id`: `user-${ZEALT_RUN_ID}`. * `email`: built from `MAGICBELL_EMAIL` using sub-addressing — if `MAGICBELL_EMAIL` is `<local>@<domain>`, the user email must be `<local>+save-user-cli-${ZEALT_RUN_ID}@<domain>`. * `first_name`: `Harbor`. * `last_name`: `Tester`. * Parse the CLI's JSON output, extract the returned MagicBell user `id`, and write a single line to the log file. ## Implementation Hints * Read `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` from the environment, and derive the recipient email by inserting `+save-user-cli-${ZEALT_RUN_ID}` before the `@` of `MAGICBELL_EMAIL`. * Authenticate the CLI non-interactively with `magicbell login --manual`, passing `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`. * Use `magicbell user save --data '<json>'` to upsert the user; the CLI prints the saved user as JSON containing the assigned `id`. * Tools like `jq` are available; use them (or a small Node/Python helper) to extract the `id` field from the CLI output. * Save the result line to `/home/user/magicbell-task/output.log`. ## Acceptance Criteria * Project path: /home/user/magicbell-task * Ensure the real user save action is executed against MagicBell and the log artifact exists. * Log file: /home/user/magicbell-task/output.log * Use the MagicBell CLI (`magicbell user save`) to upsert the user. * The user's `external_id` must be `user-${ZEALT_RUN_ID}` where `ZEALT_RUN_ID` is read from the environment. * The user's `email` must be `<local>+save-user-cli-${ZEALT_RUN_ID}@<domain>` where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL` at the `@` character. * The log file must contain the MagicBell user ID in the format: `User ID: <id>` where `<id>` is the UUID assigned by MagicBell.   
+
+Pochi
+💭 Thinking for 609 characters   
+💫 Executing mkdir -p /home/user/magicbell-task
+cd /home/user/magicbell-task
+
+LOCAL_PART="${MAGICBELL_EMAIL%@*}"
+DOMAIN_PART="${MAGICBELL_EMAIL#*@}"
+NEW_EMAIL="${LOCAL_PART}+save-user-cli-${ZEALT_RUN_ID}@${DOMAIN_PART}"
+
+magicbell login --manual \
+  --email "$MAGICBELL_EMAIL" \
+  --project-token "$MAGICBELL_PROJECT_TOKEN" \
+  --api-key "$MAGICBELL_API_KEY" \
+  --api-secret "$MAGICBELL_SECRET_KEY"
+
+OUTPUT=$(magicbell user save --data "{\"external_id\": \"user-${ZEALT_RUN_ID}\", \"email\": \"${NEW_EMAIL}\", \"first_name\": \"Harbor\", \"last_name\": \"Tester\"}")
+
+USER_ID=$(echo "$OUTPUT" | jq -r '.id')
+
+echo "User ID: $USER_ID" > output.log
+cat output.log ✔ 
+💫 Executing magicbell login --help ✔ 
+💭 Thinking for 227 characters   
+💫 Executing mkdir -p /home/user/magicbell-task
+cd /home/user/magicbell-task
+
+LOCAL_PART="${MAGICBELL_EMAIL%@*}"
+DOMAIN_PART="${MAGICBELL_EMAIL#*@}"
+NEW_EMAIL="${LOCAL_PART}+save-user-cli-${ZEALT_RUN_ID}@${DOMAIN_PART}"
+
+magicbell login --manual \
+  --email "$MAGICBELL_EMAIL" \
+  --jwt "$MAGICBELL_PROJECT_TOKEN" \
+  --api-key "$MAGICBELL_API_KEY" \
+  --secret-key "$MAGICBELL_SECRET_KEY"
+
+OUTPUT=$(magicbell user save --data "{\"external_id\": \"user-${ZEALT_RUN_ID}\", \"email\": \"${NEW_EMAIL}\", \"first_name\": \"Harbor\", \"last_name\": \"Tester\"}")
+
+USER_ID=$(echo "$OUTPUT" | jq -r '.id')
+
+echo "User ID: $USER_ID" > output.log
+cat output.log ✔ 
+💭 Thinking for 614 characters   
+💫 Executing magicbell user save --data "{\"external_id\": \"user-${ZEALT_RUN_ID}\", \"email\": \"${NEW_EMAIL}\", \"first_name\": \"Harbor\", \"last_name\": \"Tester\"}" ✔ 
+💭 Thinking for 259 characters   
+💫 Executing env | grep -E 'MAGICBELL|ZEALT' ✔ 
+💭 Thinking for 255 characters   
+💫 Executing LOCAL_PART="${MAGICBELL_EMAIL%@*}"
+DOMAIN_PART="${MAGICBELL_EMAIL#*@}"
+NEW_EMAIL="${LOCAL_PART}+save-user-cli-${ZEALT_RUN_ID}@${DOMAIN_PART}"
+echo "$NEW_EMAIL" ✔ 
+💭 Thinking for 918 characters   
+💫 Executing LOCAL_PART="${MAGICBELL_EMAIL%@*}"
+DOMAIN_PART="${MAGICBELL_EMAIL#*@}"
+NEW_EMAIL="${LOCAL_PART}+save-user-cli-${ZEALT_RUN_ID}@${DOMAIN_PART}"
+
+OUTPUT=$(magicbell user save --data "{\"external_id\": \"user-${ZEALT_RUN_ID}\", \"email\": \"${NEW_EMAIL}\", \"first_name\": \"Harbor\", \"last_name\": \"Tester\"}")
+USER_ID=$(echo "$OUTPUT" | jq -r 'select(.id != null) | .id')
+
+echo "User ID: $USER_ID" > /home/user/magicbell-task/output.log
+cat /home/user/magicbell-task/output.log ✔ 
+💭 Thinking for 605 characters   
+💫 Executing magicbell user get --id 019e8963-4dc0-78a8-919e-f9375ecc69b5 ✔ 
+💫 Executing magicbell user get --help ✔ 
+💫 Executing cat /home/user/magicbell-task/output.log ✔ 
+💭 Thinking for 536 characters   
+🎉 Task Completed
+I have successfully upserted the MagicBell user via the MagicBell CLI and recorded the assigned UUID in the required log file. 
+
+Here are the actions taken:
+1. Created the directory `/home/user/magicbell-task`.
+2. Calculated the required email by splitting the `MAGICBELL_EMAIL` into a local part and domain part, and inserting `+save-user-cli-${ZEALT_RUN_ID}`.
+3. Authenticated non-interactively with the CLI using `magicbell login --manual` and the provided environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`).
+4. Used `magicbell user save` to upsert the user with the specified `external_id`, `email`, `first_name` ("Harbor"), and `last_name` ("Tester").
+5. Parsed the JSON output from the CLI to extract the newly created MagicBell user `id`.
+6. Wrote the extracted user `id` to `/home/user/magicbell-task/output.log` in the format `User ID: <id>`.   
+  

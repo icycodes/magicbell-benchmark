@@ -1,0 +1,13 @@
+{
+  "key": "wf-save-cli-zr-mee5rsd",
+  "name": "Onboarding Broadcast",
+  "steps": [
+    {
+      "command": "broadcast",
+      "input": {
+        "title": "Welcome! Run ID: zr-mee5rsd",
+        "content": "This is the onboarding message."
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+________________ test_jwt_authorizes_user_client_rest_endpoint _________________
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiendwYXBlcmFkK2p3dC1ub2RlLXpyLW5scXltcDRAZ21haWwuY29tIiwidXNl...zRRM0o4MzRUMF8yMTAyODg0MTciLCJpYXQiOjE3ODA0MjE1MjUsImV4cCI6MTgxMTk3OTEyNX0.d1uleZ7aM8fSbctLHKlbext0DZlob-TyBMMiVhNvqTQ'
+
+    def test_jwt_authorizes_user_client_rest_endpoint(token):
+        """The minted JWT must be accepted by MagicBell's user-client REST API."""
+        url = f"{MAGICBELL_API_BASE}/notifications"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+        }
+        response = requests.get(url, headers=headers, timeout=30)
+        assert response.status_code == 200, (
+            f"Expected HTTP 200 from GET {url} with the minted User JWT, "
+            f"got {response.status_code}. Body: {response.text[:500]}"
+        )
+        try:
+            body = response.json()
+        except ValueError:
+            pytest.fail(f"Response from {url} was not valid JSON: {response.text[:500]}")
+        assert isinstance(body, dict), (
+            f"Expected JSON object from {url}, got: {type(body).__name__}"
+        )
+        # MagicBell v2 user-client list endpoints return a `notifications` array.
+>       assert "notifications" in body, (
+            f"Expected 'notifications' key in response JSON, got keys: {list(body.keys())}"
+        )
+E       AssertionError: Expected 'notifications' key in response JSON, got keys: ['links', 'data']
+E       assert 'notifications' in {'data': [], 'links': {'first': 'https://api.magicbell.com/v2/notifications', 'next': None, 'prev': None}}
+
+tests/test_final_state.py:128: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_jwt
+PASSED tests/test_final_state.py::test_jwt_header_uses_hs256
+PASSED tests/test_final_state.py::test_jwt_verifies_with_secret_key_and_has_expected_payload
+FAILED tests/test_final_state.py::test_jwt_authorizes_user_client_rest_endpoint
+========================= 1 failed, 3 passed in 0.74s ==========================

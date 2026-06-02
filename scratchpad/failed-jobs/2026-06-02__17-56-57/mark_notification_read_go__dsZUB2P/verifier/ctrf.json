@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780423266985,
+            "stop": 1780423267685
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780423267337,
+                "stop": 1780423267338,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_contains_notification_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780423267338,
+                "stop": 1780423267340,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_notification_title_matches",
+                "status": "passed",
+                "duration": 343,
+                "start": 1780423267340,
+                "stop": 1780423267683,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_notification_marked_as_read",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780423267684,
+                "stop": 1780423267685,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,99 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py FFFF                                           [100%]
+
+=================================== FAILURES ===================================
+____________________ test_output_log_contains_broadcast_id _____________________
+
+    def test_output_log_contains_broadcast_id():
+        """Verify the log file exists and contains a valid Broadcast ID line."""
+>       broadcast_id = _read_broadcast_id()
+
+tests/test_final_state.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_broadcast_id():
+>       assert os.path.isfile(OUTPUT_LOG), f"Output log file not found at {OUTPUT_LOG}"
+E       AssertionError: Output log file not found at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7fd409b44220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7fd409b44220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:30: AssertionError
+________________________ test_broadcast_title_and_topic ________________________
+
+    def test_broadcast_title_and_topic():
+        """Fetch the broadcast via v2 REST API and assert title + topic match."""
+        project_token = _get_project_token()
+>       broadcast_id = _read_broadcast_id()
+
+tests/test_final_state.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_broadcast_id():
+>       assert os.path.isfile(OUTPUT_LOG), f"Output log file not found at {OUTPUT_LOG}"
+E       AssertionError: Output log file not found at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7fd409b44220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7fd409b44220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:30: AssertionError
+_____________ test_broadcast_recipients_use_topic_subscribers_form _____________
+
+    def test_broadcast_recipients_use_topic_subscribers_form():
+        """Friction point: recipients MUST use the nested {topic:{subscribers:true}} form."""
+        project_token = _get_project_token()
+>       broadcast_id = _read_broadcast_id()
+
+tests/test_final_state.py:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _read_broadcast_id():
+>       assert os.path.isfile(OUTPUT_LOG), f"Output log file not found at {OUTPUT_LOG}"
+E       AssertionError: Output log file not found at /home/user/myproject/output.log
+E       assert False
+E        +  where False = <function isfile at 0x7fd409b44220>('/home/user/myproject/output.log')
+E        +    where <function isfile at 0x7fd409b44220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:30: AssertionError
+________________________ test_users_subscribed_to_topic ________________________
+
+    def test_users_subscribed_to_topic():
+        """Each user must have a topic subscription record for topic-${run-id}."""
+        api_key = _get_api_key()
+        expected_topic = _expected_topic()
+    
+        for external_id in _expected_user_external_ids():
+            headers = {
+                "X-MAGICBELL-API-KEY": api_key,
+                "X-MAGICBELL-USER-EXTERNAL-ID": external_id,
+                "Accept": "application/json",
+            }
+            response = requests.get(
+                "https://api.magicbell.com/subscriptions",
+                headers=headers,
+                timeout=30,
+            )
+>           assert response.status_code == 200, (
+                f"MagicBell list subscriptions for {external_id} returned status "
+                f"{response.status_code}: {response.text}"
+            )
+E           AssertionError: MagicBell list subscriptions for user-topic-subs-js-1-zr-j5spo4c returned status 401: {"errors":[{"code":"hmac_header_not_provided","message":"HMAC header not provided","suggestion":"Please provide the 'X-MAGICBELL-USER-HMAC' header containing the HMAC of the user's email. The HMAC is generated using the user's email/external_id and your MagicBell project's API secret.","help_link":"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv"}]}
+E             
+E           assert 401 == 200
+E            +  where 401 = <Response [401]>.status_code
+
+tests/test_final_state.py:161: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_output_log_contains_broadcast_id - Ass...
+FAILED tests/test_final_state.py::test_broadcast_title_and_topic - AssertionE...
+FAILED tests/test_final_state.py::test_broadcast_recipients_use_topic_subscribers_form
+FAILED tests/test_final_state.py::test_users_subscribed_to_topic - AssertionE...
+============================== 4 failed in 0.65s ===============================

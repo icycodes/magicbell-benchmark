@@ -1,0 +1,79 @@
+Skipping image OS validation for hb__archive_notification_js: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-kqz6gz2 > /logs/artifacts/run-id && echo archive_notification_js__KQz6gz2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Archive a User Notification with the MagicBell JS SDK
+
+## Background
+MagicBell offers a `UserClient` in its JavaScript SDK (`magicbell-js/user-client`) that lets an end user mutate their own notifications using a short-lived HS256-signed User JWT. In this task you will seed a user, fan out a broadcast to them, sign a User JWT for that user, and use the User SDK to archive the notification that was just delivered.
+
+## Requirements
+- Install and use `magicbell-js` and `jsonwebtoken` in a Node.js project under `/home/user/myproject`.
+- Read the current run id from the `ZEALT_RUN_ID` environment variable and append it as a suffix to every shared identifier you create.
+- Upsert a MagicBell user with `external_id = user-archive-js-${ZEALT_RUN_ID}`. Use a sub-addressed email derived from `MAGICBELL_EMAIL` (split at `@`; receiver `<local>+archive-js-${ZEALT_RUN_ID}@<domain>`).
+- Send a broadcast titled `Archive JS - ${ZEALT_RUN_ID}` whose only recipient is the user above (target by `external_id`). Do not modify the project-wide Delivery Planner; rely on the pre-configured `in_app`/`email` channels.
+- Generate an HS256 User JWT for that user (`user_email`, `user_external_id`, `api_key` payload signed with `MAGICBELL_SECRET_KEY`).
+- Instantiate a `magicbell-js` `UserClient`, locate the notification that matches the broadcast title above, call the archive endpoint on it, and write the archived notification id to a log file.
+
+## Implementation Hints
+- Both the project- and user-scoped SDK clients live in `magicbell-js`. Pick the right one for each step (`project-client` for upsert + broadcast, `user-client` for listing and archiving).
+- The broadcast may take a few seconds to fan out to the in-app channel. Poll `notifications.listNotifications` until a notification whose `title` matches `Archive JS - ${ZEALT_RUN_ID}` appears, then archive it by id.
+- Verify which method on the User SDK's notifications service performs the archive action; do not guess.
+- Read `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, and `ZEALT_RUN_ID` from the process environment. Never hardcode them.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist (the broadcast must really fan out and the notification must really be archived through MagicBell).
+- Log file: /home/user/myproject/output.log
+- The log file MUST contain a single line in the exact format: `Archived Notification ID: <notification_id>` where `<notification_id>` is the MagicBell notification id that was archived.
+- A MagicBell user with `external_id = user-archive-js-${ZEALT_RUN_ID}` must exist.
+- A broadcast titled `Archive JS - ${ZEALT_RUN_ID}` must have been delivered to that user.
+- The archived notification's `archived_at` field (as returned by the MagicBell REST API) must be a non-null timestamp.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

@@ -1,0 +1,14 @@
+{
+  "name": "magicbell-mark-read-js",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Mark a MagicBell notification as read with user client",
+  "main": "mark-read.js",
+  "scripts": {
+    "start": "node mark-read.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "magicbell-js": "^1.7.0"
+  }
+}

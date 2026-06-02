@@ -1,0 +1,8 @@
+{
+  "name": "magicbell-upsert-user",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "magicbell-js": "^1.7.0"
+  }
+}

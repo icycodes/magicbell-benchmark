@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780420319953,
+            "stop": 1780420320435
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_contains_archived_notification_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780420320112,
+                "stop": 1780420320113,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_notification_is_archived_via_magicbell_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 321,
+                "start": 1780420320114,
+                "stop": 1780420320435,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_notification_is_archived_via_magicbell_api():\n        run_id = _run_id()\n        creds = _credentials()\n        notification_id = _read_archived_notification_id()\n        user_external_id = f\"user-archive-js-{run_id}\"\n        user_email = _expected_user_email(creds[\"email\"], run_id)\n    \n        user_jwt = _sign_user_jwt(user_email, user_external_id, creds[\"api_key\"], creds[\"secret_key\"])\n        body = _fetch_notification(notification_id, user_jwt, creds[\"api_key\"])\n    \n        expected_title = f\"Archive JS - {run_id}\"\n        actual_title = body.get(\"title\")\n>       assert actual_title == expected_title, (\n            f\"Expected notification title {expected_title!r}, got {actual_title!r}. \"\n            f\"Response keys: {list(body.keys())}\"\n        )\nE       AssertionError: Expected notification title 'Archive JS - zr-kqz6gz2', got None. Response keys: ['notification']\nE       assert None == 'Archive JS - zr-kqz6gz2'\n\ntests/test_final_state.py:98: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "library_name": "MagicBell JS SDK",
+  "task_name": "list_events_js",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}

@@ -1,0 +1,18 @@
+{
+  "key": "wf-trigger-cli-zr-tubebgt",
+  "name": "CLI Trigger Workflow",
+  "steps": [
+    {
+      "command": "broadcast",
+      "input": {
+        "title": "Workflow Trigger CLI - {{ marker }}",
+        "content": "This is a broadcast triggered from CLI",
+        "recipients": [
+          {
+            "email": "{{ recipient_email }}"
+          }
+        ]
+      }
+    }
+  ]
+}

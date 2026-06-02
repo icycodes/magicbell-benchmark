@@ -1,0 +1,38 @@
+# Generate a MagicBell User JWT with Python (PyJWT)
+
+## Background
+MagicBell uses two JWT types: a Project JWT (server-side admin) and a User JWT (per-user, safe for the client). The User JWT is generated on your backend by HS256-signing a JSON payload `{ user_email, user_external_id, api_key }` with the project's Secret Key. Before a user can be authenticated through the User Client, the user must exist in MagicBell. In this task, you will write a Python script that upserts the corresponding MagicBell user via the REST API (using the Project JWT) and then issues an HS256-signed User JWT for that user using PyJWT.
+
+## Requirements
+- Create the project under `/home/user/myproject`.
+- Install `PyJWT` and `requests` via pip and execute the script with `python3`.
+- The script must:
+  1. Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from environment variables.
+  2. Compute the user email by splitting `MAGICBELL_EMAIL` at the first `@` into `<local>` and `<domain>`, then forming `<local>+jwt-python-${ZEALT_RUN_ID}@<domain>`.
+  3. Compute the user external id as `user-jwt-python-${ZEALT_RUN_ID}`.
+  4. Upsert the MagicBell user with that external id, email, and human-readable first/last name using the MagicBell REST API (`/v2/users`) authenticated with the Project JWT.
+  5. Build the JWT payload exactly as `{ user_email, user_external_id, api_key }` (using the values above; `api_key` is `MAGICBELL_API_KEY`), with an expiration roughly one year in the future.
+  6. HS256-sign the payload with `MAGICBELL_SECRET_KEY` using PyJWT.
+  7. Write the resulting token to `/home/user/myproject/output.log` on a single line in the format `User JWT: <jwt>`.
+- The script must run to completion non-interactively.
+
+## Implementation Hints
+- Install both dependencies: `pip install PyJWT requests`.
+- Use the Project JWT (`Authorization: Bearer $MAGICBELL_PROJECT_TOKEN`) to upsert the user via the v2 REST API before issuing the User JWT, so the JWT references a real MagicBell user.
+- PyJWT's `jwt.encode(payload, secret, algorithm='HS256')` returns a string in modern versions; ensure the payload `exp` claim is set so the token does not have an indefinite lifetime.
+- Keep the JSON payload fields exactly `user_email`, `user_external_id`, and `api_key`; do not add or rename keys.
+- Do not modify the project-wide Delivery Planner or any preset channel configuration.
+- Do not hardcode any tokens or secrets; read them from environment variables.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the User JWT in the format: `User JWT: <jwt>`.
+- The token must be a valid HS256 JWT signed with `MAGICBELL_SECRET_KEY` and decode to a payload that exactly matches the three required claims:
+  - `user_email` equal to `<local>+jwt-python-${ZEALT_RUN_ID}@<domain>` (with `<local>` and `<domain>` derived from splitting `MAGICBELL_EMAIL` at `@`).
+  - `user_external_id` equal to `user-jwt-python-${ZEALT_RUN_ID}`.
+  - `api_key` equal to the value of `MAGICBELL_API_KEY`.
+- The token must authenticate successfully against the MagicBell User Client REST API (the `/v2/notifications` endpoint must respond with HTTP 200 when called with `Authorization: Bearer <jwt>`).
+- A MagicBell user with `external_id == user-jwt-python-${ZEALT_RUN_ID}` and the expected email must exist in the project.
+

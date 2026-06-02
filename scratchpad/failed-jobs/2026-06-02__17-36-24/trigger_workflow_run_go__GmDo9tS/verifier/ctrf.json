@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780422414433,
+            "stop": 1780422415201
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_contains_workflow_run_id",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780422414613,
+                "stop": 1780422414615,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fetch_workflow_run_via_rest_api",
+                "status": "passed",
+                "duration": 323,
+                "start": 1780422414615,
+                "stop": 1780422414938,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_list_workflow_runs_contains_run_id",
+                "status": "passed",
+                "duration": 262,
+                "start": 1780422414939,
+                "stop": 1780422415201,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

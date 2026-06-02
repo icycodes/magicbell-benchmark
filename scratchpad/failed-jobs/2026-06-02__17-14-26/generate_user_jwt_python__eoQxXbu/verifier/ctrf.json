@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780421265589,
+            "stop": 1780421266363
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_user_jwt",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780421265740,
+                "stop": 1780421265742,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_decodes_with_secret_key_and_has_expected_payload",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780421265743,
+                "stop": 1780421265744,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_authenticates_against_user_notifications_endpoint",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 324,
+                "start": 1780421265744,
+                "stop": 1780421266068,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "captured_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiendwYXBlcmFkK2p3dC1weXRob24tenItZW9xeHhidUBnbWFpbC5jb20iLCJ1...IjoicGtfMzl5WDZmNU5PRjM0UTNKODM0VDBfMjEwMjg4NDE3IiwiZXhwIjoxODExOTU3MjI0fQ.Uj6KryhPMAHvex-SS_FYmFWMctTHVMJAd2Zmvo3lc4g'\n\n    def test_jwt_authenticates_against_user_notifications_endpoint(captured_token):\n        response = requests.get(\n            f\"{MAGICBELL_API_BASE}/v2/notifications\",\n            headers={\n                \"Authorization\": f\"Bearer {captured_token}\",\n                \"Accept\": \"application/json\",\n            },\n            params={\"per_page\": 1},\n            timeout=30,\n        )\n        assert response.status_code == 200, (\n            f\"Expected 200 from GET /v2/notifications when authenticated with the User JWT, \"\n            f\"got {response.status_code}: {response.text}\"\n        )\n        body = response.json()\n>       assert \"notifications\" in body, (\n            f\"Expected 'notifications' key in user notifications response, got: {body}\"\n        )\nE       AssertionError: Expected 'notifications' key in user notifications response, got: {'links': {'first': 'https://api.magicbell.com/v2/notifications?per_page=1', 'prev': None, 'next': None}, 'data': []}\nE       assert 'notifications' in {'data': [], 'links': {'first': 'https://api.magicbell.com/v2/notifications?per_page=1', 'next': None, 'prev': None}}\n\ntests/test_final_state.py:112: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_magicbell_user_was_upserted",
+                "status": "passed",
+                "duration": 294,
+                "start": 1780421266068,
+                "stop": 1780421266362,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

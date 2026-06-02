@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+________________________ test_user_api_matches_expected ________________________
+
+    def test_user_api_matches_expected():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        gmail_user = os.environ.get("GMAIL_USER_NAME")
+        assert gmail_user, "GMAIL_USER_NAME environment variable is not set."
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        content = _read_log()
+        user_id = _extract_field(content, "User ID")
+        external_id = _extract_field(content, "External ID")
+    
+        expected_external_id = f"list-users-cli-{run_id}"
+        expected_email = f"{gmail_user}+list-users-cli-{run_id}@gmail.com"
+    
+        url = f"https://api.magicbell.com/v2/users/{user_id}"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json",
+        }
+        response = requests.get(url, headers=headers, timeout=30)
+>       assert response.status_code == 200, (
+            f"GET {url} returned status {response.status_code}: {response.text}"
+        )
+E       AssertionError: GET https://api.magicbell.com/v2/users/019e8943-36aa-7c7a-8847-b24c113e1c95 returned status 405: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:67: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_required_fields
+PASSED tests/test_final_state.py::test_external_id_matches_run_id
+FAILED tests/test_final_state.py::test_user_api_matches_expected - AssertionE...
+========================= 1 failed, 2 passed in 0.87s ==========================

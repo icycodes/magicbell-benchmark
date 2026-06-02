@@ -1,0 +1,995 @@
+- Initializing MCP connections...
+You
+# List MagicBell Events with Go SDK ## Background MagicBell is a real-time notification platform that records every notification activity (broadcast created, notification delivered, channel sent, etc.) as an event on the project's event log. You need to write a Go program that first creates a distinguishable broadcast, then uses the MagicBell Go SDK ProjectClient `Events.ListEvents` to fetch recent events and identify the event that corresponds to the broadcast just created. ## Requirements * Initialize a Go module under `/home/user/myproject` (e.g., `go mod init myproject`). * Fetch the official Go SDK: `go get github.com/magicbell/magicbell-go`. * Write a Go program (`main.go`) that uses the MagicBell Go SDK `ProjectClient` with `MAGICBELL_PROJECT_TOKEN` to: 1. Create a broadcast titled `Events Demo Go - <run-id>` with content `Triggering a Go SDK events listing demo for run <run-id>` to a single recipient whose email is derived from `MAGICBELL_EMAIL` and `ZEALT_RUN_ID`. 2. After the broadcast call returns, fetch recent events via `sdk.Events.ListEvents` with a limit of at least 50. 3. Find an event whose payload references the broadcast title `Events Demo Go - <run-id>` and capture its event ID. * Write the matching event ID to `/home/user/myproject/output.log` in the line format `Event ID: <event_id>`. ## Implementation Hints * Read `ZEALT_RUN_ID`, `MAGICBELL_EMAIL`, and `MAGICBELL_PROJECT_TOKEN` from the environment. * Construct the recipient email by splitting `MAGICBELL_EMAIL` on `@` and inserting `+list-events-go-<run-id>` between the local part and the domain. * Initialize the SDK with `clientconfig.NewConfig()` + `config.SetAccessToken(...)` and `client.NewClient(config)`. * Use `sdk.Broadcasts.CreateBroadcast` first, then `sdk.Events.ListEvents` with `events.ListEventsRequestParams{Limit: util.ToPointer(int64(50))}`. The MagicBell event log may take a few seconds to update, so poll briefly if no matching event is found on the first call. * When scanning the events response, inspect each event's serialized payload/data for the broadcast title text to identify the right event. ## Acceptance Criteria * Project path: /home/user/myproject * Ensure the Go program is executed, a broadcast is actually created on MagicBell, and the events list is queried via the Go SDK. * Log file: /home/user/myproject/output.log * The Go program must use the official Go SDK (`github.com/magicbell/magicbell-go`) for both the broadcast creation and the events listing. * The broadcast title must be `Events Demo Go - <run-id>` where `<run-id>` is read from the `ZEALT_RUN_ID` environment variable. * The log file must contain a single line in the format: `Event ID: <event_id>` where `<event_id>` corresponds to a real MagicBell event tied to the broadcast.   
+
+Pochi
+💭 Thinking for 368 characters   
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && go mod init myproject && go get github.com/magicbell/magicbell-go ✔ 
+💭 Thinking for 324 characters   
+💫 Executing cd /home/user/myproject && go doc github.com/magicbell/magicbell-go ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && go list -m all ✔ 
+💭 Thinking for 196 characters   
+💫 Executing cd /home/user/myproject && go doc github.com/magicbell/magicbell-go/client ✖ "Command exited with code 1"
+💭 Thinking for 180 characters   
+💫 Executing cd /home/user/myproject && ls -l $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0 ✔ 
+💫 Executing cd /home/user/myproject && ls -l $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg ✔ 
+💭 Thinking for 453 characters   
+💫 Executing cd /home/user/myproject && ls -l $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client ✔ 
+💭 Thinking for 241 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/client/client.go ✔ 
+💭 Thinking for 493 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/clientconfig/config.go ✔ 
+💭 Thinking for 213 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/broadcasts/broadcasts.go ✖ "Command exited with code 1"
+💭 Thinking for 192 characters   
+💫 Executing ls -l $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/broadcasts ✔ 
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/broadcasts/broadcasts_service.go ✔ 
+💭 Thinking for 184 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/broadcasts/broadcast.go ✔ 
+💭 Thinking for 267 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared/user.go ✔ 
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/nullable.go ✔ 
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/pointers.go ✖ "Command exited with code 1"
+💭 Thinking for 226 characters   
+💫 Executing ls -l $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util ✔ 
+💭 Thinking for 180 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/util/to_pointer.go ✔ 
+💭 Thinking for 231 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/events/request_params.go ✔ 
+💭 Thinking for 200 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/events/events_service.go ✔ 
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/events/event_collection.go ✔ 
+💭 Thinking for 282 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/events/event.go ✔ 
+💭 Thinking for 891 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/main.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+	"time"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
+	"github.com/magicbell/magicbell-go/pkg/project-client/util"
+)
+
+func main() {
+	runID := os.Getenv("ZEALT_RUN_ID")
+	email := os.Getenv("MAGICBELL_EMAIL")
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+
+	if runID == "" || email == "" || projectToken == "" {
+		log.Fatal("Missing environment variables")
+	}
+
+	parts := strings.Split(email, "@")
+	if len(parts) != 2 {
+		log.Fatal("Invalid email format")
+	}
+	recipientEmail := fmt.Sprintf("%s+list-events-go-%s@%s", parts[0], runID, parts[1])
+
+	title := fmt.Sprintf("Events Demo Go - %s", runID)
+	content := fmt.Sprintf("Triggering a Go SDK events listing demo for run %s", runID)
+
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+
+	sdk := client.NewClient(config)
+
+	userEmailNullable := util.Nullable[string]{Value: recipientEmail, IsNull: false}
+	recipient := shared.User{
+		Email: &userEmailNullable,
+	}
+	recipientsArray := []shared.User{recipient}
+	recipientsNullable := util.Nullable[[]shared.User]{Value: recipientsArray, IsNull: false}
+
+	titlePtr := title
+	contentNullable := util.Nullable[string]{Value: content, IsNull: false}
+
+	broadcast := broadcasts.Broadcast{
+		Title:      &titlePtr,
+		Content:    &contentNullable,
+		Recipients: &recipientsNullable,
+	}
+
+	ctx := context.Background()
+	_, err := sdk.Broadcasts.CreateBroadcast(ctx, broadcast)
+	if err != nil {
+		log.Fatalf("Failed to create broadcast: %v", err)
+	}
+
+	fmt.Println("Broadcast created successfully. Polling for events...")
+
+	limit := int64(50)
+	params := events.ListEventsRequestParams{
+		Limit: &limit,
+	}
+
+	maxRetries := 15
+	var foundEventID string
+
+	for i := 0; i < maxRetries; i++ {
+		time.Sleep(3 * time.Second)
+
+		resp, err := sdk.Events.ListEvents(ctx, params)
+		if err != nil {
+			log.Printf("Failed to list events: %v", err)
+			continue
+		}
+
+		if resp == nil || resp.Data == nil {
+			continue
+		}
+
+		for _, event := range resp.Data.Data {
+			if event.Payload != nil && !event.Payload.IsNull {
+				payloadBytes, jsonErr := json.Marshal(event.Payload.Value)
+				if jsonErr == nil {
+					if strings.Contains(string(payloadBytes), title) {
+						if event.Id != nil {
+							foundEventID = *event.Id
+							break
+						}
+					}
+				}
+			}
+		}
+
+		if foundEventID != "" {
+			break
+		}
+	}
+
+	if foundEventID == "" {
+		log.Fatal("Could not find matching event")
+	}
+
+	fmt.Printf("Found Event ID: %s\n", foundEventID)
+
+	outputFile := "/home/user/myproject/output.log"
+	errWrite := os.WriteFile(outputFile, []byte(fmt.Sprintf("Event ID: %s\n", foundEventID)), 0644)
+	if errWrite != nil {
+		log.Fatalf("Failed to write output log: %v", errWrite)
+	}
+}
+EOF
+go build -o test_main main.go
+ ✖ "Command exited with code 1"
+💭 Thinking for 191 characters   
+💫 Executing cd /home/user/myproject && go build -o test_main main.go && ./test_main ✖ "Command exited with code 1"
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/shared/client_response.go ✔ 
+💭 Thinking for 205 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/main.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+	"time"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
+	"github.com/magicbell/magicbell-go/pkg/project-client/util"
+)
+
+func main() {
+	runID := os.Getenv("ZEALT_RUN_ID")
+	email := os.Getenv("MAGICBELL_EMAIL")
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+
+	if runID == "" || email == "" || projectToken == "" {
+		log.Fatal("Missing environment variables")
+	}
+
+	parts := strings.Split(email, "@")
+	if len(parts) != 2 {
+		log.Fatal("Invalid email format")
+	}
+	recipientEmail := fmt.Sprintf("%s+list-events-go-%s@%s", parts[0], runID, parts[1])
+
+	title := fmt.Sprintf("Events Demo Go - %s", runID)
+	content := fmt.Sprintf("Triggering a Go SDK events listing demo for run %s", runID)
+
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+
+	sdk := client.NewClient(config)
+
+	userEmailNullable := util.Nullable[string]{Value: recipientEmail, IsNull: false}
+	recipient := shared.User{
+		Email: &userEmailNullable,
+	}
+	recipientsArray := []shared.User{recipient}
+	recipientsNullable := util.Nullable[[]shared.User]{Value: recipientsArray, IsNull: false}
+
+	titlePtr := title
+	contentNullable := util.Nullable[string]{Value: content, IsNull: false}
+
+	broadcast := broadcasts.Broadcast{
+		Title:      &titlePtr,
+		Content:    &contentNullable,
+		Recipients: &recipientsNullable,
+	}
+
+	ctx := context.Background()
+	_, err := sdk.Broadcasts.CreateBroadcast(ctx, broadcast)
+	if err != nil {
+		log.Fatalf("Failed to create broadcast: %v", err)
+	}
+
+	fmt.Println("Broadcast created successfully. Polling for events...")
+
+	limit := int64(50)
+	params := events.ListEventsRequestParams{
+		Limit: &limit,
+	}
+
+	maxRetries := 15
+	var foundEventID string
+
+	for i := 0; i < maxRetries; i++ {
+		time.Sleep(3 * time.Second)
+
+		resp, err := sdk.Events.ListEvents(ctx, params)
+		if err != nil {
+			log.Printf("Failed to list events: %v", err)
+			continue
+		}
+
+		if resp == nil {
+			continue
+		}
+
+		for _, event := range resp.Data.Data {
+			if event.Payload != nil && !event.Payload.IsNull {
+				payloadBytes, jsonErr := json.Marshal(event.Payload.Value)
+				if jsonErr == nil {
+					if strings.Contains(string(payloadBytes), title) {
+						if event.Id != nil {
+							foundEventID = *event.Id
+							break
+						}
+					}
+				}
+			}
+		}
+
+		if foundEventID != "" {
+			break
+		}
+	}
+
+	if foundEventID == "" {
+		log.Fatal("Could not find matching event")
+	}
+
+	fmt.Printf("Found Event ID: %s\n", foundEventID)
+
+	outputFile := "/home/user/myproject/output.log"
+	errWrite := os.WriteFile(outputFile, []byte(fmt.Sprintf("Event ID: %s\n", foundEventID)), 0644)
+	if errWrite != nil {
+		log.Fatalf("Failed to write output log: %v", errWrite)
+	}
+}
+EOF
+cd /home/user/myproject && go build -o test_main main.go && ./test_main
+ ✖ "Command exited with code 1"
+💭 Thinking for 237 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(10)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		var payloadStr string
+		if event.Payload != nil && !event.Payload.IsNull {
+			payloadBytes, _ := json.Marshal(event.Payload.Value)
+			payloadStr = string(payloadBytes)
+		}
+		fmt.Printf("Event ID: %s\nType: %v\nPayload: %s\n\n", *event.Id, *event.Type_, payloadStr)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✖ "Command exited with code 1"
+💭 Thinking for 281 characters   
+💫 Executing sed -i '/"strings"/d' /home/user/myproject/debug.go && cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 200 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(10)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		var payloadStr string
+		if event.Context != nil && !event.Context.IsNull {
+			payloadBytes, _ := json.Marshal(event.Context.Value)
+			payloadStr = string(payloadBytes)
+		}
+		var logStr string
+		if event.Log != nil && !event.Log.IsNull {
+			logStr = *event.Log
+		}
+		fmt.Printf("Event ID: %s\nType: %v\nContext: %s\nLog: %s\n\n", *event.Id, *event.Type_, payloadStr, logStr)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✖ "Command exited with code 1"
+💭 Thinking for 268 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(10)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		var payloadStr string
+		if event.Context != nil && !event.Context.IsNull {
+			payloadBytes, _ := json.Marshal(event.Context.Value)
+			payloadStr = string(payloadBytes)
+		}
+		var logStr string
+		if event.Log != nil && !event.Log.IsNull {
+			logStr = event.Log.Value
+		}
+		fmt.Printf("Event ID: %s\nType: %v\nContext: %s\nLog: %s\n\n", *event.Id, *event.Type_, payloadStr, logStr)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✔ 
+💭 Thinking for 201 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(10)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		var payloadStr string
+		if event.Payload != nil && !event.Payload.IsNull {
+			payloadBytes, _ := json.Marshal(event.Payload.Value)
+			payloadStr = string(payloadBytes)
+		}
+		
+		fmt.Printf("Event ID: %s\nType: %v\nPayload: %s\n\n", *event.Id, *event.Type_, payloadStr)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✔ 
+💭 Thinking for 331 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		if *event.Type_ == "broadcast.created" || *event.Type_ == "notification.created" {
+			var payloadStr string
+			if event.Payload != nil && !event.Payload.IsNull {
+				payloadBytes, _ := json.Marshal(event.Payload.Value)
+				payloadStr = string(payloadBytes)
+			}
+			fmt.Printf("Event ID: %s\nType: %v\nPayload: %s\n\n", *event.Id, *event.Type_, payloadStr)
+		}
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✔ 
+💭 Thinking for 245 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	types := make(map[string]int)
+	for _, event := range resp.Data.Data {
+		types[*event.Type_]++
+	}
+	fmt.Printf("Event types: %v\n", types)
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✔ 
+💭 Thinking for 366 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/main.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+	"time"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
+	"github.com/magicbell/magicbell-go/pkg/project-client/util"
+)
+
+func main() {
+	runID := os.Getenv("ZEALT_RUN_ID")
+	email := os.Getenv("MAGICBELL_EMAIL")
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+
+	if runID == "" || email == "" || projectToken == "" {
+		log.Fatal("Missing environment variables")
+	}
+
+	parts := strings.Split(email, "@")
+	if len(parts) != 2 {
+		log.Fatal("Invalid email format")
+	}
+	recipientEmail := fmt.Sprintf("%s+list-events-go-%s@%s", parts[0], runID, parts[1])
+
+	title := fmt.Sprintf("Events Demo Go - %s", runID)
+	content := fmt.Sprintf("Triggering a Go SDK events listing demo for run %s", runID)
+
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+
+	sdk := client.NewClient(config)
+
+	userEmailNullable := util.Nullable[string]{Value: recipientEmail, IsNull: false}
+	recipient := shared.User{
+		Email: &userEmailNullable,
+	}
+	recipientsArray := []shared.User{recipient}
+	recipientsNullable := util.Nullable[[]shared.User]{Value: recipientsArray, IsNull: false}
+
+	titlePtr := title
+	contentNullable := util.Nullable[string]{Value: content, IsNull: false}
+
+	broadcast := broadcasts.Broadcast{
+		Title:      &titlePtr,
+		Content:    &contentNullable,
+		Recipients: &recipientsNullable,
+	}
+
+	ctx := context.Background()
+	_, err := sdk.Broadcasts.CreateBroadcast(ctx, broadcast)
+	if err != nil {
+		log.Fatalf("Failed to create broadcast: %v", err)
+	}
+
+	fmt.Println("Broadcast created successfully. Polling for events...")
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{
+		Limit: &limit,
+	}
+
+	maxRetries := 20
+	var foundEventID string
+
+	for i := 0; i < maxRetries; i++ {
+		time.Sleep(3 * time.Second)
+
+		resp, err := sdk.Events.ListEvents(ctx, params)
+		if err != nil {
+			log.Printf("Failed to list events: %v", err)
+			continue
+		}
+
+		if resp == nil {
+			continue
+		}
+
+		for _, event := range resp.Data.Data {
+			eventBytes, jsonErr := json.Marshal(event)
+			if jsonErr == nil {
+				if strings.Contains(string(eventBytes), title) {
+					if event.Id != nil {
+						foundEventID = *event.Id
+						break
+					}
+				}
+			}
+		}
+
+		if foundEventID != "" {
+			break
+		}
+	}
+
+	if foundEventID == "" {
+		log.Fatal("Could not find matching event")
+	}
+
+	fmt.Printf("Found Event ID: %s\n", foundEventID)
+
+	outputFile := "/home/user/myproject/output.log"
+	errWrite := os.WriteFile(outputFile, []byte(fmt.Sprintf("Event ID: %s\n", foundEventID)), 0644)
+	if errWrite != nil {
+		log.Fatalf("Failed to write output log: %v", errWrite)
+	}
+}
+EOF
+cd /home/user/myproject && go build -o test_main main.go && ./test_main
+ ✖ "Command exited with code 1"
+💭 Thinking for 422 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"time"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(100)
+	var startingAfter string
+	
+	ctx := context.Background()
+	types := make(map[string]int)
+
+	for i := 0; i < 5; i++ { // fetch 5 pages
+		params := events.ListEventsRequestParams{Limit: &limit}
+		if startingAfter != "" {
+			params.StartingAfter = &startingAfter
+		}
+		
+		resp, err := sdk.Events.ListEvents(ctx, params)
+		if err != nil {
+			log.Fatalf("Failed to list events: %v", err)
+		}
+		
+		if len(resp.Data.Data) == 0 {
+			break
+		}
+		
+		for _, event := range resp.Data.Data {
+			types[*event.Type_]++
+			if *event.Type_ == "notification.created" || *event.Type_ == "broadcast.created" {
+				fmt.Printf("Found %s at %s\n", *event.Type_, *event.Timestamp)
+			}
+		}
+		
+		lastEvent := resp.Data.Data[len(resp.Data.Data)-1]
+		startingAfter = *lastEvent.Id
+		time.Sleep(1 * time.Second)
+	}
+	fmt.Printf("Event types: %v\n", types)
+}
+EOF
+cd /home/user/myproject && go run debug.go
+ ✖ "Command exited with code 1"
+💭 Thinking for 237 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{Limit: &limit}
+	
+	ctx := context.Background()
+	resp, err := sdk.Events.ListEvents(ctx, params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+	
+	types := make(map[string]int)
+	for _, event := range resp.Data.Data {
+		types[*event.Type_]++
+		if *event.Type_ == "notification.created" || *event.Type_ == "broadcast.created" {
+			fmt.Printf("Found %s at %s\n", *event.Type_, *event.Timestamp)
+		}
+	}
+	fmt.Printf("Event types: %v\n", types)
+}
+EOF
+cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 338 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(1000)
+	params := events.ListEventsRequestParams{Limit: &limit}
+	
+	ctx := context.Background()
+	resp, err := sdk.Events.ListEvents(ctx, params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+	
+	types := make(map[string]int)
+	for _, event := range resp.Data.Data {
+		types[*event.Type_]++
+		if *event.Type_ == "notification.created" || *event.Type_ == "broadcast.created" {
+			fmt.Printf("Found %s at %s\n", *event.Type_, *event.Timestamp)
+		}
+	}
+	fmt.Printf("Event types: %v\n", types)
+}
+EOF
+cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 546 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	params := broadcasts.ListBroadcastsRequestParams{}
+	resp, err := sdk.Broadcasts.ListBroadcasts(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list broadcasts: %v", err)
+	}
+
+	for _, b := range resp.Data.Broadcasts {
+		fmt.Printf("Broadcast: %s (ID: %s)\n", *b.Title, *b.Id)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go ✖ "Command exited with code 1"
+💭 Thinking for 213 characters   
+💫 Executing cat $(go env GOPATH)/pkg/mod/github.com/magicbell/magicbell-go@v0.5.0/pkg/project-client/broadcasts/broadcast_collection.go ✔ 
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	params := broadcasts.ListBroadcastsRequestParams{}
+	resp, err := sdk.Broadcasts.ListBroadcasts(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list broadcasts: %v", err)
+	}
+
+	for _, b := range resp.Data.Data {
+		fmt.Printf("Broadcast: %s (ID: %s)\n", *b.Title, *b.Id)
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 305 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+)
+
+func main() {
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	resp, err := sdk.Events.ListEvents(context.Background(), params)
+	if err != nil {
+		log.Fatalf("Failed to list events: %v", err)
+	}
+
+	for _, event := range resp.Data.Data {
+		if event.Payload != nil && !event.Payload.IsNull {
+			payloadBytes, _ := json.Marshal(event.Payload.Value)
+			fmt.Printf("Event ID: %s\nType: %v\nPayload: %s\n\n", *event.Id, *event.Type_, string(payloadBytes))
+		}
+	}
+}
+EOF
+cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 297 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/debug.go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"time"
+	"strings"
+
+	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/events"
+	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
+	"github.com/magicbell/magicbell-go/pkg/project-client/util"
+)
+
+func main() {
+	runID := "test-run-123"
+	projectToken := os.Getenv("MAGICBELL_PROJECT_TOKEN")
+	config := clientconfig.NewConfig()
+	config.SetAccessToken(projectToken)
+	sdk := client.NewClient(config)
+
+	title := "Events Demo Go - test-run-123"
+	content := "Triggering a Go SDK events listing demo for run test-run-123"
+
+	userEmailNullable := util.Nullable[string]{Value: "test+test-run-123@example.com", IsNull: false}
+	recipient := shared.User{Email: &userEmailNullable}
+	recipientsNullable := util.Nullable[[]shared.User]{Value: []shared.User{recipient}, IsNull: false}
+
+	titlePtr := title
+	contentNullable := util.Nullable[string]{Value: content, IsNull: false}
+
+	broadcast := broadcasts.Broadcast{
+		Title:      &titlePtr,
+		Content:    &contentNullable,
+		Recipients: &recipientsNullable,
+	}
+
+	_, err := sdk.Broadcasts.CreateBroadcast(context.Background(), broadcast)
+	if err != nil {
+		log.Fatalf("Failed to create broadcast: %v", err)
+	}
+
+	limit := int64(100)
+	params := events.ListEventsRequestParams{Limit: &limit}
+
+	for i := 0; i < 20; i++ {
+		time.Sleep(3 * time.Second)
+		resp, _ := sdk.Events.ListEvents(context.Background(), params)
+		if resp == nil { continue }
+		
+		for _, event := range resp.Data.Data {
+			if event.Payload != nil && !event.Payload.IsNull {
+				payloadBytes, _ := json.Marshal(event.Payload.Value)
+				if strings.Contains(string(payloadBytes), "test-run-123") {
+					fmt.Printf("Found Event: %s, Type: %s, Payload: %s\n", *event.Id, *event.Type_, string(payloadBytes))
+					return
+				}
+			}
+		}
+	}
+	fmt.Println("Not found")
+}
+EOF
+cd /home/user/myproject && go run debug.go ✖ "Command exited with code 1"
+💫 Executing sed -i '/runID :=/d' /home/user/myproject/debug.go && cd /home/user/myproject && go run debug.go ✔ 
+💭 Thinking for 363 characters   

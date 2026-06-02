@@ -1,0 +1,13 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "MagicBell workflow trigger project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "magicbell-js": "^1.7.0"
+  }
+}

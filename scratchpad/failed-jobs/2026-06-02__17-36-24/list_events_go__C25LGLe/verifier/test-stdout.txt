@@ -1,0 +1,32 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+tests/test_final_state.py ..F.                                           [100%]
+
+=================================== FAILURES ===================================
+___________________ test_events_api_contains_broadcast_event ___________________
+
+events_payload = [{'code': 200, 'context': {'channel': 'email', 'delivery_id': '019e896f-4e5e-7cf4-bd7e-af5ab65cf183', 'notification_id...b1f1-cba54b755931', 'provider': 'smtp', ...}, 'id': '019e896e-7c23-7fa9-8133-a05db40aad94', 'level': 'info', ...}, ...]
+expected_broadcast_title = 'Events Demo Go - zr-c25lgle'
+
+    def test_events_api_contains_broadcast_event(events_payload, expected_broadcast_title):
+        serialized = json.dumps(events_payload)
+>       assert expected_broadcast_title in serialized, (
+            "Expected to find an event whose payload references the broadcast title "
+            f"'{expected_broadcast_title}' in the recent MagicBell events list, but "
+            f"none was found. Events: {serialized[:2000]}"
+        )
+E       AssertionError: Expected to find an event whose payload references the broadcast title 'Events Demo Go - zr-c25lgle' in the recent MagicBell events list, but none was found. Events: [{"id": "019e896f-85ae-74a2-afa9-ac92f70256aa", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "email", "delivery_id": "019e896f-4e5e-7cf4-bd7e-af5ab65cf183", "notification_id": "019e896f-28d8-7188-aed7-02149bf423c1", "provider": "smtp", "user_id": "9acdedeb-93c6-4669-9d39-b2d0461f6bbb"}, "timestamp": "2026-06-02T17:44:07.854324205Z"}, {"id": "019e896f-830b-7861-961e-c339b08e8a94", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "in_app", "delivery_id": "019e896f-6979-7fd2-b244-4e35ef3668ac", "notification_id": "019e896f-41d8-7cc9-9032-c1dd20e73144", "provider": "magicbell", "user_id": "9375d27d-4716-48aa-ab03-6af4e368be63"}, "timestamp": "2026-06-02T17:44:07.179542416Z"}, {"id": "019e896f-69b5-7fd5-a9a9-72ba9e125854", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "in_app", "delivery_id": "019e896f-4e5e-7cf3-86cb-694fedf1c2ca", "notification_id": "019e896f-28d8-7188-aed7-02149bf423c1", "provider": "magicbell", "user_id": "9acdedeb-93c6-4669-9d39-b2d0461f6bbb"}, "timestamp": "2026-06-02T17:44:00.693470672Z"}, {"id": "019e896f-44b7-7cef-9f48-d976ecaec45f", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "email", "delivery_id": "019e896f-0c87-7326-a4a2-c9c6137be079", "notification_id": "019e896e-e615-723d-a13d-33eb173a0323", "provider": "smtp", "user_id": "9375d27d-4716-48aa-ab03-6af4e368be63"}, "timestamp": "2026-06-02T17:43:51.223900251Z"}, {"id": "019e896f-282a-7331-b643-262962719a9a", "type": "delivery.sent", "log": "delivery sent", "level": "info", "code": 200, "context": {"channel": "in_app", "delivery_id": "019e896f-0c87-7325-b8f8-ef6ea01d583f", "notification_id": "019e896e-e615-723d-a13d-33eb173a0323", "provider": "magicbell", "user_id": "9375d27d-4716-48aa-ab03-6af4e368be63"}, "timestamp": "2026-06-02T17:43:43.91490315Z"}, {"id": "019e896e-7c23-
+E       assert 'Events Demo Go - zr-c25lgle' in '[{"id": "019e896f-85ae-74a2-afa9-ac92f70256aa", "type": "delivery.sent", "log": "delivery sent", "level": "info", "co...provider": "smtp", "user_id": "019e895b-8f00-7c91-a7a6-10b03ea8ce1f"}, "timestamp": "2026-06-02T17:23:06.362128382Z"}]'
+
+tests/test_final_state.py:89: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+PASSED tests/test_final_state.py::test_log_file_contains_event_id
+PASSED tests/test_final_state.py::test_logged_event_id_matches_api
+FAILED tests/test_final_state.py::test_events_api_contains_broadcast_event - ...
+========================= 1 failed, 3 passed in 0.49s ==========================

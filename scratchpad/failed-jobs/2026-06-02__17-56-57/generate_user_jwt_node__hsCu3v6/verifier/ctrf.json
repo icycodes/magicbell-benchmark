@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780423957719,
+            "stop": 1780423958474
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_contains_jwt",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780423958121,
+                "stop": 1780423958123,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_header_uses_hs256",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780423958123,
+                "stop": 1780423958124,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_verifies_with_secret_key_and_has_expected_payload",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780423958124,
+                "stop": 1780423958125,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_jwt_authorizes_user_client_rest_endpoint",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 348,
+                "start": 1780423958126,
+                "stop": 1780423958474,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiendwYXBlcmFkK2p3dC1ub2RlLXpyLWhzY3UzdjZAZ21haWwuY29tIiwidXNl...zRRM0o4MzRUMF8yMTAyODg0MTciLCJpYXQiOjE3ODA0MjM5NDAsImV4cCI6MTgxMTk4MTU0MH0.PxbvbtyFaRBDdg8kQYoJvcfKzt3SJKCK7bO9syHenGk'\n\n    def test_jwt_authorizes_user_client_rest_endpoint(token):\n        \"\"\"The minted JWT must be accepted by MagicBell's user-client REST API.\"\"\"\n        url = f\"{MAGICBELL_API_BASE}/notifications\"\n        headers = {\n            \"Authorization\": f\"Bearer {token}\",\n            \"Accept\": \"application/json\",\n        }\n        response = requests.get(url, headers=headers, timeout=30)\n        assert response.status_code == 200, (\n            f\"Expected HTTP 200 from GET {url} with the minted User JWT, \"\n            f\"got {response.status_code}. Body: {response.text[:500]}\"\n        )\n        try:\n            body = response.json()\n        except ValueError:\n            pytest.fail(f\"Response from {url} was not valid JSON: {response.text[:500]}\")\n        assert isinstance(body, dict), (\n            f\"Expected JSON object from {url}, got: {type(body).__name__}\"\n        )\n        # MagicBell v2 user-client list endpoints return a `notifications` array.\n>       assert \"notifications\" in body, (\n            f\"Expected 'notifications' key in response JSON, got keys: {list(body.keys())}\"\n        )\nE       AssertionError: Expected 'notifications' key in response JSON, got keys: ['links', 'data']\nE       assert 'notifications' in {'data': [], 'links': {'first': 'https://api.magicbell.com/v2/notifications', 'next': None, 'prev': None}}\n\ntests/test_final_state.py:128: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

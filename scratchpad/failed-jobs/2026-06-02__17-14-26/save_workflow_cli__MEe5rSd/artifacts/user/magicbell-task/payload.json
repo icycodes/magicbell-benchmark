@@ -1,0 +1,13 @@
+{
+  "key": "wf-save-cli-${ZEALT_RUN_ID}",
+  "name": "Onboarding Broadcast",
+  "steps": [
+    {
+      "command": "broadcast",
+      "input": {
+        "title": "Welcome! Run ID: ${ZEALT_RUN_ID}",
+        "content": "This is the onboarding message."
+      }
+    }
+  ]
+}

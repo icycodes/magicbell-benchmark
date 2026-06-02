@@ -1,0 +1,64 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780421213297,
+            "stop": 1780421214527
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_contains_broadcast_id",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780421213629,
+                "stop": 1780421213630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_broadcast_title_and_topic",
+                "status": "passed",
+                "duration": 299,
+                "start": 1780421213631,
+                "stop": 1780421213930,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_broadcast_recipients_use_topic_subscribers_form",
+                "status": "passed",
+                "duration": 306,
+                "start": 1780421213930,
+                "stop": 1780421214236,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_users_subscribed_to_topic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 291,
+                "start": 1780421214236,
+                "stop": 1780421214527,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_users_subscribed_to_topic():\n        \"\"\"Each user must have a topic subscription record for topic-cli-${run-id}.\"\"\"\n        api_key = _get_api_key()\n        expected_topic = _expected_topic()\n    \n        for external_id in _expected_user_external_ids():\n            headers = {\n                \"X-MAGICBELL-API-KEY\": api_key,\n                \"X-MAGICBELL-USER-EXTERNAL-ID\": external_id,\n                \"Accept\": \"application/json\",\n            }\n            response = requests.get(\n                \"https://api.magicbell.com/subscriptions\",\n                headers=headers,\n                timeout=30,\n            )\n>           assert response.status_code == 200, (\n                f\"MagicBell list subscriptions for {external_id} returned status \"\n                f\"{response.status_code}: {response.text}\"\n            )\nE           AssertionError: MagicBell list subscriptions for user-topic-subs-cli-1-zr-qozjfhc returned status 401: {\"errors\":[{\"code\":\"hmac_header_not_provided\",\"message\":\"HMAC header not provided\",\"suggestion\":\"Please provide the 'X-MAGICBELL-USER-HMAC' header containing the HMAC of the user's email. The HMAC is generated using the user's email/external_id and your MagicBell project's API secret.\",\"help_link\":\"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv\"}]}\nE             \nE           assert 401 == 200\nE            +  where 401 = <Response [401]>.status_code\n\ntests/test_final_state.py:161: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
