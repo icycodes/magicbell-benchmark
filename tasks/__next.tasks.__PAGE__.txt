@@ -1,5 +1,306 @@
 1:"$Sreact.fragment"
-2:I[75049,["/magicbell-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/magicbell-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"BYuf4YWnU6LeD1T_seLXX","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/magicbell-benchmark/_next/static/chunks/2a90c6a8afd80149.js","async":true}],["$","script","script-1",{"src":"/magicbell-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/magicbell-benchmark/_next/static/chunks/babff0e7418ab052.js","/magicbell-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/magicbell-benchmark/_next/static/chunks/2a90c6a8afd80149.js","/magicbell-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+11:I[75049,["/magicbell-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/magicbell-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:T1132,# MagicBell Floating Inbox React Dashboard
+
+## Background
+You are building a small SaaS-style dashboard that needs an in-app notification bell. The product team picked the modern `@magicbell/react` package and wants a working end-to-end demo: a React frontend (Vite) renders the `FloatingInbox` bell in a header, and a tiny Express backend mints a per-user MagicBell **User JWT** so the inbox can talk to MagicBell on behalf of the signed-in user. The same backend also bootstraps the user in MagicBell and pushes one seed notification so the bell is visibly populated as soon as the app starts.
+
+The MagicBell project already has two delivery channels configured (`in_app` + `email`). **DO NOT** modify the project-wide Delivery Planner configuration; rely on the default fan-out.
+
+MagicBell credentials are provided via environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`). A unique run identifier is provided via `ZEALT_RUN_ID` and **MUST** be incorporated into every shared resource name so parallel runs do not collide.
+
+## Requirements
+- A React app (Vite) served on port `3000` that uses `@magicbell/react`:
+  - Wraps the page in `@magicbell/react/context-provider` `Provider`, passing a User JWT fetched from the backend.
+  - Renders `@magicbell/react/floating-inbox` `FloatingInbox` inside a top header (the bell icon must be visible on initial page load).
+  - Imports the bundled `@magicbell/react/styles/floating-inbox.css` so the floating panel renders correctly.
+- An Express backend served on port `3001`:
+  - On startup, upserts the demo user in the MagicBell project and sends a single seed broadcast so the bell has at least one unread notification.
+  - Exposes `GET /token` returning JSON `{ "token": "<HS256 User JWT>" }`. The JWT payload **MUST** contain `user_email`, `user_external_id`, and `api_key`, be signed with `MAGICBELL_SECRET_KEY` using `HS256`, and have a reasonable expiry (e.g. `1y`).
+- `npm start` (declared in `package.json`) **MUST** boot the backend and the Vite dev server together (e.g. via `concurrently`) so a single command brings the whole app up.
+
+## Implementation Hints
+- Read all MagicBell credentials and `ZEALT_RUN_ID` from environment variables at runtime; never hardcode them.
+- Derive shared identifiers from the run id, e.g. external id `user-fi-${ZEALT_RUN_ID}` and broadcast title `Floating Inbox - ${ZEALT_RUN_ID}`.
+- Build the per-user email by splitting `MAGICBELL_EMAIL` at `@` and producing `<local>+fi-${ZEALT_RUN_ID}@<domain>`.
+- Sign the User JWT with the official Node JWT library (`jsonwebtoken`) and the project's secret key.
+- Use the MagicBell REST API or `magicbell-js` project client to upsert the user and to create the seed broadcast; the broadcast's `recipients` should target the same external id.
+- Wire the React app to fetch the token from the backend on mount before rendering the `Provider` (proxy `/token` through the Vite dev server, or call `http://localhost:3001/token` directly).
+- Use `concurrently` (or an equivalent supervisor) so `npm start` runs the backend (`node server.js` on 3001) and `vite --port 3000` simultaneously.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: npm start
+- Ports:
+  - Frontend (Vite): 3000
+  - Backend (Express): 3001
+- Backend HTTP API:
+  - `GET http://localhost:3001/token` returns status 200 and JSON of shape `{ "token": string }`, where `token` is an HS256-signed JWT whose payload contains `user_email`, `user_external_id`, and `api_key`.
+- Frontend UI at `http://localhost:3000`:
+  - A bell icon rendered by `@magicbell/react`'s `FloatingInbox` is visible in a header on initial load.
+  - Clicking the bell opens the floating inbox panel.
+  - The opened panel lists at least one notification whose title contains `Floating Inbox - ${ZEALT_RUN_ID}` (read `${ZEALT_RUN_ID}` from the environment).
+- MagicBell side effects (executed by the backend on startup):
+  - The MagicBell project contains a user with `external_id = user-fi-${ZEALT_RUN_ID}` and `email = <local>+fi-${ZEALT_RUN_ID}@<domain>` (where `<local>` and `<domain>` come from splitting `MAGICBELL_EMAIL`).
+  - The MagicBell project has at least one broadcast whose title equals `Floating Inbox - ${ZEALT_RUN_ID}` and which targets this user.
+- The project **MUST NOT** modify the project-wide Delivery Planner configuration.
+
+5:T734,# Create a Broadcast Notification with MagicBell CLI
+
+## Background
+You have the MagicBell CLI available. Create a bash script that sends a broadcast notification to a specific email address and records the resulting broadcast ID in a log file.
+
+## Requirements
+- Write a bash script `run.sh` that uses the MagicBell CLI to create a broadcast notification.
+- The broadcast title should be `CLI Broadcast Test` and the content should be `This is a test broadcast from the CLI.`.
+- The broadcast must be sent to a single email recipient.
+- The recipient email must be derived from the `MAGICBELL_EMAIL` environment variable. Split `MAGICBELL_EMAIL` at `@` into `<local>` and `<domain>`, and construct the recipient email as `<local>+cli-broadcast-${ZEALT_RUN_ID}@<domain>`, where `${ZEALT_RUN_ID}` is read from the environment.
+- Execute the script to create the broadcast and save the broadcast ID to a log file.
+
+## Implementation Hints
+1. Read the `MAGICBELL_EMAIL` and `ZEALT_RUN_ID` environment variables to construct the recipient email.
+2. Use the MagicBell CLI (`magicbell broadcast create`) to send the broadcast.
+3. The CLI is already installed, but you must authenticate it non-interactively using the provided environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`) before creating the broadcast.
+4. Parse the broadcast ID from the CLI output and write it to the log file.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the bash script is executed and the real broadcast creation action is performed.
+- Log file: /home/user/myproject/output.log
+- The log file must contain the broadcast ID in the format: `Broadcast ID: <broadcast_id>`.
+- The broadcast must be successfully created in the MagicBell project and delivered to the correct recipient email.
+6:T5fb,# Create a User with MagicBell CLI
+
+## Background
+You have the MagicBell CLI available. Create a new user with a specific `external_id` and email using the CLI.
+
+## Requirements
+- Write a script to create a new user in MagicBell using the `magicbell-cli`.
+- The user's `external_id` must be `user-${run-id}`.
+- The user's `email` must be constructed using the `MAGICBELL_EMAIL` environment variable in the plus format: `[MAGICBELL_EMAIL_PREFIX]+${run-id}@gmail.com`. For example, if `MAGICBELL_EMAIL` is `mytest@gmail.com` or `mytest`, the email should be `mytest+${run-id}@gmail.com`.
+- The user's `first_name` should be `TestUser` and `last_name` should be `${run-id}`.
+- Save the created user's internal ID to a log file.
+
+## Implementation Hints
+1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+2. Parse the `MAGICBELL_EMAIL` environment variable to extract the username prefix, then append `+${run-id}@gmail.com`.
+3. Use the `magicbell user save` command with the `--data` flag to create the user.
+4. Remember to pass the authentication flags (`--email`, `--jwt`, `--api-key`, `--secret-key`) to the CLI command using the provided environment variables.
+5. Extract the returned user ID and write it to the output log file.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Ensure the real user creation action is executed and the log artifact exists.
+- Log file: `/home/user/myproject/output.log`
+- The log file must contain the created user's ID in the format: `User ID: <user_id>`.
+
+7:T5a1,# Manage Users with MagicBell CLI
+
+## Background
+You need to manage users in your MagicBell project using the MagicBell CLI.
+
+## Requirements
+- Write a shell script `manage_users.sh` that uses the MagicBell CLI to perform two actions:
+  1. Create a new user. The user's external ID must be `user-${ZEALT_RUN_ID}` and the email must be `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com`, where `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` are read from the environment.
+  2. List all users in the project and save the output to a file named `users.txt` in the current directory.
+
+## Implementation Hints
+- The MagicBell CLI is already installed globally.
+- You can assume that the CLI is already authenticated or that the required environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`) are available in the environment.
+- Use the `magicbell user save` command to create the user.
+- Use the `magicbell user list` command to retrieve the list of users and redirect the output to `users.txt`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Command: bash manage_users.sh
+- The command must execute successfully and create `users.txt`.
+- The project must have a user with the external ID `user-${ZEALT_RUN_ID}` and email `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com`.
+- `users.txt` must contain the output of the user list command, which should include the newly created user.
+
+8:T6ae,# Create a User with Language Preference using MagicBell Go SDK
+
+## Background
+MagicBell allows you to store custom attributes for users, which can be useful for localization or personalization. In this task, you will write a Go script to create a user with a specific language preference using the official MagicBell Go SDK.
+
+## Requirements
+- Write a Go script that initializes the MagicBell Project Client.
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+- Read the base email from the `MAGICBELL_EMAIL` environment variable.
+- Create a user with the following properties:
+  - `ExternalId`: `user-${run-id}`
+  - `Email`: `${MAGICBELL_EMAIL}+${run-id}@gmail.com`
+  - `CustomAttributes`: Must include a `language` key set to `es`.
+- Write the created user's ID to a log file.
+
+## Implementation Hints
+- Use the `github.com/magicbell/magicbell-go` SDK.
+- Initialize the project client using your `MAGICBELL_PROJECT_TOKEN`.
+- Use the `users.SaveUser` or similar method in the SDK to create or update the user.
+- Set the custom attributes map on the user request object to include the language preference.
+- Write the resulting user ID to `/home/user/magicbell-go-create-user-language/output.log`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-go-create-user-language
+- Ensure the Go script is executed and the artifacts exist.
+- Log file: /home/user/magicbell-go-create-user-language/output.log
+- The user's `ExternalId` must be `user-${run-id}`.
+- The user's `Email` must be `${MAGICBELL_EMAIL}+${run-id}@gmail.com`.
+- The user must have a custom attribute `language` set to `es`.
+- The log file must contain the created user's ID in the format: `User ID: <user_id>`.
+
+9:T616,# MagicBell Broadcast with Category
+
+## Background
+Create a script that uses the MagicBell Node.js SDK to send a broadcast notification with a specific category to a designated email address.
+
+## Requirements
+- Use the MagicBell Node.js SDK (`magicbell-js`) to create a broadcast.
+- The broadcast must be sent to a single recipient using their email address.
+- The recipient email must be formatted as `{MAGICBELL_EMAIL}+${run-id}@gmail.com`, where `MAGICBELL_EMAIL` is read from the environment and `run-id` is read from `ZEALT_RUN_ID`.
+- The broadcast must include a category named `system-update`.
+- The broadcast title must include the `run-id` to ensure uniqueness.
+- Save the resulting Broadcast ID to a log file.
+
+## Implementation Hints
+- Read `MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, and `ZEALT_RUN_ID` from environment variables.
+- Initialize the `ProjectClient` from `magicbell-js`.
+- Use the `createBroadcast` method and provide the `title`, `content`, `category`, and `recipients` array containing the target email.
+- Write the returned Broadcast ID to the output log.
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Ensure the real broadcast creation action is executed and the log artifact exists.
+- Log file: /home/user/project/output.log
+- The log file must contain the Broadcast ID in the format: `Broadcast ID: <broadcast_id>`.
+- The broadcast must be sent to the recipient `{MAGICBELL_EMAIL}+${run-id}@gmail.com`.
+- The broadcast must have the category `system-update`.
+- The broadcast title must include the `run-id`.
+
+a:T5f7,# Fetch a Notification by ID using Node.js UserClient
+
+## Background
+You need to fetch a specific notification by ID for a user using the MagicBell Node.js UserClient.
+
+## Requirements
+- Create a Node.js script `fetch.js`.
+- The script must generate a MagicBell User JWT for the user with `external_id` set to `user_${run-id}` (where `run-id` is read from the `ZEALT_RUN_ID` environment variable). The JWT should also include `user_email` as `{MAGICBELL_EMAIL}+user_${run-id}@gmail.com` and `api_key` as `process.env.MAGICBELL_API_KEY`. Sign it with `process.env.MAGICBELL_SECRET_KEY` using the `HS256` algorithm.
+- The script must initialize the `Client` from `magicbell-js/user-client` using the generated User JWT.
+- The script must take a notification ID as a command-line argument.
+- The script must fetch the notification using the UserClient and print its title to stdout.
+
+## Implementation Hints
+- Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+- Generate a User JWT using the `jsonwebtoken` library.
+- Initialize `Client` from `magicbell-js/user-client` with the token.
+- Use the `fetchNotification` method on the `notifications` service to fetch the notification by ID.
+- Print the title to stdout in the format `Title: <title>`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-task
+- Command: node fetch.js <notification_id>
+- The command must accept the notification ID as its first argument.
+- The stdout should print the notification title in the format: `Title: <title>`.
+
+b:T79a,# Fetch User Notification Preferences with Node.js
+
+## Background
+MagicBell allows users to manage their notification delivery preferences across different channels. You need to write a Node.js script that authenticates as a specific user and fetches their current channel delivery preferences using the MagicBell UserClient.
+
+## Requirements
+- Create a Node.js script that generates a User JWT for a specific user.
+- The user's email must be constructed using the `MAGICBELL_EMAIL` environment variable and the current `run-id` in the format: `${MAGICBELL_EMAIL}+${run-id}@gmail.com`.
+- Use the generated User JWT to initialize the MagicBell Node.js UserClient (`magicbell-js/user-client`).
+- Fetch the user's channel delivery preferences.
+- Write the fetched preferences data as a JSON string to a log file.
+
+## Implementation Hints
+1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable.
+2. Read `MAGICBELL_EMAIL`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` from the environment.
+3. Generate a User JWT signed with the `HS256` algorithm using the `jsonwebtoken` package. The payload should include `user_email` (set to the constructed email) and `api_key`.
+4. Initialize the `Client` from `magicbell-js/user-client` with the generated token.
+5. Call the appropriate method on `client.channels` to fetch the user preferences.
+6. Write the resulting data object to `output.log` using `fs.writeFileSync`.
+
+## Acceptance Criteria
+- Project path: /home/user/magicbell-nodejs-fetch-preferences
+- Command: node index.js
+- The script must read `ZEALT_RUN_ID` to determine the `run-id`.
+- The script must fetch preferences for the user email `${MAGICBELL_EMAIL}+${run-id}@gmail.com`.
+- The script must output the fetched preferences to `/home/user/magicbell-nodejs-fetch-preferences/output.log`.
+- The log file must contain a valid JSON object representing the user preferences (which typically includes a `categories` array).
+
+c:Tc55,# Custom Notification Item in React
+
+## Background
+MagicBell provides a `FloatingInbox` component for React that renders a bell icon and a dropdown list of notifications. By default, it uses a standard notification item layout. For this task, you will customize the rendering of individual notifications within the `FloatingInbox` to match specific UI requirements.
+
+## Requirements
+- Create a full-stack project with a React frontend and an Express backend.
+- The backend must serve a `GET /token` endpoint that returns a User JWT for a user with external ID `user-${ZEALT_RUN_ID}` and email derived from `MAGICBELL_EMAIL` (using the plus format: `<email_prefix>+${ZEALT_RUN_ID}@<email_domain>`).
+- On startup, the backend must upsert this user and send a broadcast notification to them with the title `Test Notification ${ZEALT_RUN_ID}` and content `This is a test`.
+- The frontend must render the `@magicbell/react` `FloatingInbox`.
+- You must provide a custom notification item component to the `FloatingInbox`.
+- The custom notification item must have a wrapper element with the CSS class `custom-notification-item`.
+- The custom item must render the notification title inside an element with the class `custom-notification-title`.
+- The custom item must render the notification content inside an element with the class `custom-notification-content`.
+- If the notification is unread, the custom item must render a button with the class `custom-mark-read-btn`. Clicking this button must mark the notification as read in MagicBell.
+
+## Implementation Hints
+- Read the `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` environment variables.
+- Use `magicbell-js/project-client` on the backend to upsert the user and send the seed broadcast.
+- Use `jsonwebtoken` to generate the User JWT on the backend, signed with `MAGICBELL_SECRET_KEY`.
+- In the React frontend, use `Provider` and `FloatingInbox` from `@magicbell/react`.
+- `FloatingInbox` (or `Inbox`) typically accepts a prop like `ItemComponent` or `components={{ NotificationItem }}` to override the default item rendering.
+- You can use the provided notification data to check its read status and display the mark-as-read button conditionally.
+- To mark a notification as read, you can use the methods available on the notification object or the React SDK hooks.
+- Run the frontend and backend concurrently using a tool like `concurrently`.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command: `npm start`
+- Port: 3000 (frontend) and 3001 (backend)
+- The page at `http://localhost:3000` renders the `FloatingInbox`.
+- Opening the inbox reveals the notification with the title `Test Notification ${ZEALT_RUN_ID}`.
+- The notification is rendered using the custom component with the class `custom-notification-item`.
+- The title and content are rendered within elements having classes `custom-notification-title` and `custom-notification-content` respectively.
+- The unread notification contains a button with the class `custom-mark-read-btn`.
+- Clicking the `custom-mark-read-btn` marks the notification as read, and the button should disappear or the state should update accordingly.
+
+d:T9fd,# MagicBell React Inbox with Customized Dimensions
+
+## Background
+MagicBell provides a complete, real-time notification inbox and multi-channel delivery platform. The `@magicbell/react` package allows developers to easily embed an in-app notification inbox in their React applications. You need to implement a full-stack application that renders this inbox with customized dimensions for a specific test user.
+
+## Requirements
+- Create a React frontend (e.g., using Vite) and a small Node.js backend (e.g., using Express) in the same project.
+- The backend must provide an endpoint to generate a User JWT for a test user.
+- The backend must bootstrap the MagicBell state on startup by upserting the test user and sending a seed broadcast notification to them, ensuring the inbox is not empty.
+- The test user's email must be derived from the `MAGICBELL_EMAIL` environment variable in the plus format: `<local>+react-inbox-${run-id}@<domain>` (where `run-id` is read from `ZEALT_RUN_ID`). The user's external ID should be `react-inbox-${run-id}`.
+- The frontend must fetch the User JWT from the backend and use it to render a MagicBell `FloatingInbox` using the `@magicbell/react` package.
+- The `FloatingInbox` must be customized with the following dimensions: `height={500}` and `width={400}`.
+
+## Implementation Hints
+1. Read `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` from the environment to construct the test user's email and external ID.
+2. In the backend, use `jsonwebtoken` (HS256) and `MAGICBELL_SECRET_KEY` to sign the User JWT. The payload must include `user_email`, `user_external_id`, and `api_key` (from `MAGICBELL_API_KEY`).
+3. Use `magicbell-js` in the backend (with `MAGICBELL_PROJECT_TOKEN`) to upsert the user and create a broadcast notification for them on startup.
+4. In the frontend, wrap your app with the MagicBell `Provider` and render the `FloatingInbox` with the requested `height` and `width` properties.
+5. Configure your project to start both the frontend and backend concurrently via `npm start`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: npm start
+- Port: 3000 (frontend) and 3001 (backend)
+- API Endpoints:
+  - GET `http://localhost:3001/token`: Returns a JSON object containing the signed `token`.
+- Frontend:
+  - The web app at `http://localhost:3000` must render the MagicBell `FloatingInbox`.
+  - The inbox component must have its `height` configured to 500 and `width` configured to 400.
+  - The inbox must successfully authenticate and display the seed notification sent by the backend.
+
+0:{"buildId":"NSGKwpU3Gtpv58NHe464t","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"floating_inbox_react","instruction":"$4","trials":[{"job_name":"2026-06-02__17-36-24","trial_name":"floating_inbox_react__9GXGcyo","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":627.429,"latency_breakdown":{"env_setup":2.65,"agent_setup":13.36,"agent_exec":292.164,"verifier":301.458},"taskName":"floating_inbox_react","jobId":"9GXGcyo","exec_duration":292.164},{"job_name":"2026-06-02__16-54-05","trial_name":"floating_inbox_react__GDAmK6a","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":661.706,"latency_breakdown":{"env_setup":117.152,"agent_setup":14.594,"agent_exec":422.24,"verifier":88.778},"taskName":"floating_inbox_react","jobId":"GDAmK6a","exec_duration":422.24},{"job_name":"2026-06-02__17-14-26","trial_name":"floating_inbox_react__TNhq5NK","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":604.676,"latency_breakdown":{"env_setup":2.607,"agent_setup":13.111,"agent_exec":273.017,"verifier":301.266},"taskName":"floating_inbox_react","jobId":"TNhq5NK","exec_duration":273.017},{"job_name":"2026-06-02__17-56-57","trial_name":"floating_inbox_react__rnHK65F","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":429.829,"latency_breakdown":{"env_setup":2.946,"agent_setup":15.148,"agent_exec":95.231,"verifier":301.793},"taskName":"floating_inbox_react","jobId":"rnHK65F","exec_duration":95.231}]},{"taskName":"magicbell-cli-create-broadcast","instruction":"$5","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-cli-create-broadcast__iJHM3DS","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":139.143,"latency_breakdown":{"env_setup":2.696,"agent_setup":14.138,"agent_exec":93.337,"verifier":13.243},"taskName":"magicbell-cli-create-broadcast","jobId":"iJHM3DS","exec_duration":93.337},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-cli-create-broadcast__9FjhUrh","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":108.169,"latency_breakdown":{"env_setup":2.652,"agent_setup":13.274,"agent_exec":66.73,"verifier":11.725},"taskName":"magicbell-cli-create-broadcast","jobId":"9FjhUrh","exec_duration":66.73},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-cli-create-broadcast__niZ4nwh","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":202.079,"latency_breakdown":{"env_setup":66.344,"agent_setup":13.626,"agent_exec":97.8,"verifier":11.182},"taskName":"magicbell-cli-create-broadcast","jobId":"niZ4nwh","exec_duration":97.8},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-cli-create-broadcast__GAzE2Q6","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":113.182,"latency_breakdown":{"env_setup":2.776,"agent_setup":13.997,"agent_exec":70.874,"verifier":11.354},"taskName":"magicbell-cli-create-broadcast","jobId":"GAzE2Q6","exec_duration":70.874}]},{"taskName":"magicbell-cli-create-user","instruction":"$6","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-cli-create-user__BvpP52H","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":255.165,"latency_breakdown":{"env_setup":2.565,"agent_setup":12.977,"agent_exec":224.792,"verifier":1.568},"taskName":"magicbell-cli-create-user","jobId":"BvpP52H","exec_duration":224.792},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-cli-create-user__55yna3W","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":120.865,"latency_breakdown":{"env_setup":3.409,"agent_setup":13.881,"agent_exec":87.736,"verifier":1.872},"taskName":"magicbell-cli-create-user","jobId":"55yna3W","exec_duration":87.736},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-cli-create-user__Xc7YbY7","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":144.512,"latency_breakdown":{"env_setup":3.391,"agent_setup":14.698,"agent_exec":110.958,"verifier":1.383},"taskName":"magicbell-cli-create-user","jobId":"Xc7YbY7","exec_duration":110.958},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-cli-create-user__xc74gnS","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":133.579,"latency_breakdown":{"env_setup":2.658,"agent_setup":13.171,"agent_exec":102.415,"verifier":1.476},"taskName":"magicbell-cli-create-user","jobId":"xc74gnS","exec_duration":102.415}]},{"taskName":"magicbell-cli-list-users","instruction":"$7","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-cli-list-users__5ur5HGM","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":297.685,"latency_breakdown":{"env_setup":2.769,"agent_setup":13.715,"agent_exec":265.254,"verifier":2.865},"taskName":"magicbell-cli-list-users","jobId":"5ur5HGM","exec_duration":265.254},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-cli-list-users__bzmAYUo","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":123.355,"latency_breakdown":{"env_setup":3.125,"agent_setup":13.516,"agent_exec":86.858,"verifier":4.577},"taskName":"magicbell-cli-list-users","jobId":"bzmAYUo","exec_duration":86.858},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-cli-list-users__qTCK2m3","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":230.256,"latency_breakdown":{"env_setup":91.001,"agent_setup":14.56,"agent_exec":107.1,"verifier":2.879},"taskName":"magicbell-cli-list-users","jobId":"qTCK2m3","exec_duration":107.1},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-cli-list-users__32GLT3a","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":95.501,"latency_breakdown":{"env_setup":2.683,"agent_setup":13.89,"agent_exec":58.948,"verifier":3.292},"taskName":"magicbell-cli-list-users","jobId":"32GLT3a","exec_duration":58.948}]},{"taskName":"magicbell-go-create-user-language","instruction":"$8","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-go-create-user-languag__fFfPVVh","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":250.511,"latency_breakdown":{"env_setup":2.791,"agent_setup":14.485,"agent_exec":218.433,"verifier":1.518},"taskName":"magicbell-go-create-user-languag","jobId":"fFfPVVh","exec_duration":218.433},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-go-create-user-languag__yGSRrAN","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":180.294,"latency_breakdown":{"env_setup":4.063,"agent_setup":15.115,"agent_exec":146.204,"verifier":1.583},"taskName":"magicbell-go-create-user-languag","jobId":"yGSRrAN","exec_duration":146.204},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-go-create-user-languag__SeUEtgf","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":159.59,"latency_breakdown":{"env_setup":3.149,"agent_setup":12.997,"agent_exec":127.844,"verifier":2.022},"taskName":"magicbell-go-create-user-languag","jobId":"SeUEtgf","exec_duration":127.844},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-go-create-user-languag__QobSmtJ","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":208.621,"latency_breakdown":{"env_setup":2.649,"agent_setup":13.297,"agent_exec":178.005,"verifier":1.381},"taskName":"magicbell-go-create-user-languag","jobId":"QobSmtJ","exec_duration":178.005}]},{"taskName":"magicbell-nodejs-broadcast-category","instruction":"$9","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-nodejs-broadcast-categ__Lwkj5XP","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":259.032,"latency_breakdown":{"env_setup":2.763,"agent_setup":13.257,"agent_exec":186.303,"verifier":33.636},"taskName":"magicbell-nodejs-broadcast-categ","jobId":"Lwkj5XP","exec_duration":186.303},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-nodejs-broadcast-categ__2apm7sC","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":152.055,"latency_breakdown":{"env_setup":3.121,"agent_setup":14.897,"agent_exec":100.543,"verifier":3.469},"taskName":"magicbell-nodejs-broadcast-categ","jobId":"2apm7sC","exec_duration":100.543},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-nodejs-broadcast-categ__RvrWEM8","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":335.908,"latency_breakdown":{"env_setup":72.051,"agent_setup":14.73,"agent_exec":222.288,"verifier":2.273},"taskName":"magicbell-nodejs-broadcast-categ","jobId":"RvrWEM8","exec_duration":222.288},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-nodejs-broadcast-categ__pqWFsqK","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":273.538,"latency_breakdown":{"env_setup":4.908,"agent_setup":29.611,"agent_exec":182.587,"verifier":33.547},"taskName":"magicbell-nodejs-broadcast-categ","jobId":"pqWFsqK","exec_duration":182.587}]},{"taskName":"magicbell-nodejs-fetch-delivery-status","instruction":"","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-nodejs-fetch-delivery__g7H4pzn","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":186.392,"latency_breakdown":{"env_setup":2.752,"agent_setup":13.599,"agent_exec":145.495,"verifier":2.267},"taskName":"magicbell-nodejs-fetch-delivery","jobId":"g7H4pzn","exec_duration":145.495},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-nodejs-fetch-delivery__5nwC9xu","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":140.844,"latency_breakdown":{"env_setup":2.837,"agent_setup":13.568,"agent_exec":99.656,"verifier":1.878},"taskName":"magicbell-nodejs-fetch-delivery","jobId":"5nwC9xu","exec_duration":99.656},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-nodejs-fetch-delivery__tDJ5ejF","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":177.445,"latency_breakdown":{"env_setup":9.535,"agent_setup":13.722,"agent_exec":127.408,"verifier":2.74},"taskName":"magicbell-nodejs-fetch-delivery","jobId":"tDJ5ejF","exec_duration":127.408},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-nodejs-fetch-delivery__yHaVa5D","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":171.615,"latency_breakdown":{"env_setup":2.666,"agent_setup":13.651,"agent_exec":126.926,"verifier":2.335},"taskName":"magicbell-nodejs-fetch-delivery","jobId":"yHaVa5D","exec_duration":126.926}]},{"taskName":"magicbell-nodejs-fetch-notification","instruction":"$a","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-nodejs-fetch-notificat__NeHWDM8","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":178.479,"latency_breakdown":{"env_setup":2.834,"agent_setup":14.283,"agent_exec":125.367,"verifier":22.205},"taskName":"magicbell-nodejs-fetch-notificat","jobId":"NeHWDM8","exec_duration":125.367},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-nodejs-fetch-notificat__DqhdpAU","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":118.326,"latency_breakdown":{"env_setup":2.714,"agent_setup":14.702,"agent_exec":64.2,"verifier":22.904},"taskName":"magicbell-nodejs-fetch-notificat","jobId":"DqhdpAU","exec_duration":64.2},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-nodejs-fetch-notificat__hxGnhTM","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":521.588,"latency_breakdown":{"env_setup":55.213,"agent_setup":13.515,"agent_exec":412.923,"verifier":25.023},"taskName":"magicbell-nodejs-fetch-notificat","jobId":"hxGnhTM","exec_duration":412.923},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-nodejs-fetch-notificat__ZKTgDGj","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":281.733,"latency_breakdown":{"env_setup":2.859,"agent_setup":14.012,"agent_exec":228.957,"verifier":22.196},"taskName":"magicbell-nodejs-fetch-notificat","jobId":"ZKTgDGj","exec_duration":228.957}]},{"taskName":"magicbell-nodejs-fetch-preferences","instruction":"$b","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-nodejs-fetch-preferenc__feRaMPB","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":157.63,"latency_breakdown":{"env_setup":2.708,"agent_setup":14.519,"agent_exec":114.8,"verifier":1.549},"taskName":"magicbell-nodejs-fetch-preferenc","jobId":"feRaMPB","exec_duration":114.8},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-nodejs-fetch-preferenc__HzHnhqz","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":116.746,"latency_breakdown":{"env_setup":2.713,"agent_setup":13.477,"agent_exec":74.889,"verifier":1.058},"taskName":"magicbell-nodejs-fetch-preferenc","jobId":"HzHnhqz","exec_duration":74.889},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-nodejs-fetch-preferenc__cLuahsk","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":215.438,"latency_breakdown":{"env_setup":10.871,"agent_setup":14.639,"agent_exec":167.053,"verifier":1.609},"taskName":"magicbell-nodejs-fetch-preferenc","jobId":"cLuahsk","exec_duration":167.053},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-nodejs-fetch-preferenc__qLi3kTH","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":177.584,"latency_breakdown":{"env_setup":2.857,"agent_setup":13.822,"agent_exec":136.654,"verifier":1.479},"taskName":"magicbell-nodejs-fetch-preferenc","jobId":"qLi3kTH","exec_duration":136.654}]},{"taskName":"magicbell-react-custom-notification-item","instruction":"$c","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-react-custom-notificat__tKmQGho","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":822.054,"latency_breakdown":{"env_setup":2.611,"agent_setup":14.039,"agent_exec":600.204,"verifier":181.25},"taskName":"magicbell-react-custom-notificat","jobId":"tKmQGho","exec_duration":600.204},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-react-custom-notificat__b6pbC5a","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":914.822,"latency_breakdown":{"env_setup":2.668,"agent_setup":13.221,"agent_exec":600.243,"verifier":265.025},"taskName":"magicbell-react-custom-notificat","jobId":"b6pbC5a","exec_duration":600.243},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-react-custom-notificat__WWYsCys","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":768.336,"latency_breakdown":{"env_setup":3.022,"agent_setup":14.947,"agent_exec":600.302,"verifier":117.549},"taskName":"magicbell-react-custom-notificat","jobId":"WWYsCys","exec_duration":600.302},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-react-custom-notificat__mKRorJB","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":818.99,"latency_breakdown":{"env_setup":3.007,"agent_setup":14.929,"agent_exec":600.206,"verifier":181.373},"taskName":"magicbell-react-custom-notificat","jobId":"mKRorJB","exec_duration":600.206}]},{"taskName":"magicbell-react-inbox-dimensions","instruction":"$d","trials":[{"job_name":"2026-06-03__04-00-20","trial_name":"magicbell-react-inbox-dimensions__Mk5aHjC","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":836.778,"latency_breakdown":{"env_setup":2.646,"agent_setup":13.782,"agent_exec":600.266,"verifier":144.086},"taskName":"magicbell-react-inbox-dimensions","jobId":"Mk5aHjC","exec_duration":600.266},{"job_name":"2026-06-03__02-32-02","trial_name":"magicbell-react-inbox-dimensions__34nMtwq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":482.031,"latency_breakdown":{"env_setup":2.731,"agent_setup":14.418,"agent_exec":201.864,"verifier":181.477},"taskName":"magicbell-react-inbox-dimensions","jobId":"34nMtwq","exec_duration":201.864},{"job_name":"2026-06-03__01-00-35","trial_name":"magicbell-react-inbox-dimensions__XDF2Qxt","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":623.386,"latency_breakdown":{"env_setup":133.22,"agent_setup":15.318,"agent_exec":236.193,"verifier":153.333},"taskName":"magicbell-react-inbox-dimensions","jobId":"XDF2Qxt","exec_duration":236.193},{"job_name":"2026-06-03__03-11-50","trial_name":"magicbell-react-inbox-dimensions__2tjRgCN","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":550.529,"latency_breakdown":{"env_setup":4.52,"agent_setup":19.917,"agent_exec":272.207,"verifier":181.437},"taskName":"magicbell-react-inbox-dimensions","jobId":"2tjRgCN","exec_duration":272.207}]}]}]}]]}],["$Le","$Lf"],"$L10"]}],"loading":null,"isPartial":false}
+e:["$","script","script-0",{"src":"/magicbell-benchmark/_next/static/chunks/2a90c6a8afd80149.js","async":true}]
+f:["$","script","script-1",{"src":"/magicbell-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+10:["$","$L11",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@12"}]}]
+12:null
