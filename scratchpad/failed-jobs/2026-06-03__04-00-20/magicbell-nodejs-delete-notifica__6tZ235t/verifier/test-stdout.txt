@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_delete_notification_script ________________________
+
+    def test_delete_notification_script():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is missing."
+    
+        script_path = os.path.join(PROJECT_DIR, "delete_notification.js")
+        assert os.path.isfile(script_path), f"Script {script_path} does not exist."
+    
+        output_log = os.path.join(PROJECT_DIR, "output.log")
+    
+        # Run the script
+        with open(output_log, "w") as f:
+            result = subprocess.run(
+                ["node", "delete_notification.js"],
+                cwd=PROJECT_DIR,
+                stdout=f,
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+    
+>       assert result.returncode == 0, f"Script execution failed. Check {output_log} for details."
+E       AssertionError: Script execution failed. Check /home/user/magicbell-project/output.log for details.
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'delete_notification.js'], returncode=1).returncode
+
+tests/test_final_state.py:28: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_delete_notification_script - Assertion...
+============================== 1 failed in 37.22s ==============================

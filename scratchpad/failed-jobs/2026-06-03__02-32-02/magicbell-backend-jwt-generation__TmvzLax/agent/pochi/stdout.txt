@@ -1,0 +1,43 @@
+- Initializing MCP connections...
+You
+# Generate a MagicBell User JWT ## Background MagicBell uses User JWTs to secure client-side communication for specific users. These tokens must be generated on a backend server using the project's Secret Key and API Key. ## Requirements * Write a Node.js script to generate a User JWT for MagicBell. * The script must use HMAC-HS256 algorithm to sign the token. * The token must be signed using the `MAGICBELL_SECRET_KEY` environment variable. * The JWT payload must contain: * `user_email`: The value of the `MAGICBELL_EMAIL` environment variable, appended with `+${run-id}@gmail.com` (e.g., if `MAGICBELL_EMAIL` is `testuser`, the email should be `testuser+${run-id}@gmail.com`). Use the `ZEALT_RUN_ID` environment variable for `${run-id}`. * `user_external_id`: `user_${run-id}` * `api_key`: The value of the `MAGICBELL_API_KEY` environment variable. * The token must have an expiration time (e.g., '1y' or 3600 seconds). ## Implementation Hints * Read `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, and `ZEALT_RUN_ID` from the environment. * You can use the `jsonwebtoken` package in Node.js to sign the token. * Print the generated JWT to standard output. ## Acceptance Criteria * Project path: /home/user/myproject * Command: node generate\_jwt.js * The stdout should print the generated JWT in the format: `User JWT: <jwt_token>`   
+
+Pochi
+💭 Thinking for 114 characters   
+📂 Listing files in /home/user/myproject ✔ 
+The project directory exists but is empty. I'll create the script and set up the necessary dependencies.   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/package.json ✔ 
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/generate_jwt.js ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && npm install ✔ 
+Dependencies installed successfully. Let me verify the script works with test environment variables:   
+💫 Executing cd /home/user/myproject && MAGICBELL_API_KEY=test_api_key MAGICBELL_SECRET_KEY=test_secret MAGICBELL_EMAIL=testuser ZEALT_RUN_ID=abc123 node generate_jwt.js ✔ 
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+The MagicBell User JWT generator has been created at `/home/user/myproject/generate_jwt.js`.
+
+**Files created:**
+- `generate_jwt.js` — the JWT generation script
+- `package.json` — project manifest with `jsonwebtoken` dependency
+- `node_modules/` — installed dependencies
+
+**How it works:**
+- Reads `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, and `ZEALT_RUN_ID` from the environment
+- Builds a JWT payload with:
+  - `user_email`: `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com`
+  - `user_external_id`: `user_${ZEALT_RUN_ID}`
+  - `api_key`: `${MAGICBELL_API_KEY}`
+- Signs the token using **HMAC-HS256** with `MAGICBELL_SECRET_KEY`, expiring in **1 year**
+- Prints: `User JWT: <jwt_token>`
+
+**Usage:**
+```bash
+MAGICBELL_API_KEY=<key> \
+MAGICBELL_SECRET_KEY=<secret> \
+MAGICBELL_EMAIL=<email_prefix> \
+ZEALT_RUN_ID=<run_id> \
+node generate_jwt.js
+```   
+  

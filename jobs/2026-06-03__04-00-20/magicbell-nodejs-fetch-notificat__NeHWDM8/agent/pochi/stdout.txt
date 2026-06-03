@@ -1,0 +1,48 @@
+- Initializing MCP connections...
+You
+# Fetch a Notification by ID using Node.js UserClient ## Background You need to fetch a specific notification by ID for a user using the MagicBell Node.js UserClient. ## Requirements * Create a Node.js script `fetch.js`. * The script must generate a MagicBell User JWT for the user with `external_id` set to `user_${run-id}` (where `run-id` is read from the `ZEALT_RUN_ID` environment variable). The JWT should also include `user_email` as `{MAGICBELL_EMAIL}+user_${run-id}@gmail.com` and `api_key` as `process.env.MAGICBELL_API_KEY`. Sign it with `process.env.MAGICBELL_SECRET_KEY` using the `HS256` algorithm. * The script must initialize the `Client` from `magicbell-js/user-client` using the generated User JWT. * The script must take a notification ID as a command-line argument. * The script must fetch the notification using the UserClient and print its title to stdout. ## Implementation Hints * Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. * Generate a User JWT using the `jsonwebtoken` library. * Initialize `Client` from `magicbell-js/user-client` with the token. * Use the `fetchNotification` method on the `notifications` service to fetch the notification by ID. * Print the title to stdout in the format `Title: <title>`. ## Acceptance Criteria * Project path: /home/user/magicbell-task * Command: node fetch.js \<notification\_id> * The command must accept the notification ID as its first argument. * The stdout should print the notification title in the format: `Title: <title>`.   
+
+Pochi
+💭 Thinking for 536 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 59 characters   
+📂 Listing files in /home/user/magicbell-task ✔ 
+💫 Executing which node && node --version ✔ 
+💭 Thinking for 241 characters   
+💫 Executing ls -la /home/user/magicbell-task && npm --version ✔ 
+💭 Thinking for 260 characters   
+💫 Executing cd /home/user/magicbell-task && npm init -y ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/magicbell-task && npm install jsonwebtoken magicbell-js ✔ 
+💭 Thinking for 116 characters   
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/user-client/ ✔ 
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/ ✔ 
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/user-client/package.json ✔ 
+💭 Thinking for 113 characters   
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client.d.ts ✔ 
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/ ✔ 
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/index.d.ts ✔ 
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/ ✔ 
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.d.ts ✔ 
+💭 Thinking for 107 characters   
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/models/ ✔ 
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/models/notification.d.ts ✔ 
+💭 Thinking for 307 characters   
+📖 Reading /home/user/magicbell-task/node_modules/magicbell-js/dist/commonjs/user-client/http/types.d.ts ✔ 
+💭 Thinking for 461 characters   
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/magicbell-task/fetch.js ✔ 
+💭 Thinking for 101 characters   
+💫 Executing cd /home/user/magicbell-task && node --check fetch.js ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+Created `/home/user/magicbell-task/fetch.js` that:
+
+1. Reads `ZEALT_RUN_ID`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, and `MAGICBELL_EMAIL` from environment variables
+2. Generates a MagicBell User JWT with `external_id: user_${runId}`, `user_email: ${MAGICBELL_EMAIL}+user_${runId}@gmail.com`, and `api_key`, signed with `HS256` using `MAGICBELL_SECRET_KEY`
+3. Initializes the `Client` from `magicbell-js/user-client` with the generated JWT token
+4. Accepts a notification ID as the first command-line argument
+5. Fetches the notification using `client.notifications.fetchNotification()` and prints `Title: <title>` to stdout
+
+Usage: `node fetch.js <notification_id>`   
+  

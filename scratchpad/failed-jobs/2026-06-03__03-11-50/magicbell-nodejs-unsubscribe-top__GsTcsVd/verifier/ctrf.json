@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780456922905,
+            "stop": 1780456924515
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_unsubscribe_topic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 705,
+                "start": 1780456923810,
+                "stop": 1780456924515,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unsubscribe_topic():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id is not None, \"ZEALT_RUN_ID is not set\"\n    \n        email = os.environ.get(\"MAGICBELL_EMAIL\")\n        assert email is not None, \"MAGICBELL_EMAIL is not set\"\n    \n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert project_token is not None, \"MAGICBELL_PROJECT_TOKEN is not set\"\n    \n        user_email = f\"{email}+{run_id}@gmail.com\"\n        test_topic = f\"test-topic-{run_id}\"\n        other_topic = f\"other-topic-{run_id}\"\n    \n        # 1. Run the user's script\n        result = subprocess.run(\n            [\"node\", \"unsubscribe.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Script failed with output: {result.stderr}\\n{result.stdout}\"\nE       AssertionError: Script failed with output: Error unsubscribing: Failed to unsubscribe: 401 Unauthorized - {\"errors\":[{\"code\":\"jwt_auth_failed\",\"message\":\"Unable to authenticate the JWT\",\"suggestion\":\"Please provide a valid JWT in the 'Authorization' header\",\"help_link\":\"https://www.magicbell.com/docs/api/authentication\"}]}\nE         \nE         \nE         client.subscriptions.unsubscribe is not available on this client version. Using fallback HTTP request...\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'unsubscribe.js'], returncode=1, stdout='client.subscriptions.unsubscribe is not availa...e a valid JWT in the \\'Authorization\\' header\",\"help_link\":\"https://www.magicbell.com/docs/api/authentication\"}]}\\n\\n').returncode\n\ntests/test_final_state.py:76: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

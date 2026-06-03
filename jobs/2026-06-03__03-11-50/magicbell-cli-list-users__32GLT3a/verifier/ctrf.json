@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780457200296,
+            "stop": 1780457201996
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_manage_users_script",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1661,
+                "start": 1780457200335,
+                "stop": 1780457201996,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_manage_users_script():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"default\")\n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"test\")\n        expected_email = f\"{magicbell_email}+{run_id}@gmail.com\"\n        expected_external_id = f\"user-{run_id}\"\n    \n        script_path = os.path.join(PROJECT_DIR, \"manage_users.sh\")\n        assert os.path.isfile(script_path), \"manage_users.sh not found in the project directory.\"\n    \n        # Remove users.txt if it exists from previous runs\n        users_file = os.path.join(PROJECT_DIR, \"users.txt\")\n        if os.path.isfile(users_file):\n            os.remove(users_file)\n    \n        # Run the script\n        result = subprocess.run(\n            [\"bash\", \"manage_users.sh\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n        assert result.returncode == 0, f\"manage_users.sh failed with exit code {result.returncode}: {result.stderr}\"\n    \n        # Check users.txt\n        assert os.path.isfile(users_file), \"users.txt was not created by the script.\"\n    \n        with open(users_file, \"r\") as f:\n            content = f.read()\n    \n>       assert expected_email in content, f\"Expected email {expected_email} not found in users.txt.\"\nE       AssertionError: Expected email REDACTED@gmail.com+zr-32glt3a@gmail.com not found in users.txt.\nE       assert 'REDACTED@gmail.com+zr-32glt3a@gmail.com' in '{\"errors\":[{\"code\":\"invalid_jwt_format\",\"message\":\"expected authorization header format: Bearer <token>\",\"suggestion\"...de a valid JWT in the \\'Authorization\\' header\",\"help_link\":\"https://www.magicbell.com/docs/api/authentication\"}]}\\n\\n'\n\ntests/test_final_state.py:36: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

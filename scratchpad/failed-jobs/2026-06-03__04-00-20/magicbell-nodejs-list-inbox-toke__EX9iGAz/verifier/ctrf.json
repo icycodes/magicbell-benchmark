@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780460530729,
+            "stop": 1780460531515
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_file_exists_and_is_array",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780460531090,
+                "stop": 1780460531092,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_matches_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 423,
+                "start": 1780460531092,
+                "stop": 1780460531515,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_matches_api():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set\"\n    \n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\")\n        assert magicbell_email, \"MAGICBELL_EMAIL environment variable is not set\"\n    \n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert project_token, \"MAGICBELL_PROJECT_TOKEN environment variable is not set\"\n    \n        user_email = f\"{magicbell_email}+list-tokens-{run_id}@gmail.com\"\n    \n        # Check what the API returns\n        api_url = f\"https://api.magicbell.com/users/{user_email}/channels/in_app/inbox/tokens\"\n        headers = {\n            \"Authorization\": f\"Bearer {project_token}\",\n            \"Content-Type\": \"application/json\"\n        }\n    \n        response = requests.get(api_url, headers=headers)\n>       assert response.status_code in [200, 404], f\"Failed to fetch tokens from API: {response.text}\"\nE       AssertionError: Failed to fetch tokens from API: {\"errors\":[{\"message\":\"invalid user uuid format [REDACTED@gmail.com+list-tokens-zr-ex9igaz@gmail.com]\"}]}\nE         \nE       assert 400 in [200, 404]\nE        +  where 400 = <Response [400]>.status_code\n\ntests/test_final_state.py:39: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

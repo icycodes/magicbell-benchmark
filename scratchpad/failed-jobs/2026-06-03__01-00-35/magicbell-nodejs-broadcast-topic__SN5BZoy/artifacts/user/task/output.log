@@ -1,0 +1,23 @@
+{
+  "actionUrl": null,
+  "category": null,
+  "content": null,
+  "createdAt": "2026-06-03T01:14:24.109863065Z",
+  "id": "019e8b0b-c1ed-7dc7-985b-9a5261d7cc31",
+  "recipients": [
+    {
+      "email": "REDACTED@gmail.com+zr-sn5bzoy@gmail.com"
+    },
+    {}
+  ],
+  "status": {
+    "errors": null,
+    "status": "enqueued",
+    "summary": {
+      "failures": 0,
+      "total": 0
+    }
+  },
+  "title": "Topic Broadcast zr-sn5bzoy",
+  "topic": "announcements-zr-sn5bzoy"
+}

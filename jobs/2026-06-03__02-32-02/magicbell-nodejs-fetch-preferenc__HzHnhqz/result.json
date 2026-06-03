@@ -1,0 +1,117 @@
+{
+    "id": "15be1ce1-6da9-4d4b-9e10-0ac299789773",
+    "task_name": "magicbell-nodejs-fetch-preferences",
+    "trial_name": "magicbell-nodejs-fetch-preferenc__HzHnhqz",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-03__02-32-02/magicbell-nodejs-fetch-preferenc__HzHnhqz",
+    "task_id": {
+        "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-fetch-preferences"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "b3f3eb1f826b7d98135043005504917b3a5a6c45d4bb98a4dee8478fff336c76",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-fetch-preferences",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "magicbell-nodejs-fetch-preferenc__HzHnhqz",
+        "trials_dir": "jobs/2026-06-03__02-32-02",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "anthropic/claude-4-6-sonnet",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "d62aa06d-6f0d-4baa-b1d3-c6b7c4f538ff"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "claude-4-6-sonnet",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 24585,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-03T02:35:43.841144Z",
+    "finished_at": "2026-06-03T02:37:40.587470Z",
+    "environment_setup": {
+        "started_at": "2026-06-03T02:35:43.849320Z",
+        "finished_at": "2026-06-03T02:35:46.562448Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-03T02:35:46.562484Z",
+        "finished_at": "2026-06-03T02:36:00.039838Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-03T02:36:00.039946Z",
+        "finished_at": "2026-06-03T02:37:14.928591Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-03T02:37:27.186854Z",
+        "finished_at": "2026-06-03T02:37:28.244513Z"
+    },
+    "step_results": null
+}

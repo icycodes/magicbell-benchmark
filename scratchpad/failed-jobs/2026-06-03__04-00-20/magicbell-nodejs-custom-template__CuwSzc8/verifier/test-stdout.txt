@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_email_delivery ______________________________
+
+run_script = ('zr-cuwszc8', 'REDACTED@gmail.com')
+
+    def test_email_delivery(run_script):
+        run_id, email_base = run_script
+        expected_to = f"{email_base}+{run_id}@gmail.com"
+        expected_subject = f"Custom Email Title {run_id}"
+    
+        inbox = list_inbox(max_results=20)
+    
+        found = False
+        for msg in inbox:
+            if expected_to.lower() in msg["to"].lower() and msg["subject"] == expected_subject:
+                found = True
+                break
+    
+>       assert found, f"Email not found in inbox. Expected To: {expected_to}, Subject: {expected_subject}"
+E       AssertionError: Email not found in inbox. Expected To: REDACTED@gmail.com+zr-cuwszc8@gmail.com, Subject: Custom Email Title zr-cuwszc8
+E       assert False
+
+tests/test_final_state.py:91: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution_and_output
+FAILED tests/test_final_state.py::test_email_delivery - AssertionError: Email...
+========================= 1 failed, 1 passed in 15.27s =========================

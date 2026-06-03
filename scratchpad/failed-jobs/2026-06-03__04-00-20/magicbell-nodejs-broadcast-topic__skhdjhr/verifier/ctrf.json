@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780460309939,
+            "stop": 1780460321346
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 37,
+                "start": 1780460310243,
+                "stop": 1780460310280,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\nE       AssertionError: Log file /home/user/task/output.log does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7f7ea05b4220>('/home/user/task/output.log')\nE        +    where <function isfile at 0x7f7ea05b4220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_explicit_recipient_received_email",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11056,
+                "start": 1780460310281,
+                "stop": 1780460321337,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_explicit_recipient_received_email():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"\")\n        assert magicbell_email, \"MAGICBELL_EMAIL environment variable is not set.\"\n    \n        expected_subject = f\"Topic Broadcast {run_id}\"\n        expected_recipient = f\"{magicbell_email}+{run_id}@gmail.com\"\n    \n        # Wait a bit for emails to arrive\n        time.sleep(5)\n    \n        messages = list_inbox(max_results=30)\n    \n        found = False\n        for msg in messages:\n            subject = msg.get(\"subject\", \"\")\n            to = msg.get(\"to\", \"\")\n    \n            if expected_subject in subject and expected_recipient in to:\n                found = True\n                break\n    \n>       assert found, f\"Email with subject '{expected_subject}' to '{expected_recipient}' not found in inbox.\"\nE       AssertionError: Email with subject 'Topic Broadcast zr-skhdjhr' to 'REDACTED@gmail.com+zr-skhdjhr@gmail.com' not found in inbox.\nE       assert False\n\ntests/test_final_state.py:89: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_broadcast_payload_in_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1780460321338,
+                "stop": 1780460321345,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_broadcast_payload_in_log():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n>       with open(LOG_FILE, \"r\") as f:\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/task/output.log'\n\ntests/test_final_state.py:95: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

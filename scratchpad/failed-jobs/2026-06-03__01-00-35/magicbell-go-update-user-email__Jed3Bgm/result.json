@@ -1,0 +1,117 @@
+{
+    "id": "8b3b3d42-959b-4ea8-9ec6-c5350bedc623",
+    "task_name": "magicbell-go-update-user-email",
+    "trial_name": "magicbell-go-update-user-email__Jed3Bgm",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-03__01-00-35/magicbell-go-update-user-email__Jed3Bgm",
+    "task_id": {
+        "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-email"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "9167b83df2a46e10e21e544840e1186941d2e06fee53f17fc804a70464062d5f",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-email",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "magicbell-go-update-user-email__Jed3Bgm",
+        "trials_dir": "jobs/2026-06-03__01-00-35",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3.5-flash",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "fc99b575-9719-476d-9012-87e9aa85c15d"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "gemini-3.5-flash",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 24692,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-03T01:39:49.085645Z",
+    "finished_at": "2026-06-03T01:42:29.723552Z",
+    "environment_setup": {
+        "started_at": "2026-06-03T01:39:49.102810Z",
+        "finished_at": "2026-06-03T01:39:52.326346Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-03T01:39:52.326384Z",
+        "finished_at": "2026-06-03T01:40:07.248507Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-03T01:40:07.248631Z",
+        "finished_at": "2026-06-03T01:42:13.552620Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-03T01:42:15.310164Z",
+        "finished_at": "2026-06-03T01:42:17.844996Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_email_received_in_gmail _________________________
+
+    def test_email_received_in_gmail():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        expected_to = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        # Wait a bit for email to be delivered
+        time.sleep(5)
+    
+        messages = list_inbox(max_results=20)
+    
+        found = False
+        for msg in messages:
+            if expected_to.lower() in msg["to"].lower():
+                found = True
+                break
+    
+>       assert found, f"Did not find an email sent to {expected_to} in the Gmail inbox."
+E       AssertionError: Did not find an email sent to REDACTED@gmail.com+zr-exx5ye9@gmail.com in the Gmail inbox.
+E       assert False
+
+tests/test_final_state.py:121: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_contains_broadcast_id
+PASSED tests/test_final_state.py::test_broadcast_exists_in_magicbell
+FAILED tests/test_final_state.py::test_email_received_in_gmail - AssertionErr...
+========================= 1 failed, 2 passed in 10.60s =========================

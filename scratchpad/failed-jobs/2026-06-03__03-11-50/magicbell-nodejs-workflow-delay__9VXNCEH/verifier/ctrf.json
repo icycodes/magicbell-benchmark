@@ -1,0 +1,43 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780459110135,
+            "stop": 1780459111375
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_create_workflow_script_executes_successfully",
+                "status": "passed",
+                "duration": 695,
+                "start": 1780459110322,
+                "stop": 1780459111017,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_definition_in_magicbell",
+                "status": "passed",
+                "duration": 357,
+                "start": 1780459111018,
+                "stop": 1780459111375,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,79 @@
+Skipping image OS validation for hb__magicbell-cli-save-workflow: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wrhu8ov > /logs/artifacts/run-id && echo magicbell-cli-save-workflow__WRhU8oV > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Save MagicBell Workflow with CLI
+
+## Background
+MagicBell provides a CLI to manage your project's resources, including workflows. Workflows allow you to orchestrate multi-step notification campaigns.
+
+## Requirements
+- Create a shell script to save a workflow definition using the MagicBell CLI.
+- The workflow key must be `onboarding-campaign-${run-id}`.
+- The workflow must contain a single step using the `broadcast` command.
+- The broadcast must include a title, content, and a hardcoded email recipient.
+- The email recipient must be derived from the `MAGICBELL_EMAIL` environment variable by appending `+cli-workflow-${run-id}` to the local part of the email address (e.g., if `MAGICBELL_EMAIL` is `user@example.com`, the recipient should be `user+cli-workflow-${run-id}@example.com`).
+
+## Implementation Hints
+- Read the `ZEALT_RUN_ID` environment variable to get the `run-id`.
+- Parse the `MAGICBELL_EMAIL` environment variable to construct the recipient email address.
+- Use the `magicbell workflow save` command to create or update the workflow definition.
+- Pass the workflow definition as a JSON string to the `--data` flag.
+- Ensure the CLI is authenticated before running the command, or pass authentication flags if necessary (the environment may already have the CLI installed and authenticated, or you may need to authenticate using the provided environment variables).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: bash save_workflow.sh
+- Ensure the real workflow saving action is executed.
+- The script must use the MagicBell CLI (`magicbell workflow save`).
+- The workflow key must be `onboarding-campaign-${run-id}`.
+- The workflow must have exactly one step with the command `broadcast`.
+- The broadcast input must contain a title and content.
+- The broadcast input must contain a `recipients` array with a single email recipient matching the `+cli-workflow-${run-id}` format derived from `MAGICBELL_EMAIL`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

@@ -1,0 +1,11 @@
+{
+    "task": [
+        "MAGICBELL_API_KEY",
+        "MAGICBELL_SECRET_KEY",
+        "MAGICBELL_PROJECT_TOKEN",
+        "MAGICBELL_EMAIL"
+    ],
+    "verifier": [
+        "POCHI_API_KEY"
+    ]
+}

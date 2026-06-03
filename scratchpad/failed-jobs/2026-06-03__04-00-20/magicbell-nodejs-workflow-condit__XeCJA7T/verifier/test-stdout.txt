@@ -1,0 +1,93 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_workflow_created_and_configured _____________________
+
+    def test_workflow_created_and_configured():
+        """Verify the workflow definition using a small Node.js script."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        workflow_key = f"conditional-workflow-{run_id}"
+    
+        verify_script = f"""
+    import {{ Client }} from 'magicbell-js/project-client';
+    
+    const client = new Client({{
+      token: process.env.MAGICBELL_PROJECT_TOKEN,
+    }});
+    
+    (async () => {{
+      try {{
+        const res = await client.workflows.fetchWorkflow({{ key: '{workflow_key}' }});
+        console.log(JSON.stringify(res.data));
+      }} catch (e) {{
+        console.error(e);
+        process.exit(1);
+      }}
+    }})();
+    """
+        verify_script_path = os.path.join(PROJECT_DIR, "verify.js")
+        with open(verify_script_path, "w") as f:
+            f.write(verify_script)
+    
+        result = subprocess.run(
+            ["node", "verify.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"Failed to fetch workflow: {result.stderr}\nStdout: {result.stdout}"
+E       AssertionError: Failed to fetch workflow: HttpError: Unexpected response body for error status.
+E         StatusCode: 500
+E         Body: {"errors":[{"message":"Internal Server Error"}]}
+E         
+E             at HookHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/hook-handler.js:58:15)
+E             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+E             at async RetryHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/retry-handler.js:30:24)
+E             at async ResponseValidationHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/response-validation-handler.js:25:26)
+E             at async file:///home/user/task/verify.js:10:17 {
+E           error: 'Internal Server Error',
+E           metadata: {
+E             status: 500,
+E             statusText: 'Internal Server Error',
+E             headers: {
+E               'access-control-allow-headers': '*',
+E               'access-control-allow-methods': '*',
+E               'access-control-allow-origin': '*',
+E               'access-control-max-age': '86400',
+E               'alt-svc': 'h3=":443"; ma=86400',
+E               'cf-cache-status': 'DYNAMIC',
+E               'cf-ray': 'a05c05c18cb76afb-SEA',
+E               connection: 'keep-alive',
+E               'content-length': '49',
+E               'content-type': 'application/json',
+E               date: 'Wed, 03 Jun 2026 04:40:55 GMT',
+E               nel: '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}',
+E               'report-to': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=PWc0j04%2F%2FydLZoHdJTgs6bg61BJ6vZ5rBVcuKl07C6TfIDPIK9LbO322O3wKMYq9vFrDXBbF4FFE3MhPGxmYuKKBWPNHHQHWuI%2Ft%2BA8kiS158lBX%2F3YTk9crC7WoA2PUwGUM"}]}',
+E               server: 'cloudflare',
+E               'set-cookie': '_cfuvid=UvF1Hb00i8ZwhNRUSpfffkDyIJUx4H7WXGoTw3xO15k-1780461655.2847598-1.0.1.1-RznZps1Y65AQjRG1.OGr69w8i2El_UqX2a1rwt1_DYE; HttpOnly; SameSite=None; Secure; Path=/; Domain=magicbell.com',
+E               'x-amzn-requestid': 'c9c9582b-7d57-4276-9aac-6ab85929b0fb',
+E               'x-amzn-trace-id': 'Root=1-6a1fb057-1dd8f6e67c2feca677921c6f;Parent=6f0178d6d441099b;Sampled=0;Lineage=1:a1dcffa6:0'
+E             }
+E           },
+E           raw: ArrayBuffer {
+E             [Uint8Contents]: <7b 22 65 72 72 6f 72 73 22 3a 5b 7b 22 6d 65 73 73 61 67 65 22 3a 22 49 6e 74 65 72 6e 61 6c 20 53 65 72 76 65 72 20 45 72 72 6f 72 22 7d 5d 7d 0a>,
+E             [byteLength]: 49
+E           }
+E         }
+E         
+E         Stdout: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'verify.js'], returncode=1, stdout='', stderr='HttpError: Unexpected response body for ...3a 22 49 6e 74 65 72 6e 61 6c 20 53 65 72 76 65 72 20 45 72 72 6f 72 22 7d 5d 7d 0a>,\n    [byteLength]: 49\n  }\n}\n').returncode
+
+tests/test_final_state.py:50: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_run_index_js
+FAILED tests/test_final_state.py::test_workflow_created_and_configured - Asse...
+========================= 1 failed, 1 passed in 2.74s ==========================

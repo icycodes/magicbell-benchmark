@@ -1,0 +1,55 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780450214887,
+            "stop": 1780450226742
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780450215170,
+                "stop": 1780450215172,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_broadcast_id_in_log",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780450215173,
+                "stop": 1780450215174,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_emails_received",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11566,
+                "start": 1780450215175,
+                "stop": 1780450226741,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_emails_received():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"\")\n        assert magicbell_email, \"MAGICBELL_EMAIL environment variable is not set.\"\n    \n        expected_subject = f\"Test Broadcast {run_id}\"\n        expected_recipient1 = f\"{magicbell_email}+recipient1-{run_id}@gmail.com\"\n        expected_recipient2 = f\"{magicbell_email}+recipient2-{run_id}@gmail.com\"\n    \n        # Wait a bit for emails to arrive\n        time.sleep(5)\n    \n        messages = list_inbox(max_results=30)\n    \n        found_recipient1 = False\n        found_recipient2 = False\n    \n        for msg in messages:\n            subject = msg.get(\"subject\", \"\")\n            to = msg.get(\"to\", \"\")\n    \n            if expected_subject in subject:\n                if expected_recipient1 in to:\n                    found_recipient1 = True\n                if expected_recipient2 in to:\n                    found_recipient2 = True\n    \n>       assert found_recipient1, f\"Email with subject '{expected_subject}' to '{expected_recipient1}' not found in inbox.\"\nE       AssertionError: Email with subject 'Test Broadcast zr-pawqzkr' to 'REDACTED@gmail.com+recipient1-zr-pawqzkr@gmail.com' not found in inbox.\nE       assert False\n\ntests/test_final_state.py:103: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

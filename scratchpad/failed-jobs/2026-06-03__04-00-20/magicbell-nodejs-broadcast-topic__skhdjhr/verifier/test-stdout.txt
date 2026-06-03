@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_log_file_exists _____________________________
+
+    def test_log_file_exists():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/task/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7f7ea05b4220>('/home/user/task/output.log')
+E        +    where <function isfile at 0x7f7ea05b4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:63: AssertionError
+____________________ test_explicit_recipient_received_email ____________________
+
+    def test_explicit_recipient_received_email():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        expected_subject = f"Topic Broadcast {run_id}"
+        expected_recipient = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        # Wait a bit for emails to arrive
+        time.sleep(5)
+    
+        messages = list_inbox(max_results=30)
+    
+        found = False
+        for msg in messages:
+            subject = msg.get("subject", "")
+            to = msg.get("to", "")
+    
+            if expected_subject in subject and expected_recipient in to:
+                found = True
+                break
+    
+>       assert found, f"Email with subject '{expected_subject}' to '{expected_recipient}' not found in inbox."
+E       AssertionError: Email with subject 'Topic Broadcast zr-skhdjhr' to 'REDACTED@gmail.com+zr-skhdjhr@gmail.com' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:89: AssertionError
+________________________ test_broadcast_payload_in_log _________________________
+
+    def test_broadcast_payload_in_log():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+>       with open(LOG_FILE, "r") as f:
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/task/output.log'
+
+tests/test_final_state.py:95: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_log_file_exists - AssertionError: Log ...
+FAILED tests/test_final_state.py::test_explicit_recipient_received_email - As...
+FAILED tests/test_final_state.py::test_broadcast_payload_in_log - FileNotFoun...
+============================== 3 failed in 11.40s ==============================

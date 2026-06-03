@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_fetch_broadcast_status __________________________
+
+    def test_fetch_broadcast_status():
+        run_id = generate_run_id()
+        env = os.environ.copy()
+        env["ZEALT_RUN_ID"] = run_id
+    
+        # Run the script
+        result = subprocess.run(
+            ["node", "index.js"],
+            cwd=PROJECT_DIR,
+            env=env,
+            capture_output=True,
+            text=True
+        )
+    
+        assert result.returncode == 0, f"Script failed with error: {result.stderr}"
+    
+        stdout = result.stdout
+    
+        # Extract Broadcast ID
+        id_match = re.search(r"Broadcast ID:\s*([a-zA-Z0-9\-]+)", stdout)
+        assert id_match, f"Could not find 'Broadcast ID: <id>' in output: {stdout}"
+        broadcast_id = id_match.group(1)
+    
+        # Extract Status
+        status_match = re.search(r"Status:\s*([a-zA-Z]+)", stdout)
+>       assert status_match, f"Could not find 'Status: <status>' in output: {stdout}"
+E       AssertionError: Could not find 'Status: <status>' in output: Broadcast ID: 019e8b62-d1c7-70c0-b675-13db57a75dfe
+E         Status: [object Object]
+E         
+E       assert None
+
+tests/test_final_state.py:39: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_fetch_broadcast_status - AssertionErro...
+============================== 1 failed in 0.99s ===============================

@@ -1,0 +1,182 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py EEE                                            [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_backend_token_endpoint _________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f87ec0dd670>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        class Starter(ProcessStarter):
+            name = "start_app"
+            args = ["npm", "start"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 180
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s1:
+                    port_3000_ready = (s1.connect_ex(("localhost", 3000)) == 0)
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
+                    port_3001_ready = (s2.connect_ex(("localhost", 3001)) == 0)
+                return port_3000_ready and port_3001_ready
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_app.<locals>.Starter object at 0x7f87ebfc8590>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 180                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/start_app$ npm start
+process 'start_app' started pid=2603
+___________ ERROR at setup of test_browser_custom_notification_item ____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f87ec0dd670>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        class Starter(ProcessStarter):
+            name = "start_app"
+            args = ["npm", "start"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 180
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s1:
+                    port_3000_ready = (s1.connect_ex(("localhost", 3000)) == 0)
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
+                    port_3001_ready = (s2.connect_ex(("localhost", 3001)) == 0)
+                return port_3000_ready and port_3001_ready
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_app.<locals>.Starter object at 0x7f87ebfc8590>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 180                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+_____________ ERROR at setup of test_api_notification_marked_read ______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7f87ec0dd670>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        class Starter(ProcessStarter):
+            name = "start_app"
+            args = ["npm", "start"]
+            env = os.environ.copy()
+            popen_kwargs = {
+                "cwd": PROJECT_DIR,
+                "text": True,
+            }
+            timeout = 180
+            terminate_on_interrupt = True
+    
+            def startup_check(self):
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s1:
+                    port_3000_ready = (s1.connect_ex(("localhost", 3000)) == 0)
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
+                    port_3001_ready = (s2.connect_ex(("localhost", 3001)) == 0)
+                return port_3000_ready and port_3001_ready
+    
+>       xprocess.ensure(Starter.name, Starter)
+
+tests/test_final_state.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:284: in ensure
+    if not starter.wait(log_file_handle):
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:413: in wait
+    callback_ok = self.wait_callback()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_final_state.start_app.<locals>.Starter object at 0x7f87ebfc8590>
+
+    def wait_callback(self):
+        """Assert that process is ready to answer queries using provided
+        callback funtion. Will raise TimeoutError if self.callback does not
+        return True before self.timeout seconds"""
+        while True:
+            sleep(0.1)
+            if self.startup_check():
+                return True
+            if datetime.now() > self._max_time:
+>               raise TimeoutError(
+                    "The provided startup callback could not assert process\
+                    responsiveness within the specified time interval of {} \
+                    seconds".format(
+                        self.timeout
+                    )
+                )
+E               TimeoutError: The provided startup callback could not assert process                    responsiveness within the specified time interval of 180                     seconds
+
+usr/local/lib/python3.12/dist-packages/xprocess/xprocess.py:391: TimeoutError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_backend_token_endpoint - TimeoutError: ...
+ERROR tests/test_final_state.py::test_browser_custom_notification_item - Time...
+ERROR tests/test_final_state.py::test_api_notification_marked_read - TimeoutE...
+======================== 3 errors in 180.41s (0:03:00) =========================

@@ -1,0 +1,723 @@
+- Initializing MCP connections...
+You
+# Unsubscribe User from a Topic ## Background MagicBell allows users to subscribe to and unsubscribe from specific notification topics. When a user unsubscribes from a topic, they will no longer receive notifications for that topic, even if they are explicitly listed as a recipient of the notification. ## Requirements * Write a Node.js script that uses the `magicbell-js/user-client` to unsubscribe a specific user from a specific topic. * The user's email must be `[MAGICBELL_EMAIL]+[run-id]@gmail.com` (replace `[MAGICBELL_EMAIL]` with the value of the `MAGICBELL_EMAIL` environment variable, and `[run-id]` with the value of the `ZEALT_RUN_ID` environment variable). * The topic to unsubscribe from must be `test-topic-[run-id]`. * The script must be self-contained and executable via `node unsubscribe.js`. ## Implementation Hints * Read the `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` environment variables to construct the user's email and the topic name. * You will need to generate a User JWT for this user using your `MAGICBELL_API_KEY` and `MAGICBELL_SECRET_KEY` (using `jsonwebtoken` or similar) to instantiate the `magicbell-js/user-client`. * Use the UserClient's subscription management methods (e.g., `client.subscriptions.unsubscribe`) to unsubscribe from the topic. ## Acceptance Criteria * Project path: /home/user/magicbell-unsubscribe * Command: node unsubscribe.js * Ensure the script is executed and the user is successfully unsubscribed from the topic `test-topic-[run-id]`. * Verification will test this by sending a broadcast to the user with the topic `test-topic-[run-id]` and ensuring it is NOT received, while a broadcast with a different topic IS received.   
+
+Pochi
+💭 Thinking for 495 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 124 characters   
+💫 Executing mkdir -p /home/user/magicbell-unsubscribe ✔ 
+💭 Thinking for 93 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 118 characters   
+🛠️ Tool webFetch ✔ 
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 226 characters   
+🛠️ Tool webFetch ✔ 
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 102 characters   
+📖 Reading /root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_927b.json ✔ 
+💭 Thinking for 61 characters   
+Let me look at the specific user-client subscriptions API documentation.   
+🛠️ Tool webFetch ✔ 
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 217 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 182 characters   
+🛠️ Tool webFetch ✔ 
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 232 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 90 characters   
+💫 Executing grep -i "unsubscribe\|subscription" /root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_9fae.json | head -80 ✔ 
+💭 Thinking for 86 characters   
+🔍 Searching for unsubscribe in /root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results ✔ 
+💭 Thinking for 70 characters   
+💫 Executing cat /root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_9fae.json | python3 -c "import json,sys; data=json.load(sys.stdin); text=data['content'][0]['text']; idx=text.lower().find('unsubscribe'); print(text[max(0,idx-500):idx+2000])" ✔ 
+💭 Thinking for 159 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 89 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 1265 characters   
+Now let me look at the MagicBell authentication documentation to understand how to generate a User JWT.   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 81 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 568 characters   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && npm init -y ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && npm install ✔ 
+💭 Thinking for 172 characters   
+💫 Executing ls /home/user/magicbell-unsubscribe/node_modules/magicbell-js/ ✔ 
+📂 Listing files in /home/user/magicbell-unsubscribe/node_modules/magicbell-js/user-client recursively ✔ 
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/user-client/package.json ✔ 
+💫 Executing ls /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/ ✔ 
+💫 Executing ls /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/services/ ✔ 
+💭 Thinking for 151 characters   
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/index.d.ts ✔ 
+💭 Thinking for 372 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && npm view magicbell-js versions --json 2>/dev/null | tail -20 ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && npm view @magicbell/user-client versions --json 2>/dev/null ✖ "Command exited with code 1"
+💭 Thinking for 477 characters   
+💫 Executing ls /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/project-client/services/ ✔ 
+💭 Thinking for 154 characters   
+💫 Executing ls /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/project-client/services/users/ ✔ 
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/project-client/services/users/users-service.d.ts ✔ 
+💭 Thinking for 2245 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && npm info magicbell-js 2>/dev/null | head -20 ✔ 
+💭 Thinking for 824 characters   
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/services/base-service.d.ts ✔ 
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/http/client.d.ts ✔ 
+💭 Thinking for 1769 characters   
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/http/transport/request.d.ts ✔ 
+💭 Thinking for 1947 characters   
+📖 Reading /home/user/magicbell-unsubscribe/node_modules/magicbell-js/dist/commonjs/user-client/index.js ✔ 
+💭 Thinking for 2239 characters   
+Now I have a good understanding of the codebase. The `magicbell-js/user-client` Client class (v1.7.0) doesn't include a `subscriptions` service, so I'll need to use the Client for authentication and make a direct HTTP call to the MagicBell REST API's unsubscribe endpoint. Let me create the script.   
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/magicbell-unsubscribe/unsubscribe.js ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && node unsubscribe.js 2>&1 ✖ "Command exited with code 1"
+💭 Thinking for 53 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && npm install tslib ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && node unsubscribe.js 2>&1 ✖ "Command exited with code 1"
+💭 Thinking for 824 characters   
+💫 Executing echo "MAGICBELL_EMAIL=$MAGICBELL_EMAIL" ✔ 
+💭 Thinking for 2928 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 144 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 93 characters   
+🛠️ Tool webFetch ✔ 
+💫 Executing python3 -c "
+import json
+with open('/root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_4101.json') as f:
+    data = json.load(f)
+text = data['content'][0]['text']
+# Find subscriptions section
+idx = text.lower().find('subscriptions')
+print(text[idx:idx+5000])
+" ✔ 
+💭 Thinking for 116 characters   
+💫 Executing python3 -c "
+import json
+with open('/root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_4101.json') as f:
+    data = json.load(f)
+text = data['content'][0]['text']
+# Find subscription section (case insensitive)
+lower_text = text.lower()
+idx = lower_text.find('subscription')
+while idx != -1:
+    print(f'Found at index {idx}:')
+    print(text[max(0,idx-100):idx+500])
+    print('---')
+    idx = lower_text.find('subscription', idx+1)
+    if idx > 100000:
+        break
+" ✔ 
+💭 Thinking for 197 characters   
+💫 Executing python3 -c "
+import json
+with open('/root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_4101.json') as f:
+    data = json.load(f)
+text = data['content'][0]['text']
+# Find 'Subscriptions' section header
+lower_text = text.lower()
+idx = lower_text.find('## subscriptions')
+if idx == -1:
+    idx = lower_text.find('## [subscriptions')
+if idx == -1:
+    idx = lower_text.find('unsubscribe')
+if idx == -1:
+    print('Not found')
+else:
+    print(text[idx:idx+5000])
+" ✔ 
+💭 Thinking for 145 characters   
+💫 Executing python3 -c "
+import json
+with open('/root/.pochi/tasks/4b26cf59-89ec-4c54-afbc-a338131056e0/tool-results/webFetch-call_4101.json') as f:
+    data = json.load(f)
+text = data['content'][0]['text']
+lower_text = text.lower()
+# Search for 'unsubscri' 
+idx = lower_text.find('unsubscri')
+if idx != -1:
+    print(text[max(0,idx-200):idx+2000])
+else:
+    print('Not found')
+    # Also check total length
+    print(f'Total text length: {len(text)}')
+" ✔ 
+💭 Thinking for 1096 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 221 characters   
+🛠️ Tool webFetch ✔ 
+💭 Thinking for 131 characters   
+💫 Executing echo "ZEALT_RUN_ID=$ZEALT_RUN_ID" ✔ 
+💫 Executing echo "MAGICBELL_API_KEY=$MAGICBELL_API_KEY" && echo "MAGICBELL_SECRET_KEY=$MAGICBELL_SECRET_KEY" ✔ 
+💭 Thinking for 454 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+// Construct email by inserting +runId before @gmail.com
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+console.log('User email:', userEmail);
+console.log('Topic:', topic);
+
+// Generate User JWT
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+console.log('JWT token generated');
+
+// Try different HTTP methods for the unsubscribe endpoint
+const baseUrl = 'https://api.magicbell.com/v2';
+
+// Try POST
+fetch(baseUrl + '/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('POST /unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t));
+}).catch(e => console.error('POST error:', e));
+" ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+const baseUrl = 'https://api.magicbell.com/v2';
+
+// Try PUT
+fetch(baseUrl + '/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', {
+  method: 'PUT',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('PUT /unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t));
+}).catch(e => console.error('PUT error:', e));
+
+// Try PATCH
+fetch(baseUrl + '/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('PATCH /unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t));
+}).catch(e => console.error('PATCH error:', e));
+
+// Try DELETE on /subscriptions/{topic}
+fetch(baseUrl + '/subscriptions/' + encodeURIComponent(topic), {
+  method: 'DELETE',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('DELETE /subscriptions/{topic}:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t));
+}).catch(e => console.error('DELETE error:', e));
+
+// Try POST on /subscriptions/unsubscribe
+fetch(baseUrl + '/subscriptions/unsubscribe', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ topic: topic }),
+}).then(r => {
+  console.log('POST /subscriptions/unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t));
+}).catch(e => console.error('POST error:', e));
+" ✔ 
+💭 Thinking for 215 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+// Test if the token works at all - try fetching notifications
+fetch('https://api.magicbell.com/v2/notifications', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+}).then(r => {
+  console.log('GET /v2/notifications:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// Also try with v1 API headers
+fetch('https://api.magicbell.com/notifications', {
+  method: 'GET',
+  headers: {
+    'X-MAGICBELL-API-KEY': apiKey,
+    'X-MAGICBELL-API-SECRET': secretKey,
+    'X-MAGICBELL-USER-EMAIL': userEmail,
+  },
+}).then(r => {
+  console.log('GET /v1/notifications:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 356 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+// First, try listing subscriptions
+fetch('https://api.magicbell.com/v2/subscriptions', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+}).then(r => {
+  console.log('GET /v2/subscriptions:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 1000)));
+}).catch(e => console.error('Error:', e));
+
+// Try creating a subscription first
+fetch('https://api.magicbell.com/v2/subscriptions', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ topic: topic }),
+}).then(r => {
+  console.log('POST /v2/subscriptions:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 1000)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 432 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+// Try various subscription endpoints with detailed response info
+const endpoints = [
+  { url: 'https://api.magicbell.com/v2/subscriptions', method: 'GET' },
+  { url: 'https://api.magicbell.com/v2/subscriptions', method: 'POST' },
+  { url: 'https://api.magicbell.com/v2/subscriptions/' + encodeURIComponent(topic), method: 'GET' },
+  { url: 'https://api.magicbell.com/v2/subscriptions/' + encodeURIComponent(topic), method: 'DELETE' },
+  { url: 'https://api.magicbell.com/v2/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', method: 'POST' },
+  { url: 'https://api.magicbell.com/v2/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', method: 'PUT' },
+];
+
+Promise.all(endpoints.map(ep => 
+  fetch(ep.url, {
+    method: ep.method,
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+    body: ['POST', 'PUT'].includes(ep.method) ? JSON.stringify({}) : undefined,
+  }).then(async r => {
+    const headers = {};
+    r.headers.forEach((v, k) => headers[k] = v);
+    const body = await r.text();
+    console.log(ep.method + ' ' + ep.url);
+    console.log('  Status:', r.status, r.statusText);
+    console.log('  Allow:', headers['allow']);
+    console.log('  Access-Control-Allow-Methods:', headers['access-control-allow-methods']);
+    console.log('  Body:', body.substring(0, 200));
+    console.log();
+  })
+)).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 475 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+// Compute HMAC for v1 API
+const crypto = require('crypto');
+const userHmac = crypto.createHmac('sha256', secretKey).update(userEmail).digest('hex');
+
+// Try v1 API paths
+const v1headers = {
+  'X-MAGICBELL-API-KEY': apiKey,
+  'X-MAGICBELL-API-SECRET': secretKey,
+  'X-MAGICBELL-USER-EMAIL': userEmail,
+  'X-MAGICBELL-USER-HMAC': userHmac,
+  'Content-Type': 'application/json',
+};
+
+// v1 API subscriptions
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'GET',
+  headers: v1headers,
+}).then(r => {
+  console.log('GET /subscriptions (v1):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// v1 API subscriptions with topic
+fetch('https://api.magicbell.com/subscriptions/' + encodeURIComponent(topic), {
+  method: 'GET',
+  headers: v1headers,
+}).then(r => {
+  console.log('GET /subscriptions/{topic} (v1):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// v1 API subscribe
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({ subscription: { topic: topic } }),
+}).then(r => {
+  console.log('POST /subscriptions (v1):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 384 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const userHmac = crypto.createHmac('sha256', secretKey).update(userEmail).digest('hex');
+
+const v1headers = {
+  'X-MAGICBELL-API-KEY': apiKey,
+  'X-MAGICBELL-API-SECRET': secretKey,
+  'X-MAGICBELL-USER-EMAIL': userEmail,
+  'X-MAGICBELL-USER-HMAC': userHmac,
+  'Content-Type': 'application/json',
+};
+
+// Create a subscription first
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({ subscription: { topic: topic, categories: [{ slug: 'general' }] } }),
+}).then(r => {
+  console.log('POST /subscriptions (create):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const userHmac = crypto.createHmac('sha256', secretKey).update(userEmail).digest('hex');
+
+const v1headers = {
+  'X-MAGICBELL-API-KEY': apiKey,
+  'X-MAGICBELL-API-SECRET': secretKey,
+  'X-MAGICBELL-USER-EMAIL': userEmail,
+  'X-MAGICBELL-USER-HMAC': userHmac,
+  'Content-Type': 'application/json',
+};
+
+// Try creating subscription without categories
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({ subscription: { topic: topic } }),
+}).then(r => {
+  console.log('POST /subscriptions (no categories):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// Try with empty categories array
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({ subscription: { topic: topic, categories: [] } }),
+}).then(r => {
+  console.log('POST /subscriptions (empty categories):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const crypto = require('crypto');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const userHmac = crypto.createHmac('sha256', secretKey).update(userEmail).digest('hex');
+
+const v1headers = {
+  'X-MAGICBELL-API-KEY': apiKey,
+  'X-MAGICBELL-API-SECRET': secretKey,
+  'X-MAGICBELL-USER-EMAIL': userEmail,
+  'X-MAGICBELL-USER-HMAC': userHmac,
+  'Content-Type': 'application/json',
+};
+
+// Create subscription with wildcard category
+fetch('https://api.magicbell.com/subscriptions', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({ subscription: { topic: topic, categories: [{ slug: '*' }] } }),
+}).then(r => {
+  console.log('POST /subscriptions (wildcard):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 1000)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 87 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const crypto = require('crypto');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const userHmac = crypto.createHmac('sha256', secretKey).update(userEmail).digest('hex');
+
+const v1headers = {
+  'X-MAGICBELL-API-KEY': apiKey,
+  'X-MAGICBELL-API-SECRET': secretKey,
+  'X-MAGICBELL-USER-EMAIL': userEmail,
+  'X-MAGICBELL-USER-HMAC': userHmac,
+  'Content-Type': 'application/json',
+};
+
+// Try different unsubscribe methods
+
+// 1. DELETE /subscriptions/{topic}
+fetch('https://api.magicbell.com/subscriptions/' + encodeURIComponent(topic), {
+  method: 'DELETE',
+  headers: v1headers,
+}).then(r => {
+  console.log('DELETE /subscriptions/{topic}:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// 2. POST /subscriptions/{topic}/unsubscribe
+fetch('https://api.magicbell.com/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', {
+  method: 'POST',
+  headers: v1headers,
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('POST /subscriptions/{topic}/unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// 3. PUT /subscriptions/{topic}/unsubscribe
+fetch('https://api.magicbell.com/subscriptions/' + encodeURIComponent(topic) + '/unsubscribe', {
+  method: 'PUT',
+  headers: v1headers,
+  body: JSON.stringify({}),
+}).then(r => {
+  console.log('PUT /subscriptions/{topic}/unsubscribe:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 
+💭 Thinking for 434 characters   
+💫 Executing cd /home/user/magicbell-unsubscribe && node -e "
+const jwt = require('jsonwebtoken');
+
+const runId = process.env.ZEALT_RUN_ID;
+const magicbellEmail = process.env.MAGICBELL_EMAIL;
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+
+const emailLocalPart = magicbellEmail.split('@')[0];
+const emailDomain = magicbellEmail.split('@')[1];
+const userEmail = emailLocalPart + '+' + runId + '@' + emailDomain;
+const topic = 'test-topic-' + runId;
+
+const token = jwt.sign(
+  {
+    user_email: userEmail,
+    api_key: apiKey,
+  },
+  secretKey,
+  {
+    algorithm: 'HS256',
+  }
+);
+
+const v2headers = {
+  'Authorization': 'Bearer ' + token,
+  'Content-Type': 'application/json',
+};
+
+// Try v2 API subscription endpoints
+
+// 1. POST /v2/subscriptions (create)
+fetch('https://api.magicbell.com/v2/subscriptions', {
+  method: 'POST',
+  headers: v2headers,
+  body: JSON.stringify({ topic: topic, categories: [{ slug: '*' }] }),
+}).then(r => {
+  console.log('POST /v2/subscriptions:', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+
+// 2. Try with subscription wrapper
+fetch('https://api.magicbell.com/v2/subscriptions', {
+  method: 'POST',
+  headers: v2headers,
+  body: JSON.stringify({ subscription: { topic: topic, categories: [{ slug: '*' }] } }),
+}).then(r => {
+  console.log('POST /v2/subscriptions (wrapped):', r.status, r.statusText);
+  return r.text().then(t => console.log('Response:', t.substring(0, 500)));
+}).catch(e => console.error('Error:', e));
+" ✔ 

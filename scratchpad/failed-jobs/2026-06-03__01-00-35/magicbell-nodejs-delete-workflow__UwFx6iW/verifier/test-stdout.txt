@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+__________________ test_output_log_exists_and_contains_status __________________
+
+    def test_output_log_exists_and_contains_status():
+        log_path = os.path.join(PROJECT_DIR, "output.log")
+        assert os.path.isfile(log_path), f"Log file {log_path} does not exist."
+    
+        with open(log_path, "r") as f:
+            content = f.read()
+    
+        match = re.search(r"Status:\s*(200|204)", content)
+>       assert match is not None, f"Expected 'Status: 200' or 'Status: 204' in {log_path}, got: {content}"
+E       AssertionError: Expected 'Status: 200' or 'Status: 204' in /home/user/task/output.log, got: Status: 405
+E         
+E       assert None is not None
+
+tests/test_final_state.py:16: AssertionError
+________________________ test_workflow_deleted_via_cli _________________________
+
+    def test_workflow_deleted_via_cli():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+        workflow_key = f"test-workflow-{run_id}"
+    
+        login_cmd = [
+            "magicbell", "login", "--manual",
+            "--email", os.environ.get("MAGICBELL_EMAIL", ""),
+            "--jwt", os.environ.get("MAGICBELL_PROJECT_TOKEN", ""),
+            "--api-key", os.environ.get("MAGICBELL_API_KEY", ""),
+            "--secret-key", os.environ.get("MAGICBELL_SECRET_KEY", "")
+        ]
+        subprocess.run(login_cmd, capture_output=True, text=True)
+    
+        cmd = [
+            "magicbell", "workflow", "fetch",
+            "--workflow_key", workflow_key
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+    
+>       assert result.returncode != 0, f"Expected 'magicbell workflow fetch' to fail, but it succeeded for workflow_key: {workflow_key}"
+E       AssertionError: Expected 'magicbell workflow fetch' to fail, but it succeeded for workflow_key: test-workflow-zr-uwfx6iw
+E       assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['magicbell', 'workflow', 'fetch', '--workflow_key', 'test-workflow-zr-uwfx6iw'], returncode=0, ...ovided but not defined: -workflow_key"}\n', stderr='Incorrect Usage: flag provided but not defined: -workflow_key\n\n').returncode
+
+tests/test_final_state.py:38: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_output_log_exists_and_contains_status
+FAILED tests/test_final_state.py::test_workflow_deleted_via_cli - AssertionEr...
+============================== 2 failed in 0.76s ===============================

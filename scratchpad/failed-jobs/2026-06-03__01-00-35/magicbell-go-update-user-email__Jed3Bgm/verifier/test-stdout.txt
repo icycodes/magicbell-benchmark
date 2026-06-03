@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_user_email_updated_in_magicbell _____________________
+
+    def test_user_email_updated_in_magicbell():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+    
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is missing"
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is missing"
+    
+        external_id = f"test-user-{run_id}"
+        expected_email = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        url = f"https://api.magicbell.com/users/external_id:{external_id}"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json"
+        }
+    
+        response = requests.get(url, headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch user from MagicBell API: {response.text}"
+E       AssertionError: Failed to fetch user from MagicBell API: {"errors":[{"message":"invalid user uuid format [external_id:test-user-zr-jed3bgm]"}]}
+E         
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:45: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_update_email_script_execution
+FAILED tests/test_final_state.py::test_user_email_updated_in_magicbell - Asse...
+========================= 1 failed, 1 passed in 1.52s ==========================

@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780460153570,
+            "stop": 1780460162168
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mark_all_seen",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8255,
+                "start": 1780460153913,
+                "stop": 1780460162168,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_mark_all_seen():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"default\")\n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\")\n        assert magicbell_email, \"MAGICBELL_EMAIL is not set\"\n    \n        user_email = f\"{magicbell_email}+{run_id}@gmail.com\"\n    \n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\")\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n    \n        assert api_key and secret_key and project_token, \"MagicBell credentials are not set\"\n    \n        # Login to CLI\n        login_res = subprocess.run([\n            \"magicbell\", \"login\", \"--manual\",\n            \"--email\", magicbell_email,\n            \"--jwt\", project_token,\n            \"--api-key\", api_key,\n            \"--secret-key\", secret_key\n        ], capture_output=True, text=True)\n        assert login_res.returncode == 0, f\"CLI login failed: {login_res.stderr}\"\n    \n        # 1. Send 3 notifications using CLI to ensure unseen notifications exist\n        for i in range(3):\n            cmd = [\n                \"magicbell\", \"broadcast\", \"create\",\n                \"--data\", f'{{\"title\": \"Test Notification {i}\", \"recipients\": [{{\"email\": \"{user_email}\"}}]}}'\n            ]\n            res = subprocess.run(cmd, capture_output=True, text=True)\n            assert res.returncode == 0, f\"Failed to create broadcast: {res.stderr}\"\n    \n        # Wait for delivery\n        time.sleep(5)\n    \n        # Verify they are currently unseen\n        headers = {\n            \"X-MAGICBELL-API-KEY\": api_key,\n            \"X-MAGICBELL-USER-EMAIL\": user_email\n        }\n        fetch_res = requests.get(\"https://api.magicbell.com/notifications\", headers=headers)\n>       assert fetch_res.status_code == 200, f\"Failed to fetch notifications: {fetch_res.text}\"\nE       AssertionError: Failed to fetch notifications: {\"errors\":[{\"code\":\"invalid_user_email\",\"message\":\"User email not valid\",\"suggestion\":\"Please provide a valid email address in the 'X-MAGICBELL-USER-EMAIL' header.\",\"help_link\":\"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv\"}]}\nE         \nE       assert 401 == 200\nE        +  where 401 = <Response [401]>.status_code\n\ntests/test_final_state.py:50: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

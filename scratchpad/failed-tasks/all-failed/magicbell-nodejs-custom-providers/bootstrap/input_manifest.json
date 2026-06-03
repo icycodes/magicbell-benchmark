@@ -1,0 +1,7 @@
+{
+  "library_name": "magicbell-js",
+  "task_name": "magicbell-nodejs-custom-providers",
+  "complexity_level": "simple single terminal command",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks"
+}

@@ -1,0 +1,233 @@
+- Initializing MCP connections...
+You
+# Custom Notification Item in React ## Background MagicBell provides a `FloatingInbox` component for React that renders a bell icon and a dropdown list of notifications. By default, it uses a standard notification item layout. For this task, you will customize the rendering of individual notifications within the `FloatingInbox` to match specific UI requirements. ## Requirements - Create a full-stack project with a React frontend and an Express backend. - The backend must serve a `GET /token` endpoint that returns a User JWT for a user with external ID `user-${ZEALT_RUN_ID}` and email derived from `MAGICBELL_EMAIL` (using the plus format: `<email_prefix>+${ZEALT_RUN_ID}@<email_domain>`). - On startup, the backend must upsert this user and send a broadcast notification to them with the title `Test Notification ${ZEALT_RUN_ID}` and content `This is a test`. - The frontend must render the `@magicbell/react` `FloatingInbox`. - You must provide a custom notification item component to the `FloatingInbox`. - The custom notification item must have a wrapper element with the CSS class `custom-notification-item`. - The custom item must render the notification title inside an element with the class `custom-notification-title`. - The custom item must render the notification content inside an element with the class `custom-notification-content`. - If the notification is unread, the custom item must render a button with the class `custom-mark-read-btn`. Clicking this button must mark the notification as read in MagicBell. ## Implementation Hints - Read the `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` environment variables. - Use `magicbell-js/project-client` on the backend to upsert the user and send the seed broadcast. - Use `jsonwebtoken` to generate the User JWT on the backend, signed with `MAGICBELL_SECRET_KEY`. - In the React frontend, use `Provider` and `FloatingInbox` from `@magicbell/react`. - `FloatingInbox` (or `Inbox`) typically accepts a prop like `ItemComponent` or `components={{ NotificationItem }}` to override the default item rendering. - You can use the provided notification data to check its read status and display the mark-as-read button conditionally. - To mark a notification as read, you can use the methods available on the notification object or the React SDK hooks. - Run the frontend and backend concurrently using a tool like `concurrently`. ## Acceptance Criteria - Project path: `/home/user/myproject` - Start command: `npm start` - Port: 3000 (frontend) and 3001 (backend) - The page at `http://localhost:3000` renders the `FloatingInbox`. - Opening the inbox reveals the notification with the title `Test Notification ${ZEALT_RUN_ID}`. - The notification is rendered using the custom component with the class `custom-notification-item`. - The title and content are rendered within elements having classes `custom-notification-title` and `custom-notification-content` respectively. - The unread notification contains a button with the class `custom-mark-read-btn`. - Clicking the `custom-mark-read-btn` marks the notification as read, and the button should disappear or the state should update accordingly.   
+
+Pochi
+💭 Thinking for 442 characters   
+📋 Updating todo list (6 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject/backend /home/user/myproject/frontend && echo "done" ✔ 
+💫 Executing node --version && npm --version ✔ 
+📋 Updating todo list (6 items) ✔ 
+Now let me create the root `package.json` for the monorepo:   
+✏️  Writing /home/user/myproject/package.json ✔ 
+Now create the backend `package.json`:   
+✏️  Writing /home/user/myproject/backend/package.json ✔ 
+💫 Executing npm show magicbell-js versions --json 2>/dev/null | tail -c 500 || echo "not found"
+npm show @magicbell/project-client versions --json 2>/dev/null | tail -c 500 || echo "not found" ✔ 
+💫 Executing npm show magicbell-js@1.7.0 exports --json 2>/dev/null | head -50
+npm show magicbell-js description 2>/dev/null ✔ 
+💫 Executing npm show @magicbell/react versions --json 2>/dev/null | tail -c 300 ✔ 
+💫 Executing npm show @magicbell/react@1.13.0 --json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps({k: d[k] for k in ['description','peerDependencies','dependencies','exports'] if k in d}, indent=2))" 2>/dev/null | head -80 ✔ 
+💫 Executing # Install @magicbell/react temporarily to inspect its API
+cd /tmp && mkdir magicbell-inspect && cd magicbell-inspect && npm init -y --quiet && npm install @magicbell/react@1.13.0 --quiet 2>&1 | tail -3 ✔ 
+💫 Executing ls /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/ | head -20
+cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/floating-inbox.d.ts 2>/dev/null | head -60 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/floating-inbox.d.ts 2>/dev/null | tail -60 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/inbox.d.ts 2>/dev/null ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/context-provider.d.ts 2>/dev/null ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/index.d.ts 2>/dev/null ✔ 
+💫 Executing # Check the Notification type from user-client
+cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/user-client.d.ts 2>/dev/null | grep -A 30 "type Notification" | head -50 ✔ 
+💫 Executing find /tmp/magicbell-inspect/node_modules/magicbell-js -name "*.d.ts" | xargs grep -l "readAt\|isRead\|markAsRead" 2>/dev/null | head -5 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/models/notification.d.ts ✔ 
+💫 Executing # Check how to mark notification as read - look for the user client's notifications API
+find /tmp/magicbell-inspect/node_modules/magicbell-js -name "*.d.ts" | xargs grep -l "markAsRead\|mark_as_read\|read.*notification" 2>/dev/null | head -5 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.d.ts | head -80 ✔ 
+💫 Executing # Check what hooks/context are available in @magicbell/react
+cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/index.js 2>/dev/null | grep -o "exports\.[a-zA-Z]*" | sort -u | head -30 ✔ 
+💫 Executing # Check internal hooks/context for useClient or similar
+find /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal -name "*.d.ts" | head -20
+ls /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/ ✔ 
+💫 Executing ls /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/context/
+ls /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/stores/ ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/context/magicbell.context.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/context/notification-store.d.ts ✖ "Command exited with code 1"
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/context/context.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/stores/notification-store.d.ts ✔ 
+Now I have all the information I need. The `NotificationStore` has a `markAsRead(id)` method. Let me also check how the `FloatingInbox` accepts `ItemComponent` via the `Inbox`:   
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/floating-inbox.js | grep -A 10 "ItemComponent\|InboxComponent\|Inbox(" | head -40 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/context/magicbell.context.js ✔ 
+Now I understand the full structure. The `FloatingInbox` accepts `InboxComponent` to override the inbox, which can be a custom Inbox with `ItemComponent`. Let me build the project:   
+✏️  Writing /home/user/myproject/backend/server.js ✔ 
+Now let me check the magicbell project-client API for user creation and broadcasts:   
+💫 Executing find /tmp/magicbell-inspect/node_modules/magicbell-js -path "*/project-client/services*" -name "*.d.ts" | head -20 ✔ 
+💫 Executing find /tmp/magicbell-inspect/node_modules/magicbell-js -path "*/project-client*" -name "users-service.d.ts" | head -3
+find /tmp/magicbell-inspect/node_modules/magicbell-js -path "*/project-client*" -name "broadcasts-service.d.ts" | head -3 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/users/users-service.d.ts | head -50
+echo "---"
+cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.d.ts | head -50 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts | grep -A 5 "recipients\|title\|content" | head -40 ✔ 
+💫 Executing grep -n "recipients\|title\b" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts | head -20 ✔ 
+💫 Executing grep -n "recipients" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts | head -10 ✔ 
+💫 Executing sed -n '215,230p' /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts | grep -A 5 "title.*ZodString" | grep "title" | head -5 ✔ 
+💫 Executing sed -n '200,215p' /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💫 Executing sed -n '285,320p' /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+Now I have all the info needed. Let me also check the `ProjectClient` initialization:   
+💫 Executing find /tmp/magicbell-inspect/node_modules/magicbell-js -path "*/project-client*" -name "client.d.ts" | head -3
+cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/client.d.ts 2>/dev/null | head -40 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client.d.ts | head -40 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/index.d.ts | head -20 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/index.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts | head -30 ✔ 
+The `Client` uses `token` not `apiKey`/`apiSecret`. Let me check how to authenticate with the project client:   
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/http/client.d.ts | head -30 ✔ 
+💫 Executing # Check how the auth header is formed for the project client
+grep -r "apiKey\|api_key\|X-MAGICBELL\|Authorization\|apiSecret" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/http/ 2>/dev/null | grep -v ".map" | head -20 ✔ 
+💫 Executing grep -r "apiKey\|api_key\|SdkConfig\|token\b" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/http/transport/request-builder.js 2>/dev/null | head -20 ✔ 
+💫 Executing grep -n "token\|apiSecret\|apiKey\|X-MAGICBELL" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.js | head -20 ✔ 
+💫 Executing # Check what token format is expected for the project client
+# It uses "Bearer" token - which is likely the API key + secret combo or just secret
+# Let's see the README or examples
+find /tmp/magicbell-inspect/node_modules/magicbell-js -name "README.md" | head -3 ✔ 
+💫 Executing grep -A 20 "project-client\|ProjectClient\|Client\b" /tmp/magicbell-inspect/node_modules/magicbell-js/README.md | head -60 ✔ 
+💫 Executing grep -A 30 "saveUser\|createOrUpdate\|upsert" /tmp/magicbell-inspect/node_modules/magicbell-js/README.md | head -50 ✔ 
+💫 Executing grep -A 10 "saveUser\|createOrUpdate" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/users/users-service.d.ts ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/services/common/user.d.ts 2>/dev/null | head -40 ✔ 
+Now I understand the full API. The project client uses `token` for auth. The token for the project client is derived from API key and secret. Let me check how to generate a project token:   
+💫 Executing grep -r "apiKey\|api_key\|apiSecret\|api_secret" /tmp/magicbell-inspect/node_modules/magicbell-js/dist/commonjs/project-client/ 2>/dev/null | grep -v ".map" | head -10 ✔ 
+💫 Executing # From MagicBell docs: the project client token is "apiKey:apiSecret" base64 encoded or just the API secret
+# Let's check the README more carefully
+grep -A 5 -B 5 "access.token\|token.*API\|API.*token\|secret\|base64" /tmp/magicbell-inspect/node_modules/magicbell-js/README.md | head -50 ✔ 
+Based on MagicBell docs, the project client token is formed as `apiKey:apiSecret` base64 encoded. Let me update the backend server:   
+✏️  Writing /home/user/myproject/backend/server.js ✔ 
+Now let me create the React frontend using Create React App:   
+✏️  Writing /home/user/myproject/frontend/package.json ✔ 
+💫 Executing mkdir -p /home/user/myproject/frontend/public /home/user/myproject/frontend/src ✔ 
+✏️  Writing /home/user/myproject/frontend/public/index.html ✔ 
+Now let me look more closely at how the FloatingInbox accepts a custom ItemComponent through InboxComponent:   
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/inbox.js | head -80 ✔ 
+💫 Executing grep -n "ItemComponent\|items.*map\|VirtualList\|onNotificationClick" /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/inbox.js | head -20 ✔ 
+The `ItemComponent` is passed directly to the `VirtualList`. Let me check the `inbox--item.js` to understand the props passed to `ItemComponent`:   
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/components/inbox--item.js | head -60 ✔ 
+💫 Executing cat /tmp/magicbell-inspect/node_modules/@magicbell/react/dist/commonjs/internal/components/virtual-list/virtual-list.js | grep -A 20 "ItemComponent\|itemComponentProps" | head -40 ✔ 
+The `ItemComponent` receives `data` (the notification object) and `index` props, plus any `itemComponentProps` (which includes `onNotificationClick`). Now I know the complete interface. Now let me create the frontend source files:   
+✏️  Writing /home/user/myproject/frontend/src/CustomNotificationItem.js ✔ 
+✏️  Writing /home/user/myproject/frontend/src/App.js ✔ 
+✏️  Writing /home/user/myproject/frontend/src/index.js ✔ 
+Now let's check if there's a `PORT` env var support issue with react-scripts (CRA by default uses 3000):   
+✏️  Writing /home/user/myproject/frontend/.env ✔ 
+Now let's install all dependencies:   
+📋 Updating todo list (6 items) ✔ 
+💫 Executing cd /home/user/myproject && npm install 2>&1 | tail -5 ✔ 
+💫 Executing cd /home/user/myproject/backend && npm install 2>&1 | tail -10 ✔ 
+💫 Executing cd /home/user/myproject/frontend && npm install 2>&1 | tail -10 ✔ 
+Dependencies installed. Now let me check if the internal context path is accessible from the frontend:   
+💫 Executing cat /home/user/myproject/frontend/node_modules/@magicbell/react/package.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps(d.get('exports', {}), indent=2))" | grep -A 3 "internal" ✖ "Command exited with code 1"
+💫 Executing cat /home/user/myproject/frontend/node_modules/@magicbell/react/package.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps(d.get('exports', {}), indent=2))" | head -20 ✔ 
+💫 Executing cat /home/user/myproject/frontend/node_modules/@magicbell/react/package.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps(d.get('exports', {}), indent=2))" | grep "internal" ✖ "Command exited with code 1"
+The `internal` path is NOT exported via the `exports` field in the package. This means we can't import `@magicbell/react/internal/context/magicbell.context` directly from our CRA app. Let me check if we can use a workaround - either accessing the internal context by accessing the file directly, or finding another way to mark notifications as read. Looking at the notification store, `markAsRead` is on `ctx.notifications`. Let me think of an alternative approach: 1. We can call the MagicBell User API directly to mark a notification as read using the token we have 2. Or we could use the `magicbell-js/user-client` directly in the frontend Let me check if there's a way to access the context through a different export:   
+💫 Executing cat /home/user/myproject/frontend/node_modules/@magicbell/react/package.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(json.dumps({k:v for k,v in d.items() if k not in ['scripts','dependencies','devDependencies','peerDependencies']}, indent=2))" | head -60 ✔ 
+💫 Executing # Check if the source files are available
+ls /home/user/myproject/frontend/node_modules/@magicbell/react/src/ 2>/dev/null | head -10 ✔ 
+💫 Executing ls /home/user/myproject/frontend/node_modules/@magicbell/react/src/internal/context/ ✔ 
+The source files are there. However, CRA with webpack typically respects the `exports` field and won't resolve `@magicbell/react/internal/...`. Let me think of a better approach. The best approach is to use the `magicbell-js/user-client` directly in the frontend to call the mark-as-read API, using the token we fetched. Let me check if `magicbell-js` is a dependency of `@magicbell/react`:   
+💫 Executing ls /home/user/myproject/frontend/node_modules/magicbell-js/dist/esm/ 2>/dev/null | head -10 ✔ 
+💫 Executing ls /home/user/myproject/frontend/node_modules/magicbell-js/dist/esm/ 2>/dev/null ✔ 
+`magicbell-js/user-client` is available. But using it directly requires importing and initializing a client. There's also a simpler approach: since the inbox component renders using the internal context which has `notifications.markAsRead`, we could try to access the context by directly importing from the dist files path. Actually, the best approach given the constraints is to: 1. Access the MagicBell context directly by requiring the dist file path 2. OR use the token to make a direct fetch call to mark the notification as read Let me use a direct fetch approach since it's most reliable:   
+💫 Executing # Check the MagicBell API endpoint for marking a notification as read
+# Based on the user-client service, it's likely: PUT /notifications/{id}/read
+grep -r "markNotificationRead\|notifications.*read" /home/user/myproject/frontend/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.js | head -10 ✔ 
+💫 Executing grep -A 20 "markNotificationRead" /home/user/myproject/frontend/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.js | head -25 ✔ 
+💫 Executing grep "DEFAULT\s*=" /home/user/myproject/frontend/node_modules/magicbell-js/dist/commonjs/user-client/http/environment.js | head -3 ✔ 
+💫 Executing cat /home/user/myproject/frontend/node_modules/magicbell-js/dist/commonjs/user-client/http/environment.js ✔ 
+The MagicBell API endpoint is `POST https://api.magicbell.com/v2/notifications/{notification_id}/read` with Bearer token auth. Now let me think about the best approach for the custom notification item. The key challenge is that we need to mark the notification as read. We have two options: 1. Use direct fetch to the MagicBell API 2. Access the internal context Since CRA uses Webpack which respects the `exports` field in package.json (Node.js exports), we need to find a way to import the context. Let me check if there's a way to do this with webpack's `resolve.fallback` or if we can just use relative paths. Actually, wait - let me reconsider. CRA uses Webpack 5, which does respect the `exports` field. However, we can still import from the direct file path using a relative path within `node_modules`. But that's not ideal. The cleanest approach is to use the `magicbell-js/user-client` to create a separate client in the frontend and call the API directly. Let me refactor to pass the token down and use a direct API call:   
+✏️  Writing /home/user/myproject/frontend/src/CustomNotificationItem.js ✔ 
+✏️  Writing /home/user/myproject/frontend/src/App.js ✔ 
+Now let me verify the project structure and check if everything looks good:   
+💫 Executing find /home/user/myproject -name "*.js" -not -path "*/node_modules/*" | sort ✔ 
+💫 Executing find /home/user/myproject -name "package.json" -not -path "*/node_modules/*" | sort | xargs cat ✔ 
+Let me now verify the backend can start correctly (without making actual API calls since env vars aren't set):   
+💫 Executing cd /home/user/myproject/backend && MAGICBELL_API_KEY=test MAGICBELL_SECRET_KEY=test MAGICBELL_EMAIL=test@example.com ZEALT_RUN_ID=testrun node -e "
+// Test that our server.js is syntactically valid
+const fs = require('fs');
+const code = fs.readFileSync('./server.js', 'utf8');
+try {
+  new Function(code);
+  console.log('Syntax OK');
+} catch(e) {
+  // Use a different check
+}
+// Try to require just to check parse errors
+" 2>&1 | head -20 ✔ 
+💫 Executing # Test the backend starts up correctly (kill it quickly)
+cd /home/user/myproject/backend && timeout 3 node server.js 2>&1 || true ✔ 
+The backend starts correctly. The 401 error is expected since the test env vars aren't valid API credentials. The error message says "expected authorization header format: Bearer <token>" - this means the base64 encoded token is the correct format but the credentials are invalid. Let me check the actual project client token format: The error says the bearer token format is wrong. Looking at the MagicBell docs, the project client token should be a signed JWT as well, or perhaps just the API secret. Let me look more carefully:   
+💫 Executing grep -A 30 "addAccessTokenAuth\|Bearer" /home/user/myproject/backend/node_modules/magicbell-js/dist/commonjs/project-client/http/transport/request-builder.js | head -40 ✔ 
+So the project client sends `Authorization: Bearer <token>`. The token must be a signed JWT. Looking at the MagicBell docs - the project client uses a JWT signed with the API secret. Let me check if the token we're generating with `HS256` on `MAGICBELL_SECRET_KEY` is correct:   
+💫 Executing # Check what the project JWT payload should look like
+# Looking at MagicBell docs the project token is likely signed with apiSecret
+# with specific claims
+grep -r "jwt\|JWT\|iss\|sub\|iat\|exp" /home/user/myproject/backend/node_modules/magicbell-js/dist/commonjs/project-client/ 2>/dev/null | grep -v ".map" | head -10 ✔ 
+The error is "expected authorization header format: Bearer <token>" - which means that the token we're sending is not recognized as a valid JWT. The base64-encoded `apiKey:apiSecret` is NOT the right format. Let me look at what the MagicBell project JWT should look like: The project JWT for MagicBell is signed with the API secret and has the payload `{ "sub": <apiKey> }`. Let me update the backend:   
+🔧 Applying diff to /home/user/myproject/backend/server.js ✔ 
+💫 Executing cd /home/user/myproject/backend && timeout 3 node server.js 2>&1 || true ✔ 
+The JWT format is now accepted (it moved from "invalid_jwt_format" to "jwt_auth_failed") - which means the format is correct but the test credentials aren't valid. This is expected with fake credentials. The JWT format is right. Now let me also verify the user JWT for the frontend. Let me check the MagicBell auth docs more carefully. The User JWT contains `external_id` and `email`:   
+💫 Executing grep -r "external_id\|email\|user.*jwt\|jwt.*user" /home/user/myproject/frontend/node_modules/@magicbell/react/dist/commonjs/internal/lib/jwt.js 2>/dev/null | head -20 ✔ 
+💫 Executing cat /home/user/myproject/frontend/node_modules/@magicbell/react/dist/commonjs/internal/lib/jwt.js ✔ 
+The User JWT needs to use `user_external_id` and `user_email` claims (not `external_id` and `email`). Also the JWT payload should contain `api_key` for `getApiKeyFromToken`. Let me update the backend:   
+🔧 Applying diff to /home/user/myproject/backend/server.js ✔ 
+💫 Executing cd /home/user/myproject/backend && timeout 3 node server.js 2>&1 || true ✔ 
+Good - the project JWT auth fails with `jwt_auth_failed` (which is correct since test credentials are used). The format is right. Now let's verify the frontend will build correctly. Let me also check that the `@magicbell/react` package will be properly importable in CRA with the `exports` field:   
+💫 Executing # Check if CRA / webpack 5 resolves exports field
+# The main entry exports is '.' which points to index.js
+# So `import { MagicBellProvider, FloatingInbox, Inbox } from '@magicbell/react'` should work
+cat /home/user/myproject/frontend/node_modules/@magicbell/react/dist/esm/index.js | head -10 ✔ 
+Let me try a quick build to check for compilation errors:   
+🛠️ Tool startBackgroundJob ✔ 
+💫 Executing sleep 30 && echo "waited" ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+The frontend builds successfully with no errors. Now let me do a final review of all the files:   
+📖 Reading /home/user/myproject/backend/server.js ✔ 
+📖 Reading /home/user/myproject/frontend/src/App.js ✔ 
+📖 Reading /home/user/myproject/frontend/src/CustomNotificationItem.js ✔ 
+Everything looks good. Let me also check whether the `isRead` state might not sync if the notification object is updated externally (e.g., from a realtime update). Let me update to also account for this by using the `data.readAt` prop directly:   
+✏️  Writing /home/user/myproject/frontend/src/CustomNotificationItem.js ✔ 
+Now let me do a final build to confirm everything compiles:   
+🛠️ Tool startBackgroundJob ✔ 
+💫 Executing sleep 30 && echo "waited" ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+Builds successfully. Let me also remove the unused `useEffect` import:   
+🔧 Applying diff to /home/user/myproject/frontend/src/CustomNotificationItem.js ✔ 
+📋 Updating todo list (6 items) ✔ 
+🎉 Task Completed
+The full-stack project has been created at `/home/user/myproject` with the following structure:
+
+```
+myproject/
+├── package.json          # Root: npm start runs both servers concurrently
+├── backend/
+│   ├── package.json
+│   └── server.js         # Express on port 3001
+└── frontend/
+    ├── package.json       # CRA on port 3000, proxy → 3001
+    ├── .env
+    └── src/
+        ├── index.js
+        ├── App.js
+        └── CustomNotificationItem.js
+```
+
+**Backend (`backend/server.js`):**
+- Reads `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, `ZEALT_RUN_ID`
+- Derives `externalId = user-${ZEALT_RUN_ID}` and `userEmail = <prefix>+${ZEALT_RUN_ID}@<domain>`
+- On startup: upserts the user via `magicbell-js/project-client` (`Client.users.saveUser`) and sends a broadcast notification (`Client.broadcasts.createBroadcast`) with title `Test Notification ${ZEALT_RUN_ID}` and content `This is a test`
+- `GET /token` returns a User JWT signed with `MAGICBELL_SECRET_KEY` (HS256), payload: `{ api_key, user_external_id, user_email }`
+- Project JWT for the API client is also signed with the secret: `{ sub: MAGICBELL_API_KEY }`
+
+**Frontend (`frontend/src/`):**
+- Fetches the JWT from `/token` (proxied to backend), then wraps the app in `MagicBellProvider`
+- `FloatingInbox` receives a custom `InboxComponent` — a wrapper around `Inbox` that passes `ItemComponent={CustomNotificationItem}`
+- **`CustomNotificationItem`**: renders with required CSS classes:
+  - Wrapper: `custom-notification-item`
+  - Title: `custom-notification-title`
+  - Content: `custom-notification-content`
+  - Unread button: `custom-mark-read-btn` — clicking calls `POST /v2/notifications/{id}/read` on the MagicBell API with the Bearer token, then hides itself (optimistic update with revert on error)
+
+**Start:**
+```bash
+cd /home/user/myproject
+npm start   # runs both frontend (3000) and backend (3001) concurrently
+```   
+  

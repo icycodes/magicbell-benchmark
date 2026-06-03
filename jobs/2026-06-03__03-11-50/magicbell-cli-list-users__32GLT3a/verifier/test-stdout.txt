@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_manage_users_script ___________________________
+
+    def test_manage_users_script():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default")
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "test")
+        expected_email = f"{magicbell_email}+{run_id}@gmail.com"
+        expected_external_id = f"user-{run_id}"
+    
+        script_path = os.path.join(PROJECT_DIR, "manage_users.sh")
+        assert os.path.isfile(script_path), "manage_users.sh not found in the project directory."
+    
+        # Remove users.txt if it exists from previous runs
+        users_file = os.path.join(PROJECT_DIR, "users.txt")
+        if os.path.isfile(users_file):
+            os.remove(users_file)
+    
+        # Run the script
+        result = subprocess.run(
+            ["bash", "manage_users.sh"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+        assert result.returncode == 0, f"manage_users.sh failed with exit code {result.returncode}: {result.stderr}"
+    
+        # Check users.txt
+        assert os.path.isfile(users_file), "users.txt was not created by the script."
+    
+        with open(users_file, "r") as f:
+            content = f.read()
+    
+>       assert expected_email in content, f"Expected email {expected_email} not found in users.txt."
+E       AssertionError: Expected email REDACTED@gmail.com+zr-32glt3a@gmail.com not found in users.txt.
+E       assert 'REDACTED@gmail.com+zr-32glt3a@gmail.com' in '{"errors":[{"code":"invalid_jwt_format","message":"expected authorization header format: Bearer <token>","suggestion"...de a valid JWT in the \'Authorization\' header","help_link":"https://www.magicbell.com/docs/api/authentication"}]}\n\n'
+
+tests/test_final_state.py:36: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_manage_users_script - AssertionError: ...
+============================== 1 failed in 1.69s ===============================

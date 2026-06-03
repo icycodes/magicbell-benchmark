@@ -1,0 +1,88 @@
+- Initializing MCP connections...
+You
+# List Workflow Runs via MagicBell CLI ## Background MagicBell workflows orchestrate multi-step notification campaigns. To monitor or debug these campaigns, you need to retrieve their execution history using the MagicBell CLI. ## Requirements * Write a bash script `list_runs.sh` that lists the runs for a specific workflow key. * The workflow key will be passed as the first argument to the script. * The script must use the MagicBell CLI to fetch the runs. * Ensure the CLI is authenticated non-interactively using the provided environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`). * Output the raw result of the CLI command to stdout. ## Implementation Hints * Install `magicbell-cli` globally via npm. * Authenticate the CLI using `magicbell login --manual` with the provided environment variables. * Use the `magicbell workflow list_runs` command, passing the workflow key via the `--workflow_key` flag. * The workflow key is available as `$1` in the bash script. ## Acceptance Criteria * Project path: /home/user/myproject * Command: bash list\_runs.sh \<workflow\_key> * The stdout should print the CLI's output for the workflow runs.   
+
+Pochi
+📂 Listing files in /home/user/myproject ✔ 
+💭 Thinking for 252 characters   
+📋 Updating todo list (3 items) ✔ 
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 246 characters   
+💫 Executing npm install -g @magicbell/cli ✔ 
+💫 Executing magicbell login --help ✔ 
+💫 Executing magicbell workflow list_runs --help ✔ 
+💫 Executing magicbell --help ✔ 
+💫 Executing magicbell --version ✔ 
+💫 Executing magicbell workflow ✖ "Command exited with code 1"
+💫 Executing magicbell workflows ✖ "Command exited with code 1"
+💫 Executing magicbell login --manual --help ✔ 
+💫 Executing magicbell login --manual ✖ "Command exited with code 1"
+💫 Executing npm search magicbell ✔ 
+💫 Executing npm uninstall -g @magicbell/cli && npm install -g magicbell-cli ✔ 
+💫 Executing magicbell --version ✔ 
+💫 Executing magicbell --help ✔ 
+💫 Executing magicbell login --help ✔ 
+💫 Executing magicbell workflow list_runs --help ✔ 
+💭 Thinking for 962 characters   
+💫 Executing magicbell login --manual --email "test@example.com" --jwt "dummy" --api-key "dummy" --secret-key "dummy" ✔ 
+💫 Executing magicbell workflow list_runs --workflow_key "some_key" ✔ 
+💭 Thinking for 565 characters   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/list_runs.sh ✔ 
+💫 Executing chmod +x /home/user/myproject/list_runs.sh ✔ 
+💫 Executing MAGICBELL_EMAIL="test@example.com" MAGICBELL_PROJECT_TOKEN="dummy" MAGICBELL_API_KEY="dummy" MAGICBELL_SECRET_KEY="dummy" bash /home/user/myproject/list_runs.sh my-workflow-key ✔ 
+💭 Thinking for 294 characters   
+💫 Executing magicbell login --manual --email "test@example.com" --jwt "dummy" --api-key "dummy" --secret-key "dummy" >/dev/null ✔ 
+💫 Executing magicbell login --manual --email "test@example.com" --jwt "dummy" --api-key "dummy" --secret-key "dummy" 2>/dev/null ✔ 
+💭 Thinking for 205 characters   
+💫 Executing MAGICBELL_EMAIL="test@example.com" MAGICBELL_PROJECT_TOKEN="dummy" MAGICBELL_API_KEY="dummy" MAGICBELL_SECRET_KEY="dummy" bash /home/user/myproject/list_runs.sh my-workflow-key >/dev/null ✔ 
+💭 Thinking for 176 characters   
+💫 Executing MAGICBELL_EMAIL="test@example.com" MAGICBELL_PROJECT_TOKEN="dummy" MAGICBELL_API_KEY="dummy" MAGICBELL_SECRET_KEY="dummy" bash /home/user/myproject/list_runs.sh my-workflow-key 2>/dev/null ✔ 
+💭 Thinking for 225 characters   
+📂 Listing files in /home/user/myproject ✔ 
+📖 Reading /home/user/myproject/list_runs.sh ✔ 
+💭 Thinking for 437 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 189 characters   
+🎉 Task Completed
+I have written the `list_runs.sh` script to list workflow runs via the MagicBell CLI.
+
+### Summary of Actions
+1. **Installed CLI**: Installed `magicbell-cli` globally as specified in the hints.
+2. **Created Script**: Created the bash script `/home/user/myproject/list_runs.sh`.
+3. **Non-Interactive Authentication**: Configured the script to authenticate the MagicBell CLI using `magicbell login --manual` with the provided environment variables:
+   - `MAGICBELL_EMAIL`
+   - `MAGICBELL_PROJECT_TOKEN`
+   - `MAGICBELL_API_KEY`
+   - `MAGICBELL_SECRET_KEY`
+4. **Clean Output**: Redirected the login command's stdout to stderr to ensure that the stdout of `list_runs.sh` contains only the clean, raw JSON output of the workflow runs.
+
+### Script Details
+```bash
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Make sure the workflow key is provided
+if [ -z "$1" ]; then
+  echo "Error: workflow key is required." >&2
+  echo "Usage: bash list_runs.sh <workflow_key>" >&2
+  exit 1
+fi
+
+WORKFLOW_KEY="$1"
+
+# Authenticate the MagicBell CLI non-interactively
+# Redirect stdout of login to stderr to keep stdout clean for the workflow runs output
+magicbell login \
+  --manual \
+  --email "$MAGICBELL_EMAIL" \
+  --jwt "$MAGICBELL_PROJECT_TOKEN" \
+  --api-key "$MAGICBELL_API_KEY" \
+  --secret-key "$MAGICBELL_SECRET_KEY" >&2
+
+# Fetch and output the raw workflow runs to stdout
+magicbell workflow list_runs --workflow_key "$WORKFLOW_KEY"
+```   
+  

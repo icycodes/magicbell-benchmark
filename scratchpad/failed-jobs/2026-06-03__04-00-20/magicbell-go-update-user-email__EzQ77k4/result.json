@@ -1,0 +1,117 @@
+{
+    "id": "6d7895a4-0647-45bf-bf18-614bd59375c6",
+    "task_name": "magicbell-go-update-user-email",
+    "trial_name": "magicbell-go-update-user-email__EzQ77k4",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-03__04-00-20/magicbell-go-update-user-email__EzQ77k4",
+    "task_id": {
+        "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-email"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "9167b83df2a46e10e21e544840e1186941d2e06fee53f17fc804a70464062d5f",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-email",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "magicbell-go-update-user-email__EzQ77k4",
+        "trials_dir": "jobs/2026-06-03__04-00-20",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "zai/glm-5.1",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "e7907651-a9ea-41bd-8430-8a5f588d1e1c"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.12",
+        "model_info": {
+            "name": "glm-5.1",
+            "provider": "zai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 16850,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-03T04:40:55.889545Z",
+    "finished_at": "2026-06-03T04:46:22.772108Z",
+    "environment_setup": {
+        "started_at": "2026-06-03T04:40:55.904431Z",
+        "finished_at": "2026-06-03T04:40:58.792120Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-03T04:40:58.792155Z",
+        "finished_at": "2026-06-03T04:41:13.339583Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-03T04:41:13.339723Z",
+        "finished_at": "2026-06-03T04:46:06.410328Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-03T04:46:07.918335Z",
+        "finished_at": "2026-06-03T04:46:10.758463Z"
+    },
+    "step_results": null
+}

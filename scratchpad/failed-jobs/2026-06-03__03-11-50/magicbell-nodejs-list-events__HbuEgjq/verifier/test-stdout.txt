@@ -1,0 +1,81 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+tests/test_final_state.py ...FF                                          [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_broadcast_event_exists_in_file ______________________
+
+    def test_broadcast_event_exists_in_file():
+        """Verify the generated broadcast event is in the events array."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "test-run")
+        expected_title = f"Test Event {run_id}"
+    
+        with open(EVENTS_FILE, "r") as f:
+            events = json.load(f)
+    
+        # Look for an event related to the broadcast we created
+        # The event might be a broadcast_created action or just contain the title in its data
+        found = False
+        for event in events:
+            event_str = json.dumps(event)
+            if expected_title in event_str:
+                found = True
+                break
+    
+>       assert found, f"Could not find an event containing the title '{expected_title}' in events.json."
+E       AssertionError: Could not find an event containing the title 'Test Event zr-hbuegjq' in events.json.
+E       assert False
+
+tests/test_final_state.py:66: AssertionError
+________________________ test_broadcast_exists_via_api _________________________
+
+    def test_broadcast_exists_via_api():
+        """Verify via MagicBell API that the broadcast was actually created."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "test-run")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        expected_title = f"Test Event {run_id}"
+    
+        assert project_token, "MAGICBELL_PROJECT_TOKEN is missing."
+    
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json"
+        }
+    
+        # We can fetch events using the API to verify the broadcast event exists
+        response = requests.get(
+            "https://api.magicbell.com/events?limit=20",
+            headers=headers
+        )
+>       assert response.status_code == 200, f"Failed to fetch events from API: {response.text}"
+E       AssertionError: Failed to fetch events from API: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:86: AssertionError
+==================================== PASSES ====================================
+____________________________ test_script_execution _____________________________
+---------------------------- Captured stdout setup -----------------------------
+
+up to date, audited 5 packages in 559ms
+
+2 packages are looking for funding
+  run `npm fund` for details
+
+2 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_execution
+PASSED tests/test_final_state.py::test_events_file_created
+PASSED tests/test_final_state.py::test_events_file_content
+FAILED tests/test_final_state.py::test_broadcast_event_exists_in_file - Asser...
+FAILED tests/test_final_state.py::test_broadcast_exists_via_api - AssertionEr...
+========================= 2 failed, 3 passed in 2.04s ==========================

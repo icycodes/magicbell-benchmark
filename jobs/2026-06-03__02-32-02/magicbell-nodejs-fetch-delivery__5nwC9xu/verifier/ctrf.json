@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780454969238,
+            "stop": 1780454970235
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fetch_broadcast_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 843,
+                "start": 1780454969392,
+                "stop": 1780454970235,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_fetch_broadcast_status():\n        run_id = generate_run_id()\n        env = os.environ.copy()\n        env[\"ZEALT_RUN_ID\"] = run_id\n    \n        # Run the script\n        result = subprocess.run(\n            [\"node\", \"index.js\"],\n            cwd=PROJECT_DIR,\n            env=env,\n            capture_output=True,\n            text=True\n        )\n    \n        assert result.returncode == 0, f\"Script failed with error: {result.stderr}\"\n    \n        stdout = result.stdout\n    \n        # Extract Broadcast ID\n        id_match = re.search(r\"Broadcast ID:\\s*([a-zA-Z0-9\\-]+)\", stdout)\n        assert id_match, f\"Could not find 'Broadcast ID: <id>' in output: {stdout}\"\n        broadcast_id = id_match.group(1)\n    \n        # Extract Status\n        status_match = re.search(r\"Status:\\s*([a-zA-Z]+)\", stdout)\n>       assert status_match, f\"Could not find 'Status: <status>' in output: {stdout}\"\nE       AssertionError: Could not find 'Status: <status>' in output: Broadcast ID: 019e8b62-d1c7-70c0-b675-13db57a75dfe\nE         Status: [object Object]\nE         \nE       assert None\n\ntests/test_final_state.py:39: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

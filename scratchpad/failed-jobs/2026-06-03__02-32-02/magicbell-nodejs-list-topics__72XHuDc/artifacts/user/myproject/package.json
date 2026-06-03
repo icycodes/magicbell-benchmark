@@ -1,0 +1,10 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "MagicBell Node.js Topics Task",
+  "main": "index.js",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "magicbell-js": "^4.0.0"
+  }
+}

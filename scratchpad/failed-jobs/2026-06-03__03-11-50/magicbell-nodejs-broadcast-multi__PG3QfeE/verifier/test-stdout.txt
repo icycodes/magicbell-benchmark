@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py ..F                                            [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_emails_received _____________________________
+
+    def test_emails_received():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        expected_subject = f"Test Broadcast {run_id}"
+        expected_recipient1 = f"{magicbell_email}+recipient1-{run_id}@gmail.com"
+        expected_recipient2 = f"{magicbell_email}+recipient2-{run_id}@gmail.com"
+    
+        # Wait a bit for emails to arrive
+        time.sleep(5)
+    
+        messages = list_inbox(max_results=30)
+    
+        found_recipient1 = False
+        found_recipient2 = False
+    
+        for msg in messages:
+            subject = msg.get("subject", "")
+            to = msg.get("to", "")
+    
+            if expected_subject in subject:
+                if expected_recipient1 in to:
+                    found_recipient1 = True
+                if expected_recipient2 in to:
+                    found_recipient2 = True
+    
+>       assert found_recipient1, f"Email with subject '{expected_subject}' to '{expected_recipient1}' not found in inbox."
+E       AssertionError: Email with subject 'Test Broadcast zr-pg3qfee' to 'REDACTED@gmail.com+recipient1-zr-pg3qfee@gmail.com' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:103: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+PASSED tests/test_final_state.py::test_broadcast_id_in_log
+FAILED tests/test_final_state.py::test_emails_received - AssertionError: Emai...
+========================= 1 failed, 2 passed in 11.48s =========================

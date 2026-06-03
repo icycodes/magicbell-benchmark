@@ -1,0 +1,82 @@
+- Initializing MCP connections...
+You
+# Custom Notification Item in React ## Background MagicBell provides a `FloatingInbox` component for React that renders a bell icon and a dropdown list of notifications. By default, it uses a standard notification item layout. For this task, you will customize the rendering of individual notifications within the `FloatingInbox` to match specific UI requirements. ## Requirements - Create a full-stack project with a React frontend and an Express backend. - The backend must serve a `GET /token` endpoint that returns a User JWT for a user with external ID `user-${ZEALT_RUN_ID}` and email derived from `MAGICBELL_EMAIL` (using the plus format: `<email_prefix>+${ZEALT_RUN_ID}@<email_domain>`). - On startup, the backend must upsert this user and send a broadcast notification to them with the title `Test Notification ${ZEALT_RUN_ID}` and content `This is a test`. - The frontend must render the `@magicbell/react` `FloatingInbox`. - You must provide a custom notification item component to the `FloatingInbox`. - The custom notification item must have a wrapper element with the CSS class `custom-notification-item`. - The custom item must render the notification title inside an element with the class `custom-notification-title`. - The custom item must render the notification content inside an element with the class `custom-notification-content`. - If the notification is unread, the custom item must render a button with the class `custom-mark-read-btn`. Clicking this button must mark the notification as read in MagicBell. ## Implementation Hints - Read the `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` environment variables. - Use `magicbell-js/project-client` on the backend to upsert the user and send the seed broadcast. - Use `jsonwebtoken` to generate the User JWT on the backend, signed with `MAGICBELL_SECRET_KEY`. - In the React frontend, use `Provider` and `FloatingInbox` from `@magicbell/react`. - `FloatingInbox` (or `Inbox`) typically accepts a prop like `ItemComponent` or `components={{ NotificationItem }}` to override the default item rendering. - You can use the provided notification data to check its read status and display the mark-as-read button conditionally. - To mark a notification as read, you can use the methods available on the notification object or the React SDK hooks. - Run the frontend and backend concurrently using a tool like `concurrently`. ## Acceptance Criteria - Project path: `/home/user/myproject` - Start command: `npm start` - Port: 3000 (frontend) and 3001 (backend) - The page at `http://localhost:3000` renders the `FloatingInbox`. - Opening the inbox reveals the notification with the title `Test Notification ${ZEALT_RUN_ID}`. - The notification is rendered using the custom component with the class `custom-notification-item`. - The title and content are rendered within elements having classes `custom-notification-title` and `custom-notification-content` respectively. - The unread notification contains a button with the class `custom-mark-read-btn`. - Clicking the `custom-mark-read-btn` marks the notification as read, and the button should disappear or the state should update accordingly.   
+
+Pochi
+💭 Thinking for 427 characters   
+📋 Updating todo list (7 items) ✔ 
+💭 Thinking for 47 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💭 Thinking for 103 characters   
+📋 Updating todo list (7 items) ✔ 
+✏️  Writing /home/user/myproject/package.json ✔ 
+💭 Thinking for 42 characters   
+💫 Executing mkdir -p /home/user/myproject/server ✔ 
+✏️  Writing /home/user/myproject/server/index.js ✔ 
+💭 Thinking for 105 characters   
+📋 Updating todo list (7 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject/src ✔ 
+✏️  Writing /home/user/myproject/src/index.jsx ✔ 
+💭 Thinking for 69 characters   
+✏️  Writing /home/user/myproject/src/App.jsx ✔ 
+✏️  Writing /home/user/myproject/src/CustomNotificationItem.jsx ✔ 
+💭 Thinking for 59 characters   
+✏️  Writing /home/user/myproject/vite.config.js ✔ 
+💫 Executing mkdir -p /home/user/myproject ✔ 
+✏️  Writing /home/user/myproject/index.html ✔ 
+Now let me install the dependencies and check the MagicBell SDK API to make sure I'm using itcorrectly.   
+💫 Executing cd /home/user/myproject && npm install 2>&1 ✖ "Command exited with code 1"
+💭 Thinking for 95 characters   
+💫 Executing npm view @magicbell/react versions --json 2>&1 | tail -20 ✔ 
+💭 Thinking for 70 characters   
+💫 Executing npm view magicbell-js versions --json 2>&1 | tail -20 ✔ 
+💫 Executing npm view magicbell-js project-client 2>&1 | head -20 ✔ 
+💫 Executing npm view magicbell-js exports 2>&1 ✔ 
+💭 Thinking for 137 characters   
+💫 Executing npm view magicbell-js@1.7.0 dependencies 2>&1 ✔ 
+💫 Executing npm view @magicbell/react@1.13.0 dependencies 2>&1 ✔ 
+💫 Executing npm view @magicbell/react@1.13.0 exports 2>&1 | head -80 ✔ 
+💭 Thinking for 181 characters   
+💫 Executing cd /home/user/myproject && npm install @magicbell/react@1.13.0 magicbell-js@1.7.0 express jsonwebtoken concurrently react react-dom 2>&1 ✔ 
+💫 Executing cd /home/user/myproject && npm install -D vite @vitejs/plugin-react 2>&1 ✔ 
+📂 Listing files in /home/user/myproject/node_modules/@magicbell/react ✔ 
+📂 Listing files in /home/user/myproject/node_modules/@magicbell/react/src recursively ✔ 
+💭 Thinking for 132 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/context-provider.tsx ✔ 
+💭 Thinking for 118 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/index.ts ✔ 
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/floating-inbox.tsx ✔ 
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/inbox.tsx ✔ 
+💭 Thinking for 1378 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/internal/components/inbox--item.tsx ✔ 
+💭 Thinking for 1156 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/internal/components/virtual-list/virtual-list.tsx ✔ 
+💭 Thinking for 1548 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/internal/stores/notification-store.ts ✔ 
+💭 Thinking for 445 characters   
+💫 Executing ls /home/user/myproject/node_modules/@magicbell/react/dist/esm/internal/context/ ✔ 
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/dist/esm/internal/context/magicbell.context.js ✔ 
+💭 Thinking for 1578 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/internal/components/floating-ui.tsx ✔ 
+💭 Thinking for 2346 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/src/internal/context/context.ts ✔ 
+💭 Thinking for 2566 characters   
+💫 Executing ls /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/ 2>/dev/null | head -30 ✔ 
+💫 Executing ls /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/ 2>/dev/null ✔ 
+💫 Executing ls /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/notifications/ 2>/dev/null ✔ 
+💫 Executing cat /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/notifications/index.d.ts 2>/dev/null ✔ 
+💫 Executing ls /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/notifications/models/ 2>/dev/null ✔ 
+📖 Reading /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/notifications/models/notification.d.ts ✔ 
+💭 Thinking for 2323 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/package.json ✔ 
+💫 Executing node -e "const p = require('/home/user/myproject/node_modules/@magicbell/react/package.json'); console.log(JSON.stringify(p.exports, null, 2))" 2>&1 ✔ 
+💭 Thinking for 6599 characters   
+📖 Reading /home/user/myproject/node_modules/@magicbell/react/dist/esm/index.js ✔ 
+💭 Thinking for 21590 characters   
+💫 Executing cat /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/services/notifications/notifications-service.d.ts 2>/dev/null ✔ 
+💭 Thinking for 1142 characters   
+💫 Executing cat /home/user/myproject/node_modules/magicbell-js/dist/esm/user-client/index.d.ts 2>/dev/null ✔ 
+💭 Thinking for 6209 characters   
+Now I have a good understanding of the SDK API. Let me update the implementation files.   
+📋 Updating todo list (7 items) ✔ 
+✏️  Writing /home/user/myproject/src/App.jsx ✔ 

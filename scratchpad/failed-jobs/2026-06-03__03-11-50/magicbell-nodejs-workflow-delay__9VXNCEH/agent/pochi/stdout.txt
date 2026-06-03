@@ -1,0 +1,93 @@
+- Initializing MCP connections...
+You
+# Create a Workflow with Delay in MagicBell ## Background MagicBell allows you to orchestrate multi-step notification campaigns using workflows. In this task, you will create a Node.js script that uses the MagicBell Node.js SDK to define and save a workflow containing a broadcast step, a wait (delay) step, and a follow-up broadcast step. ## Requirements * Write a Node.js script that uses the MagicBell Node.js SDK (`magicbell-js/project-client`) to save a workflow definition. * The workflow key must be `workflow-delay-${run-id}` where `run-id` is read from the `ZEALT_RUN_ID` environment variable. * The workflow must consist of exactly three steps in this order: 1. `broadcast` command: Send a notification with the title "Welcome!". 2. `wait` command: Pause the workflow execution for 60 seconds. 3. `broadcast` command: Send a follow-up notification with the title "Follow up". ## Implementation Hints * Read the `run-id` from the `ZEALT_RUN_ID` environment variable. * Initialize the `magicbell-js` `ProjectClient` using the `MAGICBELL_PROJECT_TOKEN` environment variable. * Use the `workflows.saveWorkflow` method to create the workflow definition. * A `wait` step requires the `duration` input parameter to be specified in seconds. * Ensure your script waits for the API call to complete before exiting. ## Acceptance Criteria * Project path: /home/user/magicbell-task * Command: node create-workflow\.js * Input argument format: None (reads from environment variables). * Expected command output format: The stdout should print a success message indicating the workflow was created.   
+
+Pochi
+💭 Thinking for 531 characters   
+💫 Executing mkdir -p /home/user/magicbell-task && cd /home/user/magicbell-task && npm init -y && npm install magicbell-js ✔ 
+💭 Thinking for 267 characters   
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/package.json ✔ 
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client.d.ts ✔ 
+💫 Executing grep -r "saveWorkflow" /home/user/magicbell-task/node_modules/magicbell-js/dist/ ✔ 
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/models/workflow-definition.d.ts ✔ 
+💭 Thinking for 321 characters   
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client/project-client.d.ts ✖ "Command exited with code 1"
+💫 Executing ls /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client ✔ 
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client/index.d.ts ✔ 
+💭 Thinking for 612 characters   
+💫 Executing cat /home/user/magicbell-task/node_modules/magicbell-js/dist/esm/project-client/http/types.d.ts ✔ 
+💭 Thinking for 739 characters   
+💫 Executing cat << 'EOF' > /home/user/magicbell-task/create-workflow.js
+const { Client } = require('magicbell-js/project-client');
+
+async function main() {
+  const runId = process.env.ZEALT_RUN_ID;
+  const token = process.env.MAGICBELL_PROJECT_TOKEN;
+
+  if (!runId || !token) {
+    console.error("Missing ZEALT_RUN_ID or MAGICBELL_PROJECT_TOKEN environment variables");
+    process.exit(1);
+  }
+
+  const client = new Client({
+    token: token
+  });
+
+  const workflowDefinition = {
+    key: `workflow-delay-${runId}`,
+    steps: [
+      {
+        command: 'broadcast',
+        input: {
+          title: 'Welcome!'
+        }
+      },
+      {
+        command: 'wait',
+        input: {
+          duration: 60
+        }
+      },
+      {
+        command: 'broadcast',
+        input: {
+          title: 'Follow up'
+        }
+      }
+    ]
+  };
+
+  try {
+    const response = await client.workflows.saveWorkflow(workflowDefinition);
+    console.log("Workflow created successfully:", response.data?.key || workflowDefinition.key);
+  } catch (error) {
+    console.error("Failed to create workflow:", error);
+    process.exit(1);
+  }
+}
+
+main();
+EOF
+ ✔ 
+💭 Thinking for 287 characters   
+💫 Executing node /home/user/magicbell-task/create-workflow.js ✖ "Command exited with code 1"
+💫 Executing cd /home/user/magicbell-task && npm install tslib ✔ 
+💭 Thinking for 208 characters   
+💫 Executing node /home/user/magicbell-task/create-workflow.js ✔ 
+💫 Executing env | grep -E "ZEALT|MAGIC" ✔ 
+💭 Thinking for 710 characters   
+🎉 Task Completed
+I have successfully created the Node.js script to define and save the MagicBell workflow with a delay.
+
+The implementation details:
+1. Created the project in `/home/user/magicbell-task` and installed the required `magicbell-js` and `tslib` dependencies.
+2. Wrote the `create-workflow.js` script that uses the `magicbell-js/project-client` to initialize the client with the `MAGICBELL_PROJECT_TOKEN` environment variable.
+3. The workflow key is set to `workflow-delay-${run-id}` using the `ZEALT_RUN_ID` environment variable.
+4. The workflow consists of the three required steps:
+   - A `broadcast` step with the title "Welcome!".
+   - A `wait` step with `duration: 60` (seconds).
+   - A `broadcast` step with the title "Follow up".
+5. Used `workflows.saveWorkflow` to save the workflow definition and printed a success message to `stdout`.
+
+You can execute the script using `node create-workflow.js` in the project directory.   
+  

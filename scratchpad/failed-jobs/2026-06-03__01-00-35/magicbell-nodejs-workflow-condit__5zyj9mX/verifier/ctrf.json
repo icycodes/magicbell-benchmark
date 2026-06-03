@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780450841710,
+            "stop": 1780450844470
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_run_index_js",
+                "status": "passed",
+                "duration": 716,
+                "start": 1780450841733,
+                "stop": 1780450842449,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_created_and_configured",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2020,
+                "start": 1780450842449,
+                "stop": 1780450844469,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_created_and_configured():\n        \"\"\"Verify the workflow definition using a small Node.js script.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"default-run-id\")\n        workflow_key = f\"conditional-workflow-{run_id}\"\n    \n        verify_script = f\"\"\"\n    import {{ Client }} from 'magicbell-js/project-client';\n    \n    const client = new Client({{\n      token: process.env.MAGICBELL_PROJECT_TOKEN,\n    }});\n    \n    (async () => {{\n      try {{\n        const res = await client.workflows.fetchWorkflow({{ key: '{workflow_key}' }});\n        console.log(JSON.stringify(res.data));\n      }} catch (e) {{\n        console.error(e);\n        process.exit(1);\n      }}\n    }})();\n    \"\"\"\n        verify_script_path = os.path.join(PROJECT_DIR, \"verify.js\")\n        with open(verify_script_path, \"w\") as f:\n            f.write(verify_script)\n    \n        result = subprocess.run(\n            [\"node\", \"verify.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"Failed to fetch workflow: {result.stderr}\\nStdout: {result.stdout}\"\nE       AssertionError: Failed to fetch workflow: HttpError: Unexpected response body for error status.\nE         StatusCode: 500\nE         Body: {\"errors\":[{\"message\":\"Internal Server Error\"}]}\nE         \nE             at HookHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/hook-handler.js:58:15)\nE             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\nE             at async RetryHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/retry-handler.js:30:24)\nE             at async ResponseValidationHandler.handle (file:///home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/response-validation-handler.js:25:26)\nE             at async file:///home/user/task/verify.js:10:17 {\nE           error: 'Internal Server Error',\nE           metadata: {\nE             status: 500,\nE             statusText: 'Internal Server Error',\nE             headers: {\nE               'access-control-allow-headers': '*',\nE               'access-control-allow-methods': '*',\nE               'access-control-allow-origin': '*',\nE               'access-control-max-age': '86400',\nE               'alt-svc': 'h3=\":443\"; ma=86400',\nE               'cf-cache-status': 'DYNAMIC',\nE               'cf-ray': 'a05afdced8633098-SEA',\nE               connection: 'keep-alive',\nE               'content-length': '49',\nE               'content-type': 'application/json',\nE               date: 'Wed, 03 Jun 2026 01:40:44 GMT',\nE               nel: '{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}',\nE               'report-to': '{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YCtoGUa2xMiMxFbD94p1z63jzjs9o4T5tLRfmYWtcP4Z%2Fsm%2Bua6vpWWyCNgeNH2OQ%2FzZewOPzaFtv%2BsouTeG5w5oBg0stk%2BQyePjwZL%2BRCj66AbmLjZ4pwj7IHfLHNmI7PmE\"}]}',\nE               server: 'cloudflare',\nE               'set-cookie': '_cfuvid=ltBEADmIktKmKm_szwZRYG37q_SbhdzC9qqQWfx2ix8-1780450843.9753196-1.0.1.1-hM8yMKGSen918kNTfidyIh8N9FBt9cMgW.aOsKhug54; HttpOnly; SameSite=None; Secure; Path=/; Domain=magicbell.com',\nE               'x-amzn-requestid': '6bfc308b-4021-4fef-9759-52a6f576cee7',\nE               'x-amzn-trace-id': 'Root=1-6a1f861c-11eceeaa0765523c21c392c4;Parent=6050950e5ad60e57;Sampled=0;Lineage=1:a1dcffa6:0'\nE             }\nE           },\nE           raw: ArrayBuffer {\nE             [Uint8Contents]: <7b 22 65 72 72 6f 72 73 22 3a 5b 7b 22 6d 65 73 73 61 67 65 22 3a 22 49 6e 74 65 72 6e 61 6c 20 53 65 72 76 65 72 20 45 72 72 6f 72 22 7d 5d 7d 0a>,\nE             [byteLength]: 49\nE           }\nE         }\nE         \nE         Stdout: \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'verify.js'], returncode=1, stdout='', stderr='HttpError: Unexpected response body for ...3a 22 49 6e 74 65 72 6e 61 6c 20 53 65 72 76 65 72 20 45 72 72 6f 72 22 7d 5d 7d 0a>,\\n    [byteLength]: 49\\n  }\\n}\\n').returncode\n\ntests/test_final_state.py:50: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_workflow_management ___________________________
+
+    def test_workflow_management():
+        run_id = get_run_id()
+        workflow_key = f"test-workflow-{run_id}"
+        token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        headers = {
+            "Authorization": f"Bearer {token}"
+        }
+    
+        # 1. Create Workflow
+        result_create = subprocess.run(
+            ["go", "run", "main.go", "create"],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR
+        )
+        assert result_create.returncode == 0, f"'go run main.go create' failed: {result_create.stderr}"
+        assert f"Created workflow: {workflow_key}" in result_create.stdout, \
+            f"Expected 'Created workflow: {workflow_key}' in stdout, got: {result_create.stdout}"
+    
+        # Verify in MagicBell API
+        api_url = f"https://api.magicbell.com/workflows/{workflow_key}"
+        response_create = requests.get(api_url, headers=headers)
+>       assert response_create.status_code == 200, \
+            f"Expected MagicBell API to return 200 OK for created workflow, got {response_create.status_code}: {response_create.text}"
+E       AssertionError: Expected MagicBell API to return 200 OK for created workflow, got 405: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:36: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_workflow_management - AssertionError: ...
+============================== 1 failed in 1.87s ===============================

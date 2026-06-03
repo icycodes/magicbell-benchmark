@@ -1,0 +1,27 @@
+- Initializing MCP connections...
+You
+# List Notifications with Pagination ## Background Use the `magicbell-js` UserClient to list notifications for a user with pagination. ## Requirements * Create a Node.js script `list_notifications.js` that uses the `magicbell-js` UserClient to fetch notifications. * The script should authenticate using a user JWT provided in the `USER_JWT` environment variable. * Fetch the first page of notifications with a limit of 2. * Use the ID of the last notification from the first page as the `startingAfter` parameter to fetch the second page of notifications with a limit of 2. * Print the fetched notification IDs to stdout. ## Implementation Hints * Initialize the `Client` from `magicbell-js/user-client` using the token from `process.env.USER_JWT`. * Call `client.notifications.listNotifications({ limit: 2 })` to get the first page. * Call it again with `{ limit: 2, startingAfter: <last_notification_id> }` to get the second page. * Print the IDs to stdout. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `node list_notifications.js` * The command takes no arguments, but requires the `USER_JWT` environment variable to be set. * The stdout should print the IDs from the first page and the second page in exactly the following format: ``` Page 1: <id1>, <id2> Page 2: <id3>, <id4> ```   
+
+Pochi
+💭 Thinking for 100 characters   
+📂 Listing files in /home/user/myproject ✔ 
+📖 Reading /home/user/myproject/package.json ✔ 
+✏️  Writing /home/user/myproject/list_notifications.js ✔ 
+🎉 Task Completed
+Created `/home/user/myproject/list_notifications.js` with the following behaviour:
+
+1. Initializes `Client` from `magicbell-js/user-client` using `process.env.USER_JWT` as the token.
+2. Calls `client.notifications.listNotifications({ limit: 2 })` to fetch the first page and prints the IDs.
+3. Takes the last ID from page 1 and calls `client.notifications.listNotifications({ limit: 2, startingAfter: lastId })` to fetch the second page and prints those IDs.
+
+Output format:
+```
+Page 1: <id1>, <id2>
+Page 2: <id3>, <id4>
+```
+
+Run with:
+```
+USER_JWT=<your_jwt> node list_notifications.js
+```   
+  

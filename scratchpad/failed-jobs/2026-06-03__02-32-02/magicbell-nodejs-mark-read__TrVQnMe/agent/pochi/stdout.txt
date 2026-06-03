@@ -1,0 +1,33 @@
+- Initializing MCP connections...
+You
+# Mark Notification as Read with Node.js UserClient ## Background Create a Node.js script that uses the MagicBell UserClient (`magicbell-js`) to mark a specific notification as read for a specific user. ## Requirements * Create a Node.js script that accepts a notification ID as a command-line argument. * The script must generate a MagicBell User JWT for the user email `${MAGICBELL_EMAIL}+${run-id}@gmail.com`, where `run-id` is read from the `ZEALT_RUN_ID` environment variable. * Initialize the MagicBell UserClient using the generated User JWT. * Use the UserClient to mark the provided notification ID as read. * Print a success message to stdout upon completion. ## Implementation Hints * Generate the User JWT using the `jsonwebtoken` library with your `MAGICBELL_API_KEY` and `MAGICBELL_SECRET_KEY`. * The payload of the User JWT must include `user_email` set to `${MAGICBELL_EMAIL}+${run-id}@gmail.com`. * Import the UserClient from `magicbell-js/user-client` and initialize it with the generated token. * Use the appropriate method on the `notifications` service of the UserClient to mark the notification as read. * Read the notification ID from `process.argv`. ## Acceptance Criteria * Project path: /home/user/project * Command: node index.js \<notification\_id> * The stdout should print: Notification \<notification\_id> marked as read. * Ensure the specified notification is actually marked as read in the MagicBell system for the target user.   
+
+Pochi
+💭 Thinking for 105 characters   
+📂 Listing files in /home/user/project ✔ 
+📖 Reading /home/user/project/package.json ✔ 
+💫 Executing cd /home/user/project && npm install magicbell-js jsonwebtoken 2>&1 ✔ 
+Now let me check the `magicbell-js` package to understand the UserClient API:   
+💫 Executing find /home/user/project/node_modules/magicbell-js -name "*.d.ts" | grep -i user-client | head -20 ✔ 
+📖 Reading /home/user/project/node_modules/magicbell-js/dist/commonjs/user-client/services/notifications/notifications-service.d.ts ✔ 
+📖 Reading /home/user/project/node_modules/magicbell-js/dist/commonjs/user-client.d.ts ✔ 
+📖 Reading /home/user/project/node_modules/magicbell-js/dist/commonjs/user-client/index.d.ts ✔ 
+I have all the information needed. Now let me create the `index.js` script:   
+✏️  Writing /home/user/project/index.js ✔ 
+🎉 Task Completed
+Created `/home/user/project/index.js` with the following behaviour:
+
+1. **Reads** `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`, `MAGICBELL_EMAIL`, and `ZEALT_RUN_ID` from environment variables.
+2. **Constructs** the target user email as `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com`.
+3. **Signs** a HS256 JWT with `jsonwebtoken` using `MAGICBELL_SECRET_KEY`, embedding `user_email` in the payload.
+4. **Initialises** the MagicBell `UserClient` (`magicbell-js/user-client`) with that token.
+5. **Calls** `client.notifications.markNotificationRead(notificationId)` to mark the notification as read in the MagicBell system.
+6. **Prints** `Notification <notification_id> marked as read.` to stdout.
+
+Usage:
+```
+node index.js <notification_id>
+```
+
+Dependencies (`magicbell-js` and `jsonwebtoken`) have already been installed into the project.   
+  

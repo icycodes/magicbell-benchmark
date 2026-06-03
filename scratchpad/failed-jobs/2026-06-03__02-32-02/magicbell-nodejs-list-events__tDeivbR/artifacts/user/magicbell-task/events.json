@@ -1,0 +1,77 @@
+[
+  {
+    "code": 200,
+    "context": {
+      "channel": "email",
+      "delivery_id": "019e8b5c-6c87-7b13-9656-76d3b8f75fd8",
+      "notification_id": "019e8b5c-49d6-7dcb-9848-b82951ae7fe2",
+      "provider": "smtp",
+      "user_id": "53372ef2-f8ba-4785-aa7a-b3167aa0a5d7"
+    },
+    "id": "019e8b5c-a0e6-7f68-bfa6-05b2f6c2b2e9",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T02:42:44.07025876Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "in_app",
+      "delivery_id": "019e8b5c-6c87-7b12-b87a-74d7580f2af5",
+      "notification_id": "019e8b5c-49d6-7dcb-9848-b82951ae7fe2",
+      "provider": "magicbell",
+      "user_id": "53372ef2-f8ba-4785-aa7a-b3167aa0a5d7"
+    },
+    "id": "019e8b5c-85f3-7f67-8132-eaa19527bd0b",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T02:42:37.171474624Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 400,
+    "context": {
+      "channel": "email",
+      "delivery_id": "019e8b5b-752d-73cd-86a1-a04d2ae7eeeb",
+      "notification_id": "019e8b5b-4fb0-70d5-a387-d26cb55f3c79",
+      "provider": "smtp",
+      "user_id": "019e8b5b-4dad-7bcb-8d48-f71b35814745"
+    },
+    "id": "019e8b5b-a95f-7860-ab9a-ba13ccbfe1e0",
+    "level": "warn",
+    "log": "smtp.send: smtp.send: delivery error: payload invalid: SMTP error 553: The recipient address <REDACTED@gmail.com+user_zr-dqhdpau@gmail.com>\nis not a valid RFC 5321 address. For more information, go to\n https://support.google.com/a/answer/3221692 and review RFC 5321\nspecifications. 5b1f17b1804b1-490b60f6d5asm21453615e9.0 - gsmtp",
+    "timestamp": "2026-06-03T02:41:40.703211132Z",
+    "type": "delivery.failed"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "in_app",
+      "delivery_id": "019e8b5b-752d-73cc-9199-baff08c09438",
+      "notification_id": "019e8b5b-4fb0-70d5-a387-d26cb55f3c79",
+      "provider": "magicbell",
+      "user_id": "019e8b5b-4dad-7bcb-8d48-f71b35814745"
+    },
+    "id": "019e8b5b-8eb0-7c30-ab1c-6faac83d386e",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T02:41:33.872556098Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "email",
+      "delivery_id": "019e8b59-c905-7b9e-a58d-be63cffdffeb",
+      "notification_id": "019e8b59-a2bb-7531-a4f0-97541b376517",
+      "provider": "smtp",
+      "user_id": "c52b5083-d774-4e5f-9c92-68b0ec41ecdc"
+    },
+    "id": "019e8b5a-0368-7bb1-b0a7-df81f3a31406",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T02:39:52.680757042Z",
+    "type": "delivery.sent"
+  }
+]

@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_broadcast_details ____________________________
+
+    def test_broadcast_details():
+        broadcast_id = os.environ.get("TEST_BROADCAST_ID")
+        assert broadcast_id is not None, "Broadcast ID not found from the previous test."
+    
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id is not None, "ZEALT_RUN_ID environment variable is not set."
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token is not None, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        base_email = os.environ.get("MAGICBELL_EMAIL")
+        assert base_email is not None, "MAGICBELL_EMAIL environment variable is not set."
+    
+        # The email format is expected to be {MAGICBELL_EMAIL}+<run-id>@gmail.com
+        expected_email = f"{base_email}+{run_id}@gmail.com"
+    
+        url = f"https://api.magicbell.com/broadcasts/{broadcast_id}"
+        headers = {
+            "Authorization": f"Bearer {project_token}"
+        }
+    
+        response = requests.get(url, headers=headers)
+        assert response.status_code == 200, f"Failed to fetch broadcast details: {response.text}"
+    
+        data = response.json()
+        broadcast = data.get("broadcast", {})
+    
+        recipients = broadcast.get("recipients", [])
+        recipient_emails = [r.get("email") for r in recipients if "email" in r]
+    
+>       assert expected_email in recipient_emails, f"Expected recipient {expected_email} not found in recipients: {recipient_emails}"
+E       AssertionError: Expected recipient REDACTED@gmail.com+zr-8jqkdzu@gmail.com not found in recipients: ['REDACTED+zr-8jqkdzu@gmail.com']
+E       assert 'REDACTED@gmail.com+zr-8jqkdzu@gmail.com' in ['REDACTED+zr-8jqkdzu@gmail.com']
+
+tests/test_final_state.py:53: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_contains_broadcast_id
+FAILED tests/test_final_state.py::test_broadcast_details - AssertionError: Ex...
+========================= 1 failed, 1 passed in 0.71s ==========================

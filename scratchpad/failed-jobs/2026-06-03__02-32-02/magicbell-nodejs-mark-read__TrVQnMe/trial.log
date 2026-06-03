@@ -1,0 +1,76 @@
+Skipping image OS validation for hb__magicbell-nodejs-mark-read: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-trvqnme > /logs/artifacts/run-id && echo magicbell-nodejs-mark-read__TrVQnMe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Mark Notification as Read with Node.js UserClient
+
+## Background
+Create a Node.js script that uses the MagicBell UserClient (`magicbell-js`) to mark a specific notification as read for a specific user.
+
+## Requirements
+- Create a Node.js script that accepts a notification ID as a command-line argument.
+- The script must generate a MagicBell User JWT for the user email `${MAGICBELL_EMAIL}+${run-id}@gmail.com`, where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- Initialize the MagicBell UserClient using the generated User JWT.
+- Use the UserClient to mark the provided notification ID as read.
+- Print a success message to stdout upon completion.
+
+## Implementation Hints
+- Generate the User JWT using the `jsonwebtoken` library with your `MAGICBELL_API_KEY` and `MAGICBELL_SECRET_KEY`.
+- The payload of the User JWT must include `user_email` set to `${MAGICBELL_EMAIL}+${run-id}@gmail.com`.
+- Import the UserClient from `magicbell-js/user-client` and initialize it with the generated token.
+- Use the appropriate method on the `notifications` service of the UserClient to mark the notification as read.
+- Read the notification ID from `process.argv`.
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Command: node index.js <notification_id>
+- The stdout should print: Notification <notification_id> marked as read.
+- Ensure the specified notification is actually marked as read in the MagicBell system for the target user.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

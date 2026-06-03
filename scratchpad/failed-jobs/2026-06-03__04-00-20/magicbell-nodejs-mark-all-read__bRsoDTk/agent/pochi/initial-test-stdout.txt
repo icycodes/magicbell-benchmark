@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+bootstrap/test_initial_state.py::test_initial_state FAILED
+
+=================================== FAILURES ===================================
+______________________________ test_initial_state ______________________________
+
+    def test_initial_state():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        base_email = os.environ.get("MAGICBELL_EMAIL")
+        assert run_id, "ZEALT_RUN_ID not set"
+>       assert base_email, "MAGICBELL_EMAIL not set"
+E       AssertionError: MAGICBELL_EMAIL not set
+E       assert None
+
+bootstrap/test_initial_state.py:11: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_initial_state - AssertionError: ...
+============================== 1 failed in 0.03s ===============================

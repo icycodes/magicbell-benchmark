@@ -1,0 +1,49 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780461896276,
+            "stop": 1780461897259
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists_and_contains_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23,
+                "start": 1780461896301,
+                "stop": 1780461896324,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_exists_and_contains_status():\n        log_path = os.path.join(PROJECT_DIR, \"output.log\")\n        assert os.path.isfile(log_path), f\"Log file {log_path} does not exist.\"\n    \n        with open(log_path, \"r\") as f:\n            content = f.read()\n    \n        match = re.search(r\"Status:\\s*(200|204)\", content)\n>       assert match is not None, f\"Expected 'Status: 200' or 'Status: 204' in {log_path}, got: {content}\"\nE       AssertionError: Expected 'Status: 200' or 'Status: 204' in /home/user/task/output.log, got: Status: 405\nE       assert None is not None\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_workflow_deleted_via_cli",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 934,
+                "start": 1780461896325,
+                "stop": 1780461897259,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_deleted_via_cli():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n        workflow_key = f\"test-workflow-{run_id}\"\n    \n        login_cmd = [\n            \"magicbell\", \"login\", \"--manual\",\n            \"--email\", os.environ.get(\"MAGICBELL_EMAIL\", \"\"),\n            \"--jwt\", os.environ.get(\"MAGICBELL_PROJECT_TOKEN\", \"\"),\n            \"--api-key\", os.environ.get(\"MAGICBELL_API_KEY\", \"\"),\n            \"--secret-key\", os.environ.get(\"MAGICBELL_SECRET_KEY\", \"\")\n        ]\n        subprocess.run(login_cmd, capture_output=True, text=True)\n    \n        cmd = [\n            \"magicbell\", \"workflow\", \"fetch\",\n            \"--workflow_key\", workflow_key\n        ]\n        result = subprocess.run(cmd, capture_output=True, text=True)\n    \n>       assert result.returncode != 0, f\"Expected 'magicbell workflow fetch' to fail, but it succeeded for workflow_key: {workflow_key}\"\nE       AssertionError: Expected 'magicbell workflow fetch' to fail, but it succeeded for workflow_key: test-workflow-zr-vvwdsck\nE       assert 0 != 0\nE        +  where 0 = CompletedProcess(args=['magicbell', 'workflow', 'fetch', '--workflow_key', 'test-workflow-zr-vvwdsck'], returncode=0, ...ovided but not defined: -workflow_key\"}\\n', stderr='Incorrect Usage: flag provided but not defined: -workflow_key\\n\\n').returncode\n\ntests/test_final_state.py:38: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

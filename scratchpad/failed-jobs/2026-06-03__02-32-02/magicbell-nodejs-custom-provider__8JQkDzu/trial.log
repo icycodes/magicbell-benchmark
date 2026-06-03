@@ -1,0 +1,74 @@
+Skipping image OS validation for hb__magicbell-nodejs-custom-providers: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-8jqkdzu > /logs/artifacts/run-id && echo magicbell-nodejs-custom-provider__8JQkDzu > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# MagicBell Node.js SDK: Broadcast with Custom Overrides
+
+## Background
+You are building a notification system using the MagicBell Node.js SDK (`magicbell-js`). You need to send a broadcast to a user but explicitly disable the email channel for this specific broadcast using the broadcast's overrides configuration.
+
+## Requirements
+- Initialize the MagicBell Node.js project client using the `MAGICBELL_PROJECT_TOKEN`.
+- Create a broadcast with the title "Test Broadcast" and some content.
+- The broadcast must be sent to a single recipient with the email `{MAGICBELL_EMAIL}+${run-id}@gmail.com`, where `run-id` is read from the `ZEALT_RUN_ID` environment variable.
+- Configure the broadcast's `overrides` to disable the email channel (so the notification is only delivered via other channels like in-app).
+- Execute the script and save the resulting broadcast ID to a log file.
+
+## Implementation Hints
+- Use the `magicbell-js` SDK (`npm install magicbell-js`).
+- Read `ZEALT_RUN_ID` and `MAGICBELL_EMAIL` from the environment.
+- Pass the appropriate `overrides` object in the broadcast creation payload to disable the email channel or provider.
+- Write a Node.js script that performs the action and writes the result to `output.log`.
+
+## Acceptance Criteria
+- Project path: `/home/user/magicbell-project`
+- Ensure the script is executed and the artifact exists.
+- Log file: `/home/user/magicbell-project/output.log`
+- The log file must contain the broadcast ID in the format: `Broadcast ID: <broadcast_id>`
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

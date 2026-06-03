@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_script_execution_and_output _______________________
+
+    def test_script_execution_and_output():
+        """Run the script and verify it creates the expected JSON output."""
+        # Ensure any previous log is removed
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        # Run the script
+        result = subprocess.run(
+            ["node", "index.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+    
+>       assert result.returncode == 0, f"Script execution failed. stderr: {result.stderr}\nstdout: {result.stdout}"
+E       AssertionError: Script execution failed. stderr: node:internal/modules/cjs/loader:1479
+E           throw err;
+E           ^
+E         
+E         Error: Cannot find module 'tslib'
+E         Require stack:
+E         - /home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client.js
+E         - /home/user/magicbell-nodejs-fetch-preferences/index.js
+E             at Module._resolveFilename (node:internal/modules/cjs/loader:1476:15)
+E             at wrapResolveFilename (node:internal/modules/cjs/loader:1049:27)
+E             at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1073:10)
+E             at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1094:12)
+E             at Module._load (node:internal/modules/cjs/loader:1262:25)
+E             at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+E             at Module.require (node:internal/modules/cjs/loader:1576:12)
+E             at require (node:internal/modules/helpers:153:16)
+E             at Object.<anonymous> (/home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client.js:3:17)
+E             at Module._compile (node:internal/modules/cjs/loader:1830:14) {
+E           code: 'MODULE_NOT_FOUND',
+E           requireStack: [
+E             '/home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client.js',
+E             '/home/user/magicbell-nodejs-fetch-preferences/index.js'
+E           ]
+E         }
+E         
+E         Node.js v24.15.0
+E         
+E         stdout: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='', stderr="node:internal/modules/cjs/loader:1479\n  ...commonjs/user-client.js',\n    '/home/user/magicbell-nodejs-fetch-preferences/index.js'\n  ]\n}\n\nNode.js v24.15.0\n").returncode
+
+tests/test_final_state.py:23: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_script_execution_and_output - Assertio...
+============================== 1 failed in 0.21s ===============================

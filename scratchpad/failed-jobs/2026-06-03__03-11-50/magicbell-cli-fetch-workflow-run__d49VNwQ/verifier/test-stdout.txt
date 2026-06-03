@@ -1,0 +1,247 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py EE                                             [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_fetch_run_script_execution _______________
+
+    @pytest.fixture(scope="session")
+    def setup_workflow_run():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        workflow_key = f"test-workflow-{run_id}"
+    
+        # 0. Login to MagicBell CLI
+        login_result = subprocess.run(
+            [
+                "magicbell", "login", "--manual",
+                "--email", os.environ.get("MAGICBELL_EMAIL", ""),
+                "--jwt", os.environ.get("MAGICBELL_PROJECT_TOKEN", ""),
+                "--api-key", os.environ.get("MAGICBELL_API_KEY", ""),
+                "--secret-key", os.environ.get("MAGICBELL_SECRET_KEY", "")
+            ],
+            capture_output=True, text=True
+        )
+        assert login_result.returncode == 0, f"Failed to login: {login_result.stderr}"
+    
+        # 1. Save workflow
+        workflow_data = json.dumps({
+            "key": workflow_key,
+            "steps": [{"command": "broadcast", "input": {"title": "Test", "content": "Test"}}]
+        })
+        save_result = subprocess.run(
+            ["magicbell", "workflow", "save", "--data", workflow_data],
+            capture_output=True, text=True
+        )
+        assert save_result.returncode == 0, f"Failed to save workflow: {save_result.stderr}"
+    
+        # 2. Create run
+        run_data = json.dumps({"workflow_key": workflow_key})
+        create_result = subprocess.run(
+            ["magicbell", "workflow", "create_run", "--data", run_data],
+            capture_output=True, text=True
+        )
+        assert create_result.returncode == 0, f"Failed to create workflow run: {create_result.stderr}"
+    
+        # Parse the output to extract id
+        try:
+>           run_obj = json.loads(create_result.stdout)
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <json.decoder.JSONDecoder object at 0x7f9a99da2f30>
+s = '{"time":"2026-06-03T03:45:15.174081721Z","level":"DEBUG","msg":"Using data from flag","data":"{\\"workflow_key\\": \\"test-workflow-zr-d49vnwq\\"}"}\n{"errors":[{"message":"Param \'key\' is missing"}]}\n\n'
+_w = <built-in method match of re.Pattern object at 0x7f9a99d62cf0>
+
+    def decode(self, s, _w=WHITESPACE.match):
+        """Return the Python representation of ``s`` (a ``str`` instance
+        containing a JSON document).
+    
+        """
+        obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+        end = _w(s, end).end()
+        if end != len(s):
+>           raise JSONDecodeError("Extra data", s, end)
+E           json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 145)
+
+usr/lib/python3.12/json/decoder.py:340: JSONDecodeError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="session")
+    def setup_workflow_run():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        workflow_key = f"test-workflow-{run_id}"
+    
+        # 0. Login to MagicBell CLI
+        login_result = subprocess.run(
+            [
+                "magicbell", "login", "--manual",
+                "--email", os.environ.get("MAGICBELL_EMAIL", ""),
+                "--jwt", os.environ.get("MAGICBELL_PROJECT_TOKEN", ""),
+                "--api-key", os.environ.get("MAGICBELL_API_KEY", ""),
+                "--secret-key", os.environ.get("MAGICBELL_SECRET_KEY", "")
+            ],
+            capture_output=True, text=True
+        )
+        assert login_result.returncode == 0, f"Failed to login: {login_result.stderr}"
+    
+        # 1. Save workflow
+        workflow_data = json.dumps({
+            "key": workflow_key,
+            "steps": [{"command": "broadcast", "input": {"title": "Test", "content": "Test"}}]
+        })
+        save_result = subprocess.run(
+            ["magicbell", "workflow", "save", "--data", workflow_data],
+            capture_output=True, text=True
+        )
+        assert save_result.returncode == 0, f"Failed to save workflow: {save_result.stderr}"
+    
+        # 2. Create run
+        run_data = json.dumps({"workflow_key": workflow_key})
+        create_result = subprocess.run(
+            ["magicbell", "workflow", "create_run", "--data", run_data],
+            capture_output=True, text=True
+        )
+        assert create_result.returncode == 0, f"Failed to create workflow run: {create_result.stderr}"
+    
+        # Parse the output to extract id
+        try:
+            run_obj = json.loads(create_result.stdout)
+            target_run_id = run_obj.get("id") or run_obj.get("workflow_run", {}).get("id")
+            if not target_run_id:
+                pytest.fail(f"Could not find 'id' in output: {create_result.stdout}")
+        except json.JSONDecodeError:
+>           pytest.fail(f"Failed to parse create_run output as JSON: {create_result.stdout}")
+E           Failed: Failed to parse create_run output as JSON: {"time":"2026-06-03T03:45:15.174081721Z","level":"DEBUG","msg":"Using data from flag","data":"{\"workflow_key\": \"test-workflow-zr-d49vnwq\"}"}
+E           {"errors":[{"message":"Param 'key' is missing"}]}
+
+tests/test_final_state.py:52: Failed
+_________________ ERROR at setup of test_output_file_contents __________________
+
+    @pytest.fixture(scope="session")
+    def setup_workflow_run():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        workflow_key = f"test-workflow-{run_id}"
+    
+        # 0. Login to MagicBell CLI
+        login_result = subprocess.run(
+            [
+                "magicbell", "login", "--manual",
+                "--email", os.environ.get("MAGICBELL_EMAIL", ""),
+                "--jwt", os.environ.get("MAGICBELL_PROJECT_TOKEN", ""),
+                "--api-key", os.environ.get("MAGICBELL_API_KEY", ""),
+                "--secret-key", os.environ.get("MAGICBELL_SECRET_KEY", "")
+            ],
+            capture_output=True, text=True
+        )
+        assert login_result.returncode == 0, f"Failed to login: {login_result.stderr}"
+    
+        # 1. Save workflow
+        workflow_data = json.dumps({
+            "key": workflow_key,
+            "steps": [{"command": "broadcast", "input": {"title": "Test", "content": "Test"}}]
+        })
+        save_result = subprocess.run(
+            ["magicbell", "workflow", "save", "--data", workflow_data],
+            capture_output=True, text=True
+        )
+        assert save_result.returncode == 0, f"Failed to save workflow: {save_result.stderr}"
+    
+        # 2. Create run
+        run_data = json.dumps({"workflow_key": workflow_key})
+        create_result = subprocess.run(
+            ["magicbell", "workflow", "create_run", "--data", run_data],
+            capture_output=True, text=True
+        )
+        assert create_result.returncode == 0, f"Failed to create workflow run: {create_result.stderr}"
+    
+        # Parse the output to extract id
+        try:
+>           run_obj = json.loads(create_result.stdout)
+
+tests/test_final_state.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <json.decoder.JSONDecoder object at 0x7f9a99da2f30>
+s = '{"time":"2026-06-03T03:45:15.174081721Z","level":"DEBUG","msg":"Using data from flag","data":"{\\"workflow_key\\": \\"test-workflow-zr-d49vnwq\\"}"}\n{"errors":[{"message":"Param \'key\' is missing"}]}\n\n'
+_w = <built-in method match of re.Pattern object at 0x7f9a99d62cf0>
+
+    def decode(self, s, _w=WHITESPACE.match):
+        """Return the Python representation of ``s`` (a ``str`` instance
+        containing a JSON document).
+    
+        """
+        obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+        end = _w(s, end).end()
+        if end != len(s):
+>           raise JSONDecodeError("Extra data", s, end)
+E           json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 145)
+
+usr/lib/python3.12/json/decoder.py:340: JSONDecodeError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="session")
+    def setup_workflow_run():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        workflow_key = f"test-workflow-{run_id}"
+    
+        # 0. Login to MagicBell CLI
+        login_result = subprocess.run(
+            [
+                "magicbell", "login", "--manual",
+                "--email", os.environ.get("MAGICBELL_EMAIL", ""),
+                "--jwt", os.environ.get("MAGICBELL_PROJECT_TOKEN", ""),
+                "--api-key", os.environ.get("MAGICBELL_API_KEY", ""),
+                "--secret-key", os.environ.get("MAGICBELL_SECRET_KEY", "")
+            ],
+            capture_output=True, text=True
+        )
+        assert login_result.returncode == 0, f"Failed to login: {login_result.stderr}"
+    
+        # 1. Save workflow
+        workflow_data = json.dumps({
+            "key": workflow_key,
+            "steps": [{"command": "broadcast", "input": {"title": "Test", "content": "Test"}}]
+        })
+        save_result = subprocess.run(
+            ["magicbell", "workflow", "save", "--data", workflow_data],
+            capture_output=True, text=True
+        )
+        assert save_result.returncode == 0, f"Failed to save workflow: {save_result.stderr}"
+    
+        # 2. Create run
+        run_data = json.dumps({"workflow_key": workflow_key})
+        create_result = subprocess.run(
+            ["magicbell", "workflow", "create_run", "--data", run_data],
+            capture_output=True, text=True
+        )
+        assert create_result.returncode == 0, f"Failed to create workflow run: {create_result.stderr}"
+    
+        # Parse the output to extract id
+        try:
+            run_obj = json.loads(create_result.stdout)
+            target_run_id = run_obj.get("id") or run_obj.get("workflow_run", {}).get("id")
+            if not target_run_id:
+                pytest.fail(f"Could not find 'id' in output: {create_result.stdout}")
+        except json.JSONDecodeError:
+>           pytest.fail(f"Failed to parse create_run output as JSON: {create_result.stdout}")
+E           Failed: Failed to parse create_run output as JSON: {"time":"2026-06-03T03:45:15.174081721Z","level":"DEBUG","msg":"Using data from flag","data":"{\"workflow_key\": \"test-workflow-zr-d49vnwq\"}"}
+E           {"errors":[{"message":"Param 'key' is missing"}]}
+
+tests/test_final_state.py:52: Failed
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_fetch_run_script_execution - Failed: Fa...
+ERROR tests/test_final_state.py::test_output_file_contents - Failed: Failed t...
+============================== 2 errors in 1.49s ===============================

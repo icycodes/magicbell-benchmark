@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+________________________ test_user_preferences_updated _________________________
+
+    def test_user_preferences_updated():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is missing"
+    
+        mb_email = os.environ.get("MAGICBELL_EMAIL")
+        assert mb_email, "MAGICBELL_EMAIL environment variable is missing"
+    
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        assert api_key, "MAGICBELL_API_KEY environment variable is missing"
+    
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+        assert secret_key, "MAGICBELL_SECRET_KEY environment variable is missing"
+    
+        user_email = f"{mb_email}+{run_id}@gmail.com"
+    
+        # Generate User JWT
+        payload = {
+            "user_email": user_email,
+            "api_key": api_key,
+        }
+        user_jwt = jwt.encode(payload, secret_key, algorithm="HS256")
+    
+        # Fetch user preferences
+        headers = {
+            "Authorization": f"Bearer {user_jwt}",
+            "Accept": "application/json"
+        }
+    
+        url = "https://api.magicbell.com/channels/user_preferences"
+        response = requests.get(url, headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch user preferences: {response.text}"
+E       AssertionError: Failed to fetch user preferences: 
+E       assert 405 == 200
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:45: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_user_preferences_updated - AssertionEr...
+========================= 1 failed, 1 passed in 0.78s ==========================

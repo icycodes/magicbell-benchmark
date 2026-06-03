@@ -1,0 +1,10 @@
+{
+  "task": [
+    "MAGICBELL_PROJECT_TOKEN",
+    "MAGICBELL_EMAIL"
+  ],
+  "verifier": [
+    "MAGICBELL_PROJECT_TOKEN",
+    "MAGICBELL_EMAIL"
+  ]
+}

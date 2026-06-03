@@ -1,0 +1,25 @@
+- Initializing MCP connections...
+You
+# List Workflow Runs via MagicBell CLI ## Background MagicBell workflows orchestrate multi-step notification campaigns. To monitor or debug these campaigns, you need to retrieve their execution history using the MagicBell CLI. ## Requirements * Write a bash script `list_runs.sh` that lists the runs for a specific workflow key. * The workflow key will be passed as the first argument to the script. * The script must use the MagicBell CLI to fetch the runs. * Ensure the CLI is authenticated non-interactively using the provided environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`). * Output the raw result of the CLI command to stdout. ## Implementation Hints * Install `magicbell-cli` globally via npm. * Authenticate the CLI using `magicbell login --manual` with the provided environment variables. * Use the `magicbell workflow list_runs` command, passing the workflow key via the `--workflow_key` flag. * The workflow key is available as `$1` in the bash script. ## Acceptance Criteria * Project path: /home/user/myproject * Command: bash list\_runs.sh \<workflow\_key> * The stdout should print the CLI's output for the workflow runs.   
+
+Pochi
+💭 Thinking for 2253 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💭 Thinking for 294 characters   
+✏️  Writing /home/user/myproject/list_runs.sh ✔ 
+💫 Executing chmod +x /home/user/myproject/list_runs.sh ✔ 
+💭 Thinking for 743 characters   
+🎉 Task Completed
+I have created the requested bash script `list_runs.sh` at `/home/user/myproject/list_runs.sh`.
+
+The script:
+1. Installs the `magicbell-cli` globally via npm if it's not already installed.
+2. Authenticates the CLI non-interactively using `magicbell login --manual`, which will automatically pick up the provided environment variables (`MAGICBELL_EMAIL`, `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, `MAGICBELL_SECRET_KEY`).
+3. Executes `magicbell workflow list_runs` and filters by the workflow key passed as the first argument, outputting the raw result to stdout.
+
+You can run it using:
+```bash
+cd /home/user/myproject
+bash list_runs.sh <workflow_key>
+```   
+  

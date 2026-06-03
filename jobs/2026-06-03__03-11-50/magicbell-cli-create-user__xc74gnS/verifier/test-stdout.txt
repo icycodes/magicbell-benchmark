@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+__________________ test_user_created_with_correct_attributes ___________________
+
+    def test_user_created_with_correct_attributes():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        # Parse log file for User ID
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+    
+        match = re.search(r"User ID:\s*([a-zA-Z0-9-]+)", content)
+        assert match, f"Could not find 'User ID: <user_id>' in {LOG_FILE}. Content: {content}"
+        user_id = match.group(1)
+    
+        # Use MagicBell API to fetch the user
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        headers = {
+            "Authorization": f"Bearer {project_token}"
+        }
+    
+        # Fetch user by ID
+        response = requests.get(f"https://api.magicbell.com/users/{user_id}", headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch user {user_id}: {response.text}"
+E       AssertionError: Failed to fetch user 019e8b88-ea6c-7093-b4cb-76400f63d3e4: {"errors":[{"message":"invalid user for the project with id: projectID[11857] userID[019e8b88-ea6c-7093-b4cb-76400f63d3e4]"}]}
+E         
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:34: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_user_created_with_correct_attributes
+========================= 1 failed, 1 passed in 0.63s ==========================

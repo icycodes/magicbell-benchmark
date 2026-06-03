@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780460984967,
+            "stop": 1780461022190
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_delete_notification_script",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 37080,
+                "start": 1780460985109,
+                "stop": 1780461022189,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_delete_notification_script():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is missing.\"\n    \n        script_path = os.path.join(PROJECT_DIR, \"delete_notification.js\")\n        assert os.path.isfile(script_path), f\"Script {script_path} does not exist.\"\n    \n        output_log = os.path.join(PROJECT_DIR, \"output.log\")\n    \n        # Run the script\n        with open(output_log, \"w\") as f:\n            result = subprocess.run(\n                [\"node\", \"delete_notification.js\"],\n                cwd=PROJECT_DIR,\n                stdout=f,\n                stderr=subprocess.STDOUT,\n                text=True\n            )\n    \n>       assert result.returncode == 0, f\"Script execution failed. Check {output_log} for details.\"\nE       AssertionError: Script execution failed. Check /home/user/magicbell-project/output.log for details.\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'delete_notification.js'], returncode=1).returncode\n\ntests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

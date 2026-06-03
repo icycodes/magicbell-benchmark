@@ -1,0 +1,88 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________ test_explicit_recipient_received_email ____________________
+
+    def test_explicit_recipient_received_email():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        expected_subject = f"Topic Broadcast {run_id}"
+        expected_recipient = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        # Wait a bit for emails to arrive
+        time.sleep(5)
+    
+        messages = list_inbox(max_results=30)
+    
+        found = False
+        for msg in messages:
+            subject = msg.get("subject", "")
+            to = msg.get("to", "")
+    
+            if expected_subject in subject and expected_recipient in to:
+                found = True
+                break
+    
+>       assert found, f"Email with subject '{expected_subject}' to '{expected_recipient}' not found in inbox."
+E       AssertionError: Email with subject 'Topic Broadcast zr-sn5bzoy' to 'REDACTED@gmail.com+zr-sn5bzoy@gmail.com' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:89: AssertionError
+________________________ test_broadcast_payload_in_log _________________________
+
+    def test_broadcast_payload_in_log():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+    
+        # Try to extract the JSON object from the log file
+        # We look for the first `{` and last `}`
+        start_idx = content.find('{')
+        end_idx = content.rfind('}')
+    
+        assert start_idx != -1 and end_idx != -1 and start_idx < end_idx, "No JSON object found in output.log."
+    
+        json_str = content[start_idx:end_idx+1]
+        try:
+            broadcast_data = json.loads(json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse JSON from output.log: {e}")
+    
+        # Verify the topic
+        expected_topic = f"announcements-{run_id}"
+        assert broadcast_data.get("topic") == expected_topic, f"Expected broadcast topic '{expected_topic}', got '{broadcast_data.get('topic')}'"
+    
+        # Verify the recipients array contains the topic subscribers flag
+        recipients = broadcast_data.get("recipients", [])
+        assert isinstance(recipients, list), "Recipients must be an array."
+    
+        found_topic_subscribers = False
+        for recipient in recipients:
+            topic_obj = recipient.get("topic")
+            if isinstance(topic_obj, dict) and topic_obj.get("subscribers") is True:
+                found_topic_subscribers = True
+                break
+    
+>       assert found_topic_subscribers, "Recipients array does not contain the topic subscribers flag: {'topic': {'subscribers': true}}"
+E       AssertionError: Recipients array does not contain the topic subscribers flag: {'topic': {'subscribers': true}}
+E       assert False
+
+tests/test_final_state.py:126: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_explicit_recipient_received_email - As...
+FAILED tests/test_final_state.py::test_broadcast_payload_in_log - AssertionEr...
+========================= 2 failed, 1 passed in 11.46s =========================

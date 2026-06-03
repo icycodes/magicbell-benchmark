@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_notification_counts ___________________________
+
+    def test_notification_counts():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is missing."
+    
+        base_email = os.environ.get("MAGICBELL_EMAIL")
+        assert base_email, "MAGICBELL_EMAIL environment variable is missing."
+    
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        assert api_key, "MAGICBELL_API_KEY environment variable is missing."
+    
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+        assert secret_key, "MAGICBELL_SECRET_KEY environment variable is missing."
+    
+        # Construct user email
+        user_email = f"{base_email}+{run_id}@gmail.com"
+    
+        # Generate User JWT
+        payload = {
+            "user_email": user_email,
+            "api_key": api_key
+        }
+        user_jwt = jwt.encode(payload, secret_key, algorithm="HS256")
+    
+        # Fetch notifications via MagicBell API
+        headers = {
+            "Authorization": f"Bearer {user_jwt}",
+            "X-MAGICBELL-API-KEY": api_key
+        }
+        response = requests.get("https://api.magicbell.com/notifications", headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch notifications: {response.text}"
+E       AssertionError: Failed to fetch notifications: {"errors":[{"code":"invalid_user_email","message":"User email not valid","suggestion":"Please provide a valid email address in the 'X-MAGICBELL-USER-EMAIL' header.","help_link":"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv"}]}
+E         
+E       assert 401 == 200
+E        +  where 401 = <Response [401]>.status_code
+
+tests/test_final_state.py:40: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_exists
+FAILED tests/test_final_state.py::test_notification_counts - AssertionError: ...
+========================= 1 failed, 1 passed in 0.81s ==========================

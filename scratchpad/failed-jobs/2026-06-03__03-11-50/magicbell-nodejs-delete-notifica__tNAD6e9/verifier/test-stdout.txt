@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_delete_notification_script ________________________
+
+    def test_delete_notification_script():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is missing."
+    
+        script_path = os.path.join(PROJECT_DIR, "delete_notification.js")
+        assert os.path.isfile(script_path), f"Script {script_path} does not exist."
+    
+        output_log = os.path.join(PROJECT_DIR, "output.log")
+    
+        # Run the script
+        with open(output_log, "w") as f:
+            result = subprocess.run(
+                ["node", "delete_notification.js"],
+                cwd=PROJECT_DIR,
+                stdout=f,
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+    
+        assert result.returncode == 0, f"Script execution failed. Check {output_log} for details."
+    
+        with open(output_log, "r") as f:
+            output_content = f.read()
+    
+        # Parse 'Deleted Notification ID: <id>'
+        match = re.search(r"Deleted Notification ID:\s*([a-zA-Z0-9\-]+)", output_content)
+        assert match is not None, f"Could not find 'Deleted Notification ID: <id>' in output.log. Output was: {output_content}"
+    
+        notification_id = match.group(1)
+    
+        # Verify the notification is deleted via MagicBell API
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is missing."
+    
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Accept": "application/json"
+        }
+    
+        response = requests.get(
+            f"https://api.magicbell.com/notifications/{notification_id}",
+            headers=headers
+        )
+    
+        # If deleted, it should return 404
+>       assert response.status_code == 404, f"Expected notification {notification_id} to be deleted (404), but got status {response.status_code}. Response: {response.text}"
+E       AssertionError: Expected notification 019e8b89-c38f-737d-ace5-bf69f54f23a3 to be deleted (404), but got status 401. Response: {"errors":[{"message":"authorize: incorrect role, claim[project] roles[[user]]: role not found: token has invalid claims"}]}
+E         
+E       assert 401 == 404
+E        +  where 401 = <Response [401]>.status_code
+
+tests/test_final_state.py:54: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_delete_notification_script - Assertion...
+============================== 1 failed in 11.44s ==============================

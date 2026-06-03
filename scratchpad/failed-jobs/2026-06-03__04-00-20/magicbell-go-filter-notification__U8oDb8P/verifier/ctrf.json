@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780462765665,
+            "stop": 1780462766359
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780462766055,
+                "stop": 1780462766057,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_notification_counts",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 302,
+                "start": 1780462766057,
+                "stop": 1780462766359,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_notification_counts():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is missing.\"\n    \n        base_email = os.environ.get(\"MAGICBELL_EMAIL\")\n        assert base_email, \"MAGICBELL_EMAIL environment variable is missing.\"\n    \n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        assert api_key, \"MAGICBELL_API_KEY environment variable is missing.\"\n    \n        secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\")\n        assert secret_key, \"MAGICBELL_SECRET_KEY environment variable is missing.\"\n    \n        # Construct user email\n        user_email = f\"{base_email}+{run_id}@gmail.com\"\n    \n        # Generate User JWT\n        payload = {\n            \"user_email\": user_email,\n            \"api_key\": api_key\n        }\n        user_jwt = jwt.encode(payload, secret_key, algorithm=\"HS256\")\n    \n        # Fetch notifications via MagicBell API\n        headers = {\n            \"Authorization\": f\"Bearer {user_jwt}\",\n            \"X-MAGICBELL-API-KEY\": api_key\n        }\n        response = requests.get(\"https://api.magicbell.com/notifications\", headers=headers)\n>       assert response.status_code == 200, f\"Failed to fetch notifications: {response.text}\"\nE       AssertionError: Failed to fetch notifications: {\"errors\":[{\"code\":\"invalid_user_email\",\"message\":\"User email not valid\",\"suggestion\":\"Please provide a valid email address in the 'X-MAGICBELL-USER-EMAIL' header.\",\"help_link\":\"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv\"}]}\nE         \nE       assert 401 == 200\nE        +  where 401 = <Response [401]>.status_code\n\ntests/test_final_state.py:40: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

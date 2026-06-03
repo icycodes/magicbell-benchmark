@@ -1,0 +1,27 @@
+const jwt = require('jsonwebtoken');
+
+const apiKey = process.env.MAGICBELL_API_KEY;
+const secretKey = process.env.MAGICBELL_SECRET_KEY;
+const emailPrefix = process.env.MAGICBELL_EMAIL;
+const runId = process.env.ZEALT_RUN_ID;
+
+if (!apiKey || !secretKey || !emailPrefix || !runId) {
+  console.error("Missing required environment variables: MAGICBELL_API_KEY, MAGICBELL_SECRET_KEY, MAGICBELL_EMAIL, ZEALT_RUN_ID");
+  process.exit(1);
+}
+
+const userEmail = `${emailPrefix}+${runId}@gmail.com`;
+const userExternalId = `user_${runId}`;
+
+const payload = {
+  user_email: userEmail,
+  user_external_id: userExternalId,
+  api_key: apiKey
+};
+
+const token = jwt.sign(payload, secretKey, {
+  algorithm: 'HS256',
+  expiresIn: '1y'
+});
+
+console.log(`User JWT: ${token}`);

@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+______________________ test_broadcast_and_email_received _______________________
+
+    def test_broadcast_and_email_received():
+        """Send a broadcast to the topic and verify the user receives it via Gmail."""
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID is not set"
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL")
+        assert magicbell_email, "MAGICBELL_EMAIL is not set"
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+    
+        local_part, domain = magicbell_email.split("@", 1)
+        target_email = f"{local_part}+topic-sub-{run_id}@{domain}"
+        topic_name = f"updates-{run_id}"
+        subject = f"Topic Update {run_id}"
+    
+        # Send broadcast to the topic
+        url = "https://api.magicbell.com/broadcasts"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "X-MAGICBELL-API-KEY": api_key,
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "broadcast": {
+                "title": subject,
+                "recipients": [{"topic": {"subscribers": True}}],
+                "topic": topic_name
+            }
+        }
+    
+        response = requests.post(url, headers=headers, json=payload)
+        assert response.status_code in (201, 202, 200), f"Failed to send broadcast: {response.text}"
+    
+        # Wait for email delivery
+        time.sleep(10)
+    
+        # Check inbox for the email
+        messages = list_inbox(max_results=20)
+    
+        found = False
+        for msg in messages:
+            if subject in msg["subject"] and target_email in msg["to"]:
+                found = True
+                break
+    
+>       assert found, f"Email with subject '{subject}' to '{target_email}' not found in inbox."
+E       AssertionError: Email with subject 'Topic Update zr-fp8ncnb' to 'REDACTED+topic-sub-zr-fp8ncnb@gmail.com' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:117: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_content
+FAILED tests/test_final_state.py::test_broadcast_and_email_received - Asserti...
+========================= 1 failed, 1 passed in 12.92s =========================

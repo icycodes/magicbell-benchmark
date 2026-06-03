@@ -1,0 +1,23 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "vite --host 0.0.0.0 --port 3000"
+  },
+  "dependencies": {
+    "@magicbell/react": "^1.13.0",
+    "concurrently": "^8.2.2",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
+    "magicbell-js": "^1.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^5.4.21"
+  }
+}

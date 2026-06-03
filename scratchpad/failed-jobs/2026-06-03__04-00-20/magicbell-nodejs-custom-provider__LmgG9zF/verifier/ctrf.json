@@ -1,0 +1,49 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780462530898,
+            "stop": 1780462531295
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_log_file_exists_and_contains_broadcast_id",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 34,
+                "start": 1780462531256,
+                "stop": 1780462531290,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists_and_contains_broadcast_id():\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} does not exist.\"\nE       AssertionError: Log file /home/user/magicbell-project/output.log does not exist.\nE       assert False\nE        +  where False = <function isfile at 0x7f5c03a1c220>('/home/user/magicbell-project/output.log')\nE        +    where <function isfile at 0x7f5c03a1c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_broadcast_details",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1780462531290,
+                "stop": 1780462531294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_broadcast_details():\n        broadcast_id = os.environ.get(\"TEST_BROADCAST_ID\")\n>       assert broadcast_id is not None, \"Broadcast ID not found from the previous test.\"\nE       AssertionError: Broadcast ID not found from the previous test.\nE       assert None is not None\n\ntests/test_final_state.py:25: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

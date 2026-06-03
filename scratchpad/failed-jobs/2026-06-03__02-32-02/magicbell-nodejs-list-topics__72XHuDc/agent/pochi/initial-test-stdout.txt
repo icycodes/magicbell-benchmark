@@ -1,0 +1,59 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+bootstrap/test_initial_state.py::test_node_and_npm_available PASSED
+bootstrap/test_initial_state.py::test_project_directory_exists PASSED
+bootstrap/test_initial_state.py::test_setup_user_topic_subscription FAILED
+
+=================================== FAILURES ===================================
+______________________ test_setup_user_topic_subscription ______________________
+
+    def test_setup_user_topic_subscription():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        # Construct the plus format email
+        parts = magicbell_email.split("@")
+        assert len(parts) == 2, "MAGICBELL_EMAIL is not a valid email address."
+        user_email = f"{parts[0]}+{run_id}@{parts[1]}"
+    
+        topic = f"test-topic-{run_id}"
+    
+        # Send a broadcast to the user with the specific topic to automatically subscribe them
+        broadcast_data = {
+            "title": "Initial Setup Broadcast",
+            "content": "This broadcast sets up the initial topic subscription.",
+            "topic": topic,
+            "recipients": [
+                {"email": user_email}
+            ]
+        }
+    
+        # Login first
+        login_cmd = [
+            "magicbell", "login", "--manual",
+            "--email", os.environ["MAGICBELL_EMAIL"],
+>           "--jwt", os.environ["MAGICBELL_PROJECT_TOKEN"],
+            "--api-key", os.environ["MAGICBELL_API_KEY"],
+            "--secret-key", os.environ["MAGICBELL_SECRET_KEY"]
+        ]
+
+bootstrap/test_initial_state.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = environ({'MAGICBELL_EMAIL': 'REDACTED@gmail.com', 'HOSTNAME': '15d47a27d832', 'POCHI_LOG': 'debug', 'MAGICBELL_API_KE...st', 'LC_CTYPE': 'C.UTF-8', 'PYTEST_CURRENT_TEST': 'test_initial_state.py::test_setup_user_topic_subscription (call)'})
+key = 'MAGICBELL_PROJECT_TOKEN'
+
+>   ???
+E   KeyError: 'MAGICBELL_PROJECT_TOKEN'
+
+<frozen os>:685: KeyError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_setup_user_topic_subscription - ...
+========================= 1 failed, 2 passed in 0.04s ==========================

@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+________________ test_log_file_exists_and_contains_broadcast_id ________________
+
+    def test_log_file_exists_and_contains_broadcast_id():
+>       assert os.path.isfile(LOG_FILE), f"Log file {LOG_FILE} does not exist."
+E       AssertionError: Log file /home/user/magicbell-project/output.log does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7f4f5df34220>('/home/user/magicbell-project/output.log')
+E        +    where <function isfile at 0x7f4f5df34220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+____________________________ test_broadcast_details ____________________________
+
+    def test_broadcast_details():
+        broadcast_id = os.environ.get("TEST_BROADCAST_ID")
+>       assert broadcast_id is not None, "Broadcast ID not found from the previous test."
+E       AssertionError: Broadcast ID not found from the previous test.
+E       assert None is not None
+
+tests/test_final_state.py:25: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_log_file_exists_and_contains_broadcast_id
+FAILED tests/test_final_state.py::test_broadcast_details - AssertionError: Br...
+============================== 2 failed in 0.52s ===============================

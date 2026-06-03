@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py .F.                                            [100%]
+
+=================================== FAILURES ===================================
+____________________ test_explicit_recipient_received_email ____________________
+
+    def test_explicit_recipient_received_email():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        expected_subject = f"Topic Broadcast {run_id}"
+        expected_recipient = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        # Wait a bit for emails to arrive
+        time.sleep(5)
+    
+        messages = list_inbox(max_results=30)
+    
+        found = False
+        for msg in messages:
+            subject = msg.get("subject", "")
+            to = msg.get("to", "")
+    
+            if expected_subject in subject and expected_recipient in to:
+                found = True
+                break
+    
+>       assert found, f"Email with subject '{expected_subject}' to '{expected_recipient}' not found in inbox."
+E       AssertionError: Email with subject 'Topic Broadcast zr-e9vsnh3' to 'REDACTED@gmail.com+zr-e9vsnh3@gmail.com' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:89: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+PASSED tests/test_final_state.py::test_broadcast_payload_in_log
+FAILED tests/test_final_state.py::test_explicit_recipient_received_email - As...
+========================= 1 failed, 2 passed in 12.32s =========================

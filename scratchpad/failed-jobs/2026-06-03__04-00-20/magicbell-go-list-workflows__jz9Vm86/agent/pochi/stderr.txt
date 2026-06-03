@@ -1,0 +1,16 @@
+[37m2026-06-03 04:43:07.024[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.12
+[37m2026-06-03 04:43:07.342[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521107[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-06-03 04:43:07.344[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521108[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-06-03 04:43:07.397[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:448506[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-06-03 04:43:08.692[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419064[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-06-03 04:43:08.693[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419176[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-06-03 04:43:08.789[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-06-03 04:43:08.945[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # List Workflows with Go SDK
+[37m2026-06-03 04:43:25.820[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # List Workflows with Go SDK, new: List workflows using MagicBell Go SDK
+[37m2026-06-03 04:43:58.646[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520698[39m[0m[0m[1m[37m	tool-result-persistence[39m[22m[0m[0m	Persisted MCP content for webFetch(call_4a33): 63498 chars -> /root/.pochi/tasks/e2b1c565-b36a-4d72-ba70-b5f0a4fec1cd/tool-results/webFetch-call_4a33.json
+[37m2026-06-03 04:44:03.211[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /root/.pochi/tasks/e2b1c565-b36a-4d72-ba70-b5f0a4fec1cd/tool-results ClientResponse [90mundefined[39m
+[37m2026-06-03 04:44:03.212[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:466965[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'ClientResponse' '/root/.pochi/tasks/e2b1c565-b36a-4d72-ba70-b5f0a4fec1cd/tool-results'
+[37m2026-06-03 04:45:34.384[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-06-03 04:45:34.385[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-06-03 04:45:34.404[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-06-03 04:45:34.405[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

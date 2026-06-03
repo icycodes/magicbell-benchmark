@@ -1,0 +1,77 @@
+[
+  {
+    "code": 200,
+    "context": {
+      "channel": "email",
+      "delivery_id": "019e8bb0-8162-7a24-a1dd-9de9513c4d62",
+      "notification_id": "019e8bb0-59c6-767d-9e26-0cd169ba6dba",
+      "provider": "smtp",
+      "user_id": "60320ca3-cf2d-40e2-941d-333accb6afa3"
+    },
+    "id": "019e8bb0-c453-7ef6-b27e-4e7c9b1c0f7d",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T04:14:38.163545468Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "in_app",
+      "delivery_id": "019e8bb0-8162-7a23-8fb4-d542afc60c79",
+      "notification_id": "019e8bb0-59c6-767d-9e26-0cd169ba6dba",
+      "provider": "magicbell",
+      "user_id": "60320ca3-cf2d-40e2-941d-333accb6afa3"
+    },
+    "id": "019e8bb0-a185-7a25-be65-2fc0bbc197a9",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T04:14:29.253715738Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "in_app",
+      "delivery_id": "019e8baf-2d92-774b-a6d2-fa1c0b791d46",
+      "notification_id": "019e8baf-066f-7fb5-8b1f-bca6fd7f258e",
+      "provider": "magicbell",
+      "user_id": "de29e0f8-41db-4c1d-a536-1ee46d42ac31"
+    },
+    "id": "019e8baf-4813-72d6-ab8a-262f99644bf4",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T04:13:00.819206268Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "email",
+      "delivery_id": "019e8bac-4087-7e33-a9ae-dec5f7d47531",
+      "notification_id": "019e8bac-18b2-74e7-b0e1-cc45b69a5199",
+      "provider": "smtp",
+      "user_id": "7eebb11b-f476-4f83-a96a-9008cb4ea069"
+    },
+    "id": "019e8bac-7673-76c8-a3e4-a3daa90b5664",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T04:09:56.083646008Z",
+    "type": "delivery.sent"
+  },
+  {
+    "code": 200,
+    "context": {
+      "channel": "in_app",
+      "delivery_id": "019e8bac-4087-7e32-bb6e-7b649b9fb8a8",
+      "notification_id": "019e8bac-18b2-74e7-b0e1-cc45b69a5199",
+      "provider": "magicbell",
+      "user_id": "7eebb11b-f476-4f83-a96a-9008cb4ea069"
+    },
+    "id": "019e8bac-5894-76c0-a6ae-e2495df48a46",
+    "level": "info",
+    "log": "delivery sent",
+    "timestamp": "2026-06-03T04:09:48.436151003Z",
+    "type": "delivery.sent"
+  }
+]

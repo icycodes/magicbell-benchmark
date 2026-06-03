@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780461388316,
+            "stop": 1780461389711
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_workflow_management",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1064,
+                "start": 1780461388647,
+                "stop": 1780461389711,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_workflow_management():\n        run_id = get_run_id()\n        workflow_key = f\"test-workflow-{run_id}\"\n        token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        assert token, \"MAGICBELL_PROJECT_TOKEN environment variable is not set.\"\n    \n        headers = {\n            \"Authorization\": f\"Bearer {token}\"\n        }\n    \n        # 1. Create Workflow\n        result_create = subprocess.run(\n            [\"go\", \"run\", \"main.go\", \"create\"],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR\n        )\n>       assert result_create.returncode == 0, f\"'go run main.go create' failed: {result_create.stderr}\"\nE       AssertionError: 'go run main.go create' failed: Error creating workflow: <nil>\nE         exit status 1\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['go', 'run', 'main.go', 'create'], returncode=1, stdout='', stderr='Error creating workflow: <nil>\\nexit status 1\\n').returncode\n\ntests/test_final_state.py:29: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

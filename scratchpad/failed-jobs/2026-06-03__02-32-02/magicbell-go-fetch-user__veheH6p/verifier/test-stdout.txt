@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________________ test_fetch_user ________________________________
+
+    def test_fetch_user():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        base_email = os.environ.get("MAGICBELL_EMAIL")
+    
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable not set."
+        assert base_email, "MAGICBELL_EMAIL environment variable not set."
+    
+        external_id = f"test-user-{run_id}"
+        email = f"{base_email}+{run_id}@gmail.com"
+    
+        # 1. Create the user using MagicBell API
+        url = "https://api.magicbell.com/users"
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "user": {
+                "external_id": external_id,
+                "email": email
+            }
+        }
+        resp = requests.put(url, headers=headers, json=payload)
+>       assert resp.status_code in (200, 201), f"Failed to create user: {resp.text}"
+E       AssertionError: Failed to create user: 
+E       assert 405 in (200, 201)
+E        +  where 405 = <Response [405]>.status_code
+
+tests/test_final_state.py:32: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_fetch_user - AssertionError: Failed to...
+============================== 1 failed in 0.70s ===============================

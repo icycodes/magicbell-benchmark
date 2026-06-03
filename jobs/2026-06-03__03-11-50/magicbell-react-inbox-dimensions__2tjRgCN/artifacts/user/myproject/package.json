@@ -1,0 +1,28 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"vite\" \"node server.js\""
+  },
+  "dependencies": {
+    "@magicbell/react": "^1.13.0",
+    "cors": "^2.8.6",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
+    "magicbell-js": "^1.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^8.2.2",
+    "vite": "^5.4.21"
+  },
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}

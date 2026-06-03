@@ -1,0 +1,162 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 5 items
+
+bootstrap/test_initial_state.py::test_node_available PASSED
+bootstrap/test_initial_state.py::test_npm_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_sdk_installed PASSED
+bootstrap/test_initial_state.py::test_workflow_exists FAILED
+
+=================================== FAILURES ===================================
+_____________________________ test_workflow_exists _____________________________
+
+    def test_workflow_exists():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        workflow_key = f"welcome-workflow-{run_id}"
+    
+        # Create the workflow first
+        create_req = urllib.request.Request(
+            "https://api.magicbell.com/workflows",
+            data=json.dumps({
+                "workflow": {
+                    "key": workflow_key,
+                    "steps": [
+                        {
+                            "command": "broadcast",
+                            "input": {
+                                "title": "Welcome to MagicBell!",
+                                "recipients": [
+                                    {
+                                        "email": "{{user.email}}"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {project_token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            method="POST"
+        )
+        try:
+            with urllib.request.urlopen(create_req) as response:
+                pass # Successfully created
+        except urllib.error.HTTPError as e:
+            # If it already exists, that's fine, but let's just ignore 422 or update it
+            pass
+    
+        req = urllib.request.Request(
+            f"https://api.magicbell.com/workflows/{workflow_key}",
+            headers={
+                "Authorization": f"Bearer {project_token}",
+                "Accept": "application/json"
+            }
+        )
+    
+        try:
+>           with urllib.request.urlopen(req) as response:
+
+bootstrap/test_initial_state.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+usr/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+usr/lib/python3.12/urllib/request.py:521: in open
+    response = meth(req, response)
+usr/lib/python3.12/urllib/request.py:630: in http_response
+    response = self.parent.error(
+usr/lib/python3.12/urllib/request.py:559: in error
+    return self._call_chain(*args)
+usr/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib.request.HTTPDefaultErrorHandler object at 0x7f933ee40ce0>
+req = <urllib.request.Request object at 0x7f933f6f9640>
+fp = <http.client.HTTPResponse object at 0x7f933ed17ee0>, code = 403
+msg = 'Forbidden', hdrs = <http.client.HTTPMessage object at 0x7f933ed70410>
+
+    def http_error_default(self, req, fp, code, msg, hdrs):
+>       raise HTTPError(req.full_url, code, msg, hdrs, fp)
+E       urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+usr/lib/python3.12/urllib/request.py:639: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+    def test_workflow_exists():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set."
+    
+        workflow_key = f"welcome-workflow-{run_id}"
+    
+        # Create the workflow first
+        create_req = urllib.request.Request(
+            "https://api.magicbell.com/workflows",
+            data=json.dumps({
+                "workflow": {
+                    "key": workflow_key,
+                    "steps": [
+                        {
+                            "command": "broadcast",
+                            "input": {
+                                "title": "Welcome to MagicBell!",
+                                "recipients": [
+                                    {
+                                        "email": "{{user.email}}"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {project_token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            method="POST"
+        )
+        try:
+            with urllib.request.urlopen(create_req) as response:
+                pass # Successfully created
+        except urllib.error.HTTPError as e:
+            # If it already exists, that's fine, but let's just ignore 422 or update it
+            pass
+    
+        req = urllib.request.Request(
+            f"https://api.magicbell.com/workflows/{workflow_key}",
+            headers={
+                "Authorization": f"Bearer {project_token}",
+                "Accept": "application/json"
+            }
+        )
+    
+        try:
+            with urllib.request.urlopen(req) as response:
+                assert response.status == 200, f"Expected status 200, got {response.status}"
+                data = json.loads(response.read().decode("utf-8"))
+                assert data.get("workflow", {}).get("key") == workflow_key, "Workflow key does not match."
+        except urllib.error.HTTPError as e:
+>           pytest.fail(f"Failed to fetch workflow {workflow_key}: {e.code} {e.reason}")
+E           Failed: Failed to fetch workflow welcome-workflow-zr-h5beejm: 403 Forbidden
+
+bootstrap/test_initial_state.py:85: Failed
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_workflow_exists - Failed: Failed...
+========================= 1 failed, 4 passed in 0.52s ==========================

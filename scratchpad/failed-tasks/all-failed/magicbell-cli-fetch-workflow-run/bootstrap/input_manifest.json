@@ -1,0 +1,7 @@
+{
+  "library_name": "MagicBell CLI",
+  "task_name": "magicbell-cli-fetch-workflow-run",
+  "complexity_level": "simple single terminal command",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks"
+}

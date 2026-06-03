@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780451396769,
+            "stop": 1780451571604
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_jwt_endpoint",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 158,
+                "start": 1780451397048,
+                "stop": 1780451397206,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_backend_jwt_endpoint(start_app):\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"default-run-id\")\n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"\")\n        magicbell_api_key = os.environ.get(\"MAGICBELL_API_KEY\", \"\")\n        magicbell_secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\", \"\")\n    \n        response = requests.get(\"http://localhost:3001/token\")\n        assert response.status_code == 200, f\"Expected status 200, got {response.status_code}\"\n    \n        data = response.json()\n        assert \"token\" in data, \"Response JSON does not contain 'token'\"\n    \n        token = data[\"token\"]\n    \n        # Decode the JWT\n        try:\n            decoded = jwt.decode(token, magicbell_secret_key, algorithms=[\"HS256\"])\n        except Exception as e:\n            pytest.fail(f\"Failed to decode JWT: {e}\")\n    \n        expected_email = f\"{magicbell_email}+{run_id}@gmail.com\"\n        expected_external_id = f\"user-{run_id}\"\n    \n>       assert decoded.get(\"user_email\") == expected_email, f\"Expected user_email {expected_email}, got {decoded.get('user_email')}\"\nE       AssertionError: Expected user_email REDACTED@gmail.com+zr-k4rhuel@gmail.com, got REDACTED+zr-k4rhuel@gmail.com\nE       assert 'REDACTED+zr...uel@gmail.com' == 'REDACTED@gm...uel@gmail.com'\nE         - REDACTED@gmail.com+zr-k4rhuel@gmail.com\nE         ?          ----------\nE         + REDACTED+zr-k4rhuel@gmail.com\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frontend_render_and_dimensions",
+                "status": "passed",
+                "duration": 174398,
+                "start": 1780451397206,
+                "stop": 1780451571604,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

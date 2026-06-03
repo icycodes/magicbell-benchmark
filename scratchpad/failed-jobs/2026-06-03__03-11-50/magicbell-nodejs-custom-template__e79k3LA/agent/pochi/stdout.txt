@@ -1,0 +1,92 @@
+- Initializing MCP connections...
+You
+# Broadcast with Custom Email Template ## Background MagicBell allows you to send broadcasts to multiple channels simultaneously. Sometimes, you need to customize the content for a specific channel. Using the `overrides` property, you can provide channel-specific content (a "custom template") that differs from the default broadcast content. ## Requirements * Create a Node.js script `index.js` that uses the `magicbell-js` ProjectClient to send a broadcast. * The broadcast must be sent to the email address `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com`. * The broadcast must include a default `title` and `content`. * The broadcast must include an `overrides` configuration specifically for the `email` channel. * The email channel override must set the title to `Custom Email Title ${ZEALT_RUN_ID}` and the content to `Custom Email Content ${ZEALT_RUN_ID}`. * The script must print the created broadcast ID to standard output. ## Implementation Hints * Read the `MAGICBELL_PROJECT_TOKEN` and `ZEALT_RUN_ID` from the environment variables. * Instantiate the `Client` from `magicbell-js/project-client`. * Use `client.broadcasts.createBroadcast` to send the notification. * In the broadcast payload, use `overrides.channels.email` to specify the custom `title` and `content` for the email delivery. ## Acceptance Criteria * Project path: /home/user/magicbell-nodejs-custom-template * Ensure the script is executed and the artifacts exist. * Log file: /home/user/magicbell-nodejs-custom-template/output.log * The script must output the broadcast ID in the format: `Broadcast ID: <id>` to the log file. * An email must be delivered to `${MAGICBELL_EMAIL}+${ZEALT_RUN_ID}@gmail.com` with the subject `Custom Email Title ${ZEALT_RUN_ID}`.   
+
+Pochi
+💭 Thinking for 746 characters   
+💫 Executing mkdir -p /home/user/magicbell-nodejs-custom-template && cd /home/user/magicbell-nodejs-custom-template && npm init -y && npm install magicbell-js ✔ 
+💭 Thinking for 1018 characters   
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/project-client/broadcasts.d.ts ✖ "Command exited with code 1"
+💫 Executing find /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js -name "*.d.ts" ✔ 
+💫 Executing find /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js -name "*broadcast*" ✔ 
+💭 Thinking for 257 characters   
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/broadcasts-service.d.ts ✔ 
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💭 Thinking for 591 characters   
+💫 Executing grep -A 20 "recipients:" /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💫 Executing grep -A 5 "title:" /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/services/broadcasts/models/broadcast.d.ts ✔ 
+💭 Thinking for 756 characters   
+✏️  Writing /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 204 characters   
+💫 Executing node /home/user/magicbell-nodejs-custom-template/index.js ✖ "Command exited with code 1"
+💭 Thinking for 159 characters   
+💫 Executing cd /home/user/magicbell-nodejs-custom-template && npm install tslib ✔ 
+💫 Executing node /home/user/magicbell-nodejs-custom-template/index.js ✖ "Command exited with code 1"
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client.d.ts ✔ 
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/index.d.ts ✔ 
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/node_modules/magicbell-js/dist/commonjs/project-client/http/types.d.ts ✔ 
+💭 Thinking for 722 characters   
+✏️  Writing /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💫 Executing node /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💫 Executing cat << 'EOF' > /home/user/magicbell-nodejs-custom-template/test.js
+const { Client } = require('magicbell-js/project-client');
+
+async function main() {
+  const projectToken = process.env.MAGICBELL_PROJECT_TOKEN;
+  const zealtRunId = process.env.ZEALT_RUN_ID;
+  const magicbellEmail = process.env.MAGICBELL_EMAIL;
+
+  const client = new Client({
+    token: projectToken,
+  });
+
+  try {
+    const broadcast = await client.broadcasts.createBroadcast({
+      recipients: [
+        { email: `${magicbellEmail}+${zealtRunId}@gmail.com` }
+      ],
+      title: `Default Title ${zealtRunId}`,
+      content: `Default Content ${zealtRunId}`,
+      overrides: {
+        channels: {
+          email: {
+            title: `Custom Email Title ${zealtRunId}`,
+            content: `Custom Email Content ${zealtRunId}`,
+          }
+        }
+      }
+    });
+
+    console.log(JSON.stringify(broadcast, null, 2));
+  } catch (error) {
+    console.error("Error creating broadcast:", error);
+  }
+}
+
+main();
+EOF
+node /home/user/magicbell-nodejs-custom-template/test.js
+ ✔ 
+✏️  Writing /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 178 characters   
+💫 Executing node /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 289 characters   
+💫 Executing echo $MAGICBELL_EMAIL ✔ 
+💭 Thinking for 2031 characters   
+✏️  Writing /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 181 characters   
+💫 Executing node /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 533 characters   
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/output.log ✔ 
+💭 Thinking for 433 characters   
+💫 Executing cat /home/user/magicbell-nodejs-custom-template/index.js ✔ 
+💭 Thinking for 351 characters   
+🎉 Task Completed
+The task has been successfully completed. 
+
+I've created the Node.js project in `/home/user/magicbell-nodejs-custom-template` and installed the `magicbell-js` dependency. The `index.js` script correctly uses the `ProjectClient` to send a broadcast utilizing custom email templates via the `overrides` property. 
+
+The script dynamically constructs the email address by injecting the `${ZEALT_RUN_ID}` and ensures it's correctly formatted for delivery. It includes default title and content, and specifies overrides for the email channel with the required custom title and content format.
+
+The script has been executed successfully, and the resulting broadcast ID has been logged to the console and saved in the required format (`Broadcast ID: <id>`) to `/home/user/magicbell-nodejs-custom-template/output.log`. The email should be delivered to your inbox shortly.   
+  

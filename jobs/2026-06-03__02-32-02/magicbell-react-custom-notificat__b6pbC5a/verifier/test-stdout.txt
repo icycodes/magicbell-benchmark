@@ -1,0 +1,88 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________ test_browser_custom_notification_item _____________________
+
+start_app = None
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7fdf5a1a9280>
+
+    def test_browser_custom_notification_item(start_app, browser_verifier):
+        """Use browser to verify the custom notification item and mark-as-read functionality."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "default")
+    
+        reason = "The application should render a FloatingInbox with a custom notification item component that includes a specific structure and a mark-as-read button."
+        truth = f"""
+        1. Navigate to http://localhost:3000.
+        2. Wait for the page to load and click the MagicBell FloatingInbox bell icon to open the inbox.
+        3. Verify that the inbox displays a notification with the title 'Test Notification {run_id}'.
+        4. Inspect the DOM of this notification item. Verify there is an element with class 'custom-notification-item'.
+        5. Inside the item, verify there is an element with class 'custom-notification-title' containing 'Test Notification {run_id}'.
+        6. Inside the item, verify there is an element with class 'custom-notification-content' containing 'This is a test'.
+        7. Inside the item, verify there is a button with class 'custom-mark-read-btn'.
+        8. Click the 'custom-mark-read-btn' button.
+        9. Verify that the notification is marked as read (e.g., the 'custom-mark-read-btn' should disappear or the UI should indicate it is read).
+        """
+    
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_custom_notification_item"
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The verification failed because the expected notification 'Test Notification zr-b6pbc5a' was not found in the MagicBell inbox. The inbox consistently displayed an 'All clear!' empty state with a notification count of 0, even after waiting and reloading the page. As a result, the subsequent verification steps involving DOM inspection and interaction could not be completed.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:71: AssertionError
+______________________ test_api_notification_marked_read _______________________
+
+start_app = None
+
+    def test_api_notification_marked_read(start_app):
+        """Verify via MagicBell API that the notification was actually marked as read."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "default")
+    
+        # Get the User JWT from the backend
+        response = requests.get("http://localhost:3001/token")
+        assert response.status_code == 200
+        token = response.json().get("token") if isinstance(response.json(), dict) else response.text
+    
+        # Fetch notifications using the User JWT
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json"
+        }
+    
+        # Allow some time for the read status to propagate if needed
+        time.sleep(2)
+    
+        api_response = requests.get("https://api.magicbell.com/notifications", headers=headers)
+        assert api_response.status_code == 200, f"Failed to fetch notifications: {api_response.text}"
+    
+        notifications = api_response.json().get("notifications", [])
+    
+        target_notification = next((n for n in notifications if n.get("title") == f"Test Notification {run_id}"), None)
+>       assert target_notification is not None, f"Seed notification 'Test Notification {run_id}' not found in API response."
+E       AssertionError: Seed notification 'Test Notification zr-b6pbc5a' not found in API response.
+E       assert None is not None
+
+tests/test_final_state.py:97: AssertionError
+==================================== PASSES ====================================
+_________________________ test_backend_token_endpoint __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/start_app$ npm start
+process 'start_app' started pid=3285
+start_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_backend_token_endpoint
+FAILED tests/test_final_state.py::test_browser_custom_notification_item - Ass...
+FAILED tests/test_final_state.py::test_api_notification_marked_read - Asserti...
+=================== 2 failed, 1 passed in 264.10s (0:04:24) ====================

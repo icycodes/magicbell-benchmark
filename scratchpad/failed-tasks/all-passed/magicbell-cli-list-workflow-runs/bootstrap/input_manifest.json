@@ -1,0 +1,7 @@
+{
+  "library_name": "MagicBell",
+  "task_name": "magicbell-cli-list-workflow-runs",
+  "complexity_level": "simple single terminal command",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks"
+}

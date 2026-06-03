@@ -1,0 +1,9 @@
+Timestamp: 2026-06-03T01:39:14.496Z
+Run ID: zr-jpzx86h
+User Email: REDACTED+topic-sub-zr-jpzx86h@gmail.com
+User External ID: user-topic-sub-zr-jpzx86h
+Topic Name: updates-zr-jpzx86h
+User JWT: REDACTED
+User Creation Response: {"user":{"id":"9f2df5f2-033b-431b-8529-1a2134cac2fe","external_id":"user-topic-sub-zr-jpzx86h","email":"REDACTED+topic-sub-zr-jpzx86h@gmail.com","first_name":null,"last_name":null,"custom_attributes":{},"phone_numbers":[]}}
+Subscription Response: {"subscription":{"topic":"updates-zr-jpzx86h","categories":[{"slug":"*","reason":null,"status":"subscribed"}]}}
+Subscription successful

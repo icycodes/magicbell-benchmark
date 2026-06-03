@@ -1,0 +1,18 @@
+{
+  "categories": [
+    {
+      "channels": [
+        {
+          "enabled": true,
+          "name": "in_app"
+        },
+        {
+          "enabled": true,
+          "name": "email"
+        }
+      ],
+      "key": "comments",
+      "label": null
+    }
+  ]
+}

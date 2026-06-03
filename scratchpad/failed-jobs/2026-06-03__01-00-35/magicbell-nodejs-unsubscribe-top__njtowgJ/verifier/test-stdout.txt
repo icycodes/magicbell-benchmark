@@ -1,0 +1,58 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_unsubscribe_topic ____________________________
+
+    def test_unsubscribe_topic():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id is not None, "ZEALT_RUN_ID is not set"
+    
+        email = os.environ.get("MAGICBELL_EMAIL")
+        assert email is not None, "MAGICBELL_EMAIL is not set"
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token is not None, "MAGICBELL_PROJECT_TOKEN is not set"
+    
+        user_email = f"{email}+{run_id}@gmail.com"
+        test_topic = f"test-topic-{run_id}"
+        other_topic = f"other-topic-{run_id}"
+    
+        # 1. Run the user's script
+        result = subprocess.run(
+            ["node", "unsubscribe.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+        assert result.returncode == 0, f"Script failed with output: {result.stderr}\n{result.stdout}"
+    
+        # 2. Broadcast 1: Should be dropped
+        headers = {
+            "Authorization": f"Bearer {project_token}",
+            "Content-Type": "application/json"
+        }
+    
+        b1_payload = {
+            "broadcast": {
+                "title": "Should be dropped",
+                "recipients": [{"email": user_email}],
+                "topic": test_topic
+            }
+        }
+        r1 = requests.post("https://api.magicbell.com/broadcasts", headers=headers, json=b1_payload)
+>       assert r1.status_code in [200, 201, 202], f"Failed to create broadcast 1: {r1.text}"
+E       AssertionError: Failed to create broadcast 1: {"errors":[{"message":"Param 'broadcast.recipients.0.email' should be a valid email"}]}
+E         
+E       assert 422 in [200, 201, 202]
+E        +  where 422 = <Response [422]>.status_code
+
+tests/test_final_state.py:92: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_unsubscribe_topic - AssertionError: Fa...
+============================== 1 failed in 2.26s ===============================

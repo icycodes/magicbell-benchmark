@@ -1,0 +1,12 @@
+{
+  "name": "magicbell-jwt",
+  "version": "1.0.0",
+  "description": "Generate MagicBell User JWT",
+  "main": "generate_jwt.js",
+  "scripts": {
+    "start": "node generate_jwt.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0"
+  }
+}

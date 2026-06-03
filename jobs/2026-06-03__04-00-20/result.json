@@ -1,0 +1,106 @@
+{
+    "id": "e7907651-a9ea-41bd-8430-8a5f588d1e1c",
+    "started_at": "2026-06-03T04:00:23.412059",
+    "updated_at": "2026-06-03T05:01:26.188352",
+    "finished_at": "2026-06-03T05:01:26.188352",
+    "n_total_trials": 50,
+    "stats": {
+        "n_completed_trials": 50,
+        "n_errored_trials": 17,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__glm-5.1__pending-tasks": {
+                "n_trials": 44,
+                "n_errors": 17,
+                "metrics": [
+                    {
+                        "mean": 0.24
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "magicbell-nodejs-update-preferen__wjpF5Do",
+                            "magicbell-nodejs-unsubscribe-top__AZgrS2E",
+                            "magicbell-go-delete-user__rFE86HE",
+                            "magicbell-nodejs-mark-read__8apJVow",
+                            "magicbell-go-broadcast-action-ur__oyuV9SQ",
+                            "magicbell-nodejs-fetch-preferenc__feRaMPB",
+                            "magicbell-nodejs-broadcast-topic__skhdjhr",
+                            "magicbell-nodejs-mark-all-seen__bBZMjRk",
+                            "magicbell-nodejs-fetch-notificat__NeHWDM8",
+                            "magicbell-nodejs-custom-template__CuwSzc8",
+                            "magicbell_nodejs_broadcast_singl__UvU7GL5",
+                            "magicbell-cli-list-users__5ur5HGM",
+                            "magicbell-go-device-tokens__cb5QWAm",
+                            "magicbell-nodejs-list-events__5vcxugs",
+                            "magicbell-nodejs-list-inbox-toke__EX9iGAz",
+                            "magicbell-nodejs-delete-notifica__6tZ235t",
+                            "magicbell-nodejs-list-paginated__uHoP6YK",
+                            "magicbell-go-workflow-management__zLmSZf7",
+                            "magicbell-react-custom-notificat__tKmQGho",
+                            "magicbell-nodejs-broadcast-multi__VH7BsGq",
+                            "magicbell-nodejs-broadcast-categ__Lwkj5XP",
+                            "magicbell-nodejs-delete-workflow__VVWdsCK",
+                            "magicbell-nodejs-subscribe-topic__wG6wqVz",
+                            "magicbell-go-create-user-languag__fFfPVVh",
+                            "magicbell-nodejs-workflow-condit__XeCJA7T",
+                            "magicbell-cli-fetch-workflow-run__dtXV8bH",
+                            "magicbell-go-update-user-email__EzQ77k4",
+                            "magicbell-react-custom-theme__NBPqti9",
+                            "magicbell-nodejs-custom-provider__LmgG9zF",
+                            "magicbell-nodejs-archive-notific__4q4rRNX",
+                            "magicbell-go-filter-notification__U8oDb8P",
+                            "magicbell-go-fetch-user__M6mYddA"
+                        ],
+                        "1.0": [
+                            "magicbell-react-context-store__8s6ug5e",
+                            "magicbell-cli-create-broadcast__iJHM3DS",
+                            "magicbell-nodejs-user-attributes__h2fudWw",
+                            "magicbell-cli-create-user__BvpP52H",
+                            "magicbell-nodejs-fetch-delivery__g7H4pzn",
+                            "magicbell-cli-save-workflow__2zsBSKh",
+                            "magicbell-cli-list-workflow-runs__sgkxPPA",
+                            "magicbell-go-list-workflows__jz9Vm86",
+                            "magicbell-react-inbox-dimensions__Mk5aHjC",
+                            "magicbell-backend-jwt-generation__zmaqGEy",
+                            "magicbell-nodejs-workflow-delay__4yWRykE",
+                            "magicbell-go-fetch-workflow__Wi2iVuz"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "magicbell-nodejs-unsubscribe-top__AZgrS2E",
+                        "magicbell-nodejs-broadcast-topic__skhdjhr",
+                        "magicbell-react-custom-badge__yWAYiP5",
+                        "magicbell-nodejs-delete-notifica__6tZ235t",
+                        "magicbell-go-workflow-management__zLmSZf7",
+                        "magicbell-react-custom-notificat__tKmQGho",
+                        "magicbell-nodejs-delete-workflow__VVWdsCK",
+                        "magicbell-nodejs-subscribe-topic__wG6wqVz",
+                        "magicbell-react-custom-theme__NBPqti9",
+                        "magicbell-nodejs-custom-provider__LmgG9zF",
+                        "magicbell-react-inbox-dimensions__Mk5aHjC",
+                        "magicbell-go-filter-notification__U8oDb8P"
+                    ],
+                    "InitialStateError": [
+                        "magicbell-nodejs-trigger-workflo__h5bEejm",
+                        "magicbell-react-event-bus__WnPaFRK",
+                        "magicbell-nodejs-list-topics__UNJPsG2",
+                        "magicbell-go-update-user-timezon__ZjN5WBQ",
+                        "magicbell-nodejs-mark-all-read__bRsoDTk"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 1567030,
+        "cost_usd": null
+    }
+}

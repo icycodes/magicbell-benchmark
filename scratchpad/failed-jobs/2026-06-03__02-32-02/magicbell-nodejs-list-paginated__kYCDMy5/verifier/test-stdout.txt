@@ -1,0 +1,84 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+______________________ test_list_notifications_pagination ______________________
+
+    def test_list_notifications_pagination():
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "test@gmail.com")
+    
+        if "@" in magicbell_email:
+            username, domain = magicbell_email.split("@", 1)
+            user_email = f"{username}+{run_id}@{domain}"
+        else:
+            user_email = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        user_external_id = f"user-{run_id}"
+    
+        # 1. Setup user and broadcasts using a temporary Node.js script
+        setup_script = f"""
+    const {{ Client }} = require('magicbell-js/project-client');
+    const client = new Client({{ token: process.env.MAGICBELL_PROJECT_TOKEN }});
+    
+    async function setup() {{
+        await client.users.saveUser({{
+            externalId: '{user_external_id}',
+            email: '{user_email}',
+        }});
+    
+        for (let i = 1; i <= 4; i++) {{
+            await client.broadcasts.createBroadcast({{
+                title: `Broadcast ${{i}}`,
+                recipients: [{{ externalId: '{user_external_id}' }}]
+            }});
+            await new Promise(r => setTimeout(r, 1000));
+        }}
+    }}
+    setup().catch(err => {{ console.error(err); process.exit(1); }});
+    """
+        setup_path = os.path.join(PROJECT_DIR, "test_setup.js")
+        with open(setup_path, "w") as f:
+            f.write(setup_script)
+    
+        result = subprocess.run(["node", "test_setup.js"], cwd=PROJECT_DIR, capture_output=True, text=True)
+>       assert result.returncode == 0, f"Setup script failed: {result.stderr}\\n{result.stdout}"
+E       AssertionError: Setup script failed: node:internal/modules/cjs/loader:1503
+E           throw err;
+E           ^
+E         
+E         Error: Cannot find module 'tslib'
+E         Require stack:
+E         - /home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client.js
+E         - /home/user/myproject/test_setup.js
+E             at Module._resolveFilename (node:internal/modules/cjs/loader:1500:15)
+E             at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+E             at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+E             at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
+E             at Module._load (node:internal/modules/cjs/loader:1285:25)
+E             at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+E             at Module.require (node:internal/modules/cjs/loader:1600:12)
+E             at require (node:internal/modules/helpers:153:16)
+E             at Object.<anonymous> (/home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client.js:3:17)
+E             at Module._compile (node:internal/modules/cjs/loader:1854:14) {
+E           code: 'MODULE_NOT_FOUND',
+E           requireStack: [
+E             '/home/user/myproject/node_modules/magicbell-js/dist/commonjs/project-client.js',
+E             '/home/user/myproject/test_setup.js'
+E           ]
+E         }
+E         
+E         Node.js v24.16.0
+E         \n
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'test_setup.js'], returncode=1, stdout='', stderr="node:internal/modules/cjs/loader:150...agicbell-js/dist/commonjs/project-client.js',\n    '/home/user/myproject/test_setup.js'\n  ]\n}\n\nNode.js v24.16.0\n").returncode
+
+tests/test_final_state.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_list_notifications_pagination - Assert...
+============================== 1 failed in 0.69s ===============================

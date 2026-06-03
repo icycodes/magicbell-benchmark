@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+________________________ test_user_deleted_in_magicbell ________________________
+
+    def test_user_deleted_in_magicbell():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is not set."
+    
+        target_email = f"{magicbell_email}+{run_id}@gmail.com"
+    
+        # Login to magicbell CLI
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+        subprocess.run(
+            ["magicbell", "login", "--manual", "--email", magicbell_email, "--jwt", project_token, "--api-key", api_key, "--secret-key", secret_key],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+    
+        # We expect this command to fail because the user should be deleted
+        result = subprocess.run(
+            ["magicbell", "user", "get", "--email", target_email],
+            capture_output=True,
+            text=True
+        )
+    
+        # If the user is deleted, the CLI should return a non-zero exit code
+        # and likely some error message indicating not found.
+>       assert result.returncode != 0, f"Expected 'magicbell user get' to fail for deleted user, but it succeeded. User {target_email} still exists."
+E       AssertionError: Expected 'magicbell user get' to fail for deleted user, but it succeeded. User REDACTED@gmail.com+zr-vykxnvq@gmail.com still exists.
+E       assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['magicbell', 'user', 'get', '--email', 'REDACTED@gmail.com+zr-vykxnvq@gmail.com'], returncode=..."msg":"flag provided but not defined: -email"}\n', stderr='Incorrect Usage: flag provided but not defined: -email\n\n').returncode
+
+tests/test_final_state.py:36: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_exists_and_contains_message
+FAILED tests/test_final_state.py::test_user_deleted_in_magicbell - AssertionE...
+========================= 1 failed, 1 passed in 1.02s ==========================

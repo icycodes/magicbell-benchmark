@@ -1,0 +1,57 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_notification_archived __________________________
+
+    def test_notification_archived():
+        # 1. Read run-id
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is not set."
+    
+        # 2. Extract notification ID from log file
+        with open(LOG_FILE, "r") as f:
+            log_content = f.read()
+    
+        match = re.search(r"Archived Notification ID:\s*([A-Za-z0-9_-]+)", log_content)
+        assert match, "Could not find 'Archived Notification ID: <id>' in output.log."
+        notification_id = match.group(1)
+    
+        # 3. Generate User JWT
+        api_key = os.environ.get("MAGICBELL_API_KEY")
+        secret_key = os.environ.get("MAGICBELL_SECRET_KEY")
+        email = os.environ.get("MAGICBELL_EMAIL")
+        assert api_key and secret_key and email, "Missing MagicBell API credentials."
+    
+        user_email = f"{email}+{run_id}@gmail.com"
+    
+        payload = {
+            "user_email": user_email,
+            "api_key": api_key,
+        }
+        user_jwt = jwt.encode(payload, secret_key, algorithm="HS256")
+    
+        # 4. Fetch the notification via API
+        url = f"https://api.magicbell.com/notifications/{notification_id}"
+        headers = {
+            "Authorization": f"Bearer {user_jwt}",
+            "Accept": "application/json"
+        }
+        response = requests.get(url, headers=headers)
+>       assert response.status_code == 200, f"Failed to fetch notification {notification_id}: {response.text}"
+E       AssertionError: Failed to fetch notification 019e8b72-4d95-7ca1-88f4-12deb199a6c1: {"errors":[{"code":"invalid_user_email","message":"User email not valid","suggestion":"Please provide a valid email address in the 'X-MAGICBELL-USER-EMAIL' header.","help_link":"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv"}]}
+E         
+E       assert 401 == 200
+E        +  where 401 = <Response [401]>.status_code
+
+tests/test_final_state.py:47: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists
+FAILED tests/test_final_state.py::test_notification_archived - AssertionError...
+========================= 1 failed, 1 passed in 0.77s ==========================

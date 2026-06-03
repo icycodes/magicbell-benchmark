@@ -1,0 +1,2097 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-06-03T01:00:38.182691Z",
+    "harbor": {
+        "version": "0.8.0",
+        "is_editable": false
+    },
+    "invocation": [
+        "/home/kweizh/.local/bin/harbor",
+        "run",
+        "--yes",
+        "--agent-import-path",
+        "agents.pochi:Pochi",
+        "--artifact",
+        "/home/user",
+        "--mounts",
+        "[{\"type\": \"bind\",\"source\":\"test_initial_state.py\",\"target\":\"/bootstrap/test_initial_state.py\"}]",
+        "--model",
+        "google/gemini-3.5-flash",
+        "-p",
+        "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks",
+        "--n-attempts",
+        "1",
+        "--max-retries",
+        "0",
+        "--job-name",
+        "2026-06-03__01-00-35",
+        "-n",
+        "5"
+    ],
+    "n_concurrent_trials": 5,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "AgentTimeoutError",
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "RewardFileNotFoundError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "magicbell-nodejs-update-preferences",
+                "type": "local",
+                "digest": "sha256:fd9dddead40af26c8168fe204b9860f7b82bf359de1a5bec85b419b7ef146e7c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-update-preferences"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-unsubscribe-topic",
+                "type": "local",
+                "digest": "sha256:e5f293aaa11697b4ec262148ed75a7e56de0ecdbb7b58cad488c21fa3ad5a173",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-unsubscribe-topic"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-delete-user",
+                "type": "local",
+                "digest": "sha256:387440592d38cfa12947161092c1b176031b56009b8151930f778945d58a9949",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-delete-user"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-mark-read",
+                "type": "local",
+                "digest": "sha256:c426498cbe7e414b8ac794dfda20f1446f529382ef9f24cfebf38b5ccc71d4f3",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-mark-read"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-broadcast-action-url",
+                "type": "local",
+                "digest": "sha256:ff3e0899fbdd5c59077fb1982db0c72a0503591395389378b093302f02758094",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-broadcast-action-url"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-trigger-workflow",
+                "type": "local",
+                "digest": "sha256:e94d36b7a4721bc8fb08aba5b02ff09b955713a49476418d67618750ef517918",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-trigger-workflow"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-context-store",
+                "type": "local",
+                "digest": "sha256:e0019fb3b670dee6ec8f5f04908ab590d077c0ddac4d9427aa613ef61051a43b",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-context-store"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-fetch-preferences",
+                "type": "local",
+                "digest": "sha256:e87c88623daf6939396bd76eefbb7211ac3367b44b8c9417f34d5d57eb50425f",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-fetch-preferences"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-create-broadcast",
+                "type": "local",
+                "digest": "sha256:d65ada9b4da390f11e72b8c51a433c02b227fa39d0dd3829a72a120d281527bb",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-create-broadcast"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-broadcast-topic",
+                "type": "local",
+                "digest": "sha256:4a8a1f3306809b4b1c54b3fe4037e239ee7c58a5017f5e56e61997a92a7c7193",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-broadcast-topic"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-event-bus",
+                "type": "local",
+                "digest": "sha256:39a0ca736b530b7ed4c4178d44685be69ab1f424cc9ef935b9f66839dfd7185b",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-event-bus"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-mark-all-seen",
+                "type": "local",
+                "digest": "sha256:713108cb4197adcdb92f861286ef0ac56d64f64177c17c7a16d49dd2fca30687",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-mark-all-seen"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-fetch-notification",
+                "type": "local",
+                "digest": "sha256:a7b28092a029549e89495ce827dee383dd6c9b2e0d9c1f32ea89914ebe64bffe",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-fetch-notification"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-custom-template",
+                "type": "local",
+                "digest": "sha256:cace27ac23ebf9f44fc84c0ea6ff64635548d6ffaa1a0b37b1172fe073577a66",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-custom-template"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell_nodejs_broadcast_single",
+                "type": "local",
+                "digest": "sha256:b6996204d9ee7a29611e2b9d6d242bf536e9a876921d88cc8ca2d12eb10e7a2a",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell_nodejs_broadcast_single"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-list-users",
+                "type": "local",
+                "digest": "sha256:87c1f3d71a4ef93f387f6120c9bb897b67d0ed1c189b336cafe9c37a7e0d3857",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-list-users"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-user-attributes",
+                "type": "local",
+                "digest": "sha256:e3122656369a1744ee442ed7dc5f6d74f42c4623b03d966d149cbab9ca09d0d9",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-user-attributes"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-device-tokens",
+                "type": "local",
+                "digest": "sha256:2522b75c9137bc09461456884a7728bec10039c6031358b9b1e3dd05e4ac097f",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-device-tokens"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-custom-badge",
+                "type": "local",
+                "digest": "sha256:e64836e2b66e89f7d7cc523274d9a52e287c733cb5a2035dc11a60b53131842c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-custom-badge"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-list-events",
+                "type": "local",
+                "digest": "sha256:83d932ffe5af2981e8cb57cecde5676c89cc608c3f957d9a869ba6b80f14c0d0",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-list-events"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-list-topics",
+                "type": "local",
+                "digest": "sha256:51a123d5f2804adb7d92cf58f999c45b4ac0043d89683809ac1c101d84e10ab6",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-list-topics"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-list-inbox-tokens",
+                "type": "local",
+                "digest": "sha256:975bf6ce2429af4483d85f9701ed8661075def879fcd329687a648737568578a",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-list-inbox-tokens"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-delete-notification",
+                "type": "local",
+                "digest": "sha256:f2f6652954402fd8c6b7327165b1becc03e7ce6e50e35f9d5aef974de0ed7239",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-delete-notification"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-update-user-timezone",
+                "type": "local",
+                "digest": "sha256:418f3d76a4bf3e94ac7da6b0a77448f52c78d3cae32f2bcce088191b4f4bc87c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-timezone"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-create-user",
+                "type": "local",
+                "digest": "sha256:daa6f3353de4f920153026a1ddeee730798a43cb6cafbc518f78de63278b447f",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-create-user"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-list-paginated",
+                "type": "local",
+                "digest": "sha256:514d0491bcc5048bcab234dc78672864310aacee5b76da9bf4ce5335e7e62341",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-list-paginated"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-fetch-delivery-status",
+                "type": "local",
+                "digest": "sha256:f1e1e738c64f8d240efe005acc365b1809c6b0d540d670d411f1f431d75d3315",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-fetch-delivery-status"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-workflow-management",
+                "type": "local",
+                "digest": "sha256:d0449965d6c2c2754bbe788f0867da46bbc51d342aff3117301c9e462ad7c09c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-workflow-management"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-custom-notification-item",
+                "type": "local",
+                "digest": "sha256:a1478e85decf43b2fce39980aa141dcbddc7533ddf3316aacbff3060d49f2335",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-custom-notification-item"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-broadcast-multiple",
+                "type": "local",
+                "digest": "sha256:99d353b7a632fe4cbf2a20cdeec730acc9fe4fc0b2078c7d5549f1170add049f",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-broadcast-multiple"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-save-workflow",
+                "type": "local",
+                "digest": "sha256:a7be0f56916da95dbe3736414204e5bae8ab86222dbd7009924ed33b1e92e45f",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-save-workflow"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-list-workflow-runs",
+                "type": "local",
+                "digest": "sha256:c4a69fafa43f5d898e5b904a73dacc2f0f4c5a21362e36353628ceb2f570ac42",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-list-workflow-runs"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-broadcast-category",
+                "type": "local",
+                "digest": "sha256:6cc2c4a3fa45121c3ae8500726adbcb3c07fbbd49cc41dce33ef334eea59e47a",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-broadcast-category"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-delete-workflow",
+                "type": "local",
+                "digest": "sha256:20448b73c8cbb0a4eb0bbb97b000ca236bd8afd66efbdc82f4e51bf1ab25165c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-delete-workflow"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-subscribe-topic",
+                "type": "local",
+                "digest": "sha256:956160e9f221e80550c9cdf2aad8be933111b7562f0911d2ffae48c3bccc7cef",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-subscribe-topic"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-create-user-language",
+                "type": "local",
+                "digest": "sha256:42d2f205d84637849aa254d6b55c7782a0401c1ef006f6d995203f4a9a0487e8",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-create-user-language"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-workflow-conditional",
+                "type": "local",
+                "digest": "sha256:8f57cc302d5ace5481c8c05f7e47afc7a8ba22b7efcafd7bbebb3e06f297d9be",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-workflow-conditional"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-cli-fetch-workflow-run",
+                "type": "local",
+                "digest": "sha256:b579fa2218cd1208926d77cc04a532e6d12d427e757612e8c07181bfd73e1e6a",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-cli-fetch-workflow-run"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-update-user-email",
+                "type": "local",
+                "digest": "sha256:94d408690314ec4a09dd4b16f5f83c1d51cbd0ccf8d572454b41da705ca93f6e",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-update-user-email"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-custom-theme",
+                "type": "local",
+                "digest": "sha256:ab892997fb15779f1e5277dc4df75b691f27f51af7079ba95cc549e706d1029c",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-custom-theme"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-list-workflows",
+                "type": "local",
+                "digest": "sha256:70a3b5d5716ebf60357482175ab4b11ebda46512cfa51116c5c67c4ab7a07849",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-list-workflows"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-custom-providers",
+                "type": "local",
+                "digest": "sha256:e1a7711cecf2da074cdd3d93988447f710e2b46b28a4e7f8cfd3f221f8efbed3",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-custom-providers"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-archive-notification",
+                "type": "local",
+                "digest": "sha256:654deb32009fb717d238b55f4c70488ada2999195c6d221c99564844562195bd",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-archive-notification"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-react-inbox-dimensions",
+                "type": "local",
+                "digest": "sha256:f108cedaf0c0c10a14cd0d8009698e95762198b02d80abde955e35d517fa8f63",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-react-inbox-dimensions"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-backend-jwt-generation",
+                "type": "local",
+                "digest": "sha256:79e32320940de7d349a70be3c93862e3586acf07d24ddebd0534542dd10f43bb",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-backend-jwt-generation"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-filter-notifications",
+                "type": "local",
+                "digest": "sha256:5ab15f3034d73dfa60363d062bd1302aa51d76338e178d68d76cab5ee0c4a4f1",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-filter-notifications"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-fetch-user",
+                "type": "local",
+                "digest": "sha256:c4d044c1ee44a99ffb49d5cc0a9a36cc1932e813ea17a6d442c6eb4f6c6c0ecb",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-fetch-user"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-workflow-delay",
+                "type": "local",
+                "digest": "sha256:92ef3ad2c7865aed7a63710eb5ec97c145a0527ea560cd26298ece8f7714bbe8",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-workflow-delay"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-go-fetch-workflow",
+                "type": "local",
+                "digest": "sha256:fd9a19408d356432dd7d39bf655f2bbf614eac85d1bcadb5289c11699ea2b360",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-go-fetch-workflow"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "magicbell-nodejs-mark-all-read",
+                "type": "local",
+                "digest": "sha256:416888854917e1fa602b077e79e07fd3405ec06a80b5a332a49aa8801fda017e",
+                "source": "pending-tasks",
+                "path": "/home/kweizh/zealt/magicbell-benchmark/scratchpad/pending-tasks/magicbell-nodejs-mark-all-read"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

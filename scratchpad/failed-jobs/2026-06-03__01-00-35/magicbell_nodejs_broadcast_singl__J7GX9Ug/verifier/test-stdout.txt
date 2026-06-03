@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+________________________ test_broadcast_email_delivered ________________________
+
+    def test_broadcast_email_delivered():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id, "ZEALT_RUN_ID environment variable is missing."
+    
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL")
+        assert magicbell_email, "MAGICBELL_EMAIL environment variable is missing."
+    
+        expected_to = f"{magicbell_email}+{run_id}@gmail.com"
+        expected_subject = f"Test Broadcast {run_id}"
+    
+        # Retry loop to wait for email delivery (up to 30 seconds)
+        max_retries = 6
+        found = False
+        for attempt in range(max_retries):
+            messages = list_inbox(max_results=20)
+            for msg in messages:
+                if expected_to in msg.get("to", "") and expected_subject in msg.get("subject", ""):
+                    found = True
+                    break
+            if found:
+                break
+            time.sleep(5)
+    
+>       assert found, f"Expected email to {expected_to} with subject '{expected_subject}' not found in inbox."
+E       AssertionError: Expected email to REDACTED@gmail.com+zr-j7gx9ug@gmail.com with subject 'Test Broadcast zr-j7gx9ug' not found in inbox.
+E       assert False
+
+tests/test_final_state.py:89: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_exists_and_contains_broadcast_id
+FAILED tests/test_final_state.py::test_broadcast_email_delivered - AssertionE...
+========================= 1 failed, 1 passed in 55.97s =========================

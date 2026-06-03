@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+________________________ test_user_created_in_magicbell ________________________
+
+    def test_user_created_in_magicbell():
+        run_id = os.environ.get("ZEALT_RUN_ID", "")
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN", "")
+        email_base = os.environ.get("MAGICBELL_EMAIL", "")
+    
+        assert run_id, "ZEALT_RUN_ID environment variable is not set"
+        assert project_token, "MAGICBELL_PROJECT_TOKEN environment variable is not set"
+        assert email_base, "MAGICBELL_EMAIL environment variable is not set"
+    
+        url = f"https://api.magicbell.com/users/external_id:user_{run_id}"
+        headers = {
+            "Authorization": f"Bearer {project_token}"
+        }
+    
+        response = requests.get(url, headers=headers)
+>       assert response.status_code == 200, \
+            f"Failed to fetch user from MagicBell API. Status code: {response.status_code}, Response: {response.text}"
+E       AssertionError: Failed to fetch user from MagicBell API. Status code: 400, Response: {"errors":[{"message":"invalid user uuid format [external_id:user_zr-ztf2ntb]"}]}
+E         
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:35: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_log_file_contains_success_message
+FAILED tests/test_final_state.py::test_user_created_in_magicbell - AssertionE...
+========================= 1 failed, 1 passed in 0.46s ==========================

@@ -1,0 +1,7 @@
+{
+  "library_name": "@magicbell/react",
+  "task_name": "magicbell-react-context-store",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks"
+}

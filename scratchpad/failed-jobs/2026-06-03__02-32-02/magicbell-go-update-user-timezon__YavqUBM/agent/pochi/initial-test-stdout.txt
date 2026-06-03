@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.0
+collected 4 items
+
+bootstrap/test_initial_state.py::test_go_binary_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_go_mod_exists PASSED
+bootstrap/test_initial_state.py::test_main_go_exists FAILED
+
+=================================== FAILURES ===================================
+_____________________________ test_main_go_exists ______________________________
+
+    def test_main_go_exists():
+        main_go_path = os.path.join(PROJECT_DIR, "main.go")
+>       assert os.path.isfile(main_go_path), f"main.go file {main_go_path} does not exist."
+E       AssertionError: main.go file /home/user/app/main.go does not exist.
+E       assert False
+E        +  where False = <function isfile at 0x7f5bafb98220>('/home/user/app/main.go')
+E        +    where <function isfile at 0x7f5bafb98220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:23: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_main_go_exists - AssertionError:...
+========================= 1 failed, 3 passed in 0.04s ==========================

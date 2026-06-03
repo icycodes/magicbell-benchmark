@@ -1,0 +1,7 @@
+{
+  "library_name": "MagicBell Node.js UserClient",
+  "task_name": "magicbell_nodejs_fetch_notification",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "plan.md",
+  "output_dir": "scratchpad/pending-tasks"
+}

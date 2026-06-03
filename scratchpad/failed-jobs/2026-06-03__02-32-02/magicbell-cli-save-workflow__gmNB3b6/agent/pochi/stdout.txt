@@ -1,0 +1,58 @@
+- Initializing MCP connections...
+You
+# Save MagicBell Workflow with CLI ## Background MagicBell provides a CLI to manage your project's resources, including workflows. Workflows allow you to orchestrate multi-step notification campaigns. ## Requirements * Create a shell script to save a workflow definition using the MagicBell CLI. * The workflow key must be `onboarding-campaign-${run-id}`. * The workflow must contain a single step using the `broadcast` command. * The broadcast must include a title, content, and a hardcoded email recipient. * The email recipient must be derived from the `MAGICBELL_EMAIL` environment variable by appending `+cli-workflow-${run-id}` to the local part of the email address (e.g., if `MAGICBELL_EMAIL` is `user@example.com`, the recipient should be `user+cli-workflow-${run-id}@example.com`). ## Implementation Hints * Read the `ZEALT_RUN_ID` environment variable to get the `run-id`. * Parse the `MAGICBELL_EMAIL` environment variable to construct the recipient email address. * Use the `magicbell workflow save` command to create or update the workflow definition. * Pass the workflow definition as a JSON string to the `--data` flag. * Ensure the CLI is authenticated before running the command, or pass authentication flags if necessary (the environment may already have the CLI installed and authenticated, or you may need to authenticate using the provided environment variables). ## Acceptance Criteria * Project path: /home/user/myproject * Command: bash save\_workflow\.sh * Ensure the real workflow saving action is executed. * The script must use the MagicBell CLI (`magicbell workflow save`). * The workflow key must be `onboarding-campaign-${run-id}`. * The workflow must have exactly one step with the command `broadcast`. * The broadcast input must contain a title and content. * The broadcast input must contain a `recipients` array with a single email recipient matching the `+cli-workflow-${run-id}` format derived from `MAGICBELL_EMAIL`.   
+
+Pochi
+💭 Thinking for 132 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing echo "MAGICBELL_EMAIL=$MAGICBELL_EMAIL" && echo "ZEALT_RUN_ID=$ZEALT_RUN_ID" && echo "MAGICBELL_API_KEY=$MAGICBELL_API_KEY" && magicbell --version 2>/dev/null || echo "magicbell not found in PATH" ✔ 
+💫 Executing magicbell workflow save --help 2>&1 ✔ 
+💫 Executing magicbell --help 2>&1 ✔ 
+Now I have all the information needed. Let me create the shell script:   
+✏️  Writing /home/user/myproject/save_workflow.sh ✔ 
+💫 Executing chmod +x /home/user/myproject/save_workflow.sh && bash /home/user/myproject/save_workflow.sh ✔ 
+The CLI is reaching the API but requires authentication. Let me check how auth works and if there's a stored token or if we need to pass API key flags:   
+💫 Executing magicbell login --help 2>&1 && echo "---" && ls ~/.config/magicbell/ 2>/dev/null || echo "no config dir" && cat ~/.config/magicbell/* 2>/dev/null || true ✔ 
+💫 Executing env | grep -i magic 2>/dev/null; env | grep -i token 2>/dev/null; env | grep -i secret 2>/dev/null || true ✔ 
+There's a `MAGICBELL_PROJECT_TOKEN` env var. Let me authenticate the CLI using the manual login with the available credentials, then re-run:   
+💫 Executing magicbell login --manual --email "$MAGICBELL_EMAIL" --jwt "$MAGICBELL_PROJECT_TOKEN" --api-key "$MAGICBELL_API_KEY" --secret-key "$MAGICBELL_SECRET_KEY" 2>&1 ✔ 
+💫 Executing bash /home/user/myproject/save_workflow.sh ✔ 
+The API is rejecting the payload structure - it expects the fields at the top level rather than nested under `"workflow"`. Let me fix that:   
+🔧 Applying diff to /home/user/myproject/save_workflow.sh ✔ 
+💫 Executing bash /home/user/myproject/save_workflow.sh ✔ 
+The workflow was saved successfully. The API returned the created workflow object confirming all fields are correct. Let me view the final script:   
+📖 Reading /home/user/myproject/save_workflow.sh ✔ 
+🎉 Task Completed
+The script `/home/user/myproject/save_workflow.sh` has been created and successfully executed. Here's a summary of what it does:
+
+**Script: `/home/user/myproject/save_workflow.sh`**
+
+1. **Reads environment variables** — `ZEALT_RUN_ID` for the run ID and `MAGICBELL_EMAIL` for the base email address.
+2. **Constructs the workflow key** — `onboarding-campaign-${ZEALT_RUN_ID}` (e.g. `onboarding-campaign-zr-gmnb3b6`).
+3. **Derives the recipient email** — splits `MAGICBELL_EMAIL` on `@`, appends `+cli-workflow-${RUN_ID}` to the local part (e.g. `REDACTED+cli-workflow-zr-gmnb3b6@gmail.com`).
+4. **Builds the JSON payload** with:
+   - `key`: the workflow key
+   - `steps`: a single step with `command: broadcast` containing `title`, `content`, and a `recipients` array with the derived email
+5. **Calls `magicbell workflow save --data <payload>`** to save the workflow.
+
+The workflow was confirmed saved by the API response:
+```json
+{
+  "key": "onboarding-campaign-zr-gmnb3b6",
+  "disabled": false,
+  "steps": [{
+    "command": "broadcast",
+    "input": {
+      "title": "Welcome to MagicBell!",
+      "content": "Thank you for joining us. We're excited to have you on board.",
+      "recipients": [{ "email": "REDACTED+cli-workflow-zr-gmnb3b6@gmail.com" }]
+    }
+  }]
+}
+```
+
+**Note:** The CLI was authenticated via `magicbell login --manual` using the `MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY` environment variables already present in the environment. If authentication is ever reset, re-run:
+```bash
+magicbell login --manual --email "$MAGICBELL_EMAIL" --jwt "$MAGICBELL_PROJECT_TOKEN" --api-key "$MAGICBELL_API_KEY" --secret-key "$MAGICBELL_SECRET_KEY"
+```   
+  

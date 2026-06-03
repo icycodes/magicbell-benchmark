@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_backend_jwt_endpoint ___________________________
+
+start_app = None
+
+    def test_backend_jwt_endpoint(start_app):
+        run_id = os.environ.get("ZEALT_RUN_ID", "default-run-id")
+        magicbell_email = os.environ.get("MAGICBELL_EMAIL", "")
+        magicbell_api_key = os.environ.get("MAGICBELL_API_KEY", "")
+        magicbell_secret_key = os.environ.get("MAGICBELL_SECRET_KEY", "")
+    
+        response = requests.get("http://localhost:3001/token")
+        assert response.status_code == 200, f"Expected status 200, got {response.status_code}"
+    
+        data = response.json()
+        assert "token" in data, "Response JSON does not contain 'token'"
+    
+        token = data["token"]
+    
+        # Decode the JWT
+        try:
+            decoded = jwt.decode(token, magicbell_secret_key, algorithms=["HS256"])
+        except Exception as e:
+            pytest.fail(f"Failed to decode JWT: {e}")
+    
+        expected_email = f"{magicbell_email}+{run_id}@gmail.com"
+        expected_external_id = f"user-{run_id}"
+    
+>       assert decoded.get("user_email") == expected_email, f"Expected user_email {expected_email}, got {decoded.get('user_email')}"
+E       AssertionError: Expected user_email REDACTED@gmail.com+zr-k4rhuel@gmail.com, got REDACTED+zr-k4rhuel@gmail.com
+E       assert 'REDACTED+zr...uel@gmail.com' == 'REDACTED@gm...uel@gmail.com'
+E         - REDACTED@gmail.com+zr-k4rhuel@gmail.com
+E         ?          ----------
+E         + REDACTED+zr-k4rhuel@gmail.com
+
+tests/test_final_state.py:63: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/start_app$ npm start
+process 'start_app' started pid=2214
+start_app process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_frontend_render_and_dimensions
+FAILED tests/test_final_state.py::test_backend_jwt_endpoint - AssertionError:...
+=================== 1 failed, 1 passed in 174.83s (0:02:54) ====================

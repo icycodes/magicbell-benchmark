@@ -1,0 +1,8 @@
+{
+    "task_name": "magicbell-nodejs-list-topics",
+    "task_description": "# List User Topics with MagicBell\n\n## Background\nYou need to retrieve the list of topics a specific user is subscribed to using the MagicBell Node.js UserClient.\n\n## Requirements\n- Write a Node.js script that fetches the topic subscriptions for a user.\n- The user's email is your `MAGICBELL_EMAIL` with a plus-suffix using the current `run-id`.\n- Generate the User JWT using the `MAGICBELL_API_KEY` and `MAGICBELL_SECRET_KEY`.\n- Use the `magicbell-js/user-client` to fetch the topics.\n- Print the topics to standard output.\n\n## Implementation Hints\n1. Read the `ZEALT_RUN_ID` environment variable to get the `run-id`.\n2. Construct the user email by splitting `MAGICBELL_EMAIL` at `@` and inserting `+${run-id}` before the domain.\n3. Generate a User JWT using `jsonwebtoken` with your project's API Key and Secret Key.\n4. Initialize the MagicBell UserClient (`magicbell-js/user-client`) with the generated User JWT.\n5. Call the appropriate method on the client to list the user's topic subscriptions.\n6. Output the list of topics (or the raw JSON response) to stdout.\n\n## Acceptance Criteria\n- Project path: /home/user/myproject\n- Command: node index.js\n- The stdout should print the list of topics the user is subscribed to, which must include `test-topic-${run-id}`.\n",
+    "task_integrations": [
+        "MagicBell"
+    ],
+    "truth": "# Verification Plan\n\n## Setup\n1. cd /home/user/myproject\n2. npm install\n\n## Verification Steps\n1. Read the value of `run-id` from the `ZEALT_RUN_ID` environment variable.\n2. Run: node index.js\n   - Expected: The stdout must contain the string `test-topic-${run-id}`.\n"
+}

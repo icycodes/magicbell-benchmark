@@ -1,0 +1,17 @@
+{
+  "name": "magicbell-nodejs-custom-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "magicbell-js": "^1.7.0",
+    "tslib": "^2.8.1"
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780449995029,
+            "stop": 1780450007777
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_list_notifications_pagination",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12589,
+                "start": 1780449995187,
+                "stop": 1780450007776,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_list_notifications_pagination():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"default-run-id\")\n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"test@gmail.com\")\n    \n        if \"@\" in magicbell_email:\n            username, domain = magicbell_email.split(\"@\", 1)\n            user_email = f\"{username}+{run_id}@{domain}\"\n        else:\n            user_email = f\"{magicbell_email}+{run_id}@gmail.com\"\n    \n        user_external_id = f\"user-{run_id}\"\n    \n        # 1. Setup user and broadcasts using a temporary Node.js script\n        setup_script = f\"\"\"\n    const {{ Client }} = require('magicbell-js/project-client');\n    const client = new Client({{ token: process.env.MAGICBELL_PROJECT_TOKEN }});\n    \n    async function setup() {{\n        await client.users.saveUser({{\n            externalId: '{user_external_id}',\n            email: '{user_email}',\n        }});\n    \n        for (let i = 1; i <= 4; i++) {{\n            await client.broadcasts.createBroadcast({{\n                title: `Broadcast ${{i}}`,\n                recipients: [{{ externalId: '{user_external_id}' }}]\n            }});\n            await new Promise(r => setTimeout(r, 1000));\n        }}\n    }}\n    setup().catch(err => {{ console.error(err); process.exit(1); }});\n    \"\"\"\n        setup_path = os.path.join(PROJECT_DIR, \"test_setup.js\")\n        with open(setup_path, \"w\") as f:\n            f.write(setup_script)\n    \n        result = subprocess.run([\"node\", \"test_setup.js\"], cwd=PROJECT_DIR, capture_output=True, text=True)\n        assert result.returncode == 0, f\"Setup script failed: {result.stderr}\\\\n{result.stdout}\"\n    \n        # Wait for notifications to be delivered\n        time.sleep(5)\n    \n        # 2. Generate User JWT\n        api_key = os.environ[\"MAGICBELL_API_KEY\"]\n        secret_key = os.environ[\"MAGICBELL_SECRET_KEY\"]\n    \n        payload = {\n            \"user_external_id\": user_external_id,\n            \"user_email\": user_email,\n            \"api_key\": api_key,\n            \"exp\": int(time.time()) + 3600\n        }\n        user_jwt = jwt.encode(payload, secret_key, algorithm=\"HS256\")\n    \n        # 3. Fetch notifications to get the IDs using another Node.js script\n        fetch_script = f\"\"\"\n    const {{ Client }} = require('magicbell-js/user-client');\n    const client = new Client({{ token: '{user_jwt}' }});\n    \n    async function fetch() {{\n        const page1 = await client.notifications.listNotifications({{ limit: 2 }});\n        if (page1.data.length < 2) throw new Error(\"Not enough notifications in page 1\");\n        const id1 = page1.data[0].id;\n        const id2 = page1.data[1].id;\n    \n        const page2 = await client.notifications.listNotifications({{ limit: 2, startingAfter: id2 }});\n        if (page2.data.length < 2) throw new Error(\"Not enough notifications in page 2\");\n        const id3 = page2.data[0].id;\n        const id4 = page2.data[1].id;\n    \n        console.log(JSON.stringify({{ id1, id2, id3, id4 }}));\n    }}\n    fetch().catch(err => {{ console.error(err); process.exit(1); }});\n    \"\"\"\n        fetch_path = os.path.join(PROJECT_DIR, \"test_fetch.js\")\n        with open(fetch_path, \"w\") as f:\n            f.write(fetch_script)\n    \n        result = subprocess.run([\"node\", \"test_fetch.js\"], cwd=PROJECT_DIR, capture_output=True, text=True)\n>       assert result.returncode == 0, f\"Fetch script failed: {result.stderr}\\\\n{result.stdout}\"\nE       AssertionError: Fetch script failed: TypeError: Cannot read properties of undefined (reading 'id')\nE             at fetch (/home/user/myproject/test_fetch.js:8:31)\nE             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\nE         \\n\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'test_fetch.js'], returncode=1, stdout='', stderr=\"TypeError: Cannot read properties of...r/myproject/test_fetch.js:8:31)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\\n\").returncode\n\ntests/test_final_state.py:90: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

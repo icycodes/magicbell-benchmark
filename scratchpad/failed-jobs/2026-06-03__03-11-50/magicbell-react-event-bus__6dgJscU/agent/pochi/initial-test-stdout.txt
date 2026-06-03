@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 3 items
+
+bootstrap/test_initial_state.py::test_node_available PASSED
+bootstrap/test_initial_state.py::test_npm_available PASSED
+bootstrap/test_initial_state.py::test_project_dir_does_not_exist_yet FAILED
+
+=================================== FAILURES ===================================
+_____________________ test_project_dir_does_not_exist_yet ______________________
+
+    def test_project_dir_does_not_exist_yet():
+>       assert not os.path.exists("/home/user/myproject"), "Project directory should not exist yet."
+E       AssertionError: Project directory should not exist yet.
+E       assert not True
+E        +  where True = <function exists at 0x7fb337f87560>('/home/user/myproject')
+E        +    where <function exists at 0x7fb337f87560> = <module 'posixpath' (frozen)>.exists
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+bootstrap/test_initial_state.py:12: AssertionError
+=========================== short test summary info ============================
+FAILED bootstrap/test_initial_state.py::test_project_dir_does_not_exist_yet
+========================= 1 failed, 2 passed in 0.04s ==========================
+pytest-xprocess reminder::Be sure to terminate the started process by running 'pytest --xkill' if you have not explicitly done so in your fixture with 'xprocess.getinfo(<process_name>).terminate()'.

@@ -1,0 +1,73 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_script_execution_and_output _______________________
+
+    def test_script_execution_and_output():
+        """Run the script and verify it creates the expected JSON output."""
+        # Ensure any previous log is removed
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
+    
+        # Run the script
+        result = subprocess.run(
+            ["node", "index.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+    
+>       assert result.returncode == 0, f"Script execution failed. stderr: {result.stderr}\nstdout: {result.stdout}"
+E       AssertionError: Script execution failed. stderr: Error fetching user preferences: HttpError: Unexpected response body for error status.
+E         StatusCode: 401
+E         Body: {"errors":[{"code":"invalid_user_email","message":"User email not valid","suggestion":"Please provide a valid email address in the 'X-MAGICBELL-USER-EMAIL' header.","help_link":"https://documenter.getpostman.com/view/2269098/2sAYdhLAjv"}]}
+E         
+E             at HookHandler.handle (/home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client/http/handlers/hook-handler.js:61:15)
+E             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+E             at async RetryHandler.handle (/home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client/http/handlers/retry-handler.js:33:24)
+E             at async ResponseValidationHandler.handle (/home/user/magicbell-nodejs-fetch-preferences/node_modules/magicbell-js/dist/commonjs/user-client/http/handlers/response-validation-handler.js:28:26)
+E             at async main (/home/user/magicbell-nodejs-fetch-preferences/index.js:24:22) {
+E           error: 'Unauthorized',
+E           metadata: {
+E             status: 401,
+E             statusText: 'Unauthorized',
+E             headers: {
+E               'access-control-allow-headers': '*',
+E               'access-control-allow-methods': '*',
+E               'access-control-allow-origin': '*',
+E               'access-control-max-age': '86400',
+E               'alt-svc': 'h3=":443"; ma=86400',
+E               'cf-cache-status': 'DYNAMIC',
+E               'cf-ray': 'a05b8f440f0bb9a4-SEA',
+E               connection: 'keep-alive',
+E               'content-length': '240',
+E               'content-type': 'application/json',
+E               date: 'Wed, 03 Jun 2026 03:20:02 GMT',
+E               nel: '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}',
+E               'report-to': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=VSZ%2FRGpQZFUAjh%2FOUuap04EkjuBt3y7ndPcQ7%2FG%2BrwKhDBsj173%2BRTfBATvX8OoiXKQjCR2LFYWFuh8LZ832WYVG9UIhRBkA1Nk9h1ZtMDLG7bgL6wDKM6X88FH05aVkOiqw"}]}',
+E               server: 'cloudflare',
+E               'set-cookie': '_cfuvid=f_Eo9DFYLSUbhUDH7Y9WeHO0QYcHPBrNcr0A_X1LIkY-1780456801.9290965-1.0.1.1-kSTOVeWvfBAHF4NLEcSkHBm6iy.UNvCUnz051C4y4PE; HttpOnly; SameSite=None; Secure; Path=/; Domain=magicbell.com',
+E               'x-amzn-requestid': 'e2e6d73f-f626-4751-a862-f945d85058ac',
+E               'x-amzn-trace-id': 'Root=1-6a1f9d62-057cbf2c017cb86e3b6a1f21;Parent=60d8523be23272f3;Sampled=0;Lineage=1:a1dcffa6:0'
+E             }
+E           },
+E           raw: ArrayBuffer {
+E             [Uint8Contents]: <7b 22 65 72 72 6f 72 73 22 3a 5b 7b 22 63 6f 64 65 22 3a 22 69 6e 76 61 6c 69 64 5f 75 73 65 72 5f 65 6d 61 69 6c 22 2c 22 6d 65 73 73 61 67 65 22 3a 22 55 73 65 72 20 65 6d 61 69 6c 20 6e 6f 74 20 76 61 6c 69 64 22 2c 22 73 75 67 67 65 73 74 69 6f 6e 22 3a 22 50 6c 65 61 73 65 20 70 72 6f 76 69 64 ... 140 more bytes>,
+E             [byteLength]: 240
+E           }
+E         }
+E         
+E         stdout: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'index.js'], returncode=1, stdout='', stderr='Error fetching user preferences: HttpErro... 73 74 69 6f 6e 22 3a 22 50 6c 65 61 73 65 20 70 72 6f 76 69 64 ... 140 more bytes>,\n    [byteLength]: 240\n  }\n}\n').returncode
+
+tests/test_final_state.py:23: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_script_execution_and_output - Assertio...
+============================== 1 failed in 0.66s ===============================

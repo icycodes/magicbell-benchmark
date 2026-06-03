@@ -1,0 +1,45 @@
+- Initializing MCP connections...
+You
+# Save MagicBell Workflow with CLI ## Background MagicBell provides a CLI to manage your project's resources, including workflows. Workflows allow you to orchestrate multi-step notification campaigns. ## Requirements * Create a shell script to save a workflow definition using the MagicBell CLI. * The workflow key must be `onboarding-campaign-${run-id}`. * The workflow must contain a single step using the `broadcast` command. * The broadcast must include a title, content, and a hardcoded email recipient. * The email recipient must be derived from the `MAGICBELL_EMAIL` environment variable by appending `+cli-workflow-${run-id}` to the local part of the email address (e.g., if `MAGICBELL_EMAIL` is `user@example.com`, the recipient should be `user+cli-workflow-${run-id}@example.com`). ## Implementation Hints * Read the `ZEALT_RUN_ID` environment variable to get the `run-id`. * Parse the `MAGICBELL_EMAIL` environment variable to construct the recipient email address. * Use the `magicbell workflow save` command to create or update the workflow definition. * Pass the workflow definition as a JSON string to the `--data` flag. * Ensure the CLI is authenticated before running the command, or pass authentication flags if necessary (the environment may already have the CLI installed and authenticated, or you may need to authenticate using the provided environment variables). ## Acceptance Criteria * Project path: /home/user/myproject * Command: bash save\_workflow\.sh * Ensure the real workflow saving action is executed. * The script must use the MagicBell CLI (`magicbell workflow save`). * The workflow key must be `onboarding-campaign-${run-id}`. * The workflow must have exactly one step with the command `broadcast`. * The broadcast input must contain a title and content. * The broadcast input must contain a `recipients` array with a single email recipient matching the `+cli-workflow-${run-id}` format derived from `MAGICBELL_EMAIL`.   
+
+Pochi
+💭 Thinking for 696 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💭 Thinking for 541 characters   
+💫 Executing magicbell --help ✔ 
+💫 Executing magicbell workflow save --help ✔ 
+✏️  Writing /home/user/myproject/save_workflow.sh ✔ 
+💭 Thinking for 857 characters   
+💫 Executing env | grep -E 'MAGICBELL|ZEALT' ✔ 
+💭 Thinking for 196 characters   
+💫 Executing cd /home/user/myproject && bash save_workflow.sh ✔ 
+💭 Thinking for 763 characters   
+💫 Executing magicbell --help ✔ 
+💫 Executing magicbell workflow save --help ✔ 
+💭 Thinking for 362 characters   
+💫 Executing strings $(which magicbell) | grep -i token ✖ "Command exited with code 1"
+💫 Executing grep -a -i token $(which magicbell) | head -n 20 ✔ 
+💫 Executing MAGICBELL_TOKEN=$MAGICBELL_PROJECT_TOKEN magicbell workflow save --data="..." ✔ 
+💭 Thinking for 202 characters   
+💫 Executing MAGICBELL_API_TOKEN=$MAGICBELL_PROJECT_TOKEN magicbell workflow save --data="..." ✔ 
+💫 Executing magicbell login --help ✔ 
+💭 Thinking for 281 characters   
+💫 Executing magicbell login --manual --jwt "$MAGICBELL_PROJECT_TOKEN" --email "$MAGICBELL_EMAIL" --api-key "$MAGICBELL_API_KEY" --secret-key "$MAGICBELL_SECRET_KEY" ✔ 
+✏️  Writing /home/user/myproject/save_workflow.sh ✔ 
+💫 Executing bash /home/user/myproject/save_workflow.sh ✔ 
+💭 Thinking for 217 characters   
+💫 Executing chmod +x /home/user/myproject/save_workflow.sh ✔ 
+💭 Thinking for 153 characters   
+🎉 Task Completed
+I have created the requested shell script at `/home/user/myproject/save_workflow.sh`.
+
+The script does the following:
+1. Authenticates the MagicBell CLI using the provided environment variables (`MAGICBELL_PROJECT_TOKEN`, `MAGICBELL_EMAIL`, `MAGICBELL_API_KEY`, and `MAGICBELL_SECRET_KEY`) to ensure it has the required permissions.
+2. Extracts the `run-id` from the `ZEALT_RUN_ID` environment variable.
+3. Parses the `MAGICBELL_EMAIL` to split it into its local part and domain part.
+4. Constructs the recipient email address using the format `localpart+cli-workflow-${run-id}@domain`.
+5. Defines the workflow JSON payload with a single `broadcast` step containing a title, content, and the constructed recipient email.
+6. Saves the workflow using the `magicbell workflow save --data="..."` CLI command.
+
+I've also verified the script execution, and it successfully authenticated and saved the newly configured workflow `onboarding-campaign-zr-wrhu8ov` to your MagicBell project! You can run it with `bash save_workflow.sh` as expected.   
+  

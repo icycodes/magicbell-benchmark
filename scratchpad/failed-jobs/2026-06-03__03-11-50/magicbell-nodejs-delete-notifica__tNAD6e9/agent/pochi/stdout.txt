@@ -1,0 +1,390 @@
+- Initializing MCP connections...
+You
+# Delete a Notification via ProjectClient ## Background MagicBell allows developers to manage notifications across multiple channels. Sometimes, you need to programmatically delete a specific notification from a user's inbox using a backend script. ## Requirements * Write a Node.js script that creates a notification for a user (via broadcast), then deletes that specific notification programmatically using the Node.js ProjectClient. * The recipient email must use the plus format of your `MAGICBELL_EMAIL` with the current `run-id` as the receiver ID. For example: `your-email+<run-id>@gmail.com`. * The script must print the deleted notification ID to stdout. ## Implementation Hints 1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. 2. Create a broadcast using the Node.js SDK to send a notification to the formatted email address. 3. Retrieve the created notification's ID. You may need to fetch the user's notifications or wait for the broadcast to be processed. 4. Use the ProjectClient (or raw API requests with Project Auth if the SDK method is missing) to delete the notification by its ID. 5. Print the deleted notification ID in the format: `Deleted Notification ID: <id>`. ## Acceptance Criteria * Project path: /home/user/magicbell-project * Ensure the script is executed and the real notification deletion action is performed. * Command: `node delete_notification.js` * The command output must include the deleted notification ID in the format: `Deleted Notification ID: <id>`. * The notification must no longer exist in the user's inbox.   
+
+Pochi
+💭 Thinking for 712 characters   
+💫 Executing cd /home/user/magicbell-project && ls -la ✔ 
+💭 Thinking for 218 characters   
+📖 Reading /home/user/magicbell-project/package.json ✔ 
+💫 Executing env | grep -i magicbell ✔ 
+💭 Thinking for 239 characters   
+💫 Executing env | grep -i zealt ✔ 
+💭 Thinking for 229 characters   
+💫 Executing cd /home/user/magicbell-project && cat node_modules/magicbell-js/package.json | grep version ✔ 
+💭 Thinking for 197 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const mb = require('magicbell-js'); console.log(Object.keys(mb));" ✖ "Command exited with code 1"
+💭 Thinking for 215 characters   
+📖 Reading /home/user/magicbell-project/node_modules/magicbell-js/package.json ✔ 
+💫 Executing cd /home/user/magicbell-project && node -e "const { ProjectClient } = require('magicbell-js/project-client'); console.log(Object.keys(new ProjectClient({apiKey: 'dummy', apiSecret: 'dummy'})));" ✖ "Command exited with code 1"
+💭 Thinking for 153 characters   
+💫 Executing cd /home/user/magicbell-project && npm install tslib ✔ 
+💫 Executing cd /home/user/magicbell-project && node -e "const { ProjectClient } = require('magicbell-js/project-client'); console.log(Object.keys(new ProjectClient({apiKey: 'dummy', apiSecret: 'dummy'})));" ✖ "Command exited with code 1"
+💫 Executing cd /home/user/magicbell-project && node -e "const pc = require('magicbell-js/project-client'); console.log(Object.keys(pc));" ✔ 
+💭 Thinking for 219 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); console.log(Object.keys(new Client({apiKey: 'dummy', apiSecret: 'dummy'})));" ✔ 
+💭 Thinking for 257 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); const c = new Client({apiKey: 'dummy', apiSecret: 'dummy'}); console.log(Object.keys(c.broadcasts)); console.log(Object.keys(c.users));" ✔ 
+💭 Thinking for 163 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); const c = new Client({apiKey: 'dummy', apiSecret: 'dummy'}); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c.broadcasts))); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c.users)));" ✔ 
+💭 Thinking for 308 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); const c = new Client({apiKey: 'dummy', apiSecret: 'dummy'}); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c)));" ✔ 
+💭 Thinking for 464 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); const c = new Client({apiKey: 'dummy', apiSecret: 'dummy'}); console.log(c);" ✔ 
+💭 Thinking for 563 characters   
+💫 Executing cat << 'EOF' > test_api.js
+const https = require('https');
+console.log('Testing...');
+EOF
+node test_api.js ✔ 
+💭 Thinking for 342 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_broadcast.js
+const { Client } = require('magicbell-js/project-client');
+const client = new Client({
+  apiKey: process.env.MAGICBELL_API_KEY,
+  apiSecret: process.env.MAGICBELL_SECRET_KEY,
+});
+
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+async function run() {
+  console.log('Sending to', email);
+  const response = await client.broadcasts.createBroadcast({
+    broadcast: {
+      title: 'Test Notification',
+      recipients: [{ email }],
+    }
+  });
+  console.log(JSON.stringify(response, null, 2));
+}
+run().catch(console.error);
+EOF
+node test_broadcast.js ✔ 
+💭 Thinking for 243 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_broadcast.js
+const { Client } = require('magicbell-js/project-client');
+const client = new Client({
+  apiKey: process.env.MAGICBELL_API_KEY,
+  apiSecret: process.env.MAGICBELL_SECRET_KEY,
+});
+
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+async function run() {
+  console.log('Sending to', email);
+  const response = await client.broadcasts.createBroadcast({
+    title: 'Test Notification',
+    recipients: [{ email }],
+  });
+  console.log(JSON.stringify(response, null, 2));
+}
+run().catch(console.error);
+EOF
+node test_broadcast.js ✔ 
+💭 Thinking for 373 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_broadcast.js
+const { Client } = require('magicbell-js/project-client');
+const client = new Client({
+  token: process.env.MAGICBELL_PROJECT_TOKEN
+});
+
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+async function run() {
+  console.log('Sending to', email);
+  const response = await client.broadcasts.createBroadcast({
+    title: 'Test Notification',
+    recipients: [{ email }],
+  });
+  console.log(JSON.stringify(response, null, 2));
+}
+run().catch(console.error);
+EOF
+node test_broadcast.js ✔ 
+💭 Thinking for 320 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/project-client'); const c = new Client({token: 'dummy'}); console.log(Object.keys(c.users)); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c.users)));" ✔ 
+💭 Thinking for 328 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/user-client'); const c = new Client({userKey: 'dummy'}); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c.notifications)));" ✔ 
+💭 Thinking for 221 characters   
+💫 Executing cd /home/user/magicbell-project && node -e "const { Client } = require('magicbell-js/user-client'); const c = new Client({userKey: 'dummy'}); console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(c)));" ✔ 
+💭 Thinking for 258 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_get_notif.js
+const https = require('https');
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+const options = {
+  hostname: 'api.magicbell.com',
+  path: `/notifications?user_email=${encodeURIComponent(email)}`,
+  method: 'GET',
+  headers: {
+    'X-MAGICBELL-API-KEY': process.env.MAGICBELL_API_KEY,
+    'X-MAGICBELL-API-SECRET': process.env.MAGICBELL_SECRET_KEY,
+  }
+};
+
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', d => data += d);
+  res.on('end', () => console.log(res.statusCode, data));
+});
+req.end();
+EOF
+node test_get_notif.js ✔ 
+💭 Thinking for 312 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_get_broadcast.js
+const https = require('https');
+const options = {
+  hostname: 'api.magicbell.com',
+  path: `/broadcasts/019e8b88-38be-7695-8321-d1c68d0cfe70/notifications`,
+  method: 'GET',
+  headers: {
+    'X-MAGICBELL-API-KEY': process.env.MAGICBELL_API_KEY,
+    'X-MAGICBELL-API-SECRET': process.env.MAGICBELL_SECRET_KEY,
+  }
+};
+
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', d => data += d);
+  res.on('end', () => console.log(res.statusCode, data));
+});
+req.end();
+EOF
+node test_get_broadcast.js ✔ 
+💭 Thinking for 310 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_del_notif.js
+const https = require('https');
+const options = {
+  hostname: 'api.magicbell.com',
+  path: `/notifications/019e8b88-3c0a-7037-b01f-910ee3b88eb0`,
+  method: 'DELETE',
+  headers: {
+    'X-MAGICBELL-API-KEY': process.env.MAGICBELL_API_KEY,
+    'X-MAGICBELL-API-SECRET': process.env.MAGICBELL_SECRET_KEY,
+  }
+};
+
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', d => data += d);
+  res.on('end', () => console.log(res.statusCode, data));
+});
+req.end();
+EOF
+node test_del_notif.js ✔ 
+💭 Thinking for 339 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > test_del_notif.js
+const https = require('https');
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+const options = {
+  hostname: 'api.magicbell.com',
+  path: `/notifications/019e8b88-3c0a-7037-b01f-910ee3b88eb0`,
+  method: 'DELETE',
+  headers: {
+    'X-MAGICBELL-API-KEY': process.env.MAGICBELL_API_KEY,
+    'X-MAGICBELL-API-SECRET': process.env.MAGICBELL_SECRET_KEY,
+    'X-MAGICBELL-USER-EMAIL': email
+  }
+};
+
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', d => data += d);
+  res.on('end', () => console.log(res.statusCode, data));
+});
+req.end();
+EOF
+node test_del_notif.js ✔ 
+💭 Thinking for 498 characters   
+💫 Executing cat << 'EOF' > /home/user/magicbell-project/delete_notification.js
+const { Client } = require('magicbell-js/project-client');
+const https = require('https');
+
+const apiKey = process.env.MAGICBELL_API_KEY;
+const apiSecret = process.env.MAGICBELL_SECRET_KEY;
+const projectToken = process.env.MAGICBELL_PROJECT_TOKEN;
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+const client = new Client({ token: projectToken });
+
+function request(method, path, headers = {}) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.magicbell.com',
+      path,
+      method,
+      headers: {
+        'X-MAGICBELL-API-KEY': apiKey,
+        'X-MAGICBELL-API-SECRET': apiSecret,
+        ...headers
+      }
+    };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', d => data += d);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(data ? JSON.parse(data) : null);
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function run() {
+  try {
+    // 1. Create a broadcast
+    const broadcastResponse = await client.broadcasts.createBroadcast({
+      title: 'Test Notification for Deletion',
+      recipients: [{ email }],
+    });
+    
+    const broadcastId = broadcastResponse.id;
+    
+    // 2. Poll for the notification
+    let notificationId = null;
+    for (let i = 0; i < 10; i++) {
+      const data = await request('GET', `/broadcasts/${broadcastId}/notifications`);
+      if (data && data.notifications && data.notifications.length > 0) {
+        notificationId = data.notifications[0].id;
+        break;
+      }
+      await sleep(1000);
+    }
+    
+    if (!notificationId) {
+      throw new Error('Notification was not created in time');
+    }
+    
+    // 3. Delete the notification
+    await request('DELETE', `/notifications/${notificationId}`, {
+      'X-MAGICBELL-USER-EMAIL': email
+    });
+    
+    console.log(`Deleted Notification ID: ${notificationId}`);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+run();
+EOF
+ ✔ 
+💫 Executing cd /home/user/magicbell-project && node delete_notification.js ✖ "Command exited with code 1"
+💭 Thinking for 285 characters   
+💫 Executing cd /home/user/magicbell-project && cat << 'EOF' > delete_notification.js
+const { Client } = require('magicbell-js/project-client');
+const https = require('https');
+
+const apiKey = process.env.MAGICBELL_API_KEY;
+const apiSecret = process.env.MAGICBELL_SECRET_KEY;
+const projectToken = process.env.MAGICBELL_PROJECT_TOKEN;
+const runId = process.env.ZEALT_RUN_ID;
+const email = process.env.MAGICBELL_EMAIL.replace('@', `+${runId}@`);
+
+const client = new Client({ token: projectToken });
+
+function request(method, path, headers = {}) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.magicbell.com',
+      path,
+      method,
+      headers: {
+        'X-MAGICBELL-API-KEY': apiKey,
+        'X-MAGICBELL-API-SECRET': apiSecret,
+        ...headers
+      }
+    };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', d => data += d);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(data ? JSON.parse(data) : null);
+        } else {
+          reject(new Error(`HTTP ${res.statusCode} on ${path}: ${data}`));
+        }
+      });
+    });
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function run() {
+  try {
+    // 1. Create a broadcast
+    const broadcastResponse = await client.broadcasts.createBroadcast({
+      title: 'Test Notification for Deletion',
+      recipients: [{ email }],
+    });
+    
+    const broadcastId = broadcastResponse.data ? broadcastResponse.data.id : broadcastResponse.id;
+    
+    if (!broadcastId) {
+      throw new Error('Broadcast ID not found in response: ' + JSON.stringify(broadcastResponse));
+    }
+    
+    // 2. Poll for the notification
+    let notificationId = null;
+    for (let i = 0; i < 15; i++) {
+      const data = await request('GET', `/broadcasts/${broadcastId}/notifications`);
+      if (data && data.notifications && data.notifications.length > 0) {
+        notificationId = data.notifications[0].id;
+        break;
+      }
+      await sleep(1000);
+    }
+    
+    if (!notificationId) {
+      throw new Error('Notification was not created in time');
+    }
+    
+    // 3. Delete the notification
+    await request('DELETE', `/notifications/${notificationId}`, {
+      'X-MAGICBELL-USER-EMAIL': email
+    });
+    
+    console.log(`Deleted Notification ID: ${notificationId}`);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+run();
+EOF
+node delete_notification.js ✔ 
+💭 Thinking for 502 characters   
+🎉 Task Completed
+I have created the `delete_notification.js` script in the `/home/user/magicbell-project` directory according to your requirements. 
+
+Here is what the script does:
+1. **Reads Environment Variables:** It constructs the recipient email using the `MAGICBELL_EMAIL` and `ZEALT_RUN_ID` environment variables.
+2. **Creates a Broadcast:** It uses the MagicBell Node.js SDK (`ProjectClient` initialized with `MAGICBELL_PROJECT_TOKEN`) to send a broadcast to the uniquely formatted email address.
+3. **Retrieves Notification ID:** It polls the `/broadcasts/:id/notifications` endpoint using raw API requests with Project Auth (`MAGICBELL_API_KEY` and `MAGICBELL_SECRET_KEY`) to retrieve the generated notification's ID.
+4. **Deletes the Notification:** It sends a `DELETE` request to `/notifications/:id` using raw Project Auth requests (along with the `X-MAGICBELL-USER-EMAIL` header) to securely delete the notification on behalf of the user.
+5. **Logs Result:** It prints the result to stdout in the exact format: `Deleted Notification ID: <id>`.
+
+You can test the script by running:
+```bash
+node delete_notification.js
+```   
+  

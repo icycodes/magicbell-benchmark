@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_unsubscribe_topic ____________________________
+
+    def test_unsubscribe_topic():
+        run_id = os.environ.get("ZEALT_RUN_ID")
+        assert run_id is not None, "ZEALT_RUN_ID is not set"
+    
+        email = os.environ.get("MAGICBELL_EMAIL")
+        assert email is not None, "MAGICBELL_EMAIL is not set"
+    
+        project_token = os.environ.get("MAGICBELL_PROJECT_TOKEN")
+        assert project_token is not None, "MAGICBELL_PROJECT_TOKEN is not set"
+    
+        user_email = f"{email}+{run_id}@gmail.com"
+        test_topic = f"test-topic-{run_id}"
+        other_topic = f"other-topic-{run_id}"
+    
+        # 1. Run the user's script
+        result = subprocess.run(
+            ["node", "unsubscribe.js"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"Script failed with output: {result.stderr}\n{result.stdout}"
+E       AssertionError: Script failed with output: Failed to unsubscribe from topic 'test-topic-zr-azgrs2e': 405 Method Not Allowed
+E         Response: 
+E         
+E         User email: REDACTED@gmail.com+zr-azgrs2e@gmail.com
+E         Topic: test-topic-zr-azgrs2e
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'unsubscribe.js'], returncode=1, stdout='User email: REDACTED@gmail.com+zr-azgrs2e@gma...zr-azgrs2e\n', stderr="Failed to unsubscribe from topic 'test-topic-zr-azgrs2e': 405 Method Not Allowed\nResponse: \n").returncode
+
+tests/test_final_state.py:76: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_unsubscribe_topic - AssertionError: Sc...
+============================== 1 failed in 1.43s ===============================

@@ -1,0 +1,52 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780450656727,
+            "stop": 1780450772675
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_backend_token_endpoint",
+                "status": "passed",
+                "duration": 123,
+                "start": 1780450657133,
+                "stop": 1780450657256,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_custom_notification_item",
+                "status": "passed",
+                "duration": 113080,
+                "start": 1780450657256,
+                "stop": 1780450770336,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_notification_marked_read",
+                "status": "passed",
+                "duration": 2337,
+                "start": 1780450770337,
+                "stop": 1780450772674,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

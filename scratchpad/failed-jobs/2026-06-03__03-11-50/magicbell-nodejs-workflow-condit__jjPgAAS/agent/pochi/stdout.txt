@@ -1,0 +1,62 @@
+- Initializing MCP connections...
+You
+# Create a Conditional Workflow with MagicBell Node.js SDK ## Background MagicBell workflows allow orchestrating multi-step notification campaigns. You can use conditional logic to branch your workflows based on user data, event properties, or custom conditions. ## Requirements * Write a Node.js script that creates a new workflow definition using the MagicBell Node.js SDK (`magicbell-js`). * The workflow key must be `conditional-workflow-${run-id}`. * The workflow must contain a single `broadcast` step. * The step must include a conditional `if` property that checks if the user's custom attribute `plan` equals `'premium'`. * The broadcast step should define a title and content for the notification. ## Implementation Hints 1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. 2. Use the `Client` from `magicbell-js/project-client` to save the workflow. 3. The `if` property in the step definition is a string (e.g., `"user.custom_attributes.plan == 'premium'"`). 4. Ensure the script is executed and the workflow is created in MagicBell. ## Acceptance Criteria * Project path: /home/user/task * Command: `node index.js` * The command must execute successfully and create the workflow in MagicBell. * The created workflow must have the key `conditional-workflow-${run-id}`. * The workflow must have exactly one step with the command `broadcast` and an `if` condition checking the `plan` attribute for the value `'premium'`.   
+
+Pochi
+💭 Thinking for 301 characters   
+💫 Executing mkdir -p /home/user/task && cd /home/user/task && npm init -y && npm install magicbell-js ✔ 
+💭 Thinking for 769 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/project-client/index.d.ts ✖ "Command exited with code 1"
+💫 Executing ls -la /home/user/task/node_modules/magicbell-js ✔ 
+💭 Thinking for 246 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/package.json ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client.d.ts ✔ 
+💭 Thinking for 239 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/index.d.ts ✔ 
+💭 Thinking for 232 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/index.d.ts ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/workflows-service.d.ts ✔ 
+💭 Thinking for 249 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/models/workflow-definition.d.ts ✔ 
+💭 Thinking for 381 characters   
+✏️  Writing /home/user/task/index.js ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/types.d.ts ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/index.d.ts ✔ 
+💭 Thinking for 270 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers/auth-handler.js ✖ "Command exited with code 1"
+💭 Thinking for 134 characters   
+💫 Executing ls -la /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/ ✔ 
+💫 Executing ls -la /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/handlers ✔ 
+💭 Thinking for 304 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/client.js ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/hooks/custom-hook.js ✖ "Command exited with code 1"
+💭 Thinking for 288 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/hooks/custom-hook.js ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/transport/request.js ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/index.js ✔ 
+💫 Executing node /home/user/task/index.js ✖ "Command exited with code 1"
+💭 Thinking for 683 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/workflows-service.js ✔ 
+💭 Thinking for 619 characters   
+🔧 Applying diff to /home/user/task/index.js ✔ 
+💭 Thinking for 224 characters   
+💫 Executing node /home/user/task/index.js ✖ "Command exited with code 1"
+💭 Thinking for 599 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/types.d.ts ✔ 
+💭 Thinking for 657 characters   
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/transport/request-builder.js ✔ 
+💭 Thinking for 706 characters   
+💫 Executing env | grep MAGICBELL ✔ 
+💭 Thinking for 174 characters   
+🔧 Applying diff to /home/user/task/index.js ✔ 
+💭 Thinking for 231 characters   
+💫 Executing node /home/user/task/index.js ✔ 
+💭 Thinking for 561 characters   
+💫 Executing cat /home/user/task/index.js ✔ 
+🎉 Task Completed
+I have implemented the Node.js script to create a conditional workflow in MagicBell.
+
+The script uses the `Client` from `magicbell-js/project-client` and authenticates using the `MAGICBELL_PROJECT_TOKEN` environment variable. It dynamically constructs the workflow key using `conditional-workflow-${process.env.ZEALT_RUN_ID}`. It creates a single `broadcast` step that specifies the required `if` condition (`"user.custom_attributes.plan == 'premium'"`) and provides a `title` and `content` inside the `input` property.
+
+The script has been successfully executed, and the workflow was created in MagicBell.   
+  

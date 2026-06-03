@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780458076838,
+            "stop": 1780458109484
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780458077318,
+                "stop": 1780458077320,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_email_received_via_gmail",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 32164,
+                "start": 1780458077320,
+                "stop": 1780458109484,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_email_received_via_gmail():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\", \"\")\n        assert magicbell_email, \"MAGICBELL_EMAIL environment variable is not set.\"\n    \n        if \"@\" in magicbell_email:\n            username = magicbell_email.split(\"@\")[0]\n        else:\n            username = magicbell_email\n    \n        target_email = f\"{username}+{run_id}@gmail.com\"\n    \n        token_info_str = os.environ.get(\"GMAIL_TOKEN_JSON\")\n        assert token_info_str, \"GMAIL_TOKEN_JSON environment variable is not set.\"\n    \n        token_info = json.loads(token_info_str)\n        creds = Credentials.from_authorized_user_info(token_info, SCOPES)\n        service = build(\"gmail\", \"v1\", credentials=creds)\n    \n        query = f\"to:{target_email} subject:{run_id}\"\n    \n        max_retries = 10\n        found = False\n        for _ in range(max_retries):\n            response = service.users().messages().list(\n                userId=\"me\",\n                q=query,\n                maxResults=10,\n            ).execute()\n    \n            messages = response.get(\"messages\", [])\n            if messages:\n                found = True\n                break\n            time.sleep(3)\n    \n>       assert found, f\"No email found for {target_email} with subject containing {run_id} after {max_retries} retries.\"\nE       AssertionError: No email found for REDACTED+zr-pqwfsqk@gmail.com with subject containing zr-pqwfsqk after 10 retries.\nE       assert False\n\ntests/test_final_state.py:56: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

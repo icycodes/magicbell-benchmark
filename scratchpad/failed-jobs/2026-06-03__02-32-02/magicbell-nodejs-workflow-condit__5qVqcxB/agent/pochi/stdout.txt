@@ -1,0 +1,52 @@
+- Initializing MCP connections...
+You
+# Create a Conditional Workflow with MagicBell Node.js SDK ## Background MagicBell workflows allow orchestrating multi-step notification campaigns. You can use conditional logic to branch your workflows based on user data, event properties, or custom conditions. ## Requirements * Write a Node.js script that creates a new workflow definition using the MagicBell Node.js SDK (`magicbell-js`). * The workflow key must be `conditional-workflow-${run-id}`. * The workflow must contain a single `broadcast` step. * The step must include a conditional `if` property that checks if the user's custom attribute `plan` equals `'premium'`. * The broadcast step should define a title and content for the notification. ## Implementation Hints 1. Read the current `run-id` from the `ZEALT_RUN_ID` environment variable. 2. Use the `Client` from `magicbell-js/project-client` to save the workflow. 3. The `if` property in the step definition is a string (e.g., `"user.custom_attributes.plan == 'premium'"`). 4. Ensure the script is executed and the workflow is created in MagicBell. ## Acceptance Criteria * Project path: /home/user/task * Command: `node index.js` * The command must execute successfully and create the workflow in MagicBell. * The created workflow must have the key `conditional-workflow-${run-id}`. * The workflow must have exactly one step with the command `broadcast` and an `if` condition checking the `plan` attribute for the value `'premium'`.   
+
+Pochi
+💭 Thinking for 79 characters   
+📂 Listing files in /home/user/task ✔ 
+💫 Executing echo "ZEALT_RUN_ID: $ZEALT_RUN_ID" && node --version && npm --version ✔ 
+📖 Reading /home/user/task/package.json ✔ 
+💫 Executing env | grep -i magic ✔ 
+💫 Executing ls /home/user/task/node_modules | grep magic && ls /home/user/task/node_modules/magicbell-js/ ✔ 
+💫 Executing ls /home/user/task/node_modules/magicbell-js/project-client/ && cat /home/user/task/node_modules/magicbell-js/project-client/package.json | head -20 ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/commonjs/project-client.d.ts | grep -A 20 "workflows" | head -60 ✔ 
+💫 Executing ls /home/user/task/node_modules/magicbell-js/dist/ && ls /home/user/task/node_modules/magicbell-js/dist/commonjs/ | head -20 ✔ 
+💫 Executing grep -n "workflow" /home/user/task/node_modules/magicbell-js/dist/project-client.d.ts | head -40 ✔ 
+💫 Executing grep -rn "workflow" /home/user/task/node_modules/magicbell-js/dist/esm/ --include="*.d.ts" -l ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/workflows-service.d.ts && echo "---" && cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/models/workflow-definition.d.ts && echo "---" && cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/services/workflows/models/workflow-definition-steps.d.ts ✔ 
+Now I have all the information I need. Let me look at the Client initialization to understand how to authenticate:   
+💫 Executing grep -n "Client\|token\|apiKey\|projectToken" /home/user/task/node_modules/magicbell-js/dist/esm/project-client/index.d.ts | head -30 ✔ 
+💫 Executing cat /home/user/task/node_modules/magicbell-js/dist/esm/project-client/index.d.ts ✔ 
+💫 Executing grep -n "SdkConfig\|token" /home/user/task/node_modules/magicbell-js/dist/esm/project-client/http/types.d.ts ✔ 
+Now I have everything I need. Let me write the `index.js` script:   
+✏️  Writing /home/user/task/index.js ✔ 
+💫 Executing cd /home/user/task && node index.js ✔ 
+🎉 Task Completed
+The script `/home/user/task/index.js` has been created and executed successfully.
+
+**What it does:**
+- Reads `ZEALT_RUN_ID` from the environment to construct the workflow key: `conditional-workflow-zr-5qvqcxb`
+- Authenticates using `MAGICBELL_PROJECT_TOKEN` via the `Client` from `magicbell-js/project-client`
+- Calls `client.workflows.saveWorkflow()` with a workflow definition containing exactly one `broadcast` step with the conditional `if: "user.custom_attributes.plan == 'premium'"`
+
+**Created workflow response:**
+```json
+{
+  "disabled": false,
+  "key": "conditional-workflow-zr-5qvqcxb",
+  "steps": [
+    {
+      "command": "broadcast",
+      "if": "user.custom_attributes.plan == 'premium'",
+      "input": {
+        "content": "This notification is exclusively for premium users.",
+        "title": "Premium Notification"
+      }
+    }
+  ]
+}
+```
+
+The workflow was created in MagicBell and meets all acceptance criteria.   
+  

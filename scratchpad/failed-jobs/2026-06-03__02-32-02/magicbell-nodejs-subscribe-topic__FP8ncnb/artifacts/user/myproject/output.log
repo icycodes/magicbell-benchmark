@@ -1,0 +1,13 @@
+[2026-06-03T02:59:25.752Z] Run ID      : zr-fp8ncnb
+[2026-06-03T02:59:25.755Z] External ID : user-topic-sub-zr-fp8ncnb
+[2026-06-03T02:59:25.755Z] User email  : REDACTED+topic-sub-zr-fp8ncnb@gmail.com
+[2026-06-03T02:59:25.755Z] Topic       : updates-zr-fp8ncnb
+[2026-06-03T02:59:25.755Z] Step 1: Upserting user via MagicBell v1 REST API...
+[2026-06-03T02:59:26.035Z] User upsert response status : 201
+[2026-06-03T02:59:26.036Z] User upsert response body   : {"user":{"id":"75b00d2e-78fc-436a-8fee-ec7f03286811","external_id":"user-topic-sub-zr-fp8ncnb","email":"REDACTED+topic-sub-zr-fp8ncnb@gmail.com","first_name":null,"last_name":null,"custom_attributes":{},"phone_numbers":[]}}
+[2026-06-03T02:59:26.036Z] Step 2: Generating User JWT and HMAC...
+[2026-06-03T02:59:26.039Z] User JWT and HMAC generated.
+[2026-06-03T02:59:26.039Z] Step 3: Subscribing user "user-topic-sub-zr-fp8ncnb" to topic "updates-zr-fp8ncnb"...
+[2026-06-03T02:59:26.277Z] Subscription response status: 200
+[2026-06-03T02:59:26.277Z] Subscription response body  : {"subscription":{"topic":"updates-zr-fp8ncnb","categories":[{"slug":"*","reason":null,"status":"subscribed"}]}}
+[2026-06-03T02:59:26.277Z] Subscription successful

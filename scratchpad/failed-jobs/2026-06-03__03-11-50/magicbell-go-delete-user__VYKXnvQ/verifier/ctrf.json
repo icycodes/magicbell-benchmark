@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780456878904,
+            "stop": 1780456879931
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_user_deleted_in_magicbell",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 994,
+                "start": 1780456878934,
+                "stop": 1780456879928,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_user_deleted_in_magicbell():\n        run_id = os.environ.get(\"ZEALT_RUN_ID\")\n        assert run_id, \"ZEALT_RUN_ID environment variable is not set.\"\n    \n        magicbell_email = os.environ.get(\"MAGICBELL_EMAIL\")\n        assert magicbell_email, \"MAGICBELL_EMAIL environment variable is not set.\"\n    \n        target_email = f\"{magicbell_email}+{run_id}@gmail.com\"\n    \n        # Login to magicbell CLI\n        project_token = os.environ.get(\"MAGICBELL_PROJECT_TOKEN\")\n        api_key = os.environ.get(\"MAGICBELL_API_KEY\")\n        secret_key = os.environ.get(\"MAGICBELL_SECRET_KEY\")\n        subprocess.run(\n            [\"magicbell\", \"login\", \"--manual\", \"--email\", magicbell_email, \"--jwt\", project_token, \"--api-key\", api_key, \"--secret-key\", secret_key],\n            check=True,\n            capture_output=True,\n            text=True\n        )\n    \n        # We expect this command to fail because the user should be deleted\n        result = subprocess.run(\n            [\"magicbell\", \"user\", \"get\", \"--email\", target_email],\n            capture_output=True,\n            text=True\n        )\n    \n        # If the user is deleted, the CLI should return a non-zero exit code\n        # and likely some error message indicating not found.\n>       assert result.returncode != 0, f\"Expected 'magicbell user get' to fail for deleted user, but it succeeded. User {target_email} still exists.\"\nE       AssertionError: Expected 'magicbell user get' to fail for deleted user, but it succeeded. User REDACTED@gmail.com+zr-vykxnvq@gmail.com still exists.\nE       assert 0 != 0\nE        +  where 0 = CompletedProcess(args=['magicbell', 'user', 'get', '--email', 'REDACTED@gmail.com+zr-vykxnvq@gmail.com'], returncode=...\"msg\":\"flag provided but not defined: -email\"}\\n', stderr='Incorrect Usage: flag provided but not defined: -email\\n\\n').returncode\n\ntests/test_final_state.py:36: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_exists_and_contains_message",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780456879929,
+                "stop": 1780456879931,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
